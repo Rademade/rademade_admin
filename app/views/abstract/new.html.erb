@@ -1,0 +1,9 @@
+<% content_for(:form_last_crumbs) do %>
+    <span>Add</span>
+<% end %>
+
+<% content_for(:page_header) do %>
+    <h3><%=admin_add_name(@item_name)%></h3>
+<% end %>
+
+<%= render :template => 'admin/_layouts/inner/form' %>

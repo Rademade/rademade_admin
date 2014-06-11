@@ -1,0 +1,10 @@
+/*
+ *= require         jquery.fileupload-ui
+ *= require         select2
+ *= require_tree    ./admin
+ */
+
+.cke_chrome {
+    width: 76% !important;
+    overflow: hidden;
+}

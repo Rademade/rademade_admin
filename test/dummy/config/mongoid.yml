@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: rademade_admin_dev
+      hosts:
+        - localhost:27017

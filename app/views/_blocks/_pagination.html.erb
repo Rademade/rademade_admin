@@ -1,0 +1,14 @@
+<%= paginate @items %><br>
+
+<div>
+    <%= page_entries_info @items %><br>
+    <span>Show results on page</span>
+</div>
+
+<form>
+    <select id="perPageSelect" name='paginate'><%
+        [20, 40, 60].each do |per_page|
+          concat pagination_option(per_page)
+        end
+    %></select>
+</form>

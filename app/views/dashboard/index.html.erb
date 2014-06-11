@@ -1,0 +1,9 @@
+<% content_for(:content) do %>
+
+    <div class="head">
+        <h3>Hello, <%=current_user.first_name%> <%=current_user.last_name%></h3>
+    </div>
+
+<% end %>
+
+<%= render :template => 'admin/_layouts/inner' %>

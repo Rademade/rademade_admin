@@ -1,0 +1,3 @@
+module RademadeAdmin::Routing
+
+end

@@ -1,0 +1,10 @@
+<%= admin_form(@item, @model_class) do |f| %>
+  <%= f.inputs do %>
+    <% @semantic_form_fields.each do |name, field_params|
+      admin_field(f, name, field_params, @model_class, @item)
+    end
+  end
+
+  concat render :partial => 'admin/_blocks/form_control', :locals => {:f => f}
+
+end %>
