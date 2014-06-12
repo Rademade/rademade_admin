@@ -1,6 +1,6 @@
-<%=render :partial => 'admin/_blocks/header'%>
+<%=render :partial => 'rademade_admin/_blocks/header'%>
 
-<%=render :partial => 'admin/_blocks/menu'%>
+<%=render :partial => 'rademade_admin/_blocks/menu'%>
 
 <div class="content">
 
@@ -10,7 +10,7 @@
 
             <div class="row">
                 <div class="breadcrumbs col-md-12">
-                  <%= link_to 'Dashboard', [:admin, :root] %>
+                  <%= link_to 'Dashboard', :root %>
                   <% if content_for?(:last_crumbs)%>
                       <span class="separator">-></span>
                       <%= yield(:last_crumbs) %>

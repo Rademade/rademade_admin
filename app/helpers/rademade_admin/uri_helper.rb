@@ -82,7 +82,7 @@ module RademadeAdmin::UriHelper
 
 
   def model_to_controller(model_name)
-    'admin/' + ::ModelGraph.instance.model_info(model_name).controller
+    'rademade_admin/' + ::ModelGraph.instance.model_info(model_name).controller
   end
 
   private

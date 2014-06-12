@@ -1,2 +1,5 @@
 /.idea/
 .DS_Store
+Gemfile.lock
+/test/dummy/log/
+/test/dummy/tmp/

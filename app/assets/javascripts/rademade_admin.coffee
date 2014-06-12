@@ -4,14 +4,14 @@
 #= require select2
 #= require ckeditor/init
 #= require magnific-popup
-#= require admin/library/underscore.js
-#= require admin/library/backbone.js
-#= require_tree ./admin/library
+#= require rademade_admin/library/underscore.js
+#= require rademade_admin/library/backbone.js
+#= require_tree ./rademade_admin/library
 #= require jquery-fileupload/basic
-#= require_tree ./admin/form/library
-#= require_tree ./admin/form
-#= require_tree ./admin/app
-#= require_tree ./admin
+#= require_tree ./rademade_admin/form/library
+#= require_tree ./rademade_admin/form
+#= require_tree ./rademade_admin/app
+#= require_tree ./rademade_admin
 
 $ ->
 	console.log 'Start'

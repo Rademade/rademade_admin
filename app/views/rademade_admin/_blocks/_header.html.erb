@@ -8,8 +8,8 @@
             <span class="icon-bar"></span>
         </button>
 
-        <a class="navbar-brand" href="<%=url_for([:admin, :root])%>">
-            <img src="<%=image_path 'admin/logos/logo.png'%>" alt="logo">
+        <a class="navbar-brand" href="<%=url_for(:root)%>">
+            <img src="<%=image_path 'rademade_admin/logos/logo.png'%>" alt="logo">
         </a>
     </div>
 
@@ -21,7 +21,7 @@
             </a>
 
             <ul class="dropdown-menu">
-                <li><%=link_to 'Exit', [:logout, :admin, :sessions], {:method => :delete}%></li>
+                <li><%=link_to 'Exit', [:logout, :sessions], {:method => :delete}%></li>
             </ul>
 
         </li>

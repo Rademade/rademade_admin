@@ -3,7 +3,7 @@ class ModelGraph
 
   def add_pair(resource_name, controller, inner)
     controller ||= resource_name.to_s.tableize
-    controller_name = ('admin/' + controller + '_controller')
+    controller_name = ('rademade_admin/' + controller + '_controller')
 
     model = controller_name.camelize.constantize.model_class
 

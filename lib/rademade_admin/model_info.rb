@@ -10,7 +10,7 @@ class ModelInfo
   end
 
   def parent_menu_item
-    controller_class = ('admin/' + @controller + '_controller').camelize.constantize
+    controller_class = ('rademade_admin/' + @controller + '_controller').camelize.constantize
     controller_class.instance_variable_get('@parent_item')
   end
 

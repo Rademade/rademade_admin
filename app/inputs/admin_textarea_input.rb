@@ -1,3 +1,5 @@
-class AdminTextareaInput < Formtastic::Inputs::TextInput
+module RademadeAdmin
+  class AdminTextareaInput < Formtastic::Inputs::TextInput
 
+  end
 end

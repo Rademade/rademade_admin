@@ -42,6 +42,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-ui-rails'
   s.add_dependency 'rails-backbone'
   s.add_dependency 'select2-rails'
+  s.add_dependency 'jquery-fileupload-rails'
+  s.add_dependency 'magnific-popup-rails'
 
   ###### ADMIN
 
@@ -54,5 +56,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan'
   s.add_dependency 'translit'
 
-  s.add_development_dependency "mongoid"
+  s.add_development_dependency "pry"
 end

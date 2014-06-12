@@ -1,12 +1,12 @@
 <div class="login-bg">
     <div class="login-wrapper">
-        <img class="logo" src="<%=image_path('admin/logos/logo-white.png')%>" alt="Rademade.com">
+        <img class="logo" src="<%=image_path('rademade_admin/logos/logo-white.png')%>" alt="Rademade.com">
         <div class="box">
             <div class="content-wrap">
                 <h6>Log in</h6>
 
-                <%=semantic_form_for(User.new,
-                                     :url => [:admin, :sessions],
+                <%=semantic_form_for(RademadeAdmin.user_class.new,
+                                     :url => [:sessions],
                                      :as => :data,
                                      :html => { :id => 'login-form'}) do |f|
 

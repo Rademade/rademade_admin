@@ -1,7 +1,7 @@
 module RademadeAdmin::MenuHelper
   def main_menu
 
-    menu = [{ :uri => url_for([:admin, :root]), :name => 'Home', :ico => 'fa fa-home' }]
+    menu = [{ :uri => url_for(:root), :name => 'Home', :ico => 'fa fa-home' }]
 
     ModelGraph.instance.root_models.each do |model_info|
       parent = model_info.parent_menu_item
