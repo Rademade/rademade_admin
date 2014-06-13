@@ -1,6 +1,5 @@
 module RademadeAdmin::MenuHelper
   def main_menu
-
     menu = [{ :uri => url_for(:root), :name => 'Home', :ico => 'fa fa-home' }]
 
     ModelGraph.instance.root_models.each do |model_info|
@@ -19,8 +18,9 @@ module RademadeAdmin::MenuHelper
   private
 
   def append_menu_item(menu, model)
-    index = menu.index { |x| x[:model] == model }
-    menu << { :model => model, :sub => [] } unless  index
+    not_exist = menu.select { |x| x[:model].to_s == model.to_s }.empty?
+
+    menu << { :model => model, :sub => [] } if not_exist
     menu
   end
 

@@ -14,6 +14,10 @@ module RademadeAdmin
 
     field :admin, :type => Boolean, :default => true
 
+    validates_presence_of :first_name, :message => 'Введите имя'
+    validates_presence_of :last_name, :message => 'Введите фамилию'
+    validates_uniqueness_of :email, :message => 'Email занят'
+    validates_format_of :email, :with => /\A.+@.+\..+\Z/, :message => 'Неверный email'
     validates_length_of :password, :minimum => 6, :too_short => 'Минимальная длина пароля 6 символов'
 
     def password=(password)

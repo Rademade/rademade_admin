@@ -29,11 +29,12 @@ module RademadeAdmin::FormHelper
   end
 
   def admin_field_link_to_list(name, model, record)
-      link_to(field_to_label(name).pluralize + ' list',
-              :controller => model_to_controller( model.reflect_on_association(name)
-                                                 .class_name ),
-              :parent => model,
-              :parent_id => record.id.to_s)
+    uri = admin_url_for(model.reflect_on_association(name).class_name, {
+      :action => :index,
+      :parent => model,
+      :parent_id => record.id.to_s
+    })
+    link_to(field_to_label(name).pluralize + ' list', uri)
   end
 
   def admin_field_set_attrs(input, field_params)

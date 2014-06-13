@@ -40,7 +40,7 @@ initUploader = ->
   bindFileUploader::init = ->
     @$el.fileupload
       dataType: "json"
-      url: '/admin/file-upload'
+      url: '/rademade_admin/file-upload'
       formData: _.pick( @$el.data(), 'id', 'saved', 'model', 'column', 'uploader' )
       add: => @submitFile.apply(@, arguments)
       done: => @uploadDone.apply(@, arguments)

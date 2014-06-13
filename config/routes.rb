@@ -1,9 +1,12 @@
 RademadeAdmin::Engine.routes.draw do
 
-  # todo: user_class global RademadeAdmin method
-  # now we use default admin user
+  mount Ckeditor::Engine => '/ckeditor'
+
   devise_for :users, class_name: RademadeAdmin.user_class, module: :devise
+
   root 'dashboard#index'
+
+  match 'file-upload' => 'file#upload', :via => [:post, :patch]
 
   get 'login' => 'dashboard#login', :as => 'login'
 
