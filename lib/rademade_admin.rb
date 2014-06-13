@@ -3,7 +3,6 @@ require 'kaminari'
 
 require 'devise'
 require 'cancan'
-require 'formtastic'
 
 require 'pry'
 
@@ -23,7 +22,7 @@ require "rademade_admin/engine"
 
 module RademadeAdmin
   def self.user_class
-    RademadeAdmin::Configuration.user_class || RademadeAdmin::AdminUser
+    RademadeAdmin::Configuration.user_class || RademadeAdmin::User
   end
 end
 

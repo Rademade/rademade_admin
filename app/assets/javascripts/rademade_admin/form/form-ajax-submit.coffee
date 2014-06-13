@@ -63,6 +63,9 @@ window.FormAjaxSubmit = ($form) ->
     @_$form.find('.error-message').remove()
 
   FormAjaxSubmit::_submitHandler = ->
+    for instance of CKEDITOR.instances
+      CKEDITOR.instances[instance].updateElement()
+
     @_sending = true
     _self = this
     items = @_$form.serializeObject()
