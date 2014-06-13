@@ -85,15 +85,15 @@ module RademadeAdmin
             fields[field] = default_field_type field
           end
         end
-
+        p fields
         fields
       end
 
       def default_field_type(field)
         if association_fields.include? field
-          :admin_select
+          :'rademade_admin/admin_select'
         elsif uploader_fields.include? field
-          :admin_file
+          :'rademade_admin/admin_file'
         else
           nil
         end

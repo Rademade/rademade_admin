@@ -7,7 +7,7 @@ module RademadeAdmin
       input_wrapping do
         template.content_tag(
           :div,
-          HtmlBuffer.new([ label_html, file_html ]),
+          RademadeAdmin::HtmlBuffer.new([ label_html, file_html ]),
           { :class => 'uploader-block' }
         )
       end
@@ -16,7 +16,7 @@ module RademadeAdmin
     def file_html
       template.content_tag(
         :div,
-        HtmlBuffer.new([ preview_html, input_file_html, upload_progress_html, input_hidden_html ]),
+        RademadeAdmin::HtmlBuffer.new([ preview_html, input_file_html, upload_progress_html, input_hidden_html ]),
         { :class => 'uploader-wrapper' }
       )
     end

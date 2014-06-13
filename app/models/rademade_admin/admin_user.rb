@@ -24,5 +24,9 @@ module RademadeAdmin
     def password
       self[:encrypted_password]
     end
+
+    def to_s
+      "#{name} #{last_name}"
+    end
   end
 end

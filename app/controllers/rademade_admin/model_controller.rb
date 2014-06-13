@@ -6,6 +6,7 @@ module RademadeAdmin
     def create
       authorize! :create, model_class
       @item = model_class.new(filter_data_params(params))
+
       if @item.save
         save_aggregated_data(@item, params)
         success_insert(@item)

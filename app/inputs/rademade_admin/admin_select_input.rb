@@ -8,7 +8,7 @@ module RademadeAdmin
     def select_html
       template.content_tag(
           :div,
-          HtmlBuffer.new([select_ui_html, add_new_button_html]),
+          RademadeAdmin::HtmlBuffer.new([select_ui_html, add_new_button_html]),
           html_attributes
       )
     end
