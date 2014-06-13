@@ -7,11 +7,11 @@ require "rademade_admin/version"
 Gem::Specification.new do |s|
   s.name        = "rademade_admin"
   s.version     = RademadeAdmin::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RademadeAdmin."
-  s.description = "TODO: Description of RademadeAdmin."
+  s.authors     = ["Vladislav Melanitskiy", "Denis Sergienko"]
+  s.email       = ["co@rademade.com", "olol.toor@gmail.com"]
+  s.homepage    = "https://github.com/Rademade/rademade_admin"
+  s.summary     = ""
+  s.description = ""
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
