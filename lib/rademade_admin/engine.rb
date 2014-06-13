@@ -1,4 +1,5 @@
 require 'pry'
+require 'rademade_admin/routing/mapper'
 module RademadeAdmin
   class Engine < ::Rails::Engine
     isolate_namespace RademadeAdmin
@@ -11,12 +12,10 @@ module RademadeAdmin
     )
 
     paths.each do |path|
-
       Dir[path].each do |f|
         require f
-        p f
       end
     end
-
   end
 end
+

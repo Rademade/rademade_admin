@@ -18,11 +18,11 @@ module RademadeAdmin
       end
 
       def association_fields
-        model_class.associations.keys.map &:to_sym
+        model_class.relations.keys.map &:to_sym
       end
 
       def uploader_fields
-        @uploader_fields = model_class.uploaders.keys
+        model_class.respond_to?(:uploaders) ? @uploader_fields = model_class.uploaders.keys : []
       end
 
       def list_fields
@@ -50,7 +50,7 @@ module RademadeAdmin
       end
 
       def load_filter_fields
-        list_fields.select{|field|
+        list_fields.select{ |field|
           @fields_data.has_key?(field) and @fields_data[field].type == String
         }
       end

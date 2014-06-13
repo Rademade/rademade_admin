@@ -15,5 +15,14 @@ module RademadeAdmin
     field :admin, :type => Boolean, :default => true
 
     validates_length_of :password, :minimum => 6, :too_short => 'Минимальная длина пароля 6 символов'
+
+    def password=(password)
+      self[:password] = password
+      super(password) unless password.blank?
+    end
+
+    def password
+      self[:encrypted_password]
+    end
   end
 end

@@ -1,5 +1,5 @@
 module RademadeAdmin
-  class ModelController < AbstractController
+  class ModelController < RademadeAdmin::AbstractController
 
     include RademadeAdmin::CrudController
 
@@ -150,7 +150,7 @@ module RademadeAdmin
     end
 
     def render_template(template = action_name)
-      render "admin/abstract/#{template}" unless template_exists?(template, "admin/#{native_template_folder}")
+      render "rademade_admin/abstract/#{template}" unless template_exists?(template, "admin/#{native_template_folder}")
     end
 
   end

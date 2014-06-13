@@ -13,7 +13,7 @@ module RademadeAdmin
       end
 
       def model_class
-        @model_class ||= LoaderService.const_get model_name
+        @model_class ||= RademadeAdmin::LoaderService.const_get model_name
       end
     end
   end

@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mongoid_rails_migrations'
   s.add_dependency 'mongoid-grid_fs'
   s.add_dependency 'mongoid-tree'
+  s.add_dependency 'kaminari'
 
   #Assets
   s.add_dependency 'sass'

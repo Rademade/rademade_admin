@@ -47,7 +47,7 @@ module RademadeAdmin
         end
 
         def paranoia_used?
-          @model.ancestors.include? Mongoid::Paranoia
+          defined?(Mongoid::Paranoia) and @model.ancestors.include? Mongoid::Paranoia
         end
 
         def parent_model

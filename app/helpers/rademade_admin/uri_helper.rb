@@ -74,7 +74,7 @@ module RademadeAdmin::UriHelper
   def admin_url_for(model_name, options = {})
     options.merge!(get_id) if nested?(model_name)
 
-    Rails.application.routes.url_helpers.url_for(options.merge({
+    RademadeAdmin::Engine.routes.url_helpers.url_for(options.merge({
       :controller => model_to_controller(model_name),
       :only_path => true
     }))

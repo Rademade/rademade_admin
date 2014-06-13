@@ -1,8 +1,11 @@
 require 'rails/mongoid'
+require 'kaminari'
 
 require 'devise'
 require 'cancan'
 require 'formtastic'
+
+require 'pry'
 
 # js assets
 require 'turbolinks'
@@ -16,10 +19,12 @@ require 'magnific-popup-rails'
 require 'ckeditor'
 
 require 'rademade_admin/sortable'
+require "rademade_admin/engine"
+
 module RademadeAdmin
   def self.user_class
     RademadeAdmin::AdminUser
   end
 end
 
-require "rademade_admin/engine"
+

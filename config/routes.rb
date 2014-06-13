@@ -10,5 +10,6 @@ RademadeAdmin::Engine.routes.draw do
   resources :sessions do
     delete 'logout', :on => :collection
   end
-  #admin_resource :user
+
+  admin_resources :admin_users
 end

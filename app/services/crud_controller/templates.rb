@@ -11,11 +11,11 @@ module RademadeAdmin
 
       def template_folder
         #todo save in static variable
-        template_exists?('_form', "admin/#{native_template_folder}") ? native_template_folder : 'abstract'
+        template_exists?('_form', "rademade_admin/#{native_template_folder}") ? native_template_folder : 'abstract'
       end
 
       def form_template_path(real = false)
-        "admin/#{template_folder}/" + (real ? '_' : '') + 'form'
+        "rademade_admin/#{template_folder}/" + (real ? '_' : '') + 'form'
       end
     end
   end
