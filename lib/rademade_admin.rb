@@ -23,7 +23,7 @@ require "rademade_admin/engine"
 
 module RademadeAdmin
   def self.user_class
-    RademadeAdmin::AdminUser
+    RademadeAdmin::Configuration.user_class || RademadeAdmin::AdminUser
   end
 end
 
