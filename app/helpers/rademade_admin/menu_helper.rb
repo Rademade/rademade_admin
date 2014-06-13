@@ -8,7 +8,7 @@ module RademadeAdmin::MenuHelper
         menu = append_menu_item(menu, model_info.model)
       else
         menu = append_menu_item(menu, parent.constantize)
-        menu.select { |x| x[:model] == parent.constantize }.first[:sub] << model_info.model
+        menu.select { |x| x[:model].to_s == parent }.first[:sub] << model_info.model
       end
     end
 
