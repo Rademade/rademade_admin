@@ -1,39 +1,35 @@
 <div id="sidebar-nav">
     <ul id="dashboard-menu"><%
-        main_menu.each do |li|
+        main_menu.each do |menu_item|
 
-            li[:uri] ||= admin_list_uri li[:model]
+            menu_item[:uri] ||= admin_list_uri menu_item[:model]
 
-            current_li = admin_current_page? li[:uri], li[:model]
-            has_sub_items = (li[:sub].is_a? Array)
-            item_name = li[:name] || admin_list_name(li[:model], false)
+            is_current = admin_current_page? menu_item[:uri], menu_item[:model]
+            has_sub_items = (menu_item[:sub].is_a? Array and menu_item[:sub].size > 0)
+            item_name = menu_item[:name] || admin_list_name(menu_item[:model], false)
 
-            %><li class="<%='active' if current_li %>">
+            %><li class="<%= 'active' if is_current %>">
 
-                <% if current_li %>
+                <% if is_current %>
                     <div class="pointer">
                         <div class="arrow"></div>
                         <div class="arrow_border"></div>
                     </div>
                 <% end %>
 
-                <a href="<%=li[:uri]%>" class="<%='dropdown-toggle' if has_sub_items %>">
-                    <i class="<%=li[:ico]%>"></i>
-                    <span><%=item_name%></span>
+                <a href="<%= menu_item[:uri] %>" class="<%= 'dropdown-toggle' if has_sub_items %>">
+                    <i class="<%= menu_item[:ico] %>"></i>
+                    <span><%= item_name %></span>
                     <% if has_sub_items %>
                         <i class="fa fa-chevron-down"></i>
                     <% end %>
                 </a>
 
-                <% if has_sub_items %>
-                    <ul class="submenu">
-                        <li><a href="<%=admin_list_uri(li[:model])%>"><%=admin_list_name(li[:model])%></a></li>
-                        <li><a href="<%=admin_new_uri(li[:model])%>"><%=admin_add_name(li[:model])%></a></li>
-                        <% li[:sub].each do |sub_model| %>
-                            <li><a href="<%=admin_list_uri(sub_model)%>"><%=admin_list_name(sub_model)%></a></li>
-                        <% end %>
-                    </ul>
-                <% end %>
+                <% if has_sub_items
+                    concat render 'rademade_admin/_blocks/sub_menu', {
+                        :menu_item => menu_item
+                    }
+               end %>
 
             </li>
         <% end %>

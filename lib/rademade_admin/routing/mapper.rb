@@ -31,7 +31,7 @@ module RademadeAdmin
           end
         end
 
-        # save connection betwen model and its controller
+        # save connection between model and its controller
         resources.each { |resource| ::ModelGraph.instance.add_pair(resource, options[:controller], self.shallow?) }
 
         self

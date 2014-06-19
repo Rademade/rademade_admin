@@ -8,3 +8,7 @@
     width: 76% !important;
     overflow: hidden;
 }
+
+#sidebar-nav #dashboard-menu ul.submenu {
+    margin-left: -7px;
+}

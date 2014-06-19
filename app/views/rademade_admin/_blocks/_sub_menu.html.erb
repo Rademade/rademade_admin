@@ -1,0 +1,10 @@
+<ul class="submenu">
+    <li><a href="<%= admin_list_uri(menu_item[:model]) %>"><%= admin_list_name(menu_item[:model]) %></a></li>
+    <li><a href="<%= admin_new_uri(menu_item[:model]) %>"><%= admin_add_name(menu_item[:model]) %></a></li>
+    <% menu_item[:sub].each do |sub_item| %>
+        <li><a href="<%= admin_list_uri(sub_item[:model]) %>"><%= admin_list_name(sub_item[:model]) %></a></li>
+        <%= render 'rademade_admin/_blocks/sub_menu', {
+            :menu_item => sub_item
+        } %>
+    <% end %>
+</ul>
