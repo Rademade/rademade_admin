@@ -28,7 +28,7 @@ initItem = ($item) ->
       dataType : 'json'
       data : (term) -> {q: term}
       results : (data) -> {results: data}
-  ).on 'change', (e) ->
+  ).unbind('change').bind 'change', (e) ->
     $select = $(this)
     $table = $select.siblings('.select2-items-list')
     addTable($select) if $table.length is 0
@@ -63,11 +63,12 @@ addItem = (item, $table) ->
     '</li>'
   ].join(''))
 
-  $('li[data-id="' + item.id + '"] [data-remove]').on 'click', (e) ->
-    removeItem(item.id, $table) if confirm 'Вы действительно хотите удалить данную модель?'
+  $('li[data-id="' + item.id + '"] [data-remove]').unbind('click').bind 'click', (e) ->
+    e.preventDefault()
+    removeItem($(e.currentTarget).closest('li'), $table) if confirm 'Вы действительно хотите удалить данную модель?'
 
-removeItem = (id, $table) ->
-  $table.children('li[data-id="' + id + '"]').remove()
+removeItem = ($li, $table) ->
+  $li.remove()
   changeSelectValue $table, $table.siblings('.select-wrapper')
 
 changeSelectValue = ($table, $input) ->
