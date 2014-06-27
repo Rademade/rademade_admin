@@ -47,7 +47,7 @@ module RademadeAdmin
     def index
       authorize! :read, model_class
 
-      @searcher ||= Searcher.new(model_class, origin_fields)
+      @searcher ||= Searcher.new(model_class, origin_fields) #todo give model_info
 
       @items = @searcher.get_list(params) # calls 'list' or 'related_list' public method
       @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
@@ -73,12 +73,14 @@ module RademadeAdmin
     def unlink_relation
       item = model_info.find(params[:id])
       unlink(item)
+      item.save
       success_unlink(item)
     end
 
     def link_relation
       item = model_info.find(params[:id])
       link(item)
+      item.save
       success_link(item)
     end
 
@@ -104,8 +106,8 @@ module RademadeAdmin
     end
 
     protected
-    # todo: notify module/service
 
+    # todo: notify module/service (move to module)
     def success_action
       render :json => {
         :message => 'ok'
@@ -149,7 +151,9 @@ module RademadeAdmin
     end
 
     def render_template(template = action_name)
-      render "rademade_admin/abstract/#{template}" unless template_exists?(template, "admin/#{native_template_folder}")
+      #todo if template doesn't exist in user application => render abstract template (form or view)
+      render "rademade_admin/abstract/#{template}"
+      #unless template_exists?(template, "admin/#{native_template_folder}")
     end
 
   end

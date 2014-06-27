@@ -10,7 +10,7 @@ module RademadeAdmin::UriHelper
       :id => model.id,
       :parent => parent,
       :parent_id => parent_id
-      })
+    })
   end
 
   def admin_list_uri(model_name)

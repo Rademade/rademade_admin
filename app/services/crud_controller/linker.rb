@@ -1,6 +1,7 @@
 module RademadeAdmin
   module CrudController
     module Linker
+
       def link(item)
         unless has_one_relation?
           old_data = get_attribute(item)
@@ -11,12 +12,9 @@ module RademadeAdmin
           set_attribute(item, params[:parent_id])
         end
 
-        item.save
       end
 
       def unlink(item)
-        item = model_class.find(params[:id])
-
         unless has_one_relation?
           old_data = get_attribute(item)
           new_data = old_data - Array(params[:parent_id])
@@ -26,7 +24,6 @@ module RademadeAdmin
           set_attribute(item, nil)
         end
 
-        item.save
       end
 
       private

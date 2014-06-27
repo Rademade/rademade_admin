@@ -12,19 +12,22 @@ module RademadeAdmin::FormHelper
     )
   end
 
-  def admin_field(form, name, field_params, model_info, record)
-    input_attrs = admin_field_label(name)
+  def admin_field(form, name, params, model_info, record)
 
-    input_attrs = admin_field_set_attrs(input_attrs, field_params)
+    attrs = admin_default_params(name).merge( admin_field_params( params ) )
 
-    field = form.input(name, input_attr(input_attrs))
+    field = form.input(name, input_attr(attrs))
 
-    link = admin_field_link_to_list(name, model_info, record) if multiple_relation?(model_info, name)
+    if multiple_relation?(model_info, name)
+      link = admin_field_link_to_list(name, model_info, record).to_s
+    else
+      link = ''
+    end
 
-    concat field + link.to_s
+    concat field + link
   end
 
-  def admin_field_label(name)
+  def admin_default_params(name)
     { :label => field_to_label(name) }
   end
 
@@ -37,14 +40,12 @@ module RademadeAdmin::FormHelper
     link_to(field_to_label(name).pluralize + ' list', uri)
   end
 
-  def admin_field_set_attrs(input, field_params)
+  def admin_field_params(field_params)
     if field_params.is_a? Hash
-      input.merge!(field_params)
+      field_params
     else
-      input[:as] = field_params
+      {:as => field_params}
     end
-
-    input
   end
 
   private

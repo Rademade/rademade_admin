@@ -23,15 +23,13 @@
                     <% if has_sub_items %>
                         <i class="fa fa-chevron-down"></i>
                     <% end %>
-                </a>
+                </a><%
 
-                <% if has_sub_items
-                    concat render 'rademade_admin/_blocks/sub_menu', {
-                        :menu_item => menu_item
-                    }
-               end %>
+                if has_sub_items
+                    concat render 'rademade_admin/_blocks/sub_menu', :menu_item => menu_item
+                end
 
-            </li>
+            %></li>
         <% end %>
     </ul>
 </div>

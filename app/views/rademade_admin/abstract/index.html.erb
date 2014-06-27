@@ -44,11 +44,12 @@
                 %> data-id='<%= item.id %>'>
                     <% @list_fields.each do |name|
                         %><td><%
-                            td_data = item.send(name)
-                            if td_data.is_a? Mongoid::Document #rm_todo remove hard code, extract helper (data adapter)
-                                concat link_to td_data.to_s, admin_edit_uri(td_data)
+                            value = item.send(name)
+                            #todo remove hard code, extract helper (data adapter)
+                            if value.is_a? Mongoid::Document
+                                concat link_to value.to_s, admin_edit_uri(value)
                             else
-                                concat td_data
+                                concat value
                             end
                         %></td>
                     <% end %>
