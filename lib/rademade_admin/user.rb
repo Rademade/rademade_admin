@@ -1,3 +1,4 @@
+#todo move to concern/model dir
 module RademadeAdmin
   module UserModule
     extend ActiveSupport::Concern

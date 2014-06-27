@@ -2,12 +2,13 @@ module RademadeAdmin
   module CrudController
     module InstanceOptions
 
-      attr_reader :model_class, :model_name, :item_name,
+      attr_reader :model_class, :model_info, :model_name, :item_name,
                   :origin_fields, :list_fields, :save_form_fields, :semantic_form_fields
 
       def load_model_options
         @model_name = self.class.model_name
         @model_class = self.class.model_class
+        @model_info = self.class.model_info
         @item_name = self.class.item_name
       end
 

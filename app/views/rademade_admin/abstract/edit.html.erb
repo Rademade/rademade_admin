@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :page_header do %>
-    <h3>Edit "<%=@item.class%> id=<%=@item.id.to_s%>"</h3>
+    <h3>Edit "<%=@item.to_s%>"</h3>
 <% end %>
 
 <%= render :template => 'rademade_admin/_layouts/inner/form' %>

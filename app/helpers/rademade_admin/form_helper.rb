@@ -12,14 +12,14 @@ module RademadeAdmin::FormHelper
     )
   end
 
-  def admin_field(form, name, field_params, model, record)
+  def admin_field(form, name, field_params, model_info, record)
     input_attrs = admin_field_label(name)
 
     input_attrs = admin_field_set_attrs(input_attrs, field_params)
 
     field = form.input(name, input_attr(input_attrs))
 
-    link = admin_field_link_to_list(name, model, record) if multiple_relation?(model, name)
+    link = admin_field_link_to_list(name, model_info, record) if multiple_relation?(model_info, name)
 
     concat field + link.to_s
   end
@@ -28,10 +28,10 @@ module RademadeAdmin::FormHelper
     { :label => field_to_label(name) }
   end
 
-  def admin_field_link_to_list(name, model, record)
-    uri = admin_url_for(model.reflect_on_association(name).class_name, {
+  def admin_field_link_to_list(name, model_info, record)
+    uri = admin_url_for(model_info.reflect_on_association(name).class_name, {
       :action => :index,
-      :parent => model,
+      :parent => model_info.model,
       :parent_id => record.id.to_s
     })
     link_to(field_to_label(name).pluralize + ' list', uri)
@@ -49,11 +49,11 @@ module RademadeAdmin::FormHelper
 
   private
 
-  def multiple_relation?(model, name)
-    association = model.reflect_on_association(name)
+  def multiple_relation?(model_info, name)
+    association = model_info.reflect_on_association(name)
     if association
       inner_model = association.class_name.to_s
-      ModelGraph.instance.model_info(model).has_many.include? inner_model
+      model_info.has_many.include? inner_model
     end
   end
 

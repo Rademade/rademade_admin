@@ -15,6 +15,11 @@ module RademadeAdmin
       def model_class
         @model_class ||= RademadeAdmin::LoaderService.const_get model_name
       end
+
+      def model_info
+        @model_info ||= ModelGraph.instance.model_info(model_class)
+      end
+
     end
   end
 end

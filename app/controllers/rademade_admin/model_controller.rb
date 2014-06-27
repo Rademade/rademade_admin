@@ -5,7 +5,7 @@ module RademadeAdmin
 
     def create
       authorize! :create, model_class
-      @item = model_class.new(filter_data_params(params))
+      @item = model_info.new_model(filter_data_params(params))
 
       if @item.save
         save_aggregated_data(@item, params)
@@ -17,7 +17,7 @@ module RademadeAdmin
 
     def update
       authorize! :update, model_class
-      @item = model_class.find(params[:id])
+      @item = model_info.find(params[:id])
       if @item.update(filter_data_params(params))
         save_aggregated_data(@item, params)
         success_update(@item)
@@ -28,7 +28,7 @@ module RademadeAdmin
 
     def destroy
       authorize! :destroy, model_class
-      @item = model_class.find(params[:id])
+      @item = model_info.find(params[:id])
       @item.delete if @item
       success_delete(@item)
     end
@@ -50,7 +50,7 @@ module RademadeAdmin
       @searcher ||= Searcher.new(model_class, origin_fields)
 
       @items = @searcher.get_list(params) # calls 'list' or 'related_list' public method
-      @sortable_service = RademadeAdmin::SortableService.new(model_class, params)
+      @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
 
       respond_to do |format|
         format.html { Searcher.related_list?(params) ? render_template('related_index') : render_template }
@@ -60,33 +60,31 @@ module RademadeAdmin
 
     def new
       authorize! :create, model_class
-      @item = model_class.new
+      @item = model_info.new_model
       render_template
     end
 
     def edit
       authorize! :update, model_class
-      @item = model_class.find(params[:id])
+      @item = model_info.find(params[:id])
       render_template
     end
 
     def unlink_relation
-      item = model_class.find(params[:id])
+      item = model_info.find(params[:id])
       unlink(item)
-
       success_unlink(item)
     end
 
     def link_relation
-      item = model_class.find(params[:id])
+      item = model_info.find(params[:id])
       link(item)
-
       success_link(item)
     end
 
     def show
       authorize! :read, model_class
-      @item = model_class.find(params[:id])
+      @item = model_info.find(params[:id])
       respond_to do |format|
         format.html { redirect_to :action => 'index' }
         format.json { render :json => @item }
@@ -95,12 +93,12 @@ module RademadeAdmin
 
     def form
       authorize! :read, model_class
-      @item = params[:id].blank? ? model_class.new : model_class.find(params[:id])
+      @item = params[:id].blank? ? model_info.new_model : model_info.find(params[:id])
       render form_template_path(true), :layout => false
     end
 
     def re_sort
-      @sortable_service = RademadeAdmin::SortableService.new(model_class, params)
+      @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
       @sortable_service.re_sort_items
       success_action
     end

@@ -91,6 +91,7 @@ module RademadeAdmin::UriHelper
 
 
   def model_to_controller(model_name)
+    #todo folder of admin controllers
     'rademade_admin/' + ::ModelGraph.instance.model_info(model_name).controller
   end
 

@@ -1,3 +1,4 @@
+#todo move to concern dir
 module RademadeAdmin
   class HtmlBuffer < Array
 

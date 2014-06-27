@@ -3,8 +3,8 @@ module RademadeAdmin
     module Search
       class Searcher
         class SearchConditions
-          DEFAULTS = { sort_by:    'position',
-                       direction:  'asc',
+          DEFAULTS = { sort_by: 'position',
+                       direction: 'asc',
                        pagination: '20' }.freeze
 
           def order
@@ -29,7 +29,7 @@ module RademadeAdmin
             @page ||= @params[:page]
           end
 
-          def initialize(params, origin_fields, paranoia=false)
+          def initialize(params, origin_fields, paranoia = false)
             @paranoia = paranoia
             @origin_fields = origin_fields
             @params = params

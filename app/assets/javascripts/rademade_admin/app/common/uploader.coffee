@@ -12,11 +12,11 @@ initUploader = ->
     @_showUploader()
     $form.submit().done( => @_appendUploadResult.apply(@, arguments) )
 
-  bindFileUploader::uploadDone = ->
+  bindFileUploader::uploadDone = () ->
     @_hideUploader()
     console.log('Upload done!', arguments)
 
-  bindFileUploader::uploadError = ->
+  bindFileUploader::uploadError = () ->
     @_hideUploader()
     console.log('Upload error', arguments)
 
@@ -37,10 +37,11 @@ initUploader = ->
     @$wrapper.find('.image-preview-wrapper').replaceWith( result.html )
     @$wrapper.find('.hidden').val( result.file[@$el.data('column')].url )
 
-  bindFileUploader::init = ->
+  bindFileUploader::init = () ->
+    #todo url take from dom
     @$el.fileupload
-      dataType: "json"
-      url: '/rademade_admin/file-upload'
+      dataType: 'json'
+      url: '/rademade_admin/file-upload' # todo remove hardcorded rademade_admin
       formData: _.pick( @$el.data(), 'id', 'saved', 'model', 'column', 'uploader' )
       add: => @submitFile.apply(@, arguments)
       done: => @uploadDone.apply(@, arguments)
