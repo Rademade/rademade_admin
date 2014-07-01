@@ -41,6 +41,7 @@ module RademadeAdmin
         :query => params[:q]
       ).search
       items = items.where(build_search_params(params[:search]))
+
       render :json => AutocompleteSerializer.new(items)
     end
 

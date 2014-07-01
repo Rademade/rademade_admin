@@ -85,7 +85,6 @@ module RademadeAdmin
             fields[field] = default_field_type field
           end
         end
-        p fields
         fields
       end
 

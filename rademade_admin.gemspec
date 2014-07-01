@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = ""
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 4.0"
 
@@ -58,5 +58,14 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan'
   s.add_dependency 'translit'
 
-  s.add_development_dependency "pry"
+  s.add_development_dependency 'pry'
+  s.add_development_dependency 'rspec', '>= 3'
+  s.add_development_dependency 'spork-rails'
+  s.add_development_dependency 'rspec-rails', '3.0.0'
+  s.add_development_dependency 'capybara'
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'capybara-webkit'
+  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'simplecov'
+
 end

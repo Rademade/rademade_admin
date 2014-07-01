@@ -14,7 +14,7 @@ module RademadeAdmin
           key_suffix = rel.many? ? '_ids' : '_id'
           assoc_key = (name.singularize + key_suffix).to_sym
 
-          if data.has_key?(assoc_key)
+          if data.has_key?(assoc_key) && !data[assoc_key].empty?
             relation_class = LoaderService.const_get( rel.class_name )
 
             ids = data[assoc_key]
