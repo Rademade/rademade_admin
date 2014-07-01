@@ -29,7 +29,7 @@ module RademadeAdmin
       private
 
       def has_one_relation?
-        ModelGraph.instance.model_info(model_class.to_s).has_one.include? params[:parent]
+        ModelGraph.instance.model_reflection(model_class.to_s).has_one.include? params[:parent]
       end
 
       def relation_suffix

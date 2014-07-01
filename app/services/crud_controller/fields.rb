@@ -18,7 +18,7 @@ module RademadeAdmin
       end
 
       def uploader_fields
-        model_info.uploader_fields
+        model_reflection.uploader_fields
       end
 
       def list_fields
@@ -26,7 +26,7 @@ module RademadeAdmin
       end
 
       def default_form_fields
-        simple_fields + model_info.association_fields
+        simple_fields + model_reflection.association_fields
       end
 
       def save_form_fields
@@ -57,12 +57,12 @@ module RademadeAdmin
         @fields_data = {}
         @simple_fields = []
 
-        model_info.fields.each do |name, field|
+        model_reflection.fields.each do |name, field|
           @fields << field_name = name.to_sym
           @fields_data[ field_name ] = field
 
           #!a && !b => !(a || b)
-          unless UNSAVED_FIELD.include?(field_name) || field.foreign_key?
+          unless (UNSAVED_FIELD.include?(field_name) || field.foreign_key?)
             @simple_fields << field_name
           end
         end
@@ -85,9 +85,9 @@ module RademadeAdmin
       end
 
       def default_field_type(field)
-        if model_info.association_fields.include? field
+        if model_reflection.association_fields.include? field
           :'rademade_admin/admin_select'
-        elsif model_info.uploader_fields.include? field
+        elsif model_reflection.uploader_fields.include? field
           :'rademade_admin/admin_file'
         else
           nil

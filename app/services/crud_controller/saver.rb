@@ -9,37 +9,37 @@ module RademadeAdmin
       end
 
       def save_model_relations(item, data)
-        model_info.relations.each do |name, rel|
+        model_reflection.relations.each do |name, rel|
 
           key_suffix = rel.many? ? '_ids' : '_id'
           assoc_key = (name.singularize + key_suffix).to_sym
 
           if data.has_key?(assoc_key)
-            relation_class = LoaderService.const_get( rel.class_name )
+            relation_class = LoaderService.const_get(rel.class_name)
 
             ids = data[assoc_key]
-            ids.reject!{ |id| id.empty? } if ids.kind_of?(Array)
+            ids.reject! { |id| id.empty? } if ids.kind_of?(Array)
 
-            value = relation_class.find(ids)
+            entities = relation_class.find(ids)
 
             # advanced magic
             # for sorting items by id in same order
             # as ids elements order
-            value.sort_by! { |item| ids.index(item.id.to_s) } if value.kind_of? Enumerable
+            entities.sort_by! { |entity| ids.index(entity.id.to_s) } if entities.kind_of? Enumerable
 
-            value = nil if (!rel.many? && value == [])
-            item.send(rel.setter, value)
+            entities = nil if (!rel.many? && entities == [])
+            item.send(rel.setter, entities)
           end
         end
       end
 
       def save_model_uploads(item, data)
-        model_info.uploaders.each do |name, _|
+        model_reflection.uploaders.each do |name, _|
           if data.has_key?(name) and !data[name].blank?
             image_path = CarrierWave.root + data[name].to_s
             setter_method = (name.to_s + '=').to_sym
             begin
-              item.send( setter_method, File.open( image_path ))
+              item.send(setter_method, File.open(image_path))
             rescue
               #rm_todo clear image
             end

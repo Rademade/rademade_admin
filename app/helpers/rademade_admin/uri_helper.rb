@@ -72,7 +72,7 @@ module RademadeAdmin::UriHelper
   end
 
   def admin_url_for(model_name, options = {})
-    options.merge!(get_id) if nested?(model_name)
+    options.merge!(get_id(model_name)) if nested?(model_name)
 
     begin
       url = RademadeAdmin::Engine.routes.url_helpers.url_for(options.merge({
@@ -92,15 +92,15 @@ module RademadeAdmin::UriHelper
 
   def model_to_controller(model_name)
     #todo folder of admin controllers
-    'rademade_admin/' + ::ModelGraph.instance.model_info(model_name).controller
+    'rademade_admin/' + RademadeAdmin::Model::Graph.instance.model_reflection(model_name).controller
   end
 
   private
     def nested?(model_name)
-      @object && ::ModelGraph.instance.model_info(model_name).nested?
+      @object && RademadeAdmin::Model::Graph.instance.model_reflection(model_name).nested?
     end
 
-  def get_id
+  def get_id(model_name)
     key = model_name.foreign_key
     {key.to_sym => @object.id}
   end

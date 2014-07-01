@@ -9,7 +9,7 @@ module RademadeAdmin
     include RademadeAdmin::CrudController::InstanceOptions
 
     def filter_data_params(params)
-      params.require( :data ).permit( save_form_fields )
+      params.require(:data).permit(save_form_fields)
     end
 
     # Creates a hash for Mongoid::Criteria
@@ -31,7 +31,7 @@ module RademadeAdmin
 
         params.each do |key, value|
           field = key.to_s
-          predicates.each { |x| field = field.gsub(x,'') }
+          predicates.each { |x| field = field.gsub(x, '') }
 
           if origin_fields.include?(field)
             new_key = field.to_sym # 'name'+'.in' => :'name.in'
@@ -69,8 +69,8 @@ module RademadeAdmin
     module ClassMethods
 
       # Priority III
-      def crud_options(options={})
-        options.each { |option, value| instance_variable_set("@#{option.to_s}", value) }
+      def crud_options(options = {})
+        #options.each { |option, value| instance_variable_set("@#{option.to_s}", value) }
       end
 
     end
