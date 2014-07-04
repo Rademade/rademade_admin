@@ -2,11 +2,10 @@ module RademadeAdmin
   class ModelController < RademadeAdmin::AbstractController
 
     include RademadeAdmin::CrudController
-    extend RademadeAdmin::ModelConfiguration
 
     def create
       authorize! :create, model_class
-      @item = model_reflection.model.new(filter_data_params(params))
+      @item = model_info.model.new(filter_data_params(params))
 
       if @item.save
         save_aggregated_data(@item, params)
@@ -38,7 +37,7 @@ module RademadeAdmin
       authorize! :read, model_class
       items = RademadeAdmin::AutocompleteService.new(
         :model => model_class,
-        :filter_fields => self.class.filter_fields,
+        :filter_fields => model_info.filter_fields,
         :query => params[:q]
       ).search
       items = items.where(build_search_params(params[:search]))
@@ -48,10 +47,10 @@ module RademadeAdmin
     def index
       authorize! :read, model_class
 
-      @searcher ||= Searcher.new(model_class, origin_fields) #todo give model_reflection
+      @searcher ||= Searcher.new(model_info)
 
       @items = @searcher.get_list(params) # calls 'list' or 'related_list' public method
-      @sortable_service = RademadeAdmin::SortableService.new(model_reflection, params)
+      @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
 
       respond_to do |format|
         format.html { Searcher.related_list?(params) ? render_template('related_index') : render_template }
@@ -61,7 +60,7 @@ module RademadeAdmin
 
     def new
       authorize! :create, model_class
-      @item = model_reflection.model.new
+      @item = model_info.model.new
       render_template
     end
 
@@ -96,12 +95,12 @@ module RademadeAdmin
 
     def form
       authorize! :read, model_class
-      @item = params[:id].blank? ? model_reflection.model.new : find_item(params[:id])
+      @item = params[:id].blank? ? model_info.model.new : find_item(params[:id])
       render form_template_path(true), :layout => false
     end
 
     def re_sort
-      @sortable_service = RademadeAdmin::SortableService.new(model_reflection, params)
+      @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
       @sortable_service.re_sort_items
       success_action
     end
@@ -124,35 +123,30 @@ module RademadeAdmin
     end
 
     def success_update(item)
-      render :json => {
-        :data => item,
-        :message => item_name.capitalize + ' data was updated!'
-      }
+      success_message(item, 'data was updated!')
     end
 
     def success_delete(item)
-      render :json => {
-        :data => item,
-        :message => item_name.capitalize + ' was deleted!'
-      }
+      success_message(item, 'was deleted!')
     end
 
     def success_unlink(item)
-      render :json => {
-        :data => item,
-        :message => item_name.capitalize + ' was unlinked from entity!'
-      }
+      success_message(item, 'was unlinked from entity!')
     end
 
     def success_link(item)
+      success_message(item, 'was linked to entity!')
+    end
+
+    def success_message(item, action_message)
       render :json => {
         :data => item,
-        :message => item_name.capitalize + ' was linked to entity!'
+        :message => "#{item_name.capitalize} #{action_message}"
       }
     end
 
     def find_item(id)
-      model_reflection.model.find(id)
+      model_info.model.find(id)
     end
 
     def render_template(template = action_name)

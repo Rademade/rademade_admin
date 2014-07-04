@@ -45,8 +45,8 @@
                     <% @list_fields.each do |name|
                         %><td><%
                             value = item.send(name)
-                            #todo remove hard code, extract helper (data adapter)
-                            if value.is_a? Mongoid::Document
+                            # todo remove hard code, extract helper (data adapter)
+                            if value.respond_to? :id
                                 concat link_to value.to_s, admin_edit_uri(value)
                             else
                                 concat value

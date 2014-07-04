@@ -9,7 +9,7 @@ module RademadeAdmin
       end
 
       def save_model_relations(item, data)
-        model_reflection.relations.each do |name, rel|
+        model_info.relations.each do |name, rel|
 
           key_suffix = rel.many? ? '_ids' : '_id'
           assoc_key = (name.singularize + key_suffix).to_sym
@@ -34,7 +34,7 @@ module RademadeAdmin
       end
 
       def save_model_uploads(item, data)
-        model_reflection.uploaders.each do |name, _|
+        model_info.uploaders.each do |name, _|
           if data.has_key?(name) and !data[name].blank?
             image_path = CarrierWave.root + data[name].to_s
             setter_method = (name.to_s + '=').to_sym

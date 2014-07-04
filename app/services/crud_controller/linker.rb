@@ -3,25 +3,23 @@ module RademadeAdmin
     module Linker
 
       def link(item)
-        unless has_one_relation?
+        if has_one_relation?
+          set_attribute(item, params[:parent_id])
+        else
           old_data = get_attribute(item)
           old_data << params[:parent_id]
-
           set_attribute(item, old_data)
-        else
-          set_attribute(item, params[:parent_id])
         end
 
       end
 
       def unlink(item)
-        unless has_one_relation?
+        if has_one_relation?
+          set_attribute(item, nil)
+        else
           old_data = get_attribute(item)
           new_data = old_data - Array(params[:parent_id])
-
           set_attribute(item, new_data)
-        else
-          set_attribute(item, nil)
         end
 
       end
@@ -29,7 +27,7 @@ module RademadeAdmin
       private
 
       def has_one_relation?
-        ModelGraph.instance.model_reflection(model_class.to_s).has_one.include? params[:parent]
+        model_info.has_one.include? params[:parent]
       end
 
       def relation_suffix

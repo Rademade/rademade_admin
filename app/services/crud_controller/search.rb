@@ -2,10 +2,13 @@ module RademadeAdmin
   module CrudController
     module Search
       class Searcher
+
         class << self
+
           def related_list?(params)
             !!(params[:parent])
           end
+
         end
 
         def get_list(params)
@@ -15,7 +18,7 @@ module RademadeAdmin
         def list(params)
           init_filtering(params)
 
-          model_items = @model.unscoped.where( @conditions.where )
+          model_items = @model.unscoped.where(@conditions.where)
 
           filter_items(model_items)
         end
@@ -30,20 +33,20 @@ module RademadeAdmin
 
         private
 
-        def initialize(model, origin_fields)
-          @model = model
-          @origin_fields = origin_fields
+        def initialize(model_info)
+          @model = model_info.model
+          @origin_fields = model_info.origin_fields
         end
 
         def init_filtering(params)
-          @params     = params
+          @params = params
           @conditions = SearchConditions.new(params, @origin_fields, paranoia_used?)
         end
 
         def filter_items(items)
-          items.order_by( @conditions.order )
-               .page( @conditions.page )
-               .per( @conditions.per_page )
+          items #.order_by(@conditions.order)
+            .page(@conditions.page)
+            .per(@conditions.per_page)
         end
 
         def paranoia_used?
@@ -61,6 +64,7 @@ module RademadeAdmin
         def model_related_name
           @model.to_s.demodulize.pluralize.downcase.to_sym
         end
+
       end
     end
   end

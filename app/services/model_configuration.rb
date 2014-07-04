@@ -5,18 +5,52 @@ module RademadeAdmin
       instance_eval &options_block
     end
 
-    def method_missing(name, *arguments)
-      instance_variable_set("@#{name.to_s}_name", *arguments) # todo
+    def model_name
+      if configuration[:model_name].nil?
+        configuration[:model_name] = controller_name.classify
+      end
+      configuration[:model_name]
+    end
+
+    def item_name
+      if configuration[:item_name].nil?
+        configuration[:item_name] = model_name
+      end
+      configuration[:item_name]
+    end
+
+    def model_class
+      if configuration[:model_class].nil?
+        configuration[:model_class] = RademadeAdmin::LoaderService.const_get(model_name)
+      end
+      configuration[:model_class]
+    end
+
+    def model_info
+      model_reflection = Model::Graph.instance.model_reflection(model_class)
+      @model_info ||= Model::Info.new(model_reflection, configuration)
     end
 
     private
+    
+    def configuration
+      @configuration ||= {}
+    end
+
+    def model(model_name)
+      configuration[:model_name] = model_name
+    end
+
+    def item(item_name)
+      configuration[:item_name] = item_name
+    end
 
     def list(*field_options, &block)
-      @list_fields = fields(*field_options, &block)
+      configuration[:list_fields] = fields(*field_options, &block)
     end
 
     def form(*field_options, &block)
-      @form_fields = fields(*field_options, &block)
+      configuration[:form_fields] = fields(*field_options, &block)
     end
 
     def fields(*field_options, &block)

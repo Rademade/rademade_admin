@@ -1,7 +1,7 @@
 <%= admin_form(@item, @model_class) do |f| %>
   <%= f.inputs do %>
     <% @semantic_form_fields.each do |name, field_params|
-      admin_field(f, name, field_params, @model_reflection, @item)
+      admin_field(f, name, field_params, @model_info, @item)
     end
   end
 

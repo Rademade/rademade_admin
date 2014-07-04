@@ -23,7 +23,7 @@ module RademadeAdmin
     #   #=> {id: 123, :'name.in' => ['Vlad', 'Den']}
     #
     # Returns {Hash}
-    def build_search_params(params={})
+    def build_search_params(params = {})
       criteria_hash = {}
 
       if params
@@ -35,7 +35,7 @@ module RademadeAdmin
 
           if origin_fields.include?(field)
             new_key = field.to_sym # 'name'+'.in' => :'name.in'
-            new_key = new_key.in if key.to_s.include?('_in')
+            new_key = new_key.in if key.to_s.include?('_in') # todo remove hard code
 
             criteria_hash[new_key] = multiple?(key) ? Array.wrap(value) : value
           end
@@ -49,30 +49,12 @@ module RademadeAdmin
       key.to_s.include? '_in'
     end
 
-    def load_fields_options
-      #todo move to RademadeAdmin::CrudController::Fields
-      self.class.init_model_fields
-    end
-
     # Priority I
     def self.included(base)
-      #Class methods
-      #Init class options
-      #Init field class
+      base.extend RademadeAdmin::ModelConfiguration
       #Load fields, copy options to instance
-      base.extend RademadeAdmin::CrudController::ClassMethods
-      base.extend RademadeAdmin::CrudController::ModelOptions
-      base.extend RademadeAdmin::CrudController::Fields
-      base.before_filter :load_fields_options, :load_options #rm_todo move load_options to self classes
+      base.before_filter :load_options #rm_todo move load_options to self classes
     end
 
-    module ClassMethods
-
-      # Priority III
-      def crud_options(options = {})
-        #options.each { |option, value| instance_variable_set("@#{option.to_s}", value) }
-      end
-
-    end
   end
 end

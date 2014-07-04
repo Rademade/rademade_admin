@@ -2,21 +2,31 @@ module RademadeAdmin
   module CrudController
     module InstanceOptions
 
-      attr_reader :model_class, :model_reflection, :model_name, :item_name,
-                  :origin_fields, :list_fields, :save_form_fields, :semantic_form_fields
+      attr_reader :model_info, :model_class, :model_name, :item_name,
+                  :list_fields, :semantic_form_fields
 
       def load_model_options
+        @model_info = self.class.model_info
         @model_name = self.class.model_name
         @model_class = self.class.model_class
-        @model_reflection = self.class.model_reflection
         @item_name = self.class.item_name
       end
 
       def load_field_options
-        @list_fields = self.class.list_fields
-        @origin_fields = self.class.origin_fields
-        @save_form_fields = self.class.save_form_fields
-        @semantic_form_fields = self.class.semantic_form_fields
+        @list_fields = @model_info.list_fields
+        @semantic_form_fields = @model_info.semantic_form_fields
+      end
+
+      def origin_fields
+        @model_info.origin_fields
+      end
+
+      def save_form_fields
+        @model_info.save_form_fields
+      end
+
+      def filter_fields
+        @model_info.filter_fields
       end
 
       def load_template_options
@@ -28,6 +38,7 @@ module RademadeAdmin
         load_field_options
         load_template_options
       end
+
     end
   end
 end

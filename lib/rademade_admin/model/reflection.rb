@@ -27,7 +27,5 @@ module RademadeAdmin
       end
 
     end
-
-    #Searcher.new(model_reflection).find params
   end
 end

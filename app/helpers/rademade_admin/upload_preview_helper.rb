@@ -21,9 +21,9 @@ module RademadeAdmin::UploadPreviewHelper
   end
 
   def uploaded_file_html(uploader)
-    if uploader.is_a? PosterUploader
+    if uploader.is_a? PosterUploader # todo remove hard code
       uploaded_image_preview(uploader)
-    elsif uploader.is_a? VideoUploader
+    elsif uploader.is_a? VideoUploader # todo remove hard code
       uploaded_video_preview(uploader)
     else
       uploaded_file_default_preview(uploader)

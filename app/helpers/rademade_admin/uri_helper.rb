@@ -38,24 +38,15 @@ module RademadeAdmin::UriHelper
   end
 
   def admin_edit_uri(model)
-    admin_url_for(model.class, {
-      :action => :edit,
-      :id => model.id
-    })
+    entity_url(model, :edit)
   end
 
   def admin_edit_form_uri(model)
-    admin_url_for(model.class, {
-      :action => :form,
-      :id => model.id
-    })
+    entity_url(model, :form)
   end
 
   def admin_delete_uri(model)
-    admin_url_for(model.class, {
-      :action => :destroy,
-      :id => model.id
-    })
+    entity_url(model, :destroy)
   end
 
   def admin_create_uri(model_name)
@@ -65,30 +56,24 @@ module RademadeAdmin::UriHelper
   end
 
   def admin_update_uri(model)
-    admin_url_for(model.class, {
-      :action => :update,
-      :id => model.id
-    })
+    entity_url(model, :update)
   end
 
   def admin_url_for(model_name, options = {})
     options.merge!(get_id(model_name)) if nested?(model_name)
 
+    url_options = options.merge({
+      :controller => model_to_controller(model_name),
+      :only_path => true
+    })
     begin
-      url = RademadeAdmin::Engine.routes.url_helpers.url_for(options.merge({
-        :controller => model_to_controller(model_name),
-        :only_path => true
-      }))
+      url = RademadeAdmin::Engine.routes.url_helpers.url_for(url_options)
     rescue
-      url = Rails.application.routes.url_helpers.url_for(options.merge({
-        :controller => model_to_controller(model_name),
-        :only_path => true
-      }))
+      url = Rails.application.routes.url_helpers.url_for(url_options)
     end
 
     url
   end
-
 
   def model_to_controller(model_name)
     #todo folder of admin controllers
@@ -96,13 +81,21 @@ module RademadeAdmin::UriHelper
   end
 
   private
-    def nested?(model_name)
-      @object && RademadeAdmin::Model::Graph.instance.model_reflection(model_name).nested?
-    end
+
+  def nested?(model_name)
+    @object and RademadeAdmin::Model::Graph.instance.model_reflection(model_name)
+  end
 
   def get_id(model_name)
-    key = model_name.foreign_key
-    {key.to_sym => @object.id}
+    key = model_name.to_s.foreign_key
+    { key.to_sym => @object.id }
+  end
+
+  def entity_url(model, action)
+    admin_url_for(model.class, {
+      :action => action,
+      :id => model.id
+    })
   end
 
 end

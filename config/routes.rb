@@ -15,4 +15,5 @@ RademadeAdmin::Engine.routes.draw do
   end
 
   admin_resources :users
+
 end
