@@ -7,9 +7,7 @@ module RademadeAdmin
         controller ||= resource_name.to_s.tableize
         #todo folder of admin controllers
         controller_name = ('rademade_admin/' + controller + '_controller')
-
         model = controller_name.camelize.constantize.model_class
-        # Vlad wrote model saving, check
         @model_reflections[model.to_s] ||= Reflection.new(model, controller, controller_name, inner)
       end
 

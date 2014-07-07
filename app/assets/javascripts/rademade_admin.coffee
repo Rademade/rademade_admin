@@ -12,6 +12,3 @@
 #= require_tree ./rademade_admin/form
 #= require_tree ./rademade_admin/app
 #= require_tree ./rademade_admin
-
-$ ->
-	console.log 'Start'

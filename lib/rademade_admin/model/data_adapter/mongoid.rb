@@ -23,6 +23,10 @@ module RademadeAdmin
           fields.keys.include? field
         end
 
+        def foreign_key?(field)
+          field.foreign_key?
+        end
+
       end
     end
   end

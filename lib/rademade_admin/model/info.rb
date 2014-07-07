@@ -62,15 +62,13 @@ module RademadeAdmin
       def init_model_fields
         #rm_todo load only once
         unless @initialized
-          #@fields = []
           @fields_data = {}
           @simple_fields = []
           @model_reflection.fields.each do |name, field|
-            #@fields << field_name = name.to_sym
             field_name = name.to_sym
             @fields_data[field_name] = field
             #!a && !b => !(a || b)
-            unless (UNSAVED_FIELDS.include?(field_name) || foreign_key?(field, field_name))
+            unless (UNSAVED_FIELDS.include?(field_name) || @model_reflection.foreign_key?(field))
               @simple_fields << field_name
             end
           end
@@ -89,7 +87,7 @@ module RademadeAdmin
         data = (@model_configuration[:form_fields] || default_form_fields)
         fields = {}
         data.each do |field|
-          if field.is_a?(Hash)
+          if field.is_a? Hash
             fields.merge! field
           else
             fields[field] = default_field_type field
@@ -106,12 +104,6 @@ module RademadeAdmin
         else
           nil
         end
-      end
-
-      private
-
-      def foreign_key?(field, field_name)
-        field.respond_to?(:foreign_key?) ? field.foreign_key? : field_name[-3, 3] == '_id' # todo for active record
       end
 
     end

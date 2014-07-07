@@ -23,6 +23,10 @@ module RademadeAdmin
           fields.include? field
         end
 
+        def foreign_key?(field)
+          field.name[-3, 3] == '_id'
+        end
+
       end
     end
   end

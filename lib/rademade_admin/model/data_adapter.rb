@@ -25,6 +25,10 @@ module RademadeAdmin
         false
       end
 
+      def foreign_key?(field)
+        false
+      end
+
       def has_many
         @has_many_relations ||= relations_with_types HAS_MANY_RELATIONS
       end

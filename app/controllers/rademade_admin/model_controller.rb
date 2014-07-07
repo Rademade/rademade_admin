@@ -2,6 +2,8 @@ module RademadeAdmin
   class ModelController < RademadeAdmin::AbstractController
 
     include RademadeAdmin::CrudController
+    include RademadeAdmin::Templates
+    include RademadeAdmin::Notifier
 
     def create
       authorize! :create, model_class
@@ -35,25 +37,27 @@ module RademadeAdmin
 
     def autocomplete
       authorize! :read, model_class
-      items = RademadeAdmin::AutocompleteService.new(
-        :model => model_class,
-        :filter_fields => model_info.filter_fields,
-        :query => params[:q]
-      ).search
-      items = items.where(build_search_params(params[:search]))
+
+      search_conditions = Search::AutocompleteConditions.new(params, origin_fields, model_info.filter_fields)
+      searcher = Search::Searcher.new model_info
+      items = searcher.search search_conditions
+
       render :json => AutocompleteSerializer.new(items)
     end
 
     def index
       authorize! :read, model_class
 
-      @searcher ||= Searcher.new(model_info)
+      is_related_list = !!params[:parent]
 
-      @items = @searcher.get_list(params) # calls 'list' or 'related_list' public method
+      search_conditions = Search::ListConditions.new(params, origin_fields)
+      @searcher = Search::Searcher.new model_info
+      @items = @searcher.search search_conditions, is_related_list
+
       @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
 
       respond_to do |format|
-        format.html { Searcher.related_list?(params) ? render_template('related_index') : render_template }
+        format.html { is_related_list ? render_template('related_index') : render_template }
         format.json { render :json => @items }
       end
     end
@@ -107,52 +111,16 @@ module RademadeAdmin
 
     protected
 
-    # todo: notify module/service (move to module)
-    def success_action
-      render :json => {
-        :message => 'ok'
-      }
-    end
-
-    def success_insert(item)
-      render :json => {
-        :data => item,
-        :message => item_name.capitalize + ' was inserted!',
-        :form_action => admin_update_uri(item)
-      }
-    end
-
-    def success_update(item)
-      success_message(item, 'data was updated!')
-    end
-
-    def success_delete(item)
-      success_message(item, 'was deleted!')
-    end
-
-    def success_unlink(item)
-      success_message(item, 'was unlinked from entity!')
-    end
-
-    def success_link(item)
-      success_message(item, 'was linked to entity!')
-    end
-
-    def success_message(item, action_message)
-      render :json => {
-        :data => item,
-        :message => "#{item_name.capitalize} #{action_message}"
-      }
-    end
-
     def find_item(id)
       model_info.model.find(id)
     end
 
     def render_template(template = action_name)
-      #todo if template doesn't exist in user application => render abstract template (form or view)
-      render "rademade_admin/abstract/#{template}"
-      #unless template_exists?(template, "admin/#{native_template_folder}")
+      render abstract_template(template)
+    end
+
+    def filter_data_params(params)
+      params.require(:data).permit(save_form_fields)
     end
 
   end

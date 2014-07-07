@@ -1,14 +1,13 @@
 currentClass = []
 
 initSelect = ->
-  console.log 'Initializing select...'
   $(".select-wrapper input[type='hidden']").each ->
     initItem $(this)
-    
+
 
 initItem = ($item) ->
-  url         = $item.data('relListUrl')
-  isMultiple  = $item.data('relMultiple')
+  url = $item.data('relListUrl')
+  isMultiple = $item.data('relMultiple')
 
   $item.select2(
     multiple : isMultiple
@@ -50,7 +49,8 @@ addTable = ($item) ->
     addItem this, $table
 
   $table.sortable
-    stop : -> changeSelectValue($table, $item)
+    stop : ->
+      changeSelectValue($table, $item)
 
   $table.disableSelection()
 
