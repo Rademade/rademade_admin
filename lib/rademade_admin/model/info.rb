@@ -13,7 +13,7 @@ module RademadeAdmin
       end
 
       def origin_fields
-        @model_reflection.fields.map(&:to_s) + ['id']
+        @model_reflection.fields.keys + ['id']
       end
 
       def uploader_fields

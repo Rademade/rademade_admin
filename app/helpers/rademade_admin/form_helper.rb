@@ -7,6 +7,7 @@ module RademadeAdmin::FormHelper
       :as => :data,
       :html => {
         :multipart => true,
+        :novalidate => true,
         :class => (record.new_record? ? 'insert-item-form' : 'update-item-form') + ' form-horizontal',
       },
       &block

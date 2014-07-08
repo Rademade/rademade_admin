@@ -36,16 +36,11 @@ module RademadeAdmin
     def save_model_relations
       data = @params[:data]
       @model_info.model_reflection.relations.each do |name, rel|
-        key_suffix = rel.many? ? '_ids' : '_id'
-        assoc_key = (name.singularize + key_suffix).to_sym
+        assoc_key = association_foreign_key(rel)
         if data.has_key? assoc_key
-          relation_class = LoaderService.const_get(rel.class_name)
           ids = data[assoc_key]
           ids.reject! { |id| id.empty? } if ids.kind_of?(Array)
-          entities = relation_class.find(ids)
-          entities.sort_by! { |entity| ids.index(entity.id.to_s) } if entities.kind_of? Enumerable
-          entities = nil if (not rel.many? and entities == [])
-          item.send(rel.setter, entities)
+          item.send(assoc_key + '=', ids)
         end
       end
     end
@@ -54,7 +49,7 @@ module RademadeAdmin
       data = @params[:data]
       @model_info.model_reflection.uploaders.each do |name, _|
         if data.has_key?(name) and not data[name].blank?
-          image_path = CarrierWave.root + data[name].to_s
+          image_path = CarrierWave.root + data[name].to_s # todo remove hard code for CarrierWave
           setter_method = (name.to_s + '=').to_sym
           begin
             item.send(setter_method, File.open(image_path))
@@ -63,6 +58,18 @@ module RademadeAdmin
           end
         end
       end
+    end
+
+    def association_foreign_key(rel)
+      if rel.is_a? ActiveRecord::Reflection::AssociationReflection # todo
+        assoc_key = rel.association_foreign_key
+        if rel.collection?
+          assoc_key += 's'
+        end
+      else
+        assoc_key = rel.foreign_key
+      end
+      assoc_key
     end
 
     def filter_data_params

@@ -11,7 +11,7 @@ module RademadeAdmin
       end
 
       def order
-        field = @params[:sort] || :position
+        field = @params[:sort] || default_order_field
         direction = @params[:direction] || :asc
         [{field => direction}]
       end
@@ -22,6 +22,12 @@ module RademadeAdmin
 
       def per_page
         @params[:paginate] || 20
+      end
+
+      private
+
+      def default_order_field
+        @origin_fields.include?('position') ? :position : :id
       end
 
     end

@@ -24,7 +24,12 @@ module RademadeAdmin
         end
 
         def foreign_key?(field)
-          field.name[-3, 3] == '_id'
+          if field.is_a? ::ActiveRecord::AttributeMethods::TimeZoneConversion::Type # why another behaviour?
+            field_name = field.instance_values['column'].name
+          else
+            field_name = field.name
+          end
+          field_name[-3, 3] == '_id'
         end
 
       end

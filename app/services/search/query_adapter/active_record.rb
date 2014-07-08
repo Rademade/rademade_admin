@@ -10,7 +10,11 @@ module RademadeAdmin
         where_conditions.each do |type, conditions|
           conditions.each do |field, value|
             condition += " #{type.to_s.capitalize} " unless condition.empty?
-            condition += "#{field} = ?"
+            if value.is_a? Array
+              condition += "#{field} IN (?)"
+            else
+              condition += "#{field} = ?"
+            end
             values << value
           end
         end
