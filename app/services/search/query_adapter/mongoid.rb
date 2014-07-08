@@ -6,7 +6,7 @@ module RademadeAdmin
 
       def where(where_conditions)
         # todo
-        if defined?(Mongoid::Paranoia) and @model.ancestors.include? Mongoid::Paranoia
+        if defined?(::Mongoid::Paranoia) and @model.ancestors.include? ::Mongoid::Paranoia
           where_conditions[:and][:deleted_at] = nil
         end
         method_map = { :or => :or, :and => :where }

@@ -7,24 +7,24 @@ module RademadeAdmin
 
     def create
       authorize! :create, model_class
-      @item = model_info.model.new(filter_data_params(params))
-
-      if @item.save
-        save_aggregated_data(@item, params)
-        success_insert(@item)
+      saver = Saver.new(model_info, params)
+      saver.create_model
+      if saver.save_model
+        saver.save_aggregated_data
+        success_insert saver.item
       else
-        render_errors @item.errors
+        render_errors saver.errors
       end
     end
 
     def update
       authorize! :update, model_class
-      @item = find_item(params[:id])
-      if @item.update(filter_data_params(params))
-        save_aggregated_data(@item, params)
-        success_update(@item)
+      saver = Saver.new(model_info, params)
+      if saver.update_model
+        saver.save_aggregated_data
+        success_update saver.item
       else
-        render_errors @item.errors
+        render_errors saver.errors
       end
     end
 
@@ -32,30 +32,24 @@ module RademadeAdmin
       authorize! :destroy, model_class
       @item = find_item(params[:id])
       @item.delete if @item
-      success_delete(@item)
+      success_delete @item
     end
 
     def autocomplete
       authorize! :read, model_class
-
       search_conditions = Search::AutocompleteConditions.new(params, origin_fields, model_info.filter_fields)
       searcher = Search::Searcher.new model_info
       items = searcher.search search_conditions
-
       render :json => AutocompleteSerializer.new(items)
     end
 
     def index
       authorize! :read, model_class
-
       is_related_list = !!params[:parent]
-
       search_conditions = Search::ListConditions.new(params, origin_fields)
       @searcher = Search::Searcher.new model_info
       @items = @searcher.search search_conditions, is_related_list
-
       @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
-
       respond_to do |format|
         format.html { is_related_list ? render_template('related_index') : render_template }
         format.json { render :json => @items }
@@ -78,14 +72,14 @@ module RademadeAdmin
       item = find_item(params[:id])
       unlink(item)
       item.save
-      success_unlink(item)
+      success_unlink item
     end
 
     def link_relation
       item = find_item(params[:id])
       link(item)
       item.save
-      success_link(item)
+      success_link item
     end
 
     def show
@@ -117,10 +111,6 @@ module RademadeAdmin
 
     def render_template(template = action_name)
       render abstract_template(template)
-    end
-
-    def filter_data_params(params)
-      params.require(:data).permit(save_form_fields)
     end
 
   end

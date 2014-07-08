@@ -2,7 +2,6 @@ module RademadeAdmin
   module CrudController
 
     # Methods (Instance methods)
-    include RademadeAdmin::CrudController::Saver
     include RademadeAdmin::CrudController::Linker
     include RademadeAdmin::CrudController::InstanceOptions
 

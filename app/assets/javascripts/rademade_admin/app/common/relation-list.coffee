@@ -4,7 +4,6 @@ initSelect = ->
   $(".select-wrapper input[type='hidden']").each ->
     initItem $(this)
 
-
 initItem = ($item) ->
   url = $item.data('relListUrl')
   isMultiple = $item.data('relMultiple')
@@ -15,7 +14,7 @@ initItem = ($item) ->
 
     initSelection : (element, callback) ->
       ids = element.val().replace(/\s*/g, '').split(',')
-      $.getJSON(url, {search : {id_in : ids}}).done (data) ->
+      $.getJSON(url, {search : {id : ids}}).done (data) ->
         data = if isMultiple then data else data[0]
         $item.select2('enable', true)
         callback(data)
@@ -25,8 +24,8 @@ initItem = ($item) ->
     ajax :
       url : url
       dataType : 'json'
-      data : (term) -> {q: term}
-      results : (data) -> {results: data}
+      data : (term) -> {q : term}
+      results : (data) -> {results : data}
   ).unbind('change').bind 'change', (e) ->
     $select = $(this)
     $table = $select.siblings('.select2-items-list')
@@ -55,15 +54,15 @@ addTable = ($item) ->
   $table.disableSelection()
 
 addItem = (item, $table) ->
-  $table.append([
-    '<li data-id=', item.id, '>'
-      '<span>', item.text, '</span>'
-      '<button data-edit="', item.edit_url, '">Edit</button>'
-      '<button data-remove>Delete</button>'
-    '</li>'
-  ].join(''))
+  $table.append(
+    "<li data-id='#{item.id}'>
+      <span>#{item.text}</span>
+      <button data-edit='#{item.edit_url}'>Edit</button>
+      <button data-remove>Delete</button>
+    </li>"
+  )
 
-  $('li[data-id="' + item.id + '"] [data-remove]').unbind('click').bind 'click', (e) ->
+  $("li[data-id='#{item.id}'] [data-remove]").unbind('click').bind 'click', (e) ->
     e.preventDefault()
     removeItem($(e.currentTarget).closest('li'), $table) if confirm 'Вы действительно хотите удалить данную модель?'
 
@@ -89,14 +88,13 @@ getId = (data) ->
 
 selectOnSubmit = (e, modelClassName, data) ->
   dataId = getId(data)
-  $select = $(".select-wrapper [data-rel-class='" + modelClassName + "']")
+  $select = $(".select-wrapper [data-rel-class='#{modelClassName}']")
   newData = []
   if $select.data('relMultiple')
     newData.push($select.val()) if $select.val()
     newData.push(dataId)
   else
     newData = dataId
-
   $select.select2('destroy')
   $select.val(newData)
   initItem($select)

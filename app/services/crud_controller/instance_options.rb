@@ -21,10 +21,6 @@ module RademadeAdmin
         @model_info.origin_fields
       end
 
-      def save_form_fields
-        @model_info.save_form_fields
-      end
-
       def filter_fields
         @model_info.filter_fields
       end

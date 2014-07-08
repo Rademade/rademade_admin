@@ -22,7 +22,7 @@ initSelect = ->
 
     initSelection : (element, callback) ->
       ids = element.val().replace(/\s*/g, '').split(',')
-      $.getJSON(url, {search : {id_in : ids}}).done (data) ->
+      $.getJSON(url, {search : {id : ids}}).done (data) ->
         data = if isMultiple then data else data[0]
         $item.select2('enable', true)
         callback(data)

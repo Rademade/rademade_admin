@@ -24,10 +24,9 @@ module RademadeAdmin
       private
 
       def append_query_condition
-        query = @params[:q]
-        unless query.empty?
+        unless @params[:q].present?
           @filter_fields.each do |field|
-            @where_conditions[:or][field] = /#{query}/i
+            @where_conditions[:or][field] = /#{@params[:q]}/i
           end
         end
       end
@@ -35,11 +34,7 @@ module RademadeAdmin
       def append_search_params
         if @params[:search].present?
           @params[:search].each do |key, value|
-            field = key.to_s
-            if origin_fields.include? field
-              field_value = key.to_s.include?('_in') ? Array.wrap(value) : value
-              @where_conditions[:and][field.to_sym] = field_value
-            end
+            @where_conditions[:and][key.to_sym] = value if @origin_fields.include? key.to_s
           end
         end
       end
