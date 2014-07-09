@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'kaminari'
 
+  s.add_dependency 'carrierwave'
+
   # Assets
   s.add_dependency 'sass'
   s.add_dependency 'compass'
@@ -40,7 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-fileupload-rails'
   s.add_dependency 'magnific-popup-rails'
 
-  # ADMIN
+  # Admin
   s.add_dependency 'formtastic'
   s.add_dependency 'ckeditor'
 

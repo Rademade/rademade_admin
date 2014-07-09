@@ -19,6 +19,10 @@ module RademadeAdmin
       configuration[:item_name]
     end
 
+    def parent_menu_item
+      configuration[:parent_menu_item]
+    end
+
     def model_class
       if configuration[:model_class].nil?
         configuration[:model_class] = RademadeAdmin::LoaderService.const_get(model_name)
@@ -27,8 +31,11 @@ module RademadeAdmin
     end
 
     def model_info
-      model_reflection = Model::Graph.instance.model_reflection(model_class)
-      @model_info ||= Model::Info.new(model_reflection, configuration)
+      @model_info ||= Model::Graph.instance.model_info(model_class)
+    end
+
+    def init_model_info(model_reflection)
+      Model::Info.new(model_reflection, configuration)
     end
 
     private
@@ -43,6 +50,10 @@ module RademadeAdmin
 
     def item(item_name)
       configuration[:item_name] = item_name
+    end
+
+    def parent_menu(parent_menu_item)
+      configuration[:parent_menu_item] = parent_menu_item
     end
 
     def list(*field_options, &block)

@@ -8,7 +8,11 @@
             has_sub_items = (menu_item[:sub].is_a? Array and menu_item[:sub].size > 0)
             item_name = menu_item[:name] || admin_list_name(menu_item[:model], false)
 
-            %><li class="<%= 'active' if is_current %>">
+            %><li<%
+                if is_current
+                    %> class="active"<%
+                end
+            %>>
 
                 <% if is_current %>
                     <div class="pointer">
@@ -17,7 +21,11 @@
                     </div>
                 <% end %>
 
-                <a href="<%= menu_item[:uri] %>" class="<%= 'dropdown-toggle' if has_sub_items %>">
+                <a href="<%= menu_item[:uri] %>"<%
+                    if has_sub_items
+                        %> class="dropdown-toggle"<%
+                    end
+                %>>
                     <i class="<%= menu_item[:ico] %>"></i>
                     <span><%= item_name %></span>
                     <% if has_sub_items %>

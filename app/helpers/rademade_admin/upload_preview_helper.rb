@@ -21,9 +21,10 @@ module RademadeAdmin::UploadPreviewHelper
   end
 
   def uploaded_file_html(uploader)
-    if uploader.is_a? PosterUploader # todo remove hard code
+    included_modules = uploader.class.ancestors
+    if included_modules.include? RademadeAdmin::Uploader::Photo
       uploaded_image_preview(uploader)
-    elsif uploader.is_a? VideoUploader # todo remove hard code
+    elsif included_modules.include? RademadeAdmin::Uploader::Video
       uploaded_video_preview(uploader)
     else
       uploaded_file_default_preview(uploader)
@@ -32,20 +33,16 @@ module RademadeAdmin::UploadPreviewHelper
 
   def uploaded_image_preview(uploader)
     content_tag(:img, '', {
-        :src => uploader.resize(200, 200),
-        :class => 'image-preview',
-        :width => 200,
-        :height => 200
+      :src => uploader.resize(200, 200),
+      :class => 'image-preview',
+      :width => 200,
+      :height => 200
     })
   end
 
   def uploaded_video_preview(uploader)
-    file_path = uploader.file.file
-    #image_uploader = RademadeAdmin::VideoService.generate_thumb_uploader(uploader)
-    thumb_path = File.dirname(file_path) + '/' + File.basename(file_path, '.*') + '.png'
-    RademadeAdmin::VideoService.new(file_path).take_random_screenshot(thumb_path) unless File.exists?(thumb_path)
     content_tag(:img, '', {
-      :src => thumb_path.gsub(/^#{Rails.public_path}/, ''), #todo
+      :src => uploader.thumb_path,
       :class => 'video-preview',
       :width => 300
     })

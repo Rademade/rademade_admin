@@ -77,13 +77,13 @@ module RademadeAdmin::UriHelper
 
   def model_to_controller(model_name)
     #todo folder of admin controllers
-    'rademade_admin/' + RademadeAdmin::Model::Graph.instance.model_reflection(model_name).controller
+    'rademade_admin/' + RademadeAdmin::Model::Graph.instance.model_info(model_name).controller
   end
 
   private
 
   def nested?(model_name)
-    @object and RademadeAdmin::Model::Graph.instance.model_reflection(model_name)
+    @object and RademadeAdmin::Model::Graph.instance.model_info(model_name)
   end
 
   def get_id(model_name)

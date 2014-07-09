@@ -49,7 +49,7 @@ module RademadeAdmin
       data = @params[:data]
       @model_info.model_reflection.uploaders.each do |name, _|
         if data.has_key?(name) and not data[name].blank?
-          image_path = CarrierWave.root + data[name].to_s # todo remove hard code for CarrierWave
+          image_path = CarrierWave.root + data[name].to_s
           setter_method = (name.to_s + '=').to_sym
           begin
             item.send(setter_method, File.open(image_path))

@@ -1,9 +1,13 @@
 module RademadeAdmin
   class ModelController < RademadeAdmin::AbstractController
 
-    include RademadeAdmin::CrudController
+    extend RademadeAdmin::ModelConfiguration
+    include RademadeAdmin::Linker
+    include RademadeAdmin::InstanceOptions
     include RademadeAdmin::Templates
     include RademadeAdmin::Notifier
+
+    before_filter :load_options
 
     def create
       authorize! :create, model_class
@@ -43,6 +47,7 @@ module RademadeAdmin
       render :json => AutocompleteSerializer.new(items)
     end
 
+    # todo another action for related
     def index
       authorize! :read, model_class
       is_related_list = !!params[:parent]

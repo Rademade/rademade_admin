@@ -29,11 +29,7 @@ module RademadeAdmin
       end
 
       def save_form_fields
-        @save_form_fields ||= semantic_form_fields.keys + additional_form_fields
-      end
-
-      def additional_form_fields
-        @additional_form_fields ||= []
+        @save_form_fields ||= semantic_form_fields.keys
       end
 
       def semantic_form_fields
@@ -60,7 +56,6 @@ module RademadeAdmin
       end
 
       def init_model_fields
-        #rm_todo load only once
         unless @initialized
           @fields_data = {}
           @simple_fields = []
