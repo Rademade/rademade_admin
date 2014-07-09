@@ -61,7 +61,7 @@ module RademadeAdmin
     end
 
     def association_foreign_key(rel)
-      if rel.is_a? ActiveRecord::Reflection::AssociationReflection # todo
+      if defined? ActiveRecord and rel.is_a? ::ActiveRecord::Reflection::AssociationReflection # todo
         assoc_key = rel.association_foreign_key
         if rel.collection?
           assoc_key += 's'

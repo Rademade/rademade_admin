@@ -43,7 +43,7 @@ module RademadeAdmin
       def method_missing(name, *arguments)
         if arguments.empty? and @model_configuration[name].present?
           @model_configuration[name]
-        elsif @model_reflection.respond_to? name
+        else
           @model_reflection.send(name, *arguments)
         end
       end

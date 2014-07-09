@@ -2,8 +2,10 @@
 module RademadeAdmin
   module Sortable
 
-    def position
-      raise NotImplementedError.new 'Implement "position" method'
+    def method_missing(name, *arguments)
+      if name == 'position'
+        raise NotImplementedError.new 'Implement "position" method'
+      end
     end
 
   end

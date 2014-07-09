@@ -15,7 +15,7 @@ module RademadeAdmin
         end
 
         def orm_type
-          @orm_type # todo check if called earlier than data_adapter
+          @orm_type
         end
 
         def method_missing(name, *arguments)
@@ -31,8 +31,9 @@ module RademadeAdmin
             'ActiveRecord::Base' => ORM_TYPE_ACTIVERECORD,
             'Mongoid::Document' => ORM_TYPE_MONGOID
           }
+          included_modules = @model.ancestors.map(&:to_s)
           adapter_map.each do |ar_class, orm_type|
-            if @model.ancestors.include? ar_class.constantize
+            if included_modules.include? ar_class
               @orm_type = orm_type
               return "RademadeAdmin::Model::DataAdapter::#{orm_type}".constantize.new(@model)
             end

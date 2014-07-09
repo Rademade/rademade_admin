@@ -2,8 +2,10 @@ module RademadeAdmin
   module Uploader
     module Photo
 
-      def resize(width, height)
-        raise NotImplemented.new 'Implement "resize" method'
+      def method_missing(name, *arguments)
+        if name == 'resize'
+          raise NotImplemented.new 'Implement "resize" error'
+        end
       end
 
     end
