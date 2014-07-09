@@ -3,8 +3,7 @@ module RademadeAdmin
     class Graph
       include Singleton
 
-      def add_pair(resource_name, controller_name, inner)
-        controller_name ||= resource_name.to_s.tableize
+      def add_pair(controller_name, inner)
         controller_full_name = ('rademade_admin/' + controller_name + '_controller')
         controller = controller_full_name.camelize.constantize
         model = controller.model_class

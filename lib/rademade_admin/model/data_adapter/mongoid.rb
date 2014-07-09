@@ -4,9 +4,6 @@ module RademadeAdmin
       class Mongoid
         include RademadeAdmin::Model::DataAdapter
 
-        HAS_MANY_RELATIONS = [:embeds_many, :has_many, :has_and_belongs_to_many].freeze
-        HAS_ONE_RELATIONS = [:has_one, :embeds_one, :belongs_to].freeze
-
         def relations
           @model.relations
         end
@@ -25,6 +22,16 @@ module RademadeAdmin
 
         def foreign_key?(field)
           field.foreign_key?
+        end
+
+        protected
+
+        def has_many_relations
+          [:embeds_many, :has_many, :has_and_belongs_to_many]
+        end
+
+        def has_one_relations
+          [:has_one, :embeds_one, :belongs_to]
         end
 
       end

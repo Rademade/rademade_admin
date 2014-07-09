@@ -2,9 +2,6 @@ module RademadeAdmin
   module Model
     module DataAdapter
 
-      HAS_MANY_RELATIONS = []
-      HAS_ONE_RELATIONS = []
-
       def initialize(model)
         @model = model
       end
@@ -30,19 +27,27 @@ module RademadeAdmin
       end
 
       def has_many
-        @has_many_relations ||= relations_with_types HAS_MANY_RELATIONS
+        @has_many_relations ||= relations_with_types has_many_relations
       end
 
       def has_one
-        @has_one_relations ||= relations_with_types HAS_ONE_RELATIONS
+        @has_one_relations ||= relations_with_types has_one_relations
       end
 
       protected
 
       def relations_with_types(types)
-        @model.reflect_on_all_associations(*types).map do |relation|
+        @model.reflect_on_all_associations(types).map do |relation|
           relation[:class_name] || relation[:name].to_s.capitalize
         end
+      end
+
+      def has_many_relations
+        []
+      end
+
+      def has_one_relations
+        []
       end
 
     end

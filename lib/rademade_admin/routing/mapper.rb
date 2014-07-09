@@ -7,32 +7,33 @@ module RademadeAdmin
         options = resources.extract_options!.dup
         options[:shallow] = true
 
-        #todo take controller from resources
-        #todo set info with resources (parent resource, children, etc)
-        resources (*resources, options) do
-          yield if block_given?
+        resources(*resources, options)
+        resources.each do |resource|
+          resource_scope(:resources, Resource.new(resource, options)) do
+            yield if block_given?
 
-          collection do
-            get  :index
-            get  :autocomplete
-            post :create
-            patch :re_sort
-          end
+            parent_resource_actions = @scope[:scope_level_resource].actions
 
-          new do
-            get :new
-            get :form
-          end
+            collection do
+              get :autocomplete
+              patch :re_sort
+            end if parent_resource_actions.include? :index
 
-          member do
-            get :form
-            patch :unlink_relation
-            put :link_relation
+            new do
+              get :new
+              get :form
+            end if parent_resource_actions.include? :new
+
+            member do
+              get :form if parent_resource_actions.include? :edit
+              patch :unlink_relation if parent_resource_actions.include? :update
+              put :link_relation if parent_resource_actions.include? :update
+            end
+
+            Model::Graph.instance.add_pair(@scope[:controller], self.shallow?)
+
           end
         end
-
-        # save connection between model and its controller
-        resources.each { |resource| Model::Graph.instance.add_pair(resource, options[:controller], self.shallow?) }
 
         self
       end

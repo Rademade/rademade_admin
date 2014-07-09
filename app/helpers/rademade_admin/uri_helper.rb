@@ -1,7 +1,7 @@
 module RademadeAdmin::UriHelper
 
   def admin_current_page?(uri, model_name = nil)
-    (not model_name.nil? and model_name == @model) or current_page?(uri)
+    (not model_name.nil? and model_name == @model) or (not uri.nil? and current_page?(uri))
   end
 
   def admin_unlink_uri(model, parent, parent_id)
@@ -67,9 +67,13 @@ module RademadeAdmin::UriHelper
       :only_path => true
     })
     begin
-      url = RademadeAdmin::Engine.routes.url_helpers.url_for(url_options)
-    rescue
       url = Rails.application.routes.url_helpers.url_for(url_options)
+    rescue
+      begin
+        url = RademadeAdmin::Engine.routes.url_helpers.url_for(url_options)
+      rescue
+        url = nil
+      end
     end
 
     url

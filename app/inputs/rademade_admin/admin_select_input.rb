@@ -41,11 +41,12 @@ module RademadeAdmin
     end
 
     def add_button_html
+      url = new_item_url
       template.content_tag(:button, 'Add new', {
         :class => 'relation-add-button',
-        'data-new' => new_item_url,
+        'data-new' => url,
         'data-class' => reflection_class
-      })
+      }) if url
     end
 
     def new_item_url
