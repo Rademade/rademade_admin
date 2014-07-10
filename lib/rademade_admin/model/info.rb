@@ -21,7 +21,7 @@ module RademadeAdmin
       end
 
       def list_fields
-        @list_fields ||= @model_configuration[:list_fields] || simple_fields
+        @list_fields ||= @model_configuration.list_fields || simple_fields
       end
 
       def default_form_fields
@@ -41,8 +41,8 @@ module RademadeAdmin
       end
 
       def method_missing(name, *arguments)
-        if arguments.empty? and @model_configuration[name].present?
-          @model_configuration[name]
+        if arguments.empty? and @model_configuration.respond_to? name
+          @model_configuration.send(name)
         else
           @model_reflection.send(name, *arguments)
         end
@@ -79,7 +79,7 @@ module RademadeAdmin
       end
 
       def collected_form_fields
-        data = (@model_configuration[:form_fields] || default_form_fields)
+        data = (@model_configuration.form_fields || default_form_fields)
         fields = {}
         data.each do |field|
           if field.is_a? Hash

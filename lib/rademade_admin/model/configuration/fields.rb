@@ -1,5 +1,5 @@
 module RademadeAdmin
-  module ModelConfiguration
+  module Model
     class Fields
 
       attr_reader :fields

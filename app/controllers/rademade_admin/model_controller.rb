@@ -1,7 +1,7 @@
 module RademadeAdmin
   class ModelController < RademadeAdmin::AbstractController
 
-    extend RademadeAdmin::ModelConfiguration
+    extend RademadeAdmin::ModelOptions
     include RademadeAdmin::Linker
     include RademadeAdmin::InstanceOptions
     include RademadeAdmin::Templates
