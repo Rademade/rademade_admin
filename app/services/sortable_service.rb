@@ -1,14 +1,14 @@
 class RademadeAdmin::SortableService
 
-  def initialize(model_class, params)
-    @model_class = model_class
+  def initialize(model_info, params)
+    @model_info = model_info
     @params = params
   end
 
   def re_sort_items
     min = @params[:minimum].to_i
     @params[:sorted].each do |k, v|
-      item = @model_class.find(v[0])
+      item = @model_info.model.find(v[0])
       item.position = k.to_i + 1 + min
       item.save
     end
@@ -31,7 +31,7 @@ class RademadeAdmin::SortableService
   end
 
   def has_position?
-    @model_class.fields.keys.include? 'position'
+    @model_info.has_field? 'position'
   end
 
 end

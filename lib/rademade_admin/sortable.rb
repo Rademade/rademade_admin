@@ -1,15 +1,12 @@
+#todo move to concern dir
 module RademadeAdmin
   module Sortable
-    extend ActiveSupport::Concern
 
-    included do
-      field :position, :type => Integer
-      default_scope -> { order_by(:position => :asc) }
-
-      set_callback(:create, :after) do |document|
-        self.position = self.class.max(:position).to_i + 1
-        self.save
+    def method_missing(name, *arguments)
+      if name == 'position'
+        raise NotImplementedError.new 'Implement "position" method'
       end
     end
+
   end
 end

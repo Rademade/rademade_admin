@@ -1,24 +1,20 @@
-<%=render :partial => 'rademade_admin/_blocks/header'%>
-
-<%=render :partial => 'rademade_admin/_blocks/menu'%>
-
+<%= render :partial => 'rademade_admin/_blocks/header' %>
+<%= render :partial => 'rademade_admin/_blocks/menu' %>
 <div class="content">
-
     <div id="pad-wrapper" class="form-page">
-
-        <div class="table-wrapper products-table ">
+        <div class="table-wrapper products-table">
 
             <div class="row">
                 <div class="breadcrumbs col-md-12">
                   <%= link_to 'Dashboard', :root %>
-                  <% if content_for?(:last_crumbs)%>
+                  <% if content_for?(:last_crumbs) %>
                       <span class="separator">-></span>
                       <%= yield(:last_crumbs) %>
                   <% end %>
                 </div>
             </div>
 
-            <% if content_for?(:page_header)%>
+            <% if content_for?(:page_header) %>
                 <div class="row head">
                     <div class="col-md-12">
                         <%= yield(:page_header) %>
@@ -26,7 +22,7 @@
                 </div>
             <% end %>
 
-            <% if content_for?(:nav_buttons)%>
+            <% if content_for?(:nav_buttons) %>
                 <div class="row filter-block">
                     <div class="pull-right">
                         <%= yield(:nav_buttons) %>
@@ -37,7 +33,5 @@
             <%= yield(:content) if content_for?(:content) %>
 
         </div>
-
     </div>
-
 </div>

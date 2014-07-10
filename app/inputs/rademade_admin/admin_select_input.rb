@@ -1,15 +1,15 @@
 module RademadeAdmin
   class AdminSelectInput < Formtastic::Inputs::SelectInput
 
-    include  ::RademadeAdmin::UriHelper
+    include ::RademadeAdmin::UriHelper
 
     alias_method :parent_select_html, :select_html
 
     def select_html
       template.content_tag(
-          :div,
-          RademadeAdmin::HtmlBuffer.new([select_ui_html, add_new_button_html]),
-          html_attributes
+        :div,
+        RademadeAdmin::HtmlBuffer.new([select_ui_html, add_new_button_html]),
+        html_attributes
       )
     end
 
@@ -24,10 +24,11 @@ module RademadeAdmin
     end
 
     def input_value
+      object_reflection = builder.object.send(reflection_name)
       if multiple?
-        builder.object.send(reflection[:name]).pluck(:id).map(&:to_s).join(',')
+        object_reflection.pluck(:id).map(&:to_s).join(',')
       else
-        builder.object.send(reflection[:name]).try(:id).to_s
+        object_reflection.try(:id).to_s
       end
     end
 
@@ -40,11 +41,12 @@ module RademadeAdmin
     end
 
     def add_button_html
+      url = new_item_url
       template.content_tag(:button, 'Add new', {
         :class => 'relation-add-button',
-        'data-new' => new_item_url,
+        'data-new' => url,
         'data-class' => reflection_class
-      })
+      }) if url
     end
 
     def new_item_url
@@ -69,6 +71,10 @@ module RademadeAdmin
 
     def related_with_model?
       !association.nil?
+    end
+
+    def reflection_name
+      reflection.is_a?(Hash) ? reflection[:name] : reflection.name
     end
 
   end

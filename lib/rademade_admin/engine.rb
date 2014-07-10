@@ -15,10 +15,9 @@ module RademadeAdmin
     )
 
     paths.each do |path|
-      Dir[path].each do |f|
-        require f
-      end
+      Dir[path].each {|f| require f }
     end
+
   end
 end
 
