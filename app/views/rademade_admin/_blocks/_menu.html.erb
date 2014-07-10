@@ -1,18 +1,17 @@
 <div id="sidebar-nav">
     <ul id="dashboard-menu"><%
         main_menu.each do |menu_item|
-            menu_item[:uri] ||= admin_list_uri menu_item[:model_info]
             has_sub_items = (menu_item[:sub].is_a? Array and menu_item[:sub].size > 0)
             if has_sub_items || menu_item[:uri]
-                is_current = admin_current_page? menu_item[:uri], menu_item[:model_info]
                 item_name = menu_item[:name] || admin_list_name(menu_item[:model_info], false)
+                is_active = active?(menu_item)
                 %><li<%
-                    if is_current
+                    if is_active
                         %> class="active"<%
                     end
                 %>>
 
-                    <% if is_current %>
+                    <% if is_active %>
                         <div class="pointer">
                             <div class="arrow"></div>
                             <div class="arrow_border"></div>

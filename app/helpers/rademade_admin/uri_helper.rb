@@ -1,9 +1,5 @@
 module RademadeAdmin::UriHelper
 
-  def admin_current_page?(uri, model_info = nil)
-    (not model_info.nil? and model_info == @model_info) or (not uri.nil? and current_page?(uri))
-  end
-
   def admin_unlink_uri(model, parent, parent_id)
     admin_model_url_for(model.class, {
       :action => :unlink_relation,
