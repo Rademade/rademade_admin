@@ -1,44 +1,42 @@
 <div id="sidebar-nav">
     <ul id="dashboard-menu"><%
         main_menu.each do |menu_item|
-
             menu_item[:uri] ||= admin_list_uri menu_item[:model]
-
-            is_current = admin_current_page? menu_item[:uri], menu_item[:model]
             has_sub_items = (menu_item[:sub].is_a? Array and menu_item[:sub].size > 0)
-            item_name = menu_item[:name] || admin_list_name(menu_item[:model], false)
-
-            %><li<%
-                if is_current
-                    %> class="active"<%
-                end
-            %>>
-
-                <% if is_current %>
-                    <div class="pointer">
-                        <div class="arrow"></div>
-                        <div class="arrow_border"></div>
-                    </div>
-                <% end %>
-
-                <a href="<%= menu_item[:uri] %>"<%
-                    if has_sub_items
-                        %> class="dropdown-toggle"<%
+            if has_sub_items || menu_item[:uri]
+                is_current = admin_current_page? menu_item[:uri], menu_item[:model]
+                item_name = menu_item[:name] || admin_list_name(menu_item[:model], false)
+                %><li<%
+                    if is_current
+                        %> class="active"<%
                     end
                 %>>
-                    <i class="<%= menu_item[:ico] %>"></i>
-                    <span><%= item_name %></span>
-                    <% if has_sub_items %>
-                        <i class="fa fa-chevron-down"></i>
+
+                    <% if is_current %>
+                        <div class="pointer">
+                            <div class="arrow"></div>
+                            <div class="arrow_border"></div>
+                        </div>
                     <% end %>
-                </a><%
 
-                if has_sub_items
-                    concat render 'rademade_admin/_blocks/sub_menu', :menu_item => menu_item
-                end
+                    <a href="<%= menu_item[:uri] %>"<%
+                        if has_sub_items
+                            %> class="dropdown-toggle"<%
+                        end
+                    %>>
+                        <i class="<%= menu_item[:ico] %>"></i>
+                        <span><%= item_name %></span>
+                        <% if has_sub_items %>
+                            <i class="fa fa-chevron-down"></i>
+                        <% end %>
+                    </a><%
 
-            %></li>
-        <% end %>
-    </ul>
+                    if has_sub_items
+                        concat render 'rademade_admin/_blocks/sub_menu', :menu_item => menu_item
+                    end
+
+                %></li><%
+            end
+        end
+    %></ul>
 </div>
-

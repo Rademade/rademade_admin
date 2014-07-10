@@ -12,6 +12,15 @@ module RademadeAdmin
           @model.reflect_on_association(name)
         end
 
+        def association_foreign_key(relation)
+          rel_name = relation.name.to_s
+          if relation.many?
+            rel_name.singularize.foreign_key + 's'
+          else
+            rel_name.foreign_key
+          end
+        end
+
         def fields
           @model.fields
         end

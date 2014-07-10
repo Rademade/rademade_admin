@@ -14,6 +14,10 @@ module RademadeAdmin
         nil
       end
 
+      def association_foreign_key(relation)
+        nil
+      end
+
       def fields
         []
       end

@@ -35,8 +35,9 @@ module RademadeAdmin
 
     def save_model_relations
       data = @params[:data]
-      @model_info.model_reflection.relations.each do |name, rel|
-        assoc_key = association_foreign_key(rel)
+      model_reflection = @model_info.model_reflection
+      model_reflection.relations.each do |name, rel|
+        assoc_key = model_reflection.association_foreign_key(rel)
         if data.has_key? assoc_key
           ids = data[assoc_key]
           ids.reject! { |id| id.empty? } if ids.kind_of?(Array)
@@ -58,18 +59,6 @@ module RademadeAdmin
           end
         end
       end
-    end
-
-    def association_foreign_key(rel)
-      if defined? ActiveRecord and rel.is_a? ::ActiveRecord::Reflection::AssociationReflection # todo
-        assoc_key = rel.association_foreign_key
-        if rel.collection?
-          assoc_key += 's'
-        end
-      else
-        assoc_key = rel.foreign_key
-      end
-      assoc_key
     end
 
     def filter_data_params

@@ -7,7 +7,6 @@ module RademadeAdmin
         options = resources.extract_options!.dup
         options[:shallow] = true
 
-        resources(*resources, options)
         resources.each do |resource|
           resource_scope(:resources, Resource.new(resource, options)) do
             yield if block_given?
@@ -17,7 +16,7 @@ module RademadeAdmin
             collection do
               get :autocomplete
               patch :re_sort
-            end if parent_resource_actions.include? :index
+            end
 
             new do
               get :new
@@ -34,6 +33,7 @@ module RademadeAdmin
 
           end
         end
+        resources(*resources, options)
 
         self
       end

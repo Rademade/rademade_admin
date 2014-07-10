@@ -12,6 +12,14 @@ module RademadeAdmin
           @model.reflect_on_association(name)
         end
 
+        def association_foreign_key(relation)
+          assoc_key = relation.association_foreign_key
+          if relation.collection?
+            assoc_key += 's'
+          end
+          assoc_key
+        end
+
         def fields
           @model.column_types
         end
