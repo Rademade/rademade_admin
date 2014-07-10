@@ -1,5 +1,9 @@
 class RademadeAdmin::PostsController < RademadeAdmin::ModelController
-  crud_options :list_fields => [:headline],
-               :model_name => 'Post',
-               :form_fields => [:headline, :text, :user]
+
+  options do
+    model 'Post'
+    list :headline
+    form :headline, :text, :user
+  end
+
 end

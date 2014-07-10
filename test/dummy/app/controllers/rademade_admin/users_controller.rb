@@ -1,7 +1,7 @@
 class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 
   options do
-    model 'RademadeAdmin::AdminUser'
+    model 'User'
     list :email, :first_name, :last_name
     form do
       email

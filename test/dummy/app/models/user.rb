@@ -3,4 +3,5 @@ class User
 
   field :status, :type => String
   has_many :posts
+
 end
