@@ -2,6 +2,8 @@ module RademadeAdmin
   module ModelConfiguration
 
     def options(&options_block)
+      #todo extract config class
+      # config.instance_eval &options_block
       instance_eval &options_block
     end
 
