@@ -2,6 +2,7 @@ module RademadeAdmin
   class AdminFileInput < Formtastic::Inputs::FileInput
 
     include UploadPreviewHelper
+    include UriHelper
 
     def to_html
       input_wrapping do
@@ -35,7 +36,8 @@ module RademadeAdmin
           :id => object.id.to_s,
           :saved => object.new_record? ? 0 : 1,
           :model => model_name,
-          :uploader => uploader_classname
+          :uploader => uploader_classname,
+          :url => admin_url_for(:controller => 'file', :action => 'upload')
         }
       })
     end

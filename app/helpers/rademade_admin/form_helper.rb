@@ -34,7 +34,7 @@ module RademadeAdmin::FormHelper
   end
 
   def admin_field_link_to_list(name, model_info, record)
-    uri = admin_url_for(model_info.reflect_on_association(name).class_name, {
+    uri = admin_model_url_for(model_info.reflect_on_association(name).class_name, {
       :action => :index,
       :parent => model_info.model,
       :parent_id => record.id.to_s

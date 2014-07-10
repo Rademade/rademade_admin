@@ -6,11 +6,11 @@ module RademadeAdmin
     end
 
     def model_name
-      configuration.model_name ||= controller_name.classify
+      configuration.model_name
     end
 
     def item_name
-      configuration.item_name ||= model_name
+      configuration.item_name
     end
 
     def parent_menu_item
@@ -18,7 +18,7 @@ module RademadeAdmin
     end
 
     def model_class
-      configuration.model_class ||= RademadeAdmin::LoaderService.const_get(model_name)
+      configuration.model_class
     end
 
     def model_info
@@ -32,7 +32,7 @@ module RademadeAdmin
     private
     
     def configuration
-      @configuration ||= Model::Configuration.new
+      @configuration ||= Model::Configuration.new(controller_name)
     end
 
   end

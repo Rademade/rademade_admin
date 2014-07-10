@@ -38,7 +38,7 @@ initUploader = ->
     #todo url take from dom
     @$el.fileupload
       dataType : 'json'
-      url : '/rademade_admin/file-upload' # todo remove hardcorded rademade_admin
+      url : @$el.data('url')
       formData : _.pick(@$el.data(), 'id', 'saved', 'model', 'column', 'uploader')
       add : => @submitFile.apply(this, arguments)
       done : => @uploadDone.apply(this, arguments)

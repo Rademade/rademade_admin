@@ -4,10 +4,10 @@ module RademadeAdmin
 
       def admin_resources(*resources, &block)
 
-        options = resources.extract_options!.dup
-        options[:shallow] = true
+        admin_resources = resources.dup
+        options = admin_resources.extract_options!.dup
 
-        resources.each do |resource|
+        admin_resources.each do |resource|
           resource_scope(:resources, Resource.new(resource, options)) do
             yield if block_given?
 
@@ -19,7 +19,6 @@ module RademadeAdmin
             end
 
             new do
-              get :new
               get :form
             end if parent_resource_actions.include? :new
 
@@ -33,7 +32,8 @@ module RademadeAdmin
 
           end
         end
-        resources(*resources, options)
+
+        resources(*resources, &block)
 
         self
       end

@@ -13,8 +13,7 @@ module RademadeAdmin::MenuHelper
     menu = []
     @model_infos.each do |model_info|
       if model_info.parent_menu_item == parent
-        model = model_info.model
-        menu << { :model => model, :sub => collect_children(model.to_s) }
+        menu << { :model_info => model_info, :sub => collect_children(model_info.model.to_s) }
       end
     end
     menu
