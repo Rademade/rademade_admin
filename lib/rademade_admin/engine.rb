@@ -1,4 +1,3 @@
-require 'pry'
 require 'rademade_admin/routing/mapper'
 require 'formtastic'
 
