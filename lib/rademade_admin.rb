@@ -4,8 +4,6 @@ require 'carrierwave'
 require 'devise'
 require 'cancan'
 
-require 'pry'
-
 # js assets
 require 'turbolinks'
 require 'jquery-rails'
