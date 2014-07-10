@@ -1,6 +1,6 @@
 module RademadeAdmin
   module Search
-    class ListConditions < Conditions
+    class ListConditions < Abstract
 
       protected
 

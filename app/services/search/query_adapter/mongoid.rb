@@ -1,6 +1,6 @@
 module RademadeAdmin
   module Search
-    class Mongoid < QueryAdapter
+    class Mongoid < Abstract
 
       protected
 

@@ -1,6 +1,6 @@
 module RademadeAdmin
   module Search
-    class Conditions
+    class Abstract
 
       attr_reader :params
 

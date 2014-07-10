@@ -1,6 +1,6 @@
 module RademadeAdmin
   module Search
-    class ActiveRecord < QueryAdapter
+    class ActiveRecord < Abstract
 
       protected
 

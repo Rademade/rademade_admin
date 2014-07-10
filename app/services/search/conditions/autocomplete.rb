@@ -1,6 +1,6 @@
 module RademadeAdmin
   module Search
-    class AutocompleteConditions < Conditions
+    class AutocompleteConditions < Abstract
 
       def initialize(params, origin_fields, filter_fields)
         super(params, origin_fields)
