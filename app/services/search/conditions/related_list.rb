@@ -13,8 +13,10 @@ module RademadeAdmin
         protected
 
         def where
-          where_conditions = super
-          where_conditions[:and] = @params.slice(*@origin_fields)
+          where_conditions = Where.new(:and)
+          @params.slice(*@origin_fields).each do |field, value|
+            where_conditions.add(field, value)
+          end
           where_conditions
         end
 

@@ -8,20 +8,9 @@ module RademadeAdmin
         protected
 
         def where(where_conditions)
-          values = []
-          condition = ''
-          where_conditions.each do |type, conditions|
-            conditions.each do |field, value|
-              condition += " #{type.to_s.capitalize} " unless condition.empty?
-              if value.is_a? Array
-                condition += "#{field} IN (?)"
-              else
-                condition += "#{field} = ?"
-              end
-              values << value
-            end
-          end
-          @result.where([condition, *values])
+          @values = []
+          condition = collect_where_conditions(where_conditions)
+          @result.where([condition, *@values])
         end
 
         def order(order_conditions)
@@ -29,6 +18,24 @@ module RademadeAdmin
             @result = @result.order(order_condition)
           end
           @result
+        end
+
+        def collect_where_conditions(where_conditions)
+          condition = ''
+          where_conditions.parts.each do |part|
+            condition += " #{where_conditions.type.to_s.capitalize} " unless condition.empty?
+            if part.is_a? RademadeAdmin::Search::Conditions::Where
+              condition += "(#{collect_where_conditions(part)})"
+            else
+              if part[:value].is_a? Array
+                condition += "#{part[:field]} IN (?)"
+              else
+                condition += "#{part[:field]} = ?"
+              end
+              @values << part[:value]
+            end
+          end
+          condition
         end
 
       end

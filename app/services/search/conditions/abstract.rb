@@ -31,10 +31,7 @@ module RademadeAdmin
         end
 
         def where
-          {
-            :or => {},
-            :and => {}
-          }
+          nil
         end
 
         def order

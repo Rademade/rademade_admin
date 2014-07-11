@@ -31,7 +31,13 @@
                     </a><%
 
                     if has_sub_items
-                        concat render 'rademade_admin/_blocks/sub_menu', :menu_item => menu_item
+                        %><ul class="submenu"><%
+                            concat render 'rademade_admin/_blocks/sub_menu/link', {
+                                :uri => admin_list_uri(menu_item[:model_info]),
+                                :title => admin_list_name(menu_item[:model_info])
+                            }
+                            concat render 'rademade_admin/_blocks/sub_menu', :menu_item => menu_item
+                        %></ul><%
                     end
 
                 %></li><%

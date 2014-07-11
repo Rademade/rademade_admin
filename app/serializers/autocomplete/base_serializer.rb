@@ -41,11 +41,7 @@ module Autocomplete
     private
 
     def build_json
-      items = []
-      @collection.each do |item|
-        items << item_to_json(item)
-      end
-      items
+      @collection.map { |item| item_to_json(item) }
     end
 
   end
