@@ -1,3 +1,6 @@
+require 'rademade_admin/model/reflection/uploader'
+require 'rademade_admin/model/reflection/data'
+
 module RademadeAdmin
   module Model
     class Reflection
