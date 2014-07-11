@@ -1,5 +1,14 @@
 module RademadeAdmin::UriHelper
 
+  def admin_link_uri(model, parent, parent_id)
+    admin_model_url_for(model.class, {
+      :action => :link_relation,
+      :id => model.id,
+      :parent => parent,
+      :parent_id => parent_id
+    })
+  end
+
   def admin_unlink_uri(model, parent, parent_id)
     admin_model_url_for(model.class, {
       :action => :unlink_relation,
@@ -18,6 +27,12 @@ module RademadeAdmin::UriHelper
   def admin_autocomplete_uri(model, opts = {})
     admin_model_url_for(model, {
       :action => :autocomplete
+    }.merge(opts))
+  end
+
+  def admin_link_autocomplete_uri(model, opts = {})
+    admin_model_url_for(model, {
+      :action => :link_autocomplete
     }.merge(opts))
   end
 

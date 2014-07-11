@@ -2,7 +2,6 @@ module RademadeAdmin
   class ModelController < RademadeAdmin::AbstractController
 
     extend RademadeAdmin::ModelOptions
-    include RademadeAdmin::Linker
     include RademadeAdmin::InstanceOptions
     include RademadeAdmin::Templates
     include RademadeAdmin::Notifier
@@ -41,22 +40,34 @@ module RademadeAdmin
 
     def autocomplete
       authorize! :read, model_class
-      search_conditions = Search::AutocompleteConditions.new(params, origin_fields, model_info.filter_fields)
-      searcher = Search::Searcher.new model_info
-      items = searcher.search search_conditions
-      render :json => AutocompleteSerializer.new(items)
+      init_search Search::Conditions::Autocomplete.new(params, origin_fields, model_info.filter_fields)
+      render :json => Autocomplete::BaseSerializer.new(@items)
     end
 
-    # todo another action for related
+    def link_autocomplete
+      authorize! :read, model_class
+      init_search Search::Conditions::Autocomplete.new(params, origin_fields, model_info.filter_fields)
+      render :json => Autocomplete::LinkSerializer.new(@items, params[:parent], params[:parent_id])
+    end
+
     def index
       authorize! :read, model_class
-      is_related_list = !!params[:parent]
-      search_conditions = Search::ListConditions.new(params, origin_fields)
-      @searcher = Search::Searcher.new model_info
-      @items = @searcher.search search_conditions, is_related_list
-      @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
+      init_search Search::Conditions::List.new(params, origin_fields)
+      init_sortable_service
       respond_to do |format|
-        format.html { is_related_list ? render_template('related_index') : render_template }
+        format.html { render_template }
+        format.json { render :json => @items }
+      end
+    end
+
+    def related_index
+      authorize! :read, model_class
+      init_search Search::Conditions::RelatedList.new(params, origin_fields)
+      init_sortable_service
+      @parent_model_info = RademadeAdmin::Model::Graph.instance.model_info(params[:parent])
+      @parent = @parent_model_info.model.find(params[:parent_id])
+      respond_to do |format|
+        format.html { render_template }
         format.json { render :json => @items }
       end
     end
@@ -73,18 +84,16 @@ module RademadeAdmin
       render_template
     end
 
-    def unlink_relation
-      item = find_item(params[:id])
-      unlink(item)
-      item.save
-      success_unlink item
+    def link_relation
+      linker = Linker.new(model_info, params[:parent], params[:parent_id])
+      item = linker.link(params[:id])
+      success_link item
     end
 
-    def link_relation
-      item = find_item(params[:id])
-      link(item)
-      item.save
-      success_link item
+    def unlink_relation
+      linker = Linker.new(model_info, params[:parent], params[:parent_id])
+      item = linker.unlink(params[:id])
+      success_unlink item
     end
 
     def show
@@ -103,7 +112,7 @@ module RademadeAdmin
     end
 
     def re_sort
-      @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
+      init_sortable_service
       @sortable_service.re_sort_items
       success_action
     end
@@ -116,6 +125,15 @@ module RademadeAdmin
 
     def render_template(template = action_name)
       render abstract_template(template)
+    end
+
+    def init_search(search_conditions)
+      @searcher = Search::Searcher.new model_info
+      @items = @searcher.search search_conditions
+    end
+
+    def init_sortable_service
+      @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
     end
 
   end

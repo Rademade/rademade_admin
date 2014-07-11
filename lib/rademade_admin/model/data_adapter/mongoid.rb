@@ -12,6 +12,10 @@ module RademadeAdmin
           @model.reflect_on_association(name)
         end
 
+        def many_relation?(field)
+          reflect_on_association(field).try(:many?)
+        end
+
         def association_foreign_key(relation)
           rel_name = relation.name.to_s
           if relation.many?

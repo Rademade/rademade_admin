@@ -1,5 +1,4 @@
 module RademadeAdmin
-
   class DashboardController < RademadeAdmin::AbstractController
 
     skip_before_action :require_login, :only => [:login]

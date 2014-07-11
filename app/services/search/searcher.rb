@@ -6,12 +6,12 @@ module RademadeAdmin
         @model_info = model_info
       end
 
-      def search(search_conditions, is_related_list = false)
-        query_adapter.apply_conditions(search_conditions, is_related_list)
+      def search(search_conditions)
+        query_adapter.apply_conditions(search_conditions)
       end
 
       def query_adapter
-        @query_adapter ||= "RademadeAdmin::Search::#{@model_info.model_reflection.orm_type}".constantize.new(@model_info.model)
+        @query_adapter ||= "RademadeAdmin::Search::QueryAdapter::#{@model_info.model_reflection.orm_type}".constantize.new(@model_info.model)
       end
 
     end

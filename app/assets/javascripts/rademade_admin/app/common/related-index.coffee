@@ -1,17 +1,3 @@
-getUrlParams = ->
-  pl = /\+/g
-  search = /([^&=]+)=?([^&]*)/g
-
-  decode = (s) ->
-    decodeURIComponent s.replace(pl, " ")
-
-  query = window.location.search.substring(1)
-  urlParams = {}
-  urlParams[decode(match[1])] = decode(match[2]) while match = search.exec(query)
-
-  urlParams
-
-
 initSelect = ->
   $item = $('.select2-add-link')
   url = $item.data('relListUrl')
@@ -30,23 +16,18 @@ initSelect = ->
     ajax :
       url : url
       dataType : 'json'
-      data : (term) -> {q: term}
-      results : (data) -> {results: data}
+      data : (term) -> {q : term}
+      results : (data) -> {results : data}
   ).on 'change', (e) ->
-    sendNew(e.added)
+    sendNew(e.added.link_url)
 
 
-sendNew = (added) ->
+sendNew = (linkUrl) ->
   $.ajax
-    url : ajax_link(added.id)
+    url : linkUrl
     type : 'PUT'
-    data : getUrlParams()
     success : ->
       location.reload()
-
-
-ajax_link = (id) ->
-  location.href.substring(0, location.href.indexOf(location.search)) + '/' + id + '/link_relation'
 
 
 $ ->

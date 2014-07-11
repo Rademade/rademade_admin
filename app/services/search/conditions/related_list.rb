@@ -3,7 +3,12 @@ require 'search/conditions/abstract'
 module RademadeAdmin
   module Search
     module Conditions
-      class List < Abstract
+      class RelatedList < Abstract
+
+        def base_condition(model)
+          model_related_name = model.to_s.demodulize.pluralize.downcase.to_sym
+          @params[:parent].constantize.find(@params[:parent_id]).send(model_related_name)
+        end
 
         protected
 

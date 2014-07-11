@@ -38,8 +38,7 @@
           <% end %>
           <td>
             <ul class="actions">
-              <li><%= button_to 'Unlink',
-                admin_unlink_uri(item, params[:parent], params[:parent_id]), {
+              <li><%= button_to 'Unlink', admin_unlink_uri(item, params[:parent], params[:parent_id]), {
                 :method => :patch,
                 :form => {:class => 'delete-item-form'}
               } %></li>

@@ -5,7 +5,7 @@ module RademadeAdmin
 
     def create
       begin
-        user = RademadeAdmin::Login.admin( params )
+        user = RademadeAdmin::Login.admin(params)
         sign_in user
         render :json => user, :status => :ok
       rescue RademadeAdmin::Login::Error => e

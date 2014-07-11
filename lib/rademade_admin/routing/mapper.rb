@@ -15,6 +15,8 @@ module RademadeAdmin
 
             collection do
               get :autocomplete
+              get :link_autocomplete
+              get :related_index if parent_resource_actions.include? :index
               patch :re_sort
             end
 
