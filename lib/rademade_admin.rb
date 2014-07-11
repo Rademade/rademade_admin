@@ -21,6 +21,6 @@ require 'rademade_admin/engine'
 
 module RademadeAdmin
   def self.user_class
-    RademadeAdmin::Configuration.user_class || RademadeAdmin::User # todo default working user class
+    RademadeAdmin::Configuration.user_class
   end
 end
