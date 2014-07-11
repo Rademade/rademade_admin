@@ -7,7 +7,6 @@ module RademadeAdmin
           @model.respond_to?(:uploaders) ? @model.uploaders : []
         end
 
-        # todo move to module
         def uploader_fields
           @model.respond_to?(:uploaders) ? @model.uploaders.keys : []
         end

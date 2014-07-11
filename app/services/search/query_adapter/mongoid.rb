@@ -8,16 +8,13 @@ module RademadeAdmin
         protected
 
         def where(where_conditions)
-          # todo
           if defined?(::Mongoid::Paranoia) and @model.ancestors.include? ::Mongoid::Paranoia
             where_conditions[:and][:deleted_at] = nil
           end
           method_map = { :or => :or, :and => :where }
           where_conditions.each do |type, conditions|
             conditions.each do |field, value|
-              if value.is_a? Array
-                field = field.in
-              end
+              field = field.in if value.is_a? Array
               @result = @result.send(method_map[type], field => value)
             end
           end

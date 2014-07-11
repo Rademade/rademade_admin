@@ -34,13 +34,15 @@ module RademadeAdmin::FormHelper
   end
 
   def admin_field_link_to_list(name, model_info, record)
-    related_model = model_info.reflect_on_association(name).class_name
-    uri = admin_model_url_for(related_model, {
-      :action => :related_index,
-      :parent => model_info.model,
-      :parent_id => record.id.to_s
-    })
-    link_to(RademadeAdmin::Model::Graph.instance.model_info(related_model).item_name + ' list', uri)
+    if record.id
+      related_model = model_info.reflect_on_association(name).class_name
+      uri = admin_model_url_for(related_model, {
+        :action => :related_index,
+        :parent => model_info.model,
+        :parent_id => record.id.to_s
+      })
+      link_to(RademadeAdmin::Model::Graph.instance.model_info(related_model).item_name + ' list', uri)
+    end
   end
 
   def admin_field_params(field_params)
