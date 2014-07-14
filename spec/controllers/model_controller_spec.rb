@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe RademadeAdmin::PostsController do
+
   self.controller_class = RademadeAdmin::PostsController
   render_views
 
@@ -9,6 +10,7 @@ describe RademadeAdmin::PostsController do
   end
 
   describe 'GET index' do
+
     before(:each) do
       get :index
     end
@@ -20,9 +22,11 @@ describe RademadeAdmin::PostsController do
     it 'should render right template' do
       expect(response).to render_template('rademade_admin/abstract/index')
     end
+
   end
 
   describe 'GET new' do
+
     before(:each) do
       get :new
     end
@@ -38,9 +42,11 @@ describe RademadeAdmin::PostsController do
     it 'should render right tamplate' do
       expect(response).to render_template('rademade_admin/abstract/new')
     end
+
   end
 
   describe 'POST create' do
+
     before(:each) do
       post :create, data: { headline: 'test headline', text: 'some text' }
     end
@@ -56,9 +62,11 @@ describe RademadeAdmin::PostsController do
     it 'should save without errors' do
       expect(assigns(:item)).to_not be_new_record
     end
+
   end
 
   describe 'PUT update' do
+
     before(:each) do
       post :create, data: { headline: 'test headline', text: 'some text' }
       id = assigns(:item).id
@@ -80,9 +88,11 @@ describe RademadeAdmin::PostsController do
       expect(updated.headline).to eq('new headline')
       expect(updated.text).to eq('new text')
     end
+
   end
 
   describe 'DELETE destroy' do
+
     before(:each) do
       post :create, data: { headline: 'test headline', text: 'some text' }
       id = assigns(:item).id
@@ -105,6 +115,7 @@ describe RademadeAdmin::PostsController do
   end
 
   describe 'GET edit' do
+
     before(:each) do
       post :create, data: { headline: 'test headline', text: 'some text' }
       id = assigns(:item).id
@@ -123,9 +134,11 @@ describe RademadeAdmin::PostsController do
     it 'should render right template' do
       expect(response).to render_template('rademade_admin/abstract/edit')
     end
+
   end
 
   describe 'GET autocomplete' do
+
     before(:each) do
       post :create, data: { headline: 'test headline', text: 'some text' }
       get :autocomplete, q: 'test'
@@ -138,16 +151,18 @@ describe RademadeAdmin::PostsController do
     it 'should return some record' do
       expect(response.body).to include('id')
     end
+
   end
 
   describe 'PATCH re_sort' do
+
     before(:each) do
       post :create, data: { headline: 'first', text: 'first' }
       first_id = assigns(:item).id
       post :create, data: { headline: 'second', text: 'second' }
       second_id = assigns(:item).id
 
-      patch :re_sort, sorted: { '0' => [first_id, "1"], '1' => [second_id, "0"] }, minimum: 0
+      patch :re_sort, sorted: { '0' => [first_id, '1'], '1' => [second_id, '0'] }, minimum: 0
     end
 
     it 'should have status 200' do
@@ -162,9 +177,11 @@ describe RademadeAdmin::PostsController do
     it 'should be "ok"' do
       expect(response.body).to include('ok')
     end
+
   end
 
   describe 'GET form' do
+
     it 'should render right template' do
       get :form
 
@@ -179,17 +196,18 @@ describe RademadeAdmin::PostsController do
 
       expect(response.body).to include('some text')
     end
+
   end
 
   describe 'PATCH unlink_relation' do
+
     before(:each) do
-      user = User.new(email: 'l@r.t', first_name: 'first', last_name: 'second', password: '12345678')
-      user.save
+      user = create :simple_user, email: 'l@r.t', first_name: 'first', last_name: 'second', password: '12345678'
 
       post :create, data: { headline: 'first', text: 'first' }
       post_id = assigns(:item).id
 
-      put :link_relation,     parent_id: user.id.to_s, parent: 'User', id: post_id.to_s
+      put :link_relation, parent_id: user.id.to_s, parent: 'User', id: post_id.to_s
 
       patch :unlink_relation, parent_id: user.id.to_s, parent: 'User', id: post_id.to_s
     end
@@ -198,7 +216,7 @@ describe RademadeAdmin::PostsController do
       expect(response.status).to eq(200)
     end
 
-    it 'should be successfull' do
+    it 'should be successful' do
       expect(response.body).to include('was unlinked from entity!')
     end
 
@@ -207,12 +225,13 @@ describe RademadeAdmin::PostsController do
 
       expect(user.posts).to eq([])
     end
+
   end
 
   describe 'PUT link_relation' do
+
     before(:each) do
-      user = User.new(email: 'l@r.t', first_name: 'first', last_name: 'second', password: '12345678')
-      user.save
+      user = create :simple_user, email: 'l@r.t', first_name: 'first', last_name: 'second', password: '12345678'
 
       post :create, data: { headline: 'first', text: 'first' }
       post_id = assigns(:item).id
@@ -233,9 +252,11 @@ describe RademadeAdmin::PostsController do
 
       expect(post.user).to_not be_nil
     end
+
   end
 
   describe 'GET show' do
+
     before(:each) do
       post :create, data: { headline: 'some headline', text: 'some text' }
       id = assigns(:item).id
@@ -250,5 +271,7 @@ describe RademadeAdmin::PostsController do
     it 'should show item' do
       expect(response.body).to include('some text')
     end
+
   end
+
 end

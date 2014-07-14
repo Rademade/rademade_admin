@@ -8,11 +8,11 @@ module RademadeAdmin
     end
 
     def link(id)
-      process_link { |old_data| old_data << id.to_i }
+      process_link { |old_data| old_data << parse_id(id) }
     end
 
     def unlink(id)
-      process_link { |old_data| old_data - [id.to_i] }
+      process_link { |old_data| old_data - [parse_id(id)] }
     end
 
     private
@@ -23,7 +23,10 @@ module RademadeAdmin
       foreign_key = @parent_model_info.association_foreign_key(association)
       @parent.send(foreign_key + '=', yield(@parent.send(foreign_key)))
       @parent.save
-      @parent
+    end
+
+    def parse_id(id)
+      Float(id) rescue id.to_s
     end
 
   end

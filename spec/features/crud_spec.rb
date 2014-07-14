@@ -1,7 +1,11 @@
 require 'spec_helper'
 
 describe 'CRUD operations', :type => :feature, :js => true do
-  let(:admin) { create(:admin_user) }
+
+  let(:admin) do
+    create :admin_user, :password => '12345678'
+  end
+
   let(:headline) { 'test headline' }
   let(:test_text) { 'some text' }
 
@@ -10,7 +14,7 @@ describe 'CRUD operations', :type => :feature, :js => true do
     visit '/rademade_admin'
 
     fill_in 'data_email', with: admin.email
-    fill_in 'data_password', with: admin.password
+    fill_in 'data_password', with: '12345678'
 
     first('#data_submit_action button').click
     find('#sidebar-nav')
@@ -24,16 +28,18 @@ describe 'CRUD operations', :type => :feature, :js => true do
     click_on 'Create Post'
   end
 
-
   describe 'create entity' do
+
     it 'should create item' do
       visit '/rademade_admin/posts'
 
       expect(page).to have_content headline
     end
+
   end
 
   describe 'update entity' do
+
     it 'should update entity' do
       visit '/rademade_admin/posts'
       click_on 'Edit'
@@ -45,9 +51,11 @@ describe 'CRUD operations', :type => :feature, :js => true do
 
       expect(page).to have_content 'new headline'
     end
+
   end
 
   describe 'delete entity' do
+
     it 'should delete items' do
       visit '/rademade_admin/posts'
 
@@ -58,6 +66,7 @@ describe 'CRUD operations', :type => :feature, :js => true do
 
       expect(page).to_not have_content headline
     end
+
   end
 
 end

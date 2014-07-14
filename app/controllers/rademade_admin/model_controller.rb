@@ -14,7 +14,8 @@ module RademadeAdmin
       saver.create_model
       if saver.save_model
         saver.save_aggregated_data
-        success_insert saver.item
+        @item = saver.item
+        success_insert @item
       else
         render_errors saver.errors
       end
@@ -25,7 +26,8 @@ module RademadeAdmin
       saver = Saver.new(model_info, params)
       if saver.update_model
         saver.save_aggregated_data
-        success_update saver.item
+        @item = saver.item
+        success_update @item
       else
         render_errors saver.errors
       end
@@ -86,14 +88,14 @@ module RademadeAdmin
 
     def link_relation
       linker = Linker.new(model_info, params[:parent], params[:parent_id])
-      item = linker.link(params[:id])
-      success_link item
+      linker.link(params[:id])
+      success_link find_item(params[:id])
     end
 
     def unlink_relation
       linker = Linker.new(model_info, params[:parent], params[:parent_id])
-      item = linker.unlink(params[:id])
-      success_unlink item
+      linker.unlink(params[:id])
+      success_unlink find_item(params[:id])
     end
 
     def show

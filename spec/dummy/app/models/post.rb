@@ -1,6 +1,6 @@
 class Post
   include Mongoid::Document
-  include RademadeAdmin::Sortable
+  include Sortable
 
   belongs_to :user
 

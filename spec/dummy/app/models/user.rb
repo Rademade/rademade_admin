@@ -19,4 +19,8 @@ class User
     self[:encrypted_password]
   end
 
+  def to_s
+    "#{first_name} #{last_name}"
+  end
+
 end
