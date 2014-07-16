@@ -8,7 +8,7 @@
 #= require jquery-ui/ui/slider
 #= require jquery-fileupload/basic
 #= require turbolinks
-#= require select2/select2
+#= require select2
 #= require ckeditor/init
 #= require magnific-popup
 #= require flot/jquery.flot

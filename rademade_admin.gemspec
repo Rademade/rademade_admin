@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
 
   # Public JS assets
   s.add_dependency 'turbolinks'
+  s.add_dependency 'select2-rails'
   s.add_dependency 'jquery-fileupload-rails'
   s.add_dependency 'magnific-popup-rails'
 

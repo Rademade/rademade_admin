@@ -10,6 +10,7 @@ require 'compass-rails'
 
 # js assets
 require 'turbolinks'
+require 'select2-rails'
 require 'jquery-fileupload-rails'
 require 'magnific-popup-rails'
 
