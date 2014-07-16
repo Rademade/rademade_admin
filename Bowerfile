@@ -1,0 +1,16 @@
+assets_path 'assets/javascript'
+
+asset 'underscore'
+asset 'backbone'
+
+asset 'wysihtml5', :github => 'xing/wysihtml5'
+asset 'select2', :github => 'ivaynberg/select2'
+
+# jQuery
+asset 'data-tables', :github => 'DataTables/DataTables'
+asset 'flot', :github => 'flot/flot'
+asset 'knob', :github => 'aterrien/jQuery-Knob'
+asset 'uniform', :github => 'pixelmatrix/uniform'
+asset 'jquery-ui', :github => 'jquery/jquery-ui'
+asset 'bootstrap', :github => 'twbs/bootstrap'
+asset 'bootstrap-datepicker', :github => 'eternicode/bootstrap-datepicker'

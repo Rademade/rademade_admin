@@ -17,10 +17,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir['test/**/*']
 
   s.add_dependency 'rails', '~> 4.0'
-
   s.add_dependency 'kaminari'
-
   s.add_dependency 'carrierwave'
+  s.add_dependency 'bower-rails', '~> 0.7.3'
 
   # Assets
   s.add_dependency 'sass'
@@ -35,9 +34,6 @@ Gem::Specification.new do |s|
 
   # Public JS assets
   s.add_dependency 'turbolinks'
-  s.add_dependency 'jquery-rails'
-  s.add_dependency 'jquery-ui-rails'
-  s.add_dependency 'select2-rails'
   s.add_dependency 'jquery-fileupload-rails'
   s.add_dependency 'magnific-popup-rails'
 
@@ -50,13 +46,14 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan'
   s.add_dependency 'translit'
 
-  # Mongoid gems
+  # Mongoid
   s.add_development_dependency 'mongoid'
   s.add_development_dependency 'mongoid-paranoia'
   s.add_development_dependency 'mongoid_rails_migrations'
   s.add_development_dependency 'mongoid-grid_fs'
   s.add_development_dependency 'mongoid-tree'
 
+  # Test
   s.add_development_dependency 'pry'
   s.add_development_dependency 'rspec', '>= 3'
   s.add_development_dependency 'spork-rails'

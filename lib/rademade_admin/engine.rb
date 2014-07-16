@@ -14,6 +14,8 @@ module RademadeAdmin
       #{config.root}/lib/rademade_admin/**/*.rb
     )
 
+    config.assets.paths << "#{config.root}/vendor/assets/javascript/bower_components"
+
     paths.each do |path|
       Dir[path].each {|f| require f }
     end
