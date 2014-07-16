@@ -41,7 +41,7 @@ module RademadeAdmin::FormHelper
         :parent => model_info.model,
         :parent_id => record.id.to_s
       })
-      link_to(RademadeAdmin::Model::Graph.instance.model_info(related_model).item_name + ' list', uri)
+      link_to(RademadeAdmin::Model::Graph.instance.model_info(related_model).item_name + ' list', uri) if uri
     end
   end
 

@@ -6,6 +6,8 @@ require 'cancan'
 
 require 'bower-rails'
 
+require 'compass-rails'
+
 # js assets
 require 'turbolinks'
 require 'jquery-fileupload-rails'

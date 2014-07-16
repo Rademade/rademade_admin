@@ -11,7 +11,7 @@ RademadeAdmin::Engine.routes.draw do
   get 'login' => 'dashboard#login', :as => 'login'
 
   resources :sessions do
-    delete 'logout', :on => :collection
+    get 'logout', :on => :collection
   end
 
 end
