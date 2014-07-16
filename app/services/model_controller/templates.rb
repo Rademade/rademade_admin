@@ -5,11 +5,11 @@ module RademadeAdmin
       # 15 = "RademadeAdmin::".length
       # 11 = "Controller".length
       # e.g. RademadeAdmin::QuestionAnswer::UsersController to "question_answer/users"
-      self.class.to_s[15..-11].underscore
+      @native_template_folder ||= self.class.to_s[15..-11].underscore
     end
 
     def form_template_path(real = false)
-      abstract_template (real ? '_' : '') + 'form'
+      abstract_template((real ? '_' : '') + 'form')
     end
 
     def abstract_template(template)
