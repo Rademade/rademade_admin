@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 RademadeAdmin::Engine.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'

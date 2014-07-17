@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 module RademadeAdmin
   class Ability
     include CanCan::Ability

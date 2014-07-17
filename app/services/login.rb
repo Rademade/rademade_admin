@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RademadeAdmin
   class Login
     def self.admin(params)

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rademade_admin/routing/mapper'
 require 'formtastic'
 

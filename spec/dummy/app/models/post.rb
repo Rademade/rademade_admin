@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Post
   include Mongoid::Document
   include Sortable

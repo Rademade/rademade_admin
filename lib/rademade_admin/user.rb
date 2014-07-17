@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #todo move to concern/model dir
 module RademadeAdmin
   module UserModule

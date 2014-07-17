@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'bower-rails/performer'
 
 module RademadeAdmin

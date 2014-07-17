@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 
   options do

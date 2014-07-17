@@ -4,6 +4,9 @@ gemspec
 
 gem 'bower-rails', :github => 'Rademade/bower-rails'
 
+# Utility gems used in both development & test environments
+gem 'rake', require: false
+
 group :development, :test do
   gem 'pry'
 end

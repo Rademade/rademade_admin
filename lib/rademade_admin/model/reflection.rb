@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rademade_admin/model/reflection/uploader'
 require 'rademade_admin/model/reflection/data'
 

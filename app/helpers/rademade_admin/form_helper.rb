@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RademadeAdmin::FormHelper
 
   def admin_form(record, model, &block)

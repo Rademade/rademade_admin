@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Sortable
   include RademadeAdmin::Sortable
   extend ActiveSupport::Concern

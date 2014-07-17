@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Autocomplete
   class LinkSerializer < BaseSerializer
 

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RademadeAdmin::UploadPreviewHelper
 
   include ActionView::Helpers::TagHelper

@@ -1,3 +1,4 @@
+#encoding: utf-8
 $:.push File.expand_path('../lib', __FILE__)
 
 require 'rademade_admin/version'
@@ -20,8 +21,8 @@ Gem::Specification.new do |s|
 
   # Assets
   s.add_dependency 'sass'
-  s.add_dependency 'compass'
   s.add_dependency 'sass-rails'
+  s.add_dependency 'compass'
   s.add_dependency 'compass-rails'
   s.add_dependency 'coffee-rails', '~> 4.0.0'
   s.add_dependency 'closure-compiler'

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RademadeAdmin::UriHelper
 
   def admin_link_uri(model, parent, parent_id)

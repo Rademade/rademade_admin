@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 module RademadeAdmin::FieldHelper
 
   def field_to_label(field)

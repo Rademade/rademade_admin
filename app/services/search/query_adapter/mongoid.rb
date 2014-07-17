@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'search/query_adapter/abstract'
 
 module RademadeAdmin

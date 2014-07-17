@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RademadeAdmin::NameHelper
 
   def admin_list_name(model_info = @model_info, suffix = true)
