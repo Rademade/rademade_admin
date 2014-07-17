@@ -9,3 +9,7 @@ services:
 branches:
   only:
     - master
+
+script:
+  - bundle exec rake app:rademade_admin:bower:install
+  - bundle exec rspec spec/
