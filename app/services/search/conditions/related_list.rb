@@ -22,7 +22,7 @@ module RademadeAdmin
 
         def order
           field = @params[:sort] || default_order_field
-          direction = @params[:direction] || :asc
+          direction = @params[:direction].to_sym || :asc
           [{field => direction}]
         end
 

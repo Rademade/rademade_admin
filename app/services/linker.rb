@@ -26,7 +26,7 @@ module RademadeAdmin
     end
 
     def parse_id(id)
-      Float(id) rescue id.to_s
+      Integer(id) rescue id.to_s
     end
 
   end

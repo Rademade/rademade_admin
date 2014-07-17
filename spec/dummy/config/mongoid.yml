@@ -4,3 +4,15 @@ development:
       database: rademade_admin_dev
       hosts:
         - localhost:27017
+test:
+  sessions:
+    default:
+      database: rademade_admin_test
+      hosts:
+        - localhost:27017
+production:
+  sessions:
+    default:
+      database: rademade_admin
+      hosts:
+        - localhost:27017

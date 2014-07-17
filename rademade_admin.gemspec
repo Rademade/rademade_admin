@@ -45,7 +45,6 @@ Gem::Specification.new do |s|
   # Authentication
   s.add_dependency 'devise'
   s.add_dependency 'cancan'
-  s.add_dependency 'translit'
 
   # Mongoid
   s.add_development_dependency 'mongoid'

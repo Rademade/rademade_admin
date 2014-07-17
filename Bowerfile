@@ -14,3 +14,9 @@ asset 'uniform', :github => 'pixelmatrix/uniform'
 asset 'jquery-ui', :github => 'jquery/jquery-ui'
 asset 'bootstrap', :github => 'twbs/bootstrap'
 asset 'bootstrap-datepicker', :github => 'eternicode/bootstrap-datepicker'
+
+# Form
+asset 'jquery-form', :github => 'malsup/form'
+asset 'jquery-serialize', :github => 'macek/jquery-serialize-object'
+asset 'jquery-formrestrict', :github => 'treyhunner/jquery-formrestrict'
+asset 'jquery-validation', :github => 'jzaefferer/jquery-validation'

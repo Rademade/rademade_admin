@@ -26,7 +26,7 @@ module RademadeAdmin
 
             member do
               get :form if parent_resource_actions.include? :edit
-              patch :unlink_relation if parent_resource_actions.include? :update
+              post :unlink_relation if parent_resource_actions.include? :update
               put :link_relation if parent_resource_actions.include? :update
             end
 

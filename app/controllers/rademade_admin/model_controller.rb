@@ -87,15 +87,11 @@ module RademadeAdmin
     end
 
     def link_relation
-      linker = Linker.new(model_info, params[:parent], params[:parent_id])
-      linker.link(params[:id])
-      success_link find_item(params[:id])
+      process_link :link
     end
 
     def unlink_relation
-      linker = Linker.new(model_info, params[:parent], params[:parent_id])
-      linker.unlink(params[:id])
-      success_unlink find_item(params[:id])
+      process_link :unlink
     end
 
     def show
@@ -136,6 +132,12 @@ module RademadeAdmin
 
     def init_sortable_service
       @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
+    end
+
+    def process_link(method)
+      linker = Linker.new(model_info, params[:parent], params[:parent_id])
+      linker.send(method, params[:id])
+      send("success_#{method}", find_item(params[:id]))
     end
 
   end

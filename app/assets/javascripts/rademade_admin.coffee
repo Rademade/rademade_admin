@@ -7,6 +7,12 @@
 #= require jquery-ui/ui/sortable
 #= require jquery-ui/ui/slider
 #= require jquery-fileupload/basic
+#= require jquery-form/jquery.form
+#= require jquery-serialize/jquery.serialize-object
+#= require jquery-formrestrict/jquery.formrestrict
+#= require jquery-validation/src/core
+#= require jquery-validation/src/ajax
+#= require jquery-validation/src/delegate
 #= require turbolinks
 #= require select2
 #= require ckeditor/init
@@ -23,7 +29,6 @@
 #= require bootstrap/dist/js/bootstrap
 #= require bootstrap-datepicker/js/bootstrap-datepicker
 #= require_tree ./rademade_admin/library
-#= require_tree ./rademade_admin/form/library
 #= require_tree ./rademade_admin/form
 #= require_tree ./rademade_admin/app
 #= require_tree ./rademade_admin

@@ -24,6 +24,7 @@ require File.expand_path('../../spec/dummy/config/environment', __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'capybara-webkit'
 require 'database_cleaner'
 require 'factory_girl_rails'
 
