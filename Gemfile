@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'bower-rails', :github => 'Rademade/bower-rails'
+
 group :development, :test do
   gem 'pry'
 end

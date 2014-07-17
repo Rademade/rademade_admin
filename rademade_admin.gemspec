@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 4.0'
   s.add_dependency 'kaminari'
   s.add_dependency 'carrierwave'
-  s.add_dependency 'bower-rails', '~> 0.7.3'
 
   # Assets
   s.add_dependency 'sass'
@@ -25,9 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails'
   s.add_dependency 'compass-rails'
   s.add_dependency 'coffee-rails', '~> 4.0.0'
-  s.add_dependency 'uglifier', '>= 1.3.0'
   s.add_dependency 'closure-compiler'
-  s.add_dependency 'yui-compressor'
   s.add_dependency 'sprockets', '~> 2.11'
 
   # Public JS assets
