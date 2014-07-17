@@ -74,6 +74,7 @@ window.FormAjaxSubmit = ($form) ->
     # It finds all 'array' members of data hash,
     # and splits their values by ',', cleaning all
     # non-space characters.
+    #todo extract. All class need super refactoring. Sergey, you can do it :)
     for memb of items.data
       array = items.data[memb]
       if $.isArray(array)
@@ -85,6 +86,9 @@ window.FormAjaxSubmit = ($form) ->
             newArray = $.merge(newArray, cleanVal.split(','))
 
         items.data[memb] = if newArray.length is 0 then [''] else newArray
+
+    input_method = @_$form.find('input[name="_method"]')
+    items['_method'] = input_method.val() if input_method instanceof jQuery
 
     $.ajax(
       url: @_$form.attr('action')
