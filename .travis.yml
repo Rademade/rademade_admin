@@ -15,5 +15,6 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
 
 script:
+  - xvfb-run
   - bundle exec rake app:rademade_admin:bower:install
   - bundle exec rspec spec/
