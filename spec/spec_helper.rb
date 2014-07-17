@@ -29,7 +29,7 @@ require 'database_cleaner'
 require 'factory_girl_rails'
 
 FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
-FactoryGirl.find_definitions
+FactoryGirl.reload
 
 Capybara.javascript_driver = :webkit
 Capybara.default_wait_time = 10

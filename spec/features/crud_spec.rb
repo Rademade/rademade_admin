@@ -17,7 +17,6 @@ describe 'CRUD operations', :type => :feature, :js => true do
     fill_in 'data_password', with: '12345678'
 
     first('#data_submit_action button').click
-    find('#sidebar-nav')
 
     # create test item
     visit '/rademade_admin/posts/new'

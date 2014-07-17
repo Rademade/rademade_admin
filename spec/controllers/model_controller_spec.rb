@@ -39,7 +39,7 @@ describe RademadeAdmin::PostsController do
       expect(assigns(:item)).to be_new_record
     end
 
-    it 'should render right tamplate' do
+    it 'should render right template' do
       expect(response).to render_template('rademade_admin/abstract/new')
     end
 
@@ -55,7 +55,7 @@ describe RademadeAdmin::PostsController do
       expect(response.status).to eq(200)
     end
 
-    it 'should be successfull' do
+    it 'should be successful' do
       expect(response.body).to include('was inserted!')
     end
 
@@ -78,7 +78,7 @@ describe RademadeAdmin::PostsController do
       expect(response.status).to eq(200)
     end
 
-    it 'should be successfull' do
+    it 'should be successful' do
       expect(response.body).to include('was updated!')
     end
 
@@ -243,7 +243,7 @@ describe RademadeAdmin::PostsController do
       expect(response.status).to eq(200)
     end
 
-    it 'should be successfull' do
+    it 'should be successful' do
       expect(response.body).to include('was linked to entity!')
     end
 

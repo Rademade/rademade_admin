@@ -1,9 +1,7 @@
 $:.push File.expand_path('../lib', __FILE__)
 
-# Maintain your gem's version:
 require 'rademade_admin/version'
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = 'rademade_admin'
   s.version     = RademadeAdmin::VERSION
@@ -34,8 +32,6 @@ Gem::Specification.new do |s|
 
   # Public JS assets
   s.add_dependency 'turbolinks'
-  s.add_dependency 'select2-rails'
-  s.add_dependency 'jquery-fileupload-rails'
   s.add_dependency 'magnific-popup-rails'
 
   # Admin
@@ -45,23 +41,5 @@ Gem::Specification.new do |s|
   # Authentication
   s.add_dependency 'devise'
   s.add_dependency 'cancan'
-
-  # Mongoid
-  s.add_development_dependency 'mongoid'
-  s.add_development_dependency 'mongoid-paranoia'
-  s.add_development_dependency 'mongoid_rails_migrations'
-  s.add_development_dependency 'mongoid-grid_fs'
-  s.add_development_dependency 'mongoid-tree'
-
-  # Test
-  s.add_development_dependency 'pry'
-  s.add_development_dependency 'rspec', '>= 3'
-  s.add_development_dependency 'spork-rails'
-  s.add_development_dependency 'rspec-rails', '3.0.0'
-  s.add_development_dependency 'capybara'
-  s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'capybara-webkit'
-  s.add_development_dependency 'factory_girl_rails'
-  s.add_development_dependency 'simplecov'
 
 end

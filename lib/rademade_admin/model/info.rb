@@ -93,9 +93,9 @@ module RademadeAdmin
 
       def default_field_type(field)
         if @model_reflection.association_fields.include? field
-          :'rademade_admin/admin_select'
+          'rademade_admin/admin_select'
         elsif @model_reflection.uploader_fields.include? field
-          :'rademade_admin/admin_file'
+          'rademade_admin/admin_file'
         else
           nil
         end

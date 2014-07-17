@@ -6,7 +6,8 @@
 #= require jquery-ui/ui/resizable
 #= require jquery-ui/ui/sortable
 #= require jquery-ui/ui/slider
-#= require jquery-fileupload/basic
+#= require jquery-fileupload/js/jquery.fileupload
+#= require jquery-fileupload/js/jquery.iframe-transport
 #= require jquery-form/jquery.form
 #= require jquery-serialize/jquery.serialize-object
 #= require jquery-formrestrict/jquery.formrestrict
@@ -16,7 +17,7 @@
 #= require turbolinks
 #= require select2
 #= require ckeditor/init
-#= require magnific-popup
+#= require magnific-popup/dist/jquery.magnific-popup
 #= require flot/jquery.flot
 #= require flot/jquery.flot.resize
 #= require flot/jquery.flot.stack

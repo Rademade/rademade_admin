@@ -1,7 +1,8 @@
 /*
- *= require         jquery.fileupload-ui
- *= require         select2
- *= require_tree    ./rademade_admin
+ *= require jquery-fileupload/css/jquery.fileupload-ui
+ *= require select2/select2
+ *= require magnific-popup/dist/magnific-popup
+ *= require_tree ./rademade_admin
  */
 
 .cke_chrome {
