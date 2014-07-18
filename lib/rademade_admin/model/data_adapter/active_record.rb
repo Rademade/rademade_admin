@@ -18,11 +18,12 @@ module RademadeAdmin
         end
 
         def association_foreign_key(relation)
-          assoc_key = relation.association_foreign_key
+          assoc_key = relation.name.to_s
           if relation.collection?
-            assoc_key += 's'
+            assoc_key.singularize.foreign_key.pluralize
+          else
+            assoc_key.foreign_key
           end
-          assoc_key
         end
 
         def fields

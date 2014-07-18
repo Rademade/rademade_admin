@@ -7,7 +7,7 @@ module RademadeAdmin
       class RelatedList < Abstract
 
         def base_condition(model)
-          model_related_name = model.to_s.demodulize.pluralize.downcase.to_sym
+          model_related_name = model.to_s.tableize.gsub('/', '_').to_sym
           @params[:parent].constantize.find(@params[:parent_id]).send(model_related_name)
         end
 
@@ -23,7 +23,6 @@ module RademadeAdmin
 
         def order
           field = @params[:sort] || default_order_field
-          direction = @params[:direction].to_sym || :asc
           [{field => direction}]
         end
 
@@ -39,6 +38,14 @@ module RademadeAdmin
 
         def default_order_field
           @origin_fields.include?('position') ? :position : :id
+        end
+
+        def direction
+          if @params[:direction].present?
+            @params[:direction].to_sym
+          else
+            :asc
+          end
         end
 
       end

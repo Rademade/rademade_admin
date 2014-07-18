@@ -19,7 +19,7 @@ module RademadeAdmin
     private
 
     def process_link
-      related_name = @model_info.model_name.downcase.pluralize.to_sym
+      related_name = @model_info.model_name.tableize.gsub('/', '_').to_sym # todo extract method or better guessing of related name
       association = @parent_model_info.reflect_on_association(related_name)
       foreign_key = @parent_model_info.association_foreign_key(association)
       @parent.send(foreign_key + '=', yield(@parent.send(foreign_key)))
