@@ -18,6 +18,7 @@ describe 'CRUD operations', :type => :feature, :js => true do
     fill_in 'data_password', with: '12345678'
 
     first('#data_submit_action button').click
+    find('#sidebar-nav')
 
     # create test item
     visit '/rademade_admin/posts/new'
@@ -26,6 +27,7 @@ describe 'CRUD operations', :type => :feature, :js => true do
     fill_in 'data_text', with: test_text
 
     click_on 'Create Post'
+    find('.notifier')
   end
 
   describe 'create entity' do
@@ -46,6 +48,7 @@ describe 'CRUD operations', :type => :feature, :js => true do
 
       fill_in 'data_headline', with: 'new headline'
       click_on 'Update Post'
+      find('.notifier')
 
       visit '/rademade_admin/posts'
 
@@ -62,6 +65,7 @@ describe 'CRUD operations', :type => :feature, :js => true do
       page.evaluate_script('window.confirm = function() { return true; }') # accept confirm
 
       click_on 'Destroy'
+      find('.notifier')
       visit current_path
 
       expect(page).to_not have_content headline

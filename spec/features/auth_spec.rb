@@ -15,7 +15,7 @@ describe 'Auth', :type => :feature, :js => true do
 
     it 'should redirect to login page' do
       visit '/rademade_admin'
-      expect(page).to have_content 'Log in'
+      expect(page).to have_content 'LOG IN'
     end
 
     it 'should login with admin user' do
