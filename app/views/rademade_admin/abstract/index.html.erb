@@ -21,12 +21,13 @@
 
         <thead>
             <tr>
-                <% @list_fields.each_with_index do |name, index| %>
-                    <th class="col-md-3 sort-button" data-column="<%= name %>">
+                <% @list_fields.each_with_index do |name, index|
+                    list_field_name = field_name(name)
+                    %><th class="col-md-3 sort-button" data-column="<%= list_field_name %>">
                         <% unless index == 0 %>
                             <span class="line"></span>
                         <% end %>
-                        <span><%= field_to_label(name) + @sortable_service.sorting_sign(name) %></span>
+                        <span><%= field_to_label(name) + @sortable_service.sorting_sign(list_field_name) %></span>
                     </th>
                 <% end %>
 
@@ -39,7 +40,7 @@
 
         <% has_position = @sortable_service.has_position? %>
         <tbody class="table-sortable" data-position='<%= has_position %>'>
-            <% @items.each_with_index do |item, index| %>
+            <% @items.each_with_index do |item| %>
                 <tr<%
                     if has_position
                         %> id='<%= item.position %>'<%
@@ -47,7 +48,7 @@
                 %> data-id='<%= item.id %>'>
                     <% @list_fields.each do |name|
                         %><td><%
-                            value = item.send(name)
+                            value = field_value(name, item)
                             # todo remove hard code, extract helper (data adapter)
                             if value.respond_to? :id
                                 concat link_to value.to_s, admin_edit_uri(value)
