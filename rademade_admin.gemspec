@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   
   # Public JS assets
   s.add_dependency 'turbolinks', '~> 2.2'
-  s.add_dependency 'maagnific-popup-rails', '~> 0.9', '>= 0.9.9'
+  s.add_dependency 'magnific-popup-rails', '~> 0.9', '>= 0.9.9'
 
   # Admin
   s.add_dependency 'formtastic', '~> 2.2'
