@@ -17,7 +17,7 @@ initUploader = ->
   bindFileUploader::uploadError = () ->
     @_hideUploader()
 
-  bindFileUploader::updateUploadProggress = (data) ->
+  bindFileUploader::updateUploadProggress = (e, data) ->
     progress = parseInt(data.loaded / data.total * 100, 10)
     @_setUploadProgress(progress)
 

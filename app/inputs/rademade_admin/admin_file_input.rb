@@ -53,7 +53,7 @@ module RademadeAdmin
       progress_slider = template.content_tag(:div, '', {:class => 'upload-progress'})
       template.content_tag(:div, progress_slider, {
         :class => 'upload-progress-wrapper',
-        :style => 'display:none'
+        :style => 'display:none;clear:both'
       })
     end
 
