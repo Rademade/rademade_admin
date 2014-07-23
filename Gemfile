@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gemspec
 
 # Assets
-gem 'bower-rails'
 gem 'sass-rails'
 
 # Utility gems used in both development & test environments

@@ -6,8 +6,19 @@ describe RademadeAdmin::PostsController do
   self.controller_class = RademadeAdmin::PostsController
   render_views
 
-  before do
-    sign_in FactoryGirl.create(:admin_user)
+  let(:admin) do
+    create :admin_user, :password => '12345678'
+  end
+
+  before(:each) do
+    # login
+    visit '/rademade_admin'
+
+    fill_in 'data_email', with: admin.email
+    fill_in 'data_password', with: '12345678'
+
+    first('#data_submit_action button').click
+    find('#sidebar-nav')
   end
 
   describe 'GET index' do

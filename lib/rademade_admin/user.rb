@@ -3,7 +3,7 @@
 module RademadeAdmin
   module UserModule
 
-    def get_by_email(email)
+    def self.get_by_email(email)
       raise NotImplementedError.new "Implement 'get_by_email' method"
     end
 

@@ -28,6 +28,7 @@ require 'capybara/rails'
 require 'capybara-webkit'
 require 'database_cleaner'
 require 'factory_girl_rails'
+include Capybara::DSL
 
 FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
 FactoryGirl.reload
@@ -58,7 +59,6 @@ RSpec.configure do |config|
   # for controllers testing
   config.include RSpec::Rails::ControllerExampleGroup
   config.infer_base_class_for_anonymous_controllers = false
-  config.include Devise::TestHelpers
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 

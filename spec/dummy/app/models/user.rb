@@ -13,7 +13,7 @@ class User
   field :status, :type => String
 
   def password=(password)
-    super(password) unless password.blank?
+    self[:encrypted_password] = password
   end
 
   def password
