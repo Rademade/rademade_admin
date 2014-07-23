@@ -23,11 +23,12 @@ describe 'Menu', :type => :feature, :js => true do
   end
 
   it 'should have root models' do
-    expect(page).to have_content 'Users'
+    expect(page).to have_content 'User'
+    expect(page).to have_content 'Tag'
   end
 
   it 'should show inner menu items on click' do
-    click_on('Posts')
+    click_on('Post')
     expect(page).to have_content 'Post list'
     expect(page).to have_content 'Tag list'
   end

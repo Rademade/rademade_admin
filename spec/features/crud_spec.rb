@@ -26,7 +26,7 @@ describe 'CRUD operations', :type => :feature, :js => true do
     fill_in 'data_headline', with: headline
     fill_in 'data_text', with: test_text
 
-    click_on 'Create Post'
+    click_on 'Create'
     find('.notifier')
   end
 
@@ -47,7 +47,7 @@ describe 'CRUD operations', :type => :feature, :js => true do
       click_on 'Edit'
 
       fill_in 'data_headline', with: 'new headline'
-      click_on 'Update Post'
+      click_on 'Save changes'
       find('.notifier')
 
       visit '/rademade_admin/posts'

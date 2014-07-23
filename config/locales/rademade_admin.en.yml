@@ -15,6 +15,6 @@ en:
     hello: "Hello"
     file_not_chosen: "File not chosen"
     add_new: "Add new"
-    update: "Update"
+    save: "Save"
     cancel: "Cancel"
     exit: "Exit"

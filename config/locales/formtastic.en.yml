@@ -1,0 +1,26 @@
+en:
+  formtastic:
+    titles:
+      post_details: "Post details"
+    labels:
+      post:
+        title: "Your Title"
+        body: "Write something..."
+        edit:
+          title: "Edit title"
+    hints:
+      post:
+        title: "Choose a good title for your post."
+        body: "Write something inspiring here."
+    placeholders:
+      post:
+        title: "Title your post"
+        slug: "Leave blank for an automatically generated slug"
+      user:
+        email: "you@yours.com"
+    actions:
+      create: "Create"
+      update: "Save changes"
+      reset: "Reset form"
+      cancel: "Cancel"
+      dummie: "Launch!"
