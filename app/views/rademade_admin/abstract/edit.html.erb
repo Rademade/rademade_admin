@@ -1,9 +1,9 @@
 <% content_for :form_last_crumbs do %>
-    <span>Edit</span>
+    <span><%= @item.to_s %></span>
 <% end %>
 
 <% content_for :page_header do %>
-    <h3>Edit "<%=@item.to_s%>"</h3>
+    <h3><%= t('rademade_admin.edit') %> "<%= @item.to_s %>"</h3>
 <% end %>
 
 <%= render :template => 'rademade_admin/_layouts/inner/form' %>

@@ -41,6 +41,10 @@ module RademadeAdmin
         @filter_fields ||= load_filter_fields
       end
 
+      def label_for(field)
+        @model_configuration.field_labels.label_for(field)
+      end
+
       def method_missing(name, *arguments)
         if arguments.empty? and @model_configuration.respond_to? name
           @model_configuration.send(name)

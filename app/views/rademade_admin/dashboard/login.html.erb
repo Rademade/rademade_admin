@@ -1,14 +1,11 @@
 <div class="login-bg">
     <div class="login-wrapper">
-        <img class="logo" src="<%=image_path('rademade_admin/logos/logo-white.png')%>" alt="Rademade.com">
+        <img class="logo" src="<%= image_path('rademade_admin/logos/logo-white.png') %>" alt="Rademade.com">
         <div class="box">
             <div class="content-wrap">
-                <h6>Log in</h6>
-
-                <%=semantic_form_for(RademadeAdmin.user_class.new,
-                                     :url => [:sessions],
-                                     :as => :data,
-                                     :html => { :id => 'login-form'}) do |f|
+                <h6><%= t('rademade_admin.login') %></h6>
+                <%= semantic_form_for(RademadeAdmin.user_class.new, :url => [:sessions],
+                                     :as => :data, :html => { :id => 'login-form' }) do |f|
 
                     concat f.input :email,
                                    :label => false,
@@ -19,12 +16,10 @@
                                    :input_html => {:class => 'form-control'}
 
                     concat f.action :submit,
-                                    :label => 'Log in',
+                                    :label => t('rademade_admin.login'),
                                     :as => :button,
                                     :button_html => {:class => 'btn-glow primary login'}
-
                 end
-
             %></div>
         </div>
     </div>

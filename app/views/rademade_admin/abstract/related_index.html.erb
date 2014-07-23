@@ -1,16 +1,16 @@
 <% content_for :last_crumbs do %>
-  <%= link_to(admin_list_name(@parent_model_info), admin_list_uri(@parent_model_info)) %>
+  <%= link_to(@parent_model_info.item_name, admin_list_uri(@parent_model_info)) %>
   <span class="separator">-></span>
   <%= link_to(@parent, admin_model_url_for(params[:parent], {
     :action => :edit,
     :id => params[:parent_id]
   })) %>
   <span class="separator">-></span>
-  <span><%= admin_list_name(@model_info) %></span>
+  <span><%= @model_info.item_name %></span>
 <% end %>
 
 <% content_for :page_header do %>
-  <h3><%= admin_list_name(@model_info) %> of "<%= @parent %>"</h3>
+  <h3><%= @model_info.item_name %></h3>
 <% end %>
 
 <% content_for :content do %>
@@ -30,7 +30,7 @@
     <thead>
       <tr>
         <% @list_fields.each_with_index do |name, index| %>
-          <th class="col-md-3 sort-button" data-column="<%=name%>">
+          <th class="col-md-3 sort-button" data-column="<%= name %>">
             <% unless index == 0 %>
               <span class="line"></span>
             <% end %>
@@ -40,7 +40,7 @@
 
         <th class="col-md-3 align-right">
           <span class="line"></span>
-          <span>Management</span>
+          <span><%= t('rademade_admin.management') %></span>
         </th>
       </tr>
     </thead>
@@ -66,7 +66,7 @@
           <td>
             <ul class="actions">
               <li>
-                <%= button_to 'Unlink', admin_unlink_uri(item, params[:parent], params[:parent_id]), {
+                <%= button_to t('rademade_admin.unlink'), admin_unlink_uri(item, params[:parent], params[:parent_id]), {
                   :method => :patch,
                   :form => {:class => 'delete-item-form'}
                 } %>

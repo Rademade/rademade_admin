@@ -1,5 +1,5 @@
 <% content_for(:last_crumbs) do %>
-    <%= link_to @item_name + ' list', admin_list_uri(@model_info) %>
+    <%= link_to @item_name, admin_list_uri(@model_info) %>
     <span class="separator">-></span>
     <%= yield(:form_last_crumbs) if content_for?(:form_last_crumbs) %>
 <% end %>

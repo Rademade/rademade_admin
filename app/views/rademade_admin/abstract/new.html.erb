@@ -1,9 +1,9 @@
 <% content_for(:form_last_crumbs) do %>
-    <span>Add</span>
+    <span><%= t('rademade_admin.new_record') %></span>
 <% end %>
 
 <% content_for(:page_header) do %>
-    <h3><%= admin_add_name(@model_info) %></h3>
+    <h3><%= t('rademade_admin.new_record') %></h3>
 <% end %>
 
 <%= render :template => 'rademade_admin/_layouts/inner/form' %>

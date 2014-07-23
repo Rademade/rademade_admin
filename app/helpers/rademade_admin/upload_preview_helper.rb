@@ -16,7 +16,7 @@ module RademadeAdmin::UploadPreviewHelper
   end
 
   def empty_file_html(uploader)
-    content_tag(:span, 'File not chosen', {
+    content_tag(:span, I18n.t('rademade_admin.file_not_chosen'), {
       :class => 'no-file'
     })
   end

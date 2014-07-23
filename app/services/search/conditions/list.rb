@@ -18,7 +18,6 @@ module RademadeAdmin
 
         def order
           field = @params[:sort] || default_order_field
-          direction = @params[:direction] || :asc
           [{field => direction}]
         end
 
@@ -34,6 +33,14 @@ module RademadeAdmin
 
         def default_order_field
           @origin_fields.include?('position') ? :position : :id
+        end
+
+        def direction
+          if @params[:direction].present?
+            @params[:direction].to_sym
+          else
+            :asc
+          end
         end
 
       end

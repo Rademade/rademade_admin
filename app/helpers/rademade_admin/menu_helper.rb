@@ -4,7 +4,7 @@ module RademadeAdmin::MenuHelper
   def main_menu
     @model_infos = RademadeAdmin::Model::Graph.instance.root_models
     menu = collect_children
-    menu.unshift({ :uri => url_for(:root), :name => 'Home', :ico => 'fa fa-home', :sub => [] })
+    menu.unshift({ :uri => url_for(:root), :name => t('rademade_admin.home'), :ico => 'fa fa-home', :sub => [] })
     menu
   end
 

@@ -1,12 +1,8 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::FieldHelper
 
-  def field_to_label(field)
-    if configured_field?(field) and field.values.first[:label].present?
-      field.values.first[:label]
-    else
-      field.to_s.humanize
-    end
+  def field_to_label(field, model_info = @model_info)
+    model_info.label_for(field)
   end
 
   def field_name(field)
@@ -31,13 +27,10 @@ module RademadeAdmin::FieldHelper
     hash_params.delete(:page)
     hash_params[name.to_sym] = number
 
-    options = '?' + hash_params.map do |k, v|
-      "#{k.to_s}=#{v}"
-    end.join('&')
-
+    options = '?' + hash_params.map { |k, v| "#{k.to_s}=#{v}" }.join('&')
     selected = number == request.query_parameters[name.to_sym].to_i
 
-    content_tag(:option, number.to_s, selected: selected, value: request.path+options)
+    content_tag(:option, number.to_s, selected: selected, value: request.path + options)
   end
 
   def input_attr(attrs = {})

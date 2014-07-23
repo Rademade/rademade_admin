@@ -1,5 +1,5 @@
 <%= f.actions :class => 'col-md-12 submit-box' do %>
-    <%= f.action :submit, :button_html => {:class => 'btn-glow primary'} %>
-    <span>OR</span>
-    <%= f.action :cancel, :button_html => {:class => 'reset'} %>
+    <%= f.action :submit, :button_html => {:class => 'btn-glow primary'}, :label => t('rademade_admin.update') %>
+    <span><%= t('rademade_admin.or') %></span>
+    <%= f.action :cancel, :button_html => {:class => 'reset'}, :label => t('rademade_admin.cancel') %>
 <% end %>

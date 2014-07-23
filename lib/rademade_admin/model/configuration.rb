@@ -21,18 +21,26 @@ module RademadeAdmin
         @model_class ||= RademadeAdmin::LoaderService.const_get(model_name)
       end
 
+      def field_labels
+        @field_labels ||= Labels.new
+      end
+
       private
 
       def model(model_name)
         @model_name = model_name
       end
 
-      def item(item_name)
+      def name(item_name)
         @item_name = item_name
       end
 
       def parent_menu(parent_menu_item)
         @parent_menu_item = parent_menu_item
+      end
+
+      def labels(&block)
+        field_labels.init_from_block(&block)
       end
 
       def list(*field_options, &block)

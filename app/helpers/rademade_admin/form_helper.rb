@@ -17,7 +17,7 @@ module RademadeAdmin::FormHelper
   end
 
   def admin_field(form, name, params, model_info, record)
-    attrs = admin_default_params(name).merge(admin_field_params(params))
+    attrs = admin_default_params(name, model_info).merge(admin_field_params(params))
 
     field = form.input(name, input_attr(attrs))
 
@@ -30,8 +30,8 @@ module RademadeAdmin::FormHelper
     concat field + link
   end
 
-  def admin_default_params(name)
-    {:label => field_to_label(name)}
+  def admin_default_params(name, model_info)
+    {:label => field_to_label(name, model_info)}
   end
 
   def admin_field_link_to_list(name, model_info, record)
@@ -42,7 +42,7 @@ module RademadeAdmin::FormHelper
         :parent => model_info.model,
         :parent_id => record.id.to_s
       })
-      link_to(RademadeAdmin::Model::Graph.instance.model_info(related_model).item_name + ' list', uri) if uri
+      link_to(RademadeAdmin::Model::Graph.instance.model_info(related_model).item_name, uri) if uri
     end
   end
 

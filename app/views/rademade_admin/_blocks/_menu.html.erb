@@ -3,7 +3,7 @@
         main_menu.each do |menu_item|
             has_sub_items = (menu_item[:sub].is_a? Array and menu_item[:sub].size > 0)
             if has_sub_items || menu_item[:uri]
-                item_name = menu_item[:name] || admin_list_name(menu_item[:model_info], false)
+                item_name = menu_item[:name] || menu_item[:model_info].item_name
                 is_active = active?(menu_item)
                 %><li<%
                     if is_active
@@ -34,7 +34,7 @@
                         %><ul class="submenu"><%
                             concat render 'rademade_admin/_blocks/sub_menu/link', {
                                 :uri => admin_list_uri(menu_item[:model_info]),
-                                :title => admin_list_name(menu_item[:model_info])
+                                :title => menu_item[:model_info].item_name
                             }
                             concat render 'rademade_admin/_blocks/sub_menu', :menu_item => menu_item
                         %></ul><%
