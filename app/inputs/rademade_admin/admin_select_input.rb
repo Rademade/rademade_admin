@@ -25,7 +25,7 @@ module RademadeAdmin
     end
 
     def input_value
-      object_reflection = builder.object.send(reflection_name)
+      object_reflection = model.send(reflection_name)
       if multiple?
         object_reflection.pluck(:id).map(&:to_s).join(',')
       else
@@ -59,8 +59,9 @@ module RademadeAdmin
       if related_with_model?
         data.merge!({
           'rel-multiple' => multiple?.to_s,
-          'rel-class'    => reflection_class,
-          'rel-list-url' => admin_autocomplete_uri(reflection_class, format: :json)
+          'rel-class' => reflection_class,
+          'search-url' => admin_autocomplete_uri(reflection_class, format: :json),
+          'related-url' => admin_related_item(model, connected_to, method)
         })
       end
       data
@@ -76,6 +77,14 @@ module RademadeAdmin
 
     def reflection_name
       reflection.is_a?(Hash) ? reflection[:name] : reflection.name
+    end
+
+    def model
+      @model ||= builder.object
+    end
+
+    def connected_to
+      @connected_to ||= ::RademadeAdmin::LoaderService.const_get( reflection.class_name )
     end
 
   end

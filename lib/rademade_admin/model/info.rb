@@ -68,7 +68,7 @@ module RademadeAdmin
             field_name = name.to_sym
             @fields_data[field_name] = field
             #!a && !b => !(a || b)
-            unless (UNSAVED_FIELDS.include?(field_name) || @model_reflection.foreign_key?(field))
+            unless UNSAVED_FIELDS.include?(field_name) || @model_reflection.foreign_key?(field)
               @simple_fields << field_name
             end
           end
@@ -96,6 +96,7 @@ module RademadeAdmin
         fields
       end
 
+      # todo move to other class
       def default_field_type(field)
         if @model_reflection.association_fields.include? field
           'rademade_admin/admin_select'

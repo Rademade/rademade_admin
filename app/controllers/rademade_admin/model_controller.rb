@@ -9,6 +9,7 @@ module RademadeAdmin
     include RademadeAdmin::Notifier
 
     before_filter :load_options
+    before_filter :sortable_service, :only => [:index, :related_index]
 
     def create
       authorize! :create, model_class
@@ -56,8 +57,11 @@ module RademadeAdmin
 
     def index
       authorize! :read, model_class
-      init_search Search::Conditions::List.new(params, origin_fields)
-      init_sortable_service
+
+      #Filter
+      conditions = Search::Conditions::List.new(params, origin_fields)
+      @items = Search::Searcher.new(model_info).search( conditions )
+
       respond_to do |format|
         format.html { render_template }
         format.json { render :json => @items }
@@ -66,10 +70,15 @@ module RademadeAdmin
 
     def related_index
       authorize! :read, model_class
-      init_search Search::Conditions::RelatedList.new(params, origin_fields)
-      init_sortable_service
+
+      #Filter
+      conditions = Search::Conditions::RelatedList.new(params, origin_fields)
+      @items = Search::Searcher.new(model_info).search( conditions )
+
+      # Load parent item
       @parent_model_info = RademadeAdmin::Model::Graph.instance.model_info(params[:parent])
       @parent = @parent_model_info.model.find(params[:parent_id])
+
       respond_to do |format|
         format.html { render_template }
         format.json { render :json => @items }
@@ -112,8 +121,7 @@ module RademadeAdmin
     end
 
     def re_sort
-      init_sortable_service
-      @sortable_service.re_sort_items
+      sortable_service.re_sort_items
       success_action
     end
 
@@ -128,12 +136,11 @@ module RademadeAdmin
     end
 
     def init_search(search_conditions)
-      @searcher = Search::Searcher.new model_info
-      @items = @searcher.search search_conditions
+
     end
 
-    def init_sortable_service
-      @sortable_service = RademadeAdmin::SortableService.new(model_info, params)
+    def sortable_service
+      @sortable_service ||= RademadeAdmin::SortableService.new(model_info, params)
     end
 
     def process_link(method)

@@ -7,8 +7,8 @@ module RademadeAdmin
       class RelatedList < Abstract
 
         def base_condition(model)
-          model_related_name = model.to_s.tableize.gsub('/', '_').to_sym
-          @params[:parent].constantize.find(@params[:parent_id]).send(model_related_name)
+          parent = ::RademadeAdmin::LoaderService.const_get( @params[:parent] )
+          parent.find(@params[:parent_id]).send( @params[:via] )
         end
 
         protected

@@ -5,7 +5,8 @@ initSelect = ->
     initItem $(this)
 
 initItem = ($item) ->
-  url = $item.data('relListUrl')
+  searchUrl = $item.data('searchUrl')
+  relatedUrl = $item.data('relatedUrl')
   isMultiple = $item.data('relMultiple')
 
   $item.select2(
@@ -13,25 +14,25 @@ initItem = ($item) ->
     placeholder : 'Enter search phrase'
 
     initSelection : (element, callback) ->
-      ids = element.val().replace(/\s*/g, '').split(',')
-      $.getJSON(url, {search : {id : ids}}).done (data) ->
-        data = if isMultiple then data else data[0]
+      $.getJSON(relatedUrl).done (data) ->
         $item.select2('enable', true)
-        callback(data)
+        callback( isMultiple ? data : data[0] )
         addTable($item) if isMultiple
         hideTags()
 
     ajax :
-      url : url
+      url : searchUrl
       dataType : 'json'
       data : (term) -> {q : term}
       results : (data) -> {results : data}
+
   ).unbind('change').bind 'change', (e) ->
     $select = $(this)
     $table = $select.siblings('.select2-items-list')
     addTable($select) if $table.length is 0
     addItem(e.added, $table)
     hideTags()
+
   $item.select2('enable', false) if $item.val().length > 0
 
 hideTags = ->

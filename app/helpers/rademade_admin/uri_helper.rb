@@ -25,6 +25,17 @@ module RademadeAdmin::UriHelper
     })
   end
 
+  def admin_related_item(model, connected_to, via, opts ={})
+    admin_model_url_for(connected_to, {
+      :action => :related_index
+    }.merge(opts.merge({
+      :parent_id => model.id,
+      :parent => model.class.to_s,
+      :via => via
+    })))
+    #todo wrong params
+  end
+
   def admin_autocomplete_uri(model, opts = {})
     admin_model_url_for(model, {
       :action => :autocomplete
@@ -75,11 +86,10 @@ module RademadeAdmin::UriHelper
     unless model_info.is_a? RademadeAdmin::Model::Info
       model_info = RademadeAdmin::Model::Graph.instance.model_info(model_info)
     end
-    options.merge!(get_id(model_info)) if nested?(model_info)
-    url_options = options.merge({
+    #todo aaaa!
+    admin_url_for(options.merge({
       :controller => model_info.controller
-    })
-    admin_url_for(url_options)
+    }))
   end
 
   def admin_url_for(url_options)

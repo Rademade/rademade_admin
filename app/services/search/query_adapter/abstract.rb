@@ -11,9 +11,11 @@ module RademadeAdmin
         def apply_conditions(search_conditions)
           @params = search_conditions.params
           @result = search_conditions.base_condition(@model)
+
           search_conditions.conditions.each do |query_part, values|
             @result = self.send(query_part, values) unless values.nil?
           end
+
           @result
         end
 
