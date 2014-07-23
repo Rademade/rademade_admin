@@ -16,15 +16,14 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
   s.test_files = Dir['test/**/*']
 
+  # Core dependencies
   s.add_dependency 'rails', '~> 4.0'
   s.add_dependency 'kaminari', '~> 0.16'
   s.add_dependency 'carrierwave', '~> 0.10'
   s.add_dependency 'bower-rails', '~> 0.7'
 
   # Assets
-  s.add_dependency 'sprockets', '~> 2.1'
   s.add_dependency 'sprockets-sass', '~> 1.0'
-  s.add_dependency 'sass', '~> 3.2.0'
   s.add_dependency 'sass-rails', '~> 4.0'
   s.add_dependency 'compass-rails', '~> 1.0'
   s.add_dependency 'coffee-rails', '~> 4.0'

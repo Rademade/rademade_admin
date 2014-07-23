@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 gemspec
 
+# Assets
 gem 'bower-rails', :github => 'Rademade/bower-rails'
+gem 'sass-rails'
 
 # Utility gems used in both development & test environments
 gem 'rake', require: false
