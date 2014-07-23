@@ -3,6 +3,7 @@ module RademadeAdmin
   class ModelController < RademadeAdmin::AbstractController
 
     extend RademadeAdmin::ModelOptions
+
     include RademadeAdmin::InstanceOptions
     include RademadeAdmin::Templates
     include RademadeAdmin::Notifier
@@ -24,7 +25,7 @@ module RademadeAdmin
 
     def update
       authorize! :update, model_class
-      saver = Saver.new(model_info, params)
+      saver = RademadeAdmin::Saver.new(model_info, params)
       if saver.update_model
         saver.save_aggregated_data
         @item = saver.item

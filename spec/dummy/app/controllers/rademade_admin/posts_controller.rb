@@ -2,10 +2,13 @@
 class RademadeAdmin::PostsController < RademadeAdmin::ModelController
 
   options do
-    model 'Post'
-    parent_menu 'User'
     list :headline
-    form :headline, :text, :user
+    form do
+      headline
+      text :text
+      user
+      tags
+    end
   end
 
 end

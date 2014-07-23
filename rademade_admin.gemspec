@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 4.0'
   s.add_dependency 'kaminari', '~> 0.16'
   s.add_dependency 'carrierwave', '~> 0.10'
-  s.add_dependency 'bower-rails', '~> 0.7'
+  s.add_dependency 'bower-rails', '~> 0.8', '>= 0.8.1'
 
   # Assets
   s.add_dependency 'sprockets-sass', '~> 1.0'
@@ -30,7 +30,6 @@ Gem::Specification.new do |s|
   
   # Public JS assets
   s.add_dependency 'turbolinks', '~> 2.2'
-  s.add_dependency 'magnific-popup-rails', '~> 0.9', '>= 0.9.9'
 
   # Admin
   s.add_dependency 'formtastic', '~> 2.2'

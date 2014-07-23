@@ -17,7 +17,6 @@
 #= require turbolinks
 #= require select2
 #= require ckeditor/init
-#= require magnific-popup/dist/jquery.magnific-popup
 #= require flot/jquery.flot
 #= require flot/jquery.flot.resize
 #= require flot/jquery.flot.stack

@@ -11,7 +11,6 @@ require 'compass-rails'
 
 # js assets
 require 'turbolinks'
-require 'magnific-popup-rails'
 
 require 'formtastic'
 require 'ckeditor'

@@ -27,9 +27,9 @@ describe 'Menu', :type => :feature, :js => true do
   end
 
   it 'should show inner menu items on click' do
-    click_on('Users')
+    click_on('Posts')
     expect(page).to have_content 'Post list'
-    expect(page).to have_content 'User list'
+    expect(page).to have_content 'Tag list'
   end
 
 end
