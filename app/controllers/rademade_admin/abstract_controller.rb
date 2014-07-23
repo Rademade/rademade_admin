@@ -5,14 +5,20 @@ module RademadeAdmin
 
     layout 'rademade_admin'
 
-    before_action :require_login
+    before_action :init_user, :require_login
 
     rescue_from ::CanCan::AccessDenied do |exception|
       redirect_to root_url, :alert => exception.message
     end
 
+    protected
+
     def require_login
-      redirect_to :controller => 'dashboard', :action => 'login' unless user_signed_in?
+      redirect_to :controller => 'dashboard', :action => 'login' if @current_user.nil?
+    end
+
+    def init_user
+      @current_user = RademadeAdmin.user_class.find(session[:user_id]) if session[:user_id].present?
     end
 
     def render_errors(errors)

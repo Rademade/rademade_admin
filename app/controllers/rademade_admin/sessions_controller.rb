@@ -4,10 +4,10 @@ module RademadeAdmin
 
     skip_before_action :require_login
 
-    def create
+    def login
       begin
         user = RademadeAdmin::Login.admin(params)
-        sign_in user
+        session[:user_id] = user.id
         render :json => user, :status => :ok
       rescue RademadeAdmin::Login::Error => e
         render :json => {:errors => e.field_messages}, :status => :precondition_failed
@@ -15,7 +15,7 @@ module RademadeAdmin
     end
 
     def logout
-      sign_out current_user
+      session.delete(:user_id)
       redirect_to :controller => 'dashboard', :action => 'login'
     end
 

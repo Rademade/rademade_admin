@@ -34,9 +34,6 @@ Gem::Specification.new do |s|
   # Admin
   s.add_dependency 'formtastic', '~> 2.2'
   s.add_dependency 'ckeditor', '~> 4.0'
-
-  # Authentication
-  s.add_dependency 'devise', '~> 3.2'
   s.add_dependency 'cancan', '~> 1.6', '>= 1.6.8'
 
 end

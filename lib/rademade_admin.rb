@@ -2,11 +2,8 @@
 require 'kaminari'
 require 'carrierwave'
 
-require 'devise'
 require 'cancan'
-
 require 'bower-rails'
-
 require 'compass-rails'
 
 # js assets
