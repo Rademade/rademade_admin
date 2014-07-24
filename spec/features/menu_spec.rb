@@ -9,7 +9,7 @@ describe 'Menu', :type => :feature, :js => true do
 
   before(:each) do
     # login
-    visit '/rademade_admin'
+    visit rademade_admin_path
 
     fill_in 'data_email', with: admin.email
     fill_in 'data_password', with: '12345678'
