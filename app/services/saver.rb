@@ -36,9 +36,8 @@ module RademadeAdmin
 
     def save_model_relations
       data = @params[:data]
-      model_reflection = @model_info.model_reflection
-      model_reflection.relations.each do |name, rel|
-        assoc_key = model_reflection.association_foreign_key(rel)
+      @model_info.relations.each do |name, rel|
+        assoc_key = @model_info.association_foreign_key(rel)
         if data.has_key? assoc_key
           ids = data[assoc_key]
           ids.reject! { |id| id.empty? } if ids.kind_of?(Array)
@@ -49,7 +48,7 @@ module RademadeAdmin
 
     def save_model_uploads
       data = @params[:data]
-      @model_info.model_reflection.uploaders.each do |name, _|
+      @model_info.uploaders.each do |name, _|
         if data.has_key?(name) and not data[name].blank?
           image_path = CarrierWave.root + data[name].to_s
           setter_method = (name.to_s + '=').to_sym

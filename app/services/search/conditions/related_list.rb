@@ -6,12 +6,18 @@ module RademadeAdmin
     module Conditions
       class RelatedList < Abstract
 
+        attr_reader :item
+
         def base_condition(model)
-          parent = ::RademadeAdmin::LoaderService.const_get( @params[:parent] )
-          parent.find(@params[:parent_id]).send( @params[:via] )
+          @item.send( @params[:method] )
         end
 
         protected
+
+        def initialize(item, params, origin_fields)
+          @item = item
+          super(params, origin_fields)
+        end
 
         def where
           where_conditions = Where.new(:and)

@@ -16,19 +16,22 @@ module RademadeAdmin
 
             collection do
               get :autocomplete
-              get :link_autocomplete
-              get :related_index if parent_resource_actions.include? :index
-              patch :re_sort
+              patch :sort
             end
 
             new do
-              get :form
-            end if parent_resource_actions.include? :new
+              get :form if parent_resource_actions.include? :new
+            end
 
             member do
               get :form if parent_resource_actions.include? :edit
-              post :unlink_relation if parent_resource_actions.include? :update
-              put :link_relation if parent_resource_actions.include? :update
+
+              scope 'related/:relation' do
+                get '/' => :related
+                post '/' => :related_add
+                delete ':related_id' => :related_destroy
+              end
+
             end
 
             Model::Graph.instance.add_pair(@scope[:controller], self.shallow?)

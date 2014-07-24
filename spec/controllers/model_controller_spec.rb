@@ -163,7 +163,7 @@ describe RademadeAdmin::PostsController do
       post :create, data: { headline: 'second', text: 'second' }
       second_id = assigns(:item).id
 
-      patch :re_sort, sorted: { '0' => [first_id, '1'], '1' => [second_id, '0'] }, minimum: 0
+      patch :sort, sorted: { '0' => [first_id, '1'], '1' => [second_id, '0'] }, minimum: 0
     end
 
     it 'should have status 200' do

@@ -12,6 +12,7 @@ module RademadeAdmin
         end
 
         def add(field, value)
+          #todo add =, <=, >=, !=
           @parts << {
             :field => field,
             :value => value

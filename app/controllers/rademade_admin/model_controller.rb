@@ -38,7 +38,7 @@ module RademadeAdmin
 
     def destroy
       authorize! :destroy, model_class
-      @item = find_item(params[:id])
+      @item = model.info(params[:id])
       @item.delete if @item
       success_delete @item
     end
@@ -47,12 +47,6 @@ module RademadeAdmin
       authorize! :read, model_class
       init_search Search::Conditions::Autocomplete.new(params, origin_fields, model_info.filter_fields)
       render :json => Autocomplete::BaseSerializer.new(@items)
-    end
-
-    def link_autocomplete
-      authorize! :read, model_class
-      init_search Search::Conditions::Autocomplete.new(params, origin_fields, model_info.filter_fields)
-      render :json => Autocomplete::LinkSerializer.new(@items, params[:parent], params[:parent_id])
     end
 
     def index
@@ -68,23 +62,6 @@ module RademadeAdmin
       end
     end
 
-    def related_index
-      authorize! :read, model_class
-
-      #Filter
-      conditions = Search::Conditions::RelatedList.new(params, origin_fields)
-      @items = Search::Searcher.new(model_info).search( conditions )
-
-      # Load parent item
-      @parent_model_info = RademadeAdmin::Model::Graph.instance.model_info(params[:parent])
-      @parent = @parent_model_info.model.find(params[:parent_id])
-
-      respond_to do |format|
-        format.html { render_template }
-        format.json { render :json => @items }
-      end
-    end
-
     def new
       authorize! :create, model_class
       @item = model_info.model.new
@@ -93,21 +70,40 @@ module RademadeAdmin
 
     def edit
       authorize! :update, model_class
-      @item = find_item(params[:id])
+      @item = model.find(params[:id])
       render_template
     end
 
-    def link_relation
-      process_link :link
+    def related
+      authorize! :read, model_class
+
+      #Filter
+      @item = model.find(params[:id])
+      @items = Search::Related.new(@item, model_info, params[:relation]).find(params)
+
+      respond_to do |format|
+        format.html { render_template }
+        format.json { render :json => @items }
+      end
     end
 
-    def unlink_relation
-      process_link :unlink
-    end
+    #def process_link(method)
+    #  linker = Linker.new(model_info, params[:parent], params[:parent_id])
+    #  linker.send(method, params[:id])
+    #  send("success_#{method}", find_item(params[:id]))
+    #end
+    #
+    #def link_relation
+    #  process_link :link
+    #end
+    #
+    #def unlink_relation
+    #  process_link :unlink
+    #end
 
     def show
       authorize! :read, model_class
-      @item = find_item(params[:id])
+      @item = model.find(params[:id])
       respond_to do |format|
         format.html { redirect_to :action => 'index' }
         format.json { render :json => @item }
@@ -116,37 +112,27 @@ module RademadeAdmin
 
     def form
       authorize! :read, model_class
-      @item = params[:id].blank? ? model_info.model.new : find_item(params[:id])
+      @item = params[:id].blank? ? model.new : model.find(params[:id])
       render form_template_path(true), :layout => false
     end
 
-    def re_sort
-      sortable_service.re_sort_items
+    def sort
+      sortable_service.sort_items
       success_action
     end
 
     protected
 
-    def find_item(id)
-      model_info.model.find(id)
+    def model
+      @model ||= model_info.model
     end
 
     def render_template(template = action_name)
       render abstract_template(template)
     end
 
-    def init_search(search_conditions)
-
-    end
-
     def sortable_service
       @sortable_service ||= RademadeAdmin::SortableService.new(model_info, params)
-    end
-
-    def process_link(method)
-      linker = Linker.new(model_info, params[:parent], params[:parent_id])
-      linker.send(method, params[:id])
-      send("success_#{method}", find_item(params[:id]))
     end
 
   end

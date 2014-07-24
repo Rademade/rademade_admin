@@ -26,6 +26,7 @@ module RademadeAdmin::UriHelper
   end
 
   def admin_related_item(model, connected_to, via, opts ={})
+    #todo move to relation service
     admin_model_url_for(connected_to, {
       :action => :related_index
     }.merge(opts.merge({
@@ -33,7 +34,6 @@ module RademadeAdmin::UriHelper
       :parent => model.class.to_s,
       :via => via
     })))
-    #todo wrong params
   end
 
   def admin_autocomplete_uri(model, opts = {})
