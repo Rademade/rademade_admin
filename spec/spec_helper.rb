@@ -26,15 +26,19 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara-webkit'
+require 'capybara-screenshot'
+require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 require 'factory_girl_rails'
-include Capybara::DSL
 
 FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
 FactoryGirl.reload
 
 Capybara.javascript_driver = :webkit
 Capybara.default_wait_time = 10
+Capybara.automatic_reload = false
+
+Capybara::Screenshot.autosave_on_failure = false
 
 Coveralls.wear!
 
@@ -56,11 +60,13 @@ Coveralls.wear!
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
+  config.include Capybara::DSL
+  config.include Rails.application.routes.url_helpers
   # for controllers testing
   config.include RSpec::Rails::ControllerExampleGroup
   config.infer_base_class_for_anonymous_controllers = false
-# The settings below are suggested to provide a good initial experience
-# with RSpec, but feel free to customize to your heart's content.
+  # The settings below are suggested to provide a good initial experience
+  # with RSpec, but feel free to customize to your heart's content.
 
   # These two settings work together to allow you to limit a spec run
   # to individual examples or groups you care about by tagging them with

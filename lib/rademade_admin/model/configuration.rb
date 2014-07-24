@@ -14,7 +14,7 @@ module RademadeAdmin
       end
 
       def item_name
-        @item_name ||= model_name.underscore.gsub('/', '_').humanize
+        @item_name ||= model_name.underscore.gsub('/', '_').humanize.pluralize
       end
 
       def model_class

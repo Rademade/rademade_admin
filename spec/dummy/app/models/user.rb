@@ -12,12 +12,20 @@ class User
   field :admin, :type => Boolean, :default => false
   field :status, :type => String
 
+  def self.get_by_email(email)
+    self.where(:email => email).first
+  end
+
   def password=(password)
     self[:encrypted_password] = password
   end
 
   def password
     self[:encrypted_password]
+  end
+
+  def valid_password?(password)
+    self[:encrypted_password] == password
   end
 
   def to_s
