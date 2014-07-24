@@ -25,27 +25,10 @@ module RademadeAdmin::UriHelper
     })
   end
 
-  def admin_related_item(model, connected_to, via, opts ={})
-    #todo move to relation service
-    admin_model_url_for(connected_to, {
-      :action => :related_index
-    }.merge(opts.merge({
-      :parent_id => model.id,
-      :parent => model.class.to_s,
-      :via => via
-    })))
-  end
-
   def admin_autocomplete_uri(model, opts = {})
-    admin_model_url_for(model, {
+    admin_model_url_for(model, opts.merge({
       :action => :autocomplete
-    }.merge(opts))
-  end
-
-  def admin_link_autocomplete_uri(model, opts = {})
-    admin_model_url_for(model, {
-      :action => :link_autocomplete
-    }.merge(opts))
+    }))
   end
 
   def admin_new_uri(model)
@@ -60,49 +43,50 @@ module RademadeAdmin::UriHelper
     })
   end
 
-  def admin_edit_uri(model)
-    entity_url(model, :edit)
-  end
-
-  def admin_edit_form_uri(model)
-    entity_url(model, :form)
-  end
-
-  def admin_delete_uri(model)
-    entity_url(model, :destroy)
-  end
-
   def admin_create_uri(model)
     admin_model_url_for(model, {
       :action => :create
     })
   end
 
-  def admin_update_uri(model)
-    entity_url(model, :update)
+  def admin_edit_uri(model)
+    _entity_url(model, :edit)
   end
 
-  def admin_model_url_for(model_info, options = {})
-    unless model_info.is_a? RademadeAdmin::Model::Info
-      model_info = RademadeAdmin::Model::Graph.instance.model_info(model_info)
-    end
-    #todo aaaa!
-    admin_url_for(options.merge({
-      :controller => model_info.controller
+  def admin_edit_form_uri(model)
+    _entity_url(model, :form)
+  end
+
+  def admin_delete_uri(model)
+    _entity_url(model, :destroy)
+  end
+
+  def admin_update_uri(model)
+    _entity_url(model, :update)
+  end
+
+  def admin_related_item(model, related, opts = {})
+    _entity_url(model, :related, opts.merge({
+      :relation => related
     }))
   end
 
-  def admin_url_for(url_options)
-    url_options = url_options.merge({
+  def admin_model_url_for(model_info, opts = {})
+    admin_url_for(opts.merge({
+      :controller => _real_model_info(model_info).controller
+    }))
+  end
+
+  def admin_url_for(opts)
+    opts = opts.merge({
+      :controller => 'rademade_admin/' + opts[:controller],
       :only_path => true
     })
-    #todo folder of admin controllers
-    url_options[:controller] = 'rademade_admin/' + url_options[:controller]
     begin
-      Rails.application.routes.url_helpers.url_for(url_options)
+      Rails.application.routes.url_helpers.url_for(opts)
     rescue
       begin
-        RademadeAdmin::Engine.routes.url_helpers.url_for(url_options)
+        RademadeAdmin::Engine.routes.url_helpers.url_for(opts)
       rescue
         nil
       end
@@ -111,20 +95,18 @@ module RademadeAdmin::UriHelper
 
   private
 
-  def nested?(model_info)
-    @object and model_info
-  end
-
-  def get_id(model_info)
-    key = model_info.model.to_s.foreign_key
-    { key.to_sym => @object.id }
-  end
-
-  def entity_url(model, action)
-    admin_model_url_for(model.class, {
+  def _entity_url(model, action, opts = {})
+    admin_model_url_for(model.class, opts.merge({
       :action => action,
       :id => model.id
-    })
+    }))
+  end
+
+  def _real_model_info(model_info)
+    unless model_info.is_a? RademadeAdmin::Model::Info
+      model_info = RademadeAdmin::Model::Graph.instance.model_info(model_info)
+    end
+    model_info
   end
 
 end

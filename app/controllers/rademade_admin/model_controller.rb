@@ -9,11 +9,11 @@ module RademadeAdmin
     include RademadeAdmin::Notifier
 
     before_filter :load_options
-    before_filter :sortable_service, :only => [:index, :related_index]
+    before_filter :sortable_service, :only => [:index]
 
     def create
       authorize! :create, model_class
-      saver = Saver.new(model_info, params)
+      saver = RademadeAdmin::Saver.new(model_info, params)
       saver.create_model
       if saver.save_model
         saver.save_aggregated_data
@@ -38,14 +38,15 @@ module RademadeAdmin
 
     def destroy
       authorize! :destroy, model_class
-      @item = model.info(params[:id])
+      @item = model.find(params[:id])
       @item.delete if @item
       success_delete @item
     end
 
     def autocomplete
       authorize! :read, model_class
-      init_search Search::Conditions::Autocomplete.new(params, origin_fields, model_info.filter_fields)
+      conditions = Search::Conditions::Autocomplete.new( params, model_info.fields )
+      @items = Search::Searcher.new(model_info).search( conditions )
       render :json => Autocomplete::BaseSerializer.new(@items)
     end
 
@@ -53,7 +54,7 @@ module RademadeAdmin
       authorize! :read, model_class
 
       #Filter
-      conditions = Search::Conditions::List.new(params, origin_fields)
+      conditions = Search::Conditions::List.new(params, model_info.fields )
       @items = Search::Searcher.new(model_info).search( conditions )
 
       respond_to do |format|
@@ -64,7 +65,7 @@ module RademadeAdmin
 
     def new
       authorize! :create, model_class
-      @item = model_info.model.new
+      @item = model.new
       render_template
     end
 

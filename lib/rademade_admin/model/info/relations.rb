@@ -2,22 +2,36 @@
 module RademadeAdmin
   module Model
     class Info
-      module Relations
+      class Relations
 
-        def relations
-          @model_reflection.relations
+        #@param data_adapter [RademadeAdmin::Model::Adapter::Data]
+        #
+        def initialize(data_adapter)
+          @data_adapter = data_adapter
         end
 
-        def relation_exist?(name)
-
+        # Return array of RademadeAdmin::Model::Info::Relation
+        #
+        # @return [Array]
+        #
+        def all
+          @data_adapter.relations
         end
 
-        def relation(relation)
-
+        # Return status of relation availability
+        #
+        # @param name [String]
+        # @return [Bool]
+        #
+        def exist?(name)
+          @data_adapter.relations_exist? name
         end
 
-        def association_foreign_key(rel)
-          @model_reflection.association_foreign_key(rel)
+        # @param name [String]
+        # @return [RademadeAdmin::Model::Info::Relation]
+        #
+        def relation(name)
+          @data_adapter.relation name
         end
 
       end

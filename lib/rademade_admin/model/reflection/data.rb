@@ -7,39 +7,39 @@ module RademadeAdmin
         ORM_TYPE_ACTIVERECORD = 'ActiveRecord'
         ORM_TYPE_MONGOID = 'Mongoid'
 
-        def association_fields
-          relations.keys.map &:to_sym
+        # Load query adapter for current model
+        #
+        # @return [RademadeAdmin::Model::Adapter::Data]
+        def data_adapter
+          p orm_type
+          @data_adapter ||= "RademadeAdmin::Model::Adapter::Data::#{orm_type}".constantize.new(@model)
         end
 
-        def data_adapter
-          @data_adapter ||= init_data_adapter
+        # Load query adapter for current model
+        #
+        # @return [RademadeAdmin::Model::Adapter::Query]
+        def query_adapter
+          @query_adapter ||= "RademadeAdmin::Model::Adapter::Query::#{orm_type}".constantize.new(@model)
+        end
+
+        protected
+
+        def _model_ancestors
+          @model_ancestors = @model.ancestors.map(&:to_s)
         end
 
         def orm_type
-          @orm_type
-        end
-
-        def method_missing(name, *arguments)
-          if data_adapter.respond_to? name
-            data_adapter.send(name, *arguments)
+          return @orm_type unless @orm_type.nil?
+          orm_list.each do |orm_class, orm_type|
+            @orm_type = orm_type if _model_ancestors.include? orm_class
           end
         end
 
-        private
-
-        def init_data_adapter
-          adapter_map = {
+        def orm_list
+          @orm_list ||= {
             'ActiveRecord::Base' => ORM_TYPE_ACTIVERECORD,
             'Mongoid::Document' => ORM_TYPE_MONGOID
           }
-          included_modules = @model.ancestors.map(&:to_s)
-          adapter_map.each do |ar_class, orm_type|
-            if included_modules.include? ar_class
-              @orm_type = orm_type
-              return "RademadeAdmin::Model::DataAdapter::#{orm_type}".constantize.new(@model)
-            end
-          end
-          nil
         end
 
       end

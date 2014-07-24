@@ -3,36 +3,74 @@ module RademadeAdmin
   module Model
     class Info
 
-      include RademadeAdmin::Model::Info::Relations
-      include RademadeAdmin::Model::Info::Fields
-
-      UNSAVED_FIELDS = [:id, :_id, :created_at, :deleted_at, :position] # todo
-
-      attr_reader :model_reflection
-
+      # Initialization for model info. Model mapper
+      #
+      # @param model_reflection [RademadeAdmin::Model::Reflection]
+      # @param model_configuration [RademadeAdmin::Model::Configuration]
+      #
       def initialize(model_reflection, model_configuration)
         @model_reflection = model_reflection
         @model_configuration = model_configuration
-        super
+      end
+
+      # Return model class
+      #
+      # @return [Object]
+      #
+      def model
+        @model_reflection.model
+      end
+
+      def item_name
+        @model_configuration.item_name
+      end
+
+      def controller
+        @model_configuration.controller_name
+      end
+
+      def nested?
+        @model_reflection.nested?
+      end
+
+      # todo extract menu service Info::Menu
+      def parent_menu_item
+        @model_configuration.parent_menu_item
+      end
+
+      # Fields data class
+      #
+      # @return [RademadeAdmin::Model::Info::Fields]
+      #
+      def fields
+        @model_relations ||= RademadeAdmin::Model::Info::Fields.new( _data_adapter, @model_configuration )
+      end
+
+      # Relation data class
+      #
+      # @return [RademadeAdmin::Model::Info::Relations]
+      #
+      def relations
+        @model_relations ||= RademadeAdmin::Model::Info::Relations.new( _data_adapter )
       end
 
       def uploaders
-        @model_reflection.uploaders
+        @model_reflection.data_adapter.uploaders
       end
 
       def uploader_fields
-        @model_reflection.uploader_fields
+        @model_reflection.data_adapter.uploader_fields
       end
 
-
-      def method_missing(name, *arguments)
-        if arguments.empty? and @model_configuration.respond_to? name
-          @model_configuration.send(name)
-        else
-          @model_reflection.send(name, *arguments)
-        end
+      def query_adapter
+        @model_reflection.query_adapter
       end
 
+      protected
+
+      def _data_adapter
+        @model_reflection.data_adapter
+      end
 
     end
   end

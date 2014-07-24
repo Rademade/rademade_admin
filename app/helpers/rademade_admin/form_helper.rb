@@ -16,42 +16,36 @@ module RademadeAdmin::FormHelper
     )
   end
 
-  def admin_field(form, name, params, model_info, record)
-    attrs = admin_default_params(name, model_info).merge(admin_field_params(params))
-
-    field = form.input(name, input_attr(attrs))
-
-    if model_info.model_reflection.many_relation? name
-      link = admin_field_link_to_list(name, model_info, record).to_s
-    else
-      link = ''
-    end
-
-    concat field + link
+  def admin_field(form, name, params, model_info)
+    field_params = admin_field_params(params, model_info)
+    attrs = admin_default_params(name, model_info).merge( field_params )
+    concat form.input(name, input_attr(attrs))
   end
 
   def admin_default_params(name, model_info)
-    {:label => field_to_label(name, model_info)}
+    {
+      :label => field_to_label(name, model_info)
+    }
   end
 
-  def admin_field_link_to_list(name, model_info, record)
-    if record.id
-      related_model = model_info.reflect_on_association(name).class_name
-      uri = admin_model_url_for(related_model, {
-        :action => :related_index,
-        :parent => model_info.model,
-        :parent_id => record.id.to_s
-      })
-      link_to(RademadeAdmin::Model::Graph.instance.model_info(related_model).item_name, uri) if uri
-    end
-  end
-
-  def admin_field_params(field_params)
-    if field_params.is_a? Hash
-      field_params
+  def admin_field_params(params, model_info)
+    if params.is_a? Hash
+      params
     else
-      {:as => field_params}
+      #todo it's very riskly. Needs more clearer
+      { :as => params }
     end
+  end
+
+  # todo move to other helper!
+  def default_field_type(field)
+    # if @data_adapter.association_fields.include? field
+    #   'rademade_admin/admin_select'
+    # elsif @data_adapter.uploader_fields.include? field
+    #   'rademade_admin/admin_file'
+    # else
+    #   nil
+    # end
   end
 
 end

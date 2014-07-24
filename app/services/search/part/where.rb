@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
   module Search
-    module Conditions
+    module Part
       class Where
 
         attr_reader :type, :parts

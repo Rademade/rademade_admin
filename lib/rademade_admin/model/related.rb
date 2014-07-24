@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  module Search
+  module Model
     class Related
 
       attr_accessor :item, :model_info, :relation

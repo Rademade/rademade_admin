@@ -2,7 +2,7 @@
 module RademadeAdmin::FieldHelper
 
   def field_to_label(field, model_info = @model_info)
-    model_info.label_for(field)
+    model_info.fields.label_for(field)
   end
 
   def field_name(field)

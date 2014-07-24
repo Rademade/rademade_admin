@@ -1,15 +1,17 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  module Search
-    module QueryAdapter
-      class Abstract
+  module Model
+    module Adapter
+      class Query
 
         def initialize(model)
           @model = model
         end
 
-        def apply_conditions(search_conditions)
-          @params = search_conditions.params
+        #
+        # @param search_conditions [RademadeAdmin::Search::Conditions::Abstract]
+        #
+        def exec_query(search_conditions)
           @result = search_conditions.base_condition(@model)
 
           return nil if @result.nil?

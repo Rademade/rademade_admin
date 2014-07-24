@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     class Configuration
 
-      attr_reader :parent_menu_item, :list_fields, :form_fields
+      attr_reader :controller_name, :parent_menu_item, :list_fields, :form_fields
 
       def initialize(controller_name)
         @controller_name = controller_name

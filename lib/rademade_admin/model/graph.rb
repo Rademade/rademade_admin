@@ -10,7 +10,7 @@ module RademadeAdmin
         model = controller.model_class
         unless @model_infos[model.to_s]
           model_reflection = Reflection.new(model, controller_name, controller_full_name, inner)
-          @model_infos[model.to_s] = controller.init_model_info(model_reflection)
+          @model_infos[model.to_s] = Model::Info.new(model_reflection, controller.configuration)
         end
       end
 

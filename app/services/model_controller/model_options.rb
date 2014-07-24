@@ -26,12 +26,6 @@ module RademadeAdmin
       @model_info ||= Model::Graph.instance.model_info(model_class)
     end
 
-    def init_model_info(model_reflection)
-      Model::Info.new(model_reflection, configuration)
-    end
-
-    private
-    
     def configuration
       @configuration ||= Model::Configuration.new(controller_name)
     end

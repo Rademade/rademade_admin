@@ -4,6 +4,11 @@ module RademadeAdmin
 
     attr_reader :item
 
+    # Initialization of model saver class
+    #
+    # @param model_info [RademadeAdmin::Model::Info]
+    # @param params [Hash]
+    #
     def initialize(model_info, params)
       @model_info = model_info
       @params = params
@@ -14,7 +19,7 @@ module RademadeAdmin
     end
 
     def update_model
-      @item = @model_info.model.find(@params[:id])
+      @item = @model_info.model.find( @params[:id] )
       item.update filter_data_params
     end
 
@@ -36,12 +41,12 @@ module RademadeAdmin
 
     def save_model_relations
       data = @params[:data]
-      @model_info.relations.each do |name, rel|
-        assoc_key = @model_info.association_foreign_key(rel)
-        if data.has_key? assoc_key
-          ids = data[assoc_key]
+      @model_info.relations.all.each do |name, relation|
+        setter = relation.setter
+        if data.has_key? setter
+          ids = data[ setter ]
           ids.reject! { |id| id.empty? } if ids.kind_of?(Array)
-          item.send(assoc_key + '=', ids)
+          item.send(setter + '=', ids)
         end
       end
     end
@@ -62,7 +67,7 @@ module RademadeAdmin
     end
 
     def filter_data_params
-      @params.require(:data).permit(@model_info.save_form_fields)
+      @params.require(:data).permit(@model_info.fields.save_form_fields)
     end
 
   end

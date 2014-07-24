@@ -33,7 +33,7 @@ module RademadeAdmin
     end
 
     def has_position?
-      @model_info.has_field? 'position'
+      @model_info.fields.has_field? 'position'
     end
 
   end

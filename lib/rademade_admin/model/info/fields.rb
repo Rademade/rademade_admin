@@ -2,28 +2,43 @@
 module RademadeAdmin
   module Model
     class Info
-      module Fields
+      class Fields
 
-        def initialize(*args)
+        UNSAVED_FIELDS = [:id, :_id, :created_at, :deleted_at, :position] # todo
+
+        attr_reader :data_adapter, :model_configuration
+
+        # Initialize
+        #
+        # @param data_adapter [RademadeAdmin::Model::Adapter::Data]
+        # @param model_configuration [RademadeAdmin::Model::Configuration]
+        #
+        def initialize(data_adapter, model_configuration)
+          @data_adapter = data_adapter
+          @model_configuration = model_configuration
           @initialized = false
         end
 
         def origin_fields
-          @model_reflection.fields.keys + ['id']
+          @data_adapter.fields.keys + ['id']
         end
 
         def list_fields
-          @list_fields ||= @model_configuration.list_fields || simple_fields
+          @list_fields ||= (@model_configuration.list_fields || simple_fields)
         end
 
         def default_form_fields
-          simple_fields + @model_reflection.association_fields
+          simple_fields + @data_adapter.association_fields
         end
 
         def save_form_fields
           @save_form_fields ||= semantic_form_fields.keys
         end
 
+        # Return arrays of fields for semantic form
+        #
+        # @return [Array]
+        #
         def semantic_form_fields
           @semantic_form_fields ||= collected_form_fields
         end
@@ -34,6 +49,10 @@ module RademadeAdmin
 
         def label_for(field)
           @model_configuration.field_labels.label_for(field)
+        end
+
+        def has_field? name
+          @data_adapter.has_field? name
         end
 
         private
@@ -48,11 +67,11 @@ module RademadeAdmin
           unless @initialized
             @fields_data = {}
             @simple_fields = []
-            @model_reflection.fields.each do |name, field|
+            @data_adapter.fields.each do |name, field|
               field_name = name.to_sym
               @fields_data[field_name] = field
               #!a && !b => !(a || b)
-              unless UNSAVED_FIELDS.include?(field_name) || @model_reflection.foreign_key?(field)
+              unless UNSAVED_FIELDS.include?(field_name) || @data_adapter.foreign_key?(field)
                 @simple_fields << field_name
               end
             end
@@ -68,27 +87,7 @@ module RademadeAdmin
         end
 
         def collected_form_fields
-          data = (@model_configuration.form_fields || default_form_fields)
-          fields = {}
-          data.each do |field|
-            if field.is_a? Hash
-              fields.merge! field
-            else
-              fields[field] = default_field_type field
-            end
-          end
-          fields
-        end
-
-        # todo move to other class
-        def default_field_type(field)
-          if @model_reflection.association_fields.include? field
-            'rademade_admin/admin_select'
-          elsif @model_reflection.uploader_fields.include? field
-            'rademade_admin/admin_file'
-          else
-            nil
-          end
+          @model_configuration.form_fields || default_form_fields
         end
 
       end

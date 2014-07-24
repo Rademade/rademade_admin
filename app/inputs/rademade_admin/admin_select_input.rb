@@ -55,16 +55,16 @@ module RademadeAdmin
     end
 
     def reflection_data
-      data = {}
       if related_with_model?
-        data.merge!({
+        {
           'rel-multiple' => multiple?.to_s,
           'rel-class' => reflection_class,
           'search-url' => admin_autocomplete_uri(reflection_class, format: :json),
-          'related-url' => admin_related_item(model, connected_to, method)
-        })
+          'related-url' => admin_related_item(model, method)
+        }
+      else
+        {}
       end
-      data
     end
 
     def reflection_class

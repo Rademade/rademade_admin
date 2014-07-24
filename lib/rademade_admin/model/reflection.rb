@@ -5,8 +5,8 @@ require 'rademade_admin/model/reflection/data'
 module RademadeAdmin
   module Model
     class Reflection
-      include Uploader
-      include Data
+      include RademadeAdmin::Model::Reflection::Uploader
+      include RademadeAdmin::Model::Reflection::Data
 
       attr_reader :model, :controller
 

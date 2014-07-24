@@ -13,16 +13,16 @@ module RademadeAdmin
     end
 
     def load_field_options
-      @list_fields = @model_info.list_fields
-      @semantic_form_fields = @model_info.semantic_form_fields
+      @list_fields = @model_info.fields.list_fields
+      @semantic_form_fields = @model_info.fields.semantic_form_fields
     end
 
     def origin_fields
-      @model_info.origin_fields
+      @model_info.fields.origin_fields
     end
 
     def filter_fields
-      @model_info.filter_fields
+      @model_info.fields.filter_fields
     end
 
     def load_template_options
