@@ -21,6 +21,14 @@ module RademadeAdmin
           @fields = fields
         end
 
+        def find(name)
+          name = name.to_sym
+          field = @fields.select {|field| field.name == name}
+          return nil if field.nil?
+          yield( field ) if block_given?
+          field
+        end
+
         def method_missing(name, *arguments)
           @fields << RademadeAdmin::Model::Configuration::Field.new(name.to_sym, arguments.first)
         end

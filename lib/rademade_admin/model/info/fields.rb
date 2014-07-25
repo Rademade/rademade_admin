@@ -85,8 +85,16 @@ module RademadeAdmin
           @data_adapter.fields.each do |name, data_field|
             field = ::RademadeAdmin::Model::Info::Field.new(name.to_sym)
             field.type = data_field.type
-            field.label = @model_configuration.list_fields
-            # field.form_type
+
+            # Load label
+            # todo
+            @model_configuration.field_labels.find(field.name) do |label|
+              field.label = label
+            end
+
+            @model_configuration.form_fields.
+
+
             # field.label
             #todo add label and :as from configuration
             field.key = @data_adapter.foreign_key?(field)

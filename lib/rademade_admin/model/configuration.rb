@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     class Configuration
 
-      attr_reader :controller_name, :parent_menu_item, :list_fields, :form_fields
+      attr_reader :controller_name, :parent_menu_item
 
       def initialize(controller_name)
         @controller_name = controller_name
@@ -21,6 +21,26 @@ module RademadeAdmin
         @model_class ||= RademadeAdmin::LoaderService.const_get(model_name)
       end
 
+      # Return configured list info
+      #
+      # @return [RademadeAdmin::Model::Configuration::Fields]
+      #
+      def list_fields
+        @list_fields
+      end
+
+      # Return configured fields info
+      #
+      # @return [RademadeAdmin::Model::Configuration::Fields]
+      #
+      def form_fields
+        @form_fields
+      end
+
+      # Return configured fields info
+      #
+      # @return [RademadeAdmin::Model::Configuration::Labels]
+      #
       def field_labels
         @field_labels ||= Labels.new
       end

@@ -17,6 +17,11 @@ module RademadeAdmin
           @labels[name.to_sym] = arguments.first
         end
 
+        def find(name)
+          name = name.to_sym
+
+        end
+
       end
     end
   end
