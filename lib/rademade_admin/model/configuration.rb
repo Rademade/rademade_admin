@@ -51,9 +51,12 @@ module RademadeAdmin
         @form_fields = fields(*field_options, &block)
       end
 
+      # Process given block
+      #
+      # @return [RademadeAdmin::Model::Configuration::Fields]
+      #
       def fields(*field_options, &block)
-        model_fields = block_given? ? Fields.init_from_block(&block) : Fields.init_from_options(field_options)
-        model_fields.fields
+        block_given? ? Fields.init_from_block(&block) : Fields.init_from_options(field_options)
       end
 
     end

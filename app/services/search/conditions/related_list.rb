@@ -14,6 +14,7 @@ module RademadeAdmin
 
         protected
 
+        # todo!
         def initialize(item, params, origin_fields)
           @item = item
           super(params, origin_fields)

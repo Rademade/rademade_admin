@@ -4,7 +4,7 @@ module RademadeAdmin
     class Info
       class Fields
 
-        UNSAVED_FIELDS = [:id, :_id, :created_at, :deleted_at, :position] # todo
+         # todo
 
         attr_reader :data_adapter, :model_configuration
 
@@ -12,10 +12,12 @@ module RademadeAdmin
         #
         # @param data_adapter [RademadeAdmin::Model::Adapter::Data]
         # @param model_configuration [RademadeAdmin::Model::Configuration]
+        # @param relations [RademadeAdmin::Model::Info::Relations]
         #
-        def initialize(data_adapter, model_configuration)
+        def initialize(data_adapter, model_configuration, relations)
           @data_adapter = data_adapter
           @model_configuration = model_configuration
+          @relations = relations
           @initialized = false
         end
 
@@ -44,7 +46,9 @@ module RademadeAdmin
         end
 
         def filter_fields
-          @filter_fields ||= load_filter_fields
+          @filter_fields ||= list_fields.select do |field|
+            field.type == String
+          end
         end
 
         def label_for(field)
@@ -55,34 +59,44 @@ module RademadeAdmin
           @data_adapter.has_field? name
         end
 
-        private
+        def list
+          # filter all
+        end
+
+        def form
+          # filter form
+        end
+
+        def all
+          # merge simple + relations
+        end
 
         def simple_fields
-          init_model_fields
           @simple_fields
         end
 
-        # todo need refactor
-        def init_model_fields
-          unless @initialized
-            @fields_data = {}
-            @simple_fields = []
-            @data_adapter.fields.each do |name, field|
-              field_name = name.to_sym
-              @fields_data[field_name] = field
-              #!a && !b => !(a || b)
-              unless UNSAVED_FIELDS.include?(field_name) || @data_adapter.foreign_key?(field)
-                @simple_fields << field_name
-              end
-            end
-            @initialized = true
+        # Return array of collected RademadeAdmin::Model::Info::Field
+        #
+        # @return [Array]
+        #
+        def _fields
+          return @fields if @fields.is_a? Array
+          @fields = []
+          @data_adapter.fields.each do |name, data_field|
+            field = ::RademadeAdmin::Model::Info::Field.new(name.to_sym)
+            field.type = data_field.type
+            field.label = @model_configuration.list_fields
+            # field.form_type
+            # field.label
+            #todo add label and :as from configuration
+            field.key = @data_adapter.foreign_key?(field)
+            @fields << field
           end
         end
 
-        def load_filter_fields
-          init_model_fields
-          list_fields.select do |field|
-            @fields_data.has_key?(field) and @fields_data[field].type == String
+        def _relations_fields
+          @relations_fields = relations.all.map.field do |relation|
+
           end
         end
 

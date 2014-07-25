@@ -67,7 +67,7 @@ module RademadeAdmin
     end
 
     def filter_data_params
-      @params.require(:data).permit(@model_info.fields.save_form_fields)
+      @params.require(:data).permit( @model_info.fields.save_form_fields )
     end
 
   end
