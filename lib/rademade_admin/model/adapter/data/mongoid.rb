@@ -28,6 +28,7 @@ module RademadeAdmin
                 :name => name,
                 :from => @model.class,
                 :to => RademadeAdmin::LoaderService.const_get(relation_info.class_name),
+                :getter => name.to_s,
                 :setter => relation_info.setter,
                 :type => type,
                 :has_many => has_many_relations.include?(type)
@@ -44,6 +45,8 @@ module RademadeAdmin
                 :name => name,
                 :primary => name == :_id,
                 :foreign_key => field_data.foreign_key?,
+                :setter => name.to_s + '=',
+                :getter => name.to_s,
                 :type => field_data.type
               })
             end

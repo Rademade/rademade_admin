@@ -9,19 +9,6 @@ module RademadeAdmin::FieldHelper
     configured_field?(field) ? field.keys.first : field
   end
 
-  def field_value(field, item)
-    if configured_field?(field)
-      if field.values.first[:method].present?
-        method_name = field.values.first[:method]
-      else
-        method_name = field.keys.first
-      end
-    else
-      method_name = field
-    end
-    item.send(method_name)
-  end
-
   def pagination_option(number, name = 'paginate')
     hash_params = request.query_parameters.clone
     hash_params.delete(:page)

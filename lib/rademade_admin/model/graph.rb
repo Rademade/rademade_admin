@@ -6,11 +6,14 @@ module RademadeAdmin
 
       def add_pair(controller_name, inner)
         controller_full_name = ('rademade_admin/' + controller_name + '_controller')
+
+        # Controller includes configuration for mapping model
         controller = controller_full_name.camelize.constantize
         model = controller.model_class
+
         unless @model_infos[model.to_s]
-          model_reflection = Reflection.new(model, controller_name, controller_full_name, inner)
-          @model_infos[model.to_s] = Model::Info.new(model_reflection, controller.configuration)
+          model_reflection = RademadeAdmin::Model::Reflection.new(model, controller_name, controller_full_name, inner)
+          @model_infos[model.to_s] = RademadeAdmin::Model::Info.new(model_reflection, controller.configuration)
         end
       end
 

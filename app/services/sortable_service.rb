@@ -20,8 +20,11 @@ module RademadeAdmin
       @params[:sort].present?
     end
 
-    def sorting_sign(name)
-      if name.to_s == @params[:sort]
+    #
+    # @return [RademadeAdmin::Model::Info::Field]
+    #
+    def sorting_sign(field)
+      if field.name.to_s == @params[:sort]
         case @params[:direction]
           when 'asc'
             return '⬇'

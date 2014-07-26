@@ -4,10 +4,10 @@ module RademadeAdmin
     class Configuration
       class FormField
 
-        attr_accessor :name, :options
+        attr_accessor :name, :as
 
-        def initialize(name, options= {})
-          @name, @options = name, options
+        def initialize(name, as = '')
+          @name, @as = name, as
         end
 
       end

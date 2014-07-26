@@ -18,8 +18,24 @@ module RademadeAdmin
           @relations = relations
         end
 
+        def has_field?(name)
+          @data_adapter.has_field?(name)
+        end
+
         def list_fields
-          
+          @list_fields ||= _fields.select{|field| field.in_list? }
+        end
+
+        def filter_fields
+          []
+        end
+
+        def semantic_form_fields
+          [] #todo
+        end
+
+        def origin_fields
+          []
         end
 
         # def origin_fields
@@ -64,18 +80,6 @@ module RademadeAdmin
         #   @data_adapter.has_field? name
         # end
 
-        # def list
-        #   # filter all
-        # end
-        #
-        # def form
-        #   # filter form
-        # end
-        #
-        # def all
-        #   # merge simple + relations
-        # end
-        #
         # def simple_fields
         #   @simple_fields
         # end
@@ -87,6 +91,30 @@ module RademadeAdmin
         # def collected_form_fields
         #   @model_configuration.form_fields || default_form_fields
         # end
+
+
+        def _fields
+          return @fields if @fields.is_a? Array
+          @fields = []
+          @data_adapter.fields.each do |name, field|
+
+            @model_configuration.field_labels.find(field.name) do |label_data|
+              field.label = label_data.label
+            end
+
+            @model_configuration.form_fields.find(field.name) do |form_field_data|
+              field.as = form_field_data.as
+              field.in_form = true
+            end
+
+            @model_configuration.list_fields.find(field.name) do |list_field_data|
+              field.in_list = true
+            end
+
+            @fields << field
+          end
+          @fields
+        end
 
       end
     end

@@ -57,14 +57,14 @@ module RademadeAdmin
         # @return [Bool]
         #
         def has_field?(name)
-          field(name.to_sym).nil?
+          field(name).nil?
         end
 
         #
         # @return [RademadeAdmin::Model::Info::Field]
         #
         def field(name)
-          fields[name.to_s]
+          fields[name.to_sym]
         end
 
         #

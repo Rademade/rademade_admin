@@ -6,7 +6,7 @@ module RademadeAdmin
 
         attr_accessor :name, :label
 
-        def initialize(name, label= nil)
+        def initialize(name, label)
           @name, @label = name, label
         end
 

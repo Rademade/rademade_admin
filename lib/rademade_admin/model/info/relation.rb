@@ -4,7 +4,7 @@ module RademadeAdmin
     class Info
       class Relation
 
-        attr_reader :name, :form, :to, :setter, :type
+        attr_reader :name, :form, :to, :setter, :getter, :type
 
         def many?
           @has_many
@@ -22,6 +22,7 @@ module RademadeAdmin
           @form = opt[:form]
           @to = opt[:to]
           @setter = opt[:setter]
+          @getter = opt[:getter]
           @type = opt[:type]
           @has_many = opt[:has_many]
         end

@@ -6,7 +6,8 @@ module RademadeAdmin
 
         def find(name)
           name = name.to_sym
-          field = @fields.select {|field| field.name == name}
+          field = @fields.select{|field| field.name == name}.first
+          puts field
           return nil if field.nil?
           yield( field ) if block_given?
           field
@@ -17,7 +18,7 @@ module RademadeAdmin
         end
 
         def method_missing(name, *arguments)
-          @fields << field_class.new(name.to_sym, arguments)
+          @fields << field_class.new(name.to_sym, *arguments)
         end
 
         def configure(*options, &block)
