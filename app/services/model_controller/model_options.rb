@@ -2,6 +2,15 @@
 module RademadeAdmin
   module ModelOptions
 
+    # Configure admin part of model
+    # Support options
+    #  - model
+    #  - name
+    #  - parent_menu (todo extract to menu method)
+    #  - list
+    #  - form
+    #  - labels
+    #
     def options(&options_block)
       configuration.instance_eval &options_block
     end

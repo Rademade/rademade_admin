@@ -2,7 +2,7 @@
 module RademadeAdmin
   module Model
     class Configuration
-      class Field
+      class ListField
 
         attr_accessor :name, :options
 

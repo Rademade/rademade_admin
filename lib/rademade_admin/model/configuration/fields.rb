@@ -4,23 +4,6 @@ module RademadeAdmin
     class Configuration
       class Fields
 
-        attr_reader :fields
-
-        def self.init_from_block(&block)
-          model_fields = self.new
-          model_fields.instance_eval(&block)
-          model_fields
-        end
-
-        def self.init_from_options(field_options)
-          model_fields = self.new(field_options)
-          model_fields
-        end
-
-        def initialize(fields = [])
-          @fields = fields
-        end
-
         def find(name)
           name = name.to_sym
           field = @fields.select {|field| field.name == name}
@@ -28,9 +11,35 @@ module RademadeAdmin
           yield( field ) if block_given?
           field
         end
+        
+        def all
+          @fields
+        end
 
         def method_missing(name, *arguments)
-          @fields << RademadeAdmin::Model::Configuration::Field.new(name.to_sym, arguments.first)
+          @fields << field_class.new(name.to_sym, arguments)
+        end
+
+        def configure(*options, &block)
+          block_given? ? instance_eval(&block) : _init_from_options(*options)
+        end
+
+        protected
+
+        def initialize
+          @fields = []
+        end
+
+        def field_class
+          #todo custom exception
+          raise 'Field class for {CLASS} fields not defined'
+        end
+
+        def _init_from_options(*options)
+          options.each do |option|
+            #todo add validation
+            @fields << field_class.new(option.to_sym)
+          end
         end
 
       end

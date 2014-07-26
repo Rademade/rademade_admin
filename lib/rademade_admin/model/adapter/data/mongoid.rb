@@ -4,38 +4,10 @@ module RademadeAdmin
     module Adapter
       class Data
 
-        # Data adapter for mongoid
+        #
+        # Data adapter for Mongoid
         #
         class Mongoid < RademadeAdmin::Model::Adapter::Data
-
-          def relations
-            @relations ||= _map_relations
-          end
-
-          def relations_exist?(name)
-            @relations.has_key? name.to_sym
-          end
-
-          def relation(name)
-            relations[name.to_sym]
-          end
-
-          def many_relation?(field)
-            relation( field.to_sym ).try(:many?)
-          end
-
-          def fields
-            #todo map to field class
-            @model.fields
-          end
-
-          def has_field?(field)
-            fields.keys.include? field
-          end
-
-          def foreign_key?(field)
-            field.foreign_key?
-          end
 
           protected
 
@@ -49,18 +21,33 @@ module RademadeAdmin
 
           def _map_relations
             relations = {}
-            @model.relations.each do |data|
-              name = data.first
-              relation = data.last
-              relations[name] = RademadeAdmin::Model::Info::Relation.new({
+            @model.relations.each do |name, relation_info|
+              name = name.to_sym
+              type = relation_info.relation.macro
+              relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
                 :name => name,
                 :from => @model.class,
-                :to => RademadeAdmin::LoaderService.const_get(relation.class_name),
-                :setter => relation.setter,
-                :has_many => relation.try(:many?)
+                :to => RademadeAdmin::LoaderService.const_get(relation_info.class_name),
+                :setter => relation_info.setter,
+                :type => type,
+                :has_many => has_many_relations.include?(type)
               })
             end
             relations
+          end
+
+          def _map_fields
+            fields = {}
+            @model.fields.each do |name, field_data|
+              name = name.to_sym
+              fields[name] = RademadeAdmin::Model::Info::Field.new({
+                :name => name,
+                :primary => name == :_id,
+                :foreign_key => field_data.foreign_key?,
+                :type => field_data.type
+              })
+            end
+            fields
           end
 
         end

@@ -4,36 +4,39 @@ module RademadeAdmin
     module Adapter
       class Data
 
+        #
+        # Initialization method
+        #
         def initialize(model)
           @model = model
         end
 
+        #
         # Return array of RademadeAdmin::Model::Info::Relation
         #
         # @return [Array]
+        #
         def relations
-          []
+          @relations ||= _map_relations
         end
 
-        #
         #
         # @return [Bool]
-        def relations_exist?(name)
-          nil
+        #
+        def has_relation?(name)
+          not relation(name).nil?
         end
 
+        #
+        #
+        # @return [RademadeAdmin::Model::Info::Relation]
+        #
         def relation(name)
-          nil
+          relations[name.to_sym]
         end
 
-        def reflect_on_association(name)
-          nil
-        end
-
-        def many_relation?(field)
-          false
-        end
-
+        #
+        # Returns array of relations keys
         #
         # @return [Array]
         #
@@ -41,33 +44,44 @@ module RademadeAdmin
           relations.keys.map &:to_sym
         end
 
+        #
+        # Returns array of fields with class [RademadeAdmin::Model::Info::Field]
+        #
+        # @return [Array]
+        #
         def fields
-          []
+          @fields ||= _map_fields
         end
 
-        def has_field?(field)
-          false
+        #
+        # @return [Bool]
+        #
+        def has_field?(name)
+          field(name.to_sym).nil?
         end
 
-        def foreign_key?(field)
-          false
+        #
+        # @return [RademadeAdmin::Model::Info::Field]
+        #
+        def field(name)
+          fields[name.to_s]
         end
 
+        #
+        # @return [Array]
+        #
         def has_many
-          @has_many_relations ||= relations_with_types has_many_relations
+          @has_many_relations ||= relations.filter{|rel| has_many_relations.include?(rel.type) }
         end
 
+        #
+        # @return [Array]
+        #
         def has_one
-          @has_one_relations ||= relations_with_types has_one_relations
+          @has_one_relations ||= relations.filter{|rel| has_one_relations.include?(rel.type) }
         end
 
         protected
-
-        def relations_with_types(types)
-          @model.reflect_on_all_associations(types).map do |relation|
-            relation[:class_name] || relation[:name].to_s.capitalize
-          end
-        end
 
         def has_many_relations
           []
@@ -75,6 +89,16 @@ module RademadeAdmin
 
         def has_one_relations
           []
+        end
+
+        def _map_relations
+          #todo custom error
+          raise 'Not defined _map_relations for class'
+        end
+
+        def _map_fields
+          #todo custom error
+          raise 'Not defined _map_fields for class'
         end
 
       end

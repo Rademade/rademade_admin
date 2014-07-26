@@ -9,6 +9,9 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
       user
       tags
     end
+    labels do
+      headline 'Post name'
+    end
   end
 
 end

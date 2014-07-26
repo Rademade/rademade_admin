@@ -23,26 +23,26 @@ module RademadeAdmin
 
       # Return configured list info
       #
-      # @return [RademadeAdmin::Model::Configuration::Fields]
+      # @return [RademadeAdmin::Model::Configuration::ListFields]
       #
       def list_fields
-        @list_fields
+        @list_fields ||= RademadeAdmin::Model::Configuration::ListFields.new
       end
 
       # Return configured fields info
       #
-      # @return [RademadeAdmin::Model::Configuration::Fields]
+      # @return [RademadeAdmin::Model::Configuration::FormFields]
       #
       def form_fields
-        @form_fields
+        @form_fields ||= RademadeAdmin::Model::Configuration::FormFields.new
       end
 
       # Return configured fields info
       #
-      # @return [RademadeAdmin::Model::Configuration::Labels]
+      # @return [RademadeAdmin::Model::Configuration::FieldsLabels]
       #
       def field_labels
-        @field_labels ||= Labels.new
+        @field_labels ||= RademadeAdmin::Model::Configuration::FieldsLabels.new
       end
 
       private
@@ -59,24 +59,16 @@ module RademadeAdmin
         @parent_menu_item = parent_menu_item
       end
 
-      def labels(&block)
-        field_labels.init_from_block(&block)
+      def labels(*field_options, &block)
+        field_labels.configure(*field_options, &block)
       end
 
       def list(*field_options, &block)
-        @list_fields = fields(*field_options, &block)
+        list_fields.configure(*field_options, &block)
       end
 
       def form(*field_options, &block)
-        @form_fields = fields(*field_options, &block)
-      end
-
-      # Process given block
-      #
-      # @return [RademadeAdmin::Model::Configuration::Fields]
-      #
-      def fields(*field_options, &block)
-        block_given? ? Fields.init_from_block(&block) : Fields.init_from_options(field_options)
+        form_fields.configure(*field_options, &block)
       end
 
     end
