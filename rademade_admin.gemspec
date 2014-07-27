@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 4.0'
   s.add_dependency 'kaminari', '~> 0.16'
   s.add_dependency 'carrierwave', '~> 0.10'
-  s.add_dependency 'bower-rails', '~> 0.8', '>= 0.8.1'
+  s.add_dependency 'bower-rails', '~> 0.8', '>= 0.8.2'
 
   # Assets
   s.add_dependency 'sprockets-sass', '~> 1.0'
