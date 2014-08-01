@@ -1,9 +1,20 @@
 source 'https://rubygems.org'
 
 gemspec
+gem 'devise'
 
 # Assets
+gem 'sass'
 gem 'sass-rails'
+gem 'compass'
+gem 'compass-rails'
+gem 'bower-rails'
+
+# File upload
+gem 'light_resizer'
+gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'rmagick'
 
 # Utility gems used in both development & test environments
 gem 'rake', require: false
@@ -25,7 +36,6 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'capybara-webkit'
-  gem 'capybara-screenshot'
   gem 'factory_girl_rails', :require => false
   gem 'simplecov'
 end

@@ -1,30 +1,25 @@
-<header class="navbar navbar-inverse">
-
-    <div class="navbar-header">
-        <button class="navbar-toggle" type="button" data-toggle="collapse" id="menu-toggler">
-            <span class="sr-only"><%= t('rademade_admin.toggle_nav') %></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-
-        <a class="navbar-brand" href="<%= url_for(:root) %>">
-            <img src="<%= image_path 'rademade_admin/logos/logo.png' %>" alt="logo">
+<header>
+<div class="header">
+    <div class="fix">
+        <a class="header-logo" href="<%= url_for(:root) %>">
+          <img src="<%= image_path 'rademade_admin/logos/logo.png' %>" alt="logo">
         </a>
+
+        <!--<div class="header-navigation">-->
+        <!--<span class="sr-only"><%= t('rademade_admin.toggle_nav') %></span>-->
+        <!--</div>-->
+
+        <div class="right-menu">
+            <div class="menu-item">
+                <span class="menu-link last"><%= @current_user %> <b class="caret"></b></span>
+                <div class="menu-droplist">
+                    <span class="menu-droplist-item">1</span>
+                    <span class="menu-droplist-item">1</span>
+                    <span class="menu-droplist-item"><%= link_to t('rademade_admin.exit'), [:logout, :sessions], {:method => :delete} %></span>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <ul class="nav navbar-nav pull-right hidden-xs">
-        <li class="dropdown">
-            <a href="javascript:void(0);" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">
-                <span><%= @current_user %></span>
-                <b class="caret"></b>
-            </a>
-
-            <ul class="dropdown-menu">
-                <li><%= link_to t('rademade_admin.exit'), [:logout, :sessions], {:method => :delete} %></li>
-            </ul>
-
-        </li>
-    </ul>
+</div>
 
 </header>
