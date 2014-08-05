@@ -24,7 +24,7 @@ module RademadeAdmin
         # @return [Bool]
         #
         def exist?(name)
-          @data_adapter.relations_exist? name
+          @data_adapter.has_relation? name
         end
 
         # @param name [String]

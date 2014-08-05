@@ -88,6 +88,14 @@ module RademadeAdmin
       end
     end
 
+    def related_add
+
+    end
+
+    def related_destroy
+
+    end
+
     #def process_link(method)
     #  linker = Linker.new(model_info, params[:parent], params[:parent_id])
     #  linker.send(method, params[:id])
