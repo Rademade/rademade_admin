@@ -17,6 +17,7 @@ module Dummy
   class Application < Rails::Application
 
     require 'devise/orm/mongoid'
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
     config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
 

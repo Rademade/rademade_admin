@@ -1,11 +1,12 @@
-<ul class="submenu"><%
-    menu_item[:sub].each do |sub_item|
-        concat render 'rademade_admin/_blocks/sub_menu/link', {
-            :uri => admin_list_uri(sub_item[:model_info]),
-            :title => sub_item[:model_info].item_name
-        }
-        concat render 'rademade_admin/_blocks/sub_menu', {
-            :menu_item => sub_item
-        }
-    end
-%></ul>
+<ul class="submenu">
+  <%
+     menu_item[:sub].each do |sub_item|
+         concat render 'rademade_admin/_blocks/sub_menu/link', {
+                 :uri => admin_list_uri(sub_item[:model_info]),
+                 :title => sub_item[:model_info].item_name
+         }
+         concat render 'rademade_admin/_blocks/sub_menu', {
+                 :menu_item => sub_item
+         }
+     end
+  %></ul>

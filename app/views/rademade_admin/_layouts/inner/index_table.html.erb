@@ -2,34 +2,29 @@
     <% if @sortable_service.can_reset? %>
         <a href="<%= request.path %>"><%= t('rademade_admin.reset_sort') %></a>
     <% end %>
-    <table class="table table-hover">
+    <table class="table-box">
 
-        <thead>
+        <thead class="table-header">
             <tr>
                 <% @list_fields.each_with_index do |name, index| %>
-                    <th class="col-md-3 sort-button" data-column="<%=name%>">
-                        <% unless index == 0 %>
-                            <span class="line"></span>
-                        <% end %>
+                    <th class="table-item" data-column="<%=name%>">
                         <span><%= field_to_label(name) + @sortable_service.sorting_sign(name) %></span>
                     </th>
                 <% end %>
-
-                <th class="col-md-3 align-right">
-                    <span class="line"></span>
+                <th class="table-item">
                     <span><%= t('rademade_admin.management') %></span>
                 </th>
             </tr>
         </thead>
 
         <% has_position = @sortable_service.has_position? %>
-        <tbody class="table-sortable" data-position='<%= has_position %>'>
+        <tbody class="table-content" data-position='<%= has_position %>'>
             <% @items.each_with_index do |item, index| %>
                 <tr<%
                     if has_position
                         %> id='<%= item.position %>'<%
                     end
-                %> data-id='<%= item.id %>'>
+                %> class="table-item" data-id='<%= item.id %>'>
                     <% @list_fields.each do |name|
                         %><td><%
                             td_data = item.send(name)

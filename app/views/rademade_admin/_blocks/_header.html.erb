@@ -1,25 +1,43 @@
 <header>
-<div class="header">
+  <div class="header">
     <div class="fix">
-        <a class="header-logo" href="<%= url_for(:root) %>">
-          <img src="<%= image_path 'rademade_admin/logos/logo.png' %>" alt="logo">
-        </a>
+      <a class="header-logo fl-l" href="<%= url_for(:root) %>">
+        <img src="<%= image_path 'rademade_admin/logos/logo.png' %>" alt="logo">
+      </a>
 
-        <!--<div class="header-navigation">-->
-        <!--<span class="sr-only"><%= t('rademade_admin.toggle_nav') %></span>-->
-        <!--</div>-->
+      <!--<div class="header-navigation">-->
+      <!--<span class="sr-only"><%= t('rademade_admin.toggle_nav') %></span>-->
+      <!--</div>-->
+      <div class="fl-r">
+        <form class="header-search fl-l" role="search">
+          <div class="header-search-box">
+            <input type="text" class="header-search-input" placeholder="Search">
+          </div>
+          <button type="submit" class="header-search-btn">Submit</button>
+        </form>
+        <div class="header-menu fl-l">
+          <div class="menu-item">
+            <span class="menu-link disabled"><%= @current_user %> <b class="caret"></b></span>
+          </div>
+          <div class="menu-item js-box">
+            <span class="menu-link js-link"><i class="glyphicon glyphicon-list"></i></span>
 
-        <div class="right-menu">
-            <div class="menu-item">
-                <span class="menu-link last"><%= @current_user %> <b class="caret"></b></span>
-                <div class="menu-droplist">
-                    <span class="menu-droplist-item">1</span>
-                    <span class="menu-droplist-item">1</span>
-                    <span class="menu-droplist-item"><%= link_to t('rademade_admin.exit'), [:logout, :sessions], {:method => :delete} %></span>
-                </div>
+            <div class="menu-droplist js-droplist">
+              <div class="menu-droplist-header">Active links</div>
+              <a class="menu-droplist-link" href="#">Link</a>
+              <a class="menu-droplist-link" href="#">Link</a>
+              <div class="menu-droplist-header">Disable links</div>
+              <span class="menu-droplist-link disabled">Disable link</span>
+              <span class="menu-droplist-link disabled">Disable link</span>
+              <%= link_to t('rademade_admin.exit'), [:logout, :sessions], {:method => :delete, :class => "menu-droplist-link last"} %>
             </div>
+          </div>
+          <div class="menu-item">
+            <%= link_to t('rademade_admin.exit'), [:logout, :sessions], {:method => :delete, :class => "menu-link last"} %>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
 </header>

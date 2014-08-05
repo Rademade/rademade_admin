@@ -1,26 +1,28 @@
 <div class="login-bg">
-    <div class="login-wrapper">
-        <img class="logo" src="<%= image_path('rademade_admin/logos/logo-white.png') %>" alt="Rademade.com">
-        <div class="box">
-            <div class="content-wrap">
-                <h6><%= t('rademade_admin.login') %></h6>
-                <%= semantic_form_for(RademadeAdmin.user_class.new, :url => [:sessions],
-                                     :as => :data, :html => { :id => 'login-form' }) do |f|
+  <img class="admin-logo" src="<%= image_path('rademade_admin/logos/logo.png') %>" alt="Rademade.com">
+  <div class="login-form">
+      <p class="login-form-title"><%= t('rademade_admin.login') %></p>
+      <%= semantic_form_for(RademadeAdmin.user_class.new, :url => [:sessions],
+                            :as => :data, :html => { :id => 'login-form',}) do |f| %>
 
-                    concat f.input :email,
-                                   :label => false,
-                                   :input_html => {:class => 'form-control'}
-
-                    concat f.input :password,
-                                   :label => false,
-                                   :input_html => {:class => 'form-control'}
-
-                    concat f.action :submit,
-                                    :label => t('rademade_admin.login'),
-                                    :as => :button,
-                                    :button_html => {:class => 'btn-glow primary login'}
-                end
-            %></div>
-        </div>
-    </div>
+            <div class="form-box"><%
+                 concat f.input :email,
+                                :label => false,
+                                :input_html => {:class => 'form-input'}
+              %><label class="form-label login" for="data_email"><i class="glyphicon glyphicon-user"></i></label>
+            </div>
+            <div class="form-box"><%
+               concat f.input :password,
+                              :label => false,
+                              :input_html => {:class => 'form-input'}
+                %><label class="form-label password" for="data_password"><i class="glyphicon glyphicon-lock"></i></label>
+            </div>
+            <div class="form-box"><%
+               concat f.action :submit,
+                               :label => t('rademade_admin.login'),
+                               :as => :button,
+                               :button_html => {:class => 'btn blue-btn login-btn'}
+            %></div><%
+        end
+      %></div>
 </div>
