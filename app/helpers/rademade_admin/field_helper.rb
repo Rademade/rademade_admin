@@ -1,12 +1,20 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::FieldHelper
 
-  def field_to_label(field, model_info = @model_info)
-    model_info.fields.label_for(field)
-  end
-
-  def field_name(field)
-    configured_field?(field) ? field.keys.first : field
+  # Display the field of given item
+  #
+  # @param item [Object]
+  # @param field [RademadeAdmin::Model::Info::Field]
+  #
+  # @return [String]
+  #
+  def display_item_value(item, field)
+    value = item.send( field.getter )
+    if field.foreign_key?
+      link_to value.to_s, admin_edit_uri(value)
+    else
+      value.to_s
+    end
   end
 
   def pagination_option(number, name = 'paginate')

@@ -6,10 +6,7 @@ module RademadeAdmin
 
         UNSAVED_FIELDS = [:id, :_id, :created_at, :deleted_at, :position]
 
-        attr_accessor :name, :setter, :getter, :type, :label, :as, :in_form, :in_list
-
-        alias_method :in_list?, :in_list
-        alias_method :in_form?, :in_form
+        attr_accessor :name, :setter, :getter, :type, :relation_name
 
         def key=(status)
           @is_key = status
@@ -27,8 +24,8 @@ module RademadeAdmin
           not UNSAVED_FIELDS.include? name
         end
 
-        def label
-          @label ||= _default_label
+        def has_relation?
+          @relation_name
         end
 
         protected
@@ -40,12 +37,7 @@ module RademadeAdmin
           @setter = opts[:setter]
           @getter = opts[:getter]
           @type = opts[:type]
-        end
-
-        private
-
-        def _default_label
-          name.to_s.humanize
+          @relation_name = opts[:relation_name]
         end
 
       end

@@ -43,7 +43,7 @@ module RademadeAdmin
       # @return [RademadeAdmin::Model::Info::Fields]
       #
       def fields
-        @model_relations ||= RademadeAdmin::Model::Info::Fields.new( _data_adapter, @model_configuration, relations )
+        @model_fields ||= RademadeAdmin::Model::Info::Fields.new( _data_adapter, @model_configuration, relations )
       end
 
       # Relation data class

@@ -47,7 +47,8 @@ module RademadeAdmin
                 :foreign_key => field_data.foreign_key?,
                 :setter => name.to_s + '=',
                 :getter => name.to_s,
-                :type => field_data.type
+                :type => field_data.type,
+                :relation_name => field_data.metadata.nil? ? nil : field_data.metadata.name
               })
             end
             fields

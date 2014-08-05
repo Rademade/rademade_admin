@@ -23,7 +23,7 @@ module RademadeAdmin
         end
 
         def list_fields
-          @list_fields ||= _fields.select{|field| field.in_list? }
+          @list_fields ||= _model_items.select{|field| field.in_list? }
         end
 
         def filter_fields
@@ -42,13 +42,6 @@ module RademadeAdmin
         #   @data_adapter.fields.keys + ['id']
         # end
         #
-        # def list_fields
-        #   _fields.filter {|field| field.in_list }
-        # end
-
-        # def form_fields
-        #   _fields.filter {|field| field.in_list }
-        # end
 
         # def default_form_fields
         #   simple_fields + @data_adapter.association_fields
@@ -92,28 +85,44 @@ module RademadeAdmin
         #   @model_configuration.form_fields || default_form_fields
         # end
 
+        def _model_items
+          return @model_items unless @model_items.nil?
 
-        def _fields
-          return @fields if @fields.is_a? Array
-          @fields = []
+          @model_items = {}
+
+          used_relations = []
+
           @data_adapter.fields.each do |name, field|
 
+            if field.has_relation?
+              used_relations << field.relation_name
+              relation = @data_adapter.relation(field.relation_name)
+            else
+              relation = nil
+            end
+
+            model_item = RademadeAdmin::Model::Info::DataItem.new(field, relation)
+
             @model_configuration.field_labels.find(field.name) do |label_data|
-              field.label = label_data.label
+              model_item.label = label_data.label
             end
 
             @model_configuration.form_fields.find(field.name) do |form_field_data|
-              field.as = form_field_data.as
-              field.in_form = true
+              model_item.as = form_field_data.as
+              model_item.in_form = true #todo index
             end
 
             @model_configuration.list_fields.find(field.name) do |list_field_data|
-              field.in_list = true
+              model_item.in_list = true #todo index
             end
 
-            @fields << field
+            @model_items[ model_item.name ] = model_item
           end
-          @fields
+
+          @data_adapter.relations.each do |name, relation|
+            pry.binding
+          end
+
         end
 
       end

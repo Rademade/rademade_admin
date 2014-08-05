@@ -6,8 +6,8 @@ module RademadeAdmin
 
         attr_accessor :name, :options
 
-        def initialize(name, options= {})
-          @name, @options = name, options
+        def initialize(name)
+          @name = name
         end
 
       end

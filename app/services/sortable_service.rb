@@ -25,12 +25,8 @@ module RademadeAdmin
     #
     def sorting_sign(field)
       if field.name.to_s == @params[:sort]
-        case @params[:direction]
-          when 'asc'
-            return '⬇'
-          when 'desc'
-            return '⬆'
-        end
+        return '⬇' if @params[:direction] == 'asc'
+        return '⬇' if @params[:direction] == 'desc'
       end
       ''
     end

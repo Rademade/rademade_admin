@@ -45,17 +45,11 @@
                         %> id='<%= item.position %>'<%
                     end
                 %> data-id='<%= item.id %>'>
-                    <% @list_fields.each do |field|
-                        %><td><%
-                            value = item.send( field.getter )
-                            #todo remove hard code, extract helper (data adapter)
-                            if value.respond_to? :id
-                                concat link_to value.to_s, admin_edit_uri(value)
-                            else
-                                concat value
-                            end
-                        %></td>
+
+                    <% @list_fields.each do |field| %>
+                      <td><%=display_item_value(item, field)%></td>
                     <% end %>
+
                     <td>
                         <ul class="actions">
                             <li><%= link_to t('rademade_admin.edit'), admin_edit_uri(item) %></li>

@@ -57,7 +57,7 @@ module RademadeAdmin
         # @return [Bool]
         #
         def has_field?(name)
-          field(name).nil?
+          not field(name).nil?
         end
 
         #
