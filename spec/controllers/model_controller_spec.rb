@@ -1,19 +1,28 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe RademadeAdmin::PostsController do
-
-  self.controller_class = RademadeAdmin::PostsController
+describe RademadeAdmin::PostsController, :js => true do
   render_views
 
-  before do
-    sign_in FactoryGirl.create(:admin_user)
+  let(:admin) do
+    create :admin_user, :password => '12345678'
+  end
+
+  before(:each) do
+    # login
+    visit rademade_admin_path
+
+    fill_in 'data_email', with: admin.email
+    fill_in 'data_password', with: '12345678'
+
+    first('#data_submit_action button').click
+    find('#sidebar-nav')
   end
 
   describe 'GET index' do
 
     before(:each) do
-      get :index
+      visit rademade_admin_posts_path
     end
 
     it 'should have status 200' do
@@ -29,15 +38,11 @@ describe RademadeAdmin::PostsController do
   describe 'GET new' do
 
     before(:each) do
-      get :new
+      visit new_rademade_admin_post_path
     end
 
     it 'should have status 200' do
       expect(response.status).to eq(200)
-    end
-
-    it 'should create new unsaved item' do
-      expect(assigns(:item)).to be_new_record
     end
 
     it 'should render right template' do
@@ -49,7 +54,10 @@ describe RademadeAdmin::PostsController do
   describe 'POST create' do
 
     before(:each) do
-      post :create, data: { headline: 'test headline', text: 'some text' }
+      visit new_rademade_admin_post_path
+      fill_in 'data_headline', with: 'test headline'
+      fill_in 'data_text', with: 'some text'
+      click_on 'Create'
     end
 
     it 'should have status 200' do
@@ -57,11 +65,11 @@ describe RademadeAdmin::PostsController do
     end
 
     it 'should be successful' do
-      expect(response.body).to include('was inserted!')
+      expect(find('.notifier')).to have_content('was inserted!')
     end
 
     it 'should save without errors' do
-      expect(assigns(:item)).to_not be_new_record
+      expect(find('.notifier')).to_not have_content('Error occurred')
     end
 
   end
@@ -69,10 +77,11 @@ describe RademadeAdmin::PostsController do
   describe 'PUT update' do
 
     before(:each) do
-      post :create, data: { headline: 'test headline', text: 'some text' }
-      id = assigns(:item).id
-
-      put :update, id: id, data: { headline: 'new headline', text: 'new text' }
+      post = create :post
+      visit edit_rademade_admin_post_path(:id => post.id)
+      fill_in 'data_headline', with: 'new headline'
+      fill_in 'data_text', with: 'new text'
+      click_on 'Save changes'
     end
 
     it 'should have status 200' do
@@ -80,14 +89,13 @@ describe RademadeAdmin::PostsController do
     end
 
     it 'should be successful' do
-      expect(response.body).to include('was updated!')
+      expect(find('.notifier')).to have_content('was updated!')
     end
 
     it 'should update' do
-      updated = assigns(:item)
-
-      expect(updated.headline).to eq('new headline')
-      expect(updated.text).to eq('new text')
+      find('.notifier')
+      visit rademade_admin_posts_path
+      expect(page).to have_content 'new headline'
     end
 
   end
@@ -95,22 +103,16 @@ describe RademadeAdmin::PostsController do
   describe 'DELETE destroy' do
 
     before(:each) do
-      post :create, data: { headline: 'test headline', text: 'some text' }
-      id = assigns(:item).id
-
-      delete :destroy, id: id
+      post = create :post, headline: 'post to remove'
+      visit rademade_admin_posts_path
+      page.evaluate_script('window.confirm = function() { return true; }') # accept confirm
+      click_on 'Destroy'
+      find('.notifier')
+      visit current_path
     end
 
-    it 'should have status 200' do
-      expect(response.status).to eq(200)
-    end
-
-    it 'should be successfull' do
-      expect(response.body).to include('was deleted!')
-    end
-
-    it 'should delete' do
-      expect(assigns(:item)).to be_deleted
+    it 'should be successful' do
+      expect(page).not_to have_content('post to remove')
     end
 
   end
@@ -118,10 +120,8 @@ describe RademadeAdmin::PostsController do
   describe 'GET edit' do
 
     before(:each) do
-      post :create, data: { headline: 'test headline', text: 'some text' }
-      id = assigns(:item).id
-
-      get :edit, id: id
+      post = create :post, headline: 'test headline'
+      visit edit_rademade_admin_post_path(:id => post.id)
     end
 
     it 'should have status 200' do
@@ -129,7 +129,7 @@ describe RademadeAdmin::PostsController do
     end
 
     it 'should find record' do
-      expect(assigns(:item)).to_not be_nil
+      expect(page).to have_content 'test headline'
     end
 
     it 'should render right template' do
@@ -141,8 +141,8 @@ describe RademadeAdmin::PostsController do
   describe 'GET autocomplete' do
 
     before(:each) do
-      post :create, data: { headline: 'test headline', text: 'some text' }
-      get :autocomplete, q: 'test'
+      post = create :post, headline: 'test headline'
+      visit autocomplete_rademade_admin_posts_path(:q => 'test')
     end
 
     it 'should have status 200' do
@@ -150,52 +150,41 @@ describe RademadeAdmin::PostsController do
     end
 
     it 'should return some record' do
-      expect(response.body).to include('id')
+      expect(page).to have_content('id')
     end
 
   end
 
-  describe 'PATCH re_sort' do
-
-    before(:each) do
-      post :create, data: { headline: 'first', text: 'first' }
-      first_id = assigns(:item).id
-      post :create, data: { headline: 'second', text: 'second' }
-      second_id = assigns(:item).id
-
-      patch :sort, sorted: { '0' => [first_id, '1'], '1' => [second_id, '0'] }, minimum: 0
-    end
-
-    it 'should have status 200' do
-      expect(response.status).to eq(200)
-    end
-
-    it 'should sort' do
-      post = Post.find_by(headline: 'first')
-      expect(post.position).to eq(1)
-    end
-
-    it 'should be "ok"' do
-      expect(response.body).to include('ok')
-    end
-
-  end
+  #describe 'PATCH re_sort' do
+  #
+  #  before(:each) do
+  #    first_post = create :post, headline: 'first'
+  #    second_post = create :post, headline: 'second'
+  #    patch :re_sort, sorted: { '0' => [first_post.id, '1'], '1' => [second_post.id, '0'] }, minimum: 0
+  #  end
+  #
+  #  it 'should have status 200' do
+  #    expect(response.status).to eq(200)
+  #  end
+  #
+  #  it 'should sort' do
+  #    post = Post.find_by(headline: 'first')
+  #    expect(post.position).to eq(1)
+  #  end
+  #
+  #end
 
   describe 'GET form' do
 
     it 'should render right template' do
-      get :form
-
+      visit form_new_rademade_admin_post_path
       expect(response).to render_template('rademade_admin/abstract/_form')
     end
 
     it 'should show form for existing item' do
-      post :create, data: { headline: 'first', text: 'some text' }
-      id = assigns(:item).id
-
-      get :form, id: id
-
-      expect(response.body).to include('some text')
+      post = create :post, :text => 'some text'
+      visit form_rademade_admin_post_path(:id => post.id)
+      expect(page).to have_field('Text', with: 'some text')
     end
 
   end
@@ -203,28 +192,14 @@ describe RademadeAdmin::PostsController do
   describe 'PATCH unlink_relation' do
 
     before(:each) do
-      user = create :simple_user, email: 'l@r.t', first_name: 'first', last_name: 'second', password: '12345678'
-
-      post :create, data: { headline: 'first', text: 'first' }
-      post_id = assigns(:item).id
-
-      put :link_relation, parent_id: user.id.to_s, parent: 'User', id: post_id.to_s
-
-      patch :unlink_relation, parent_id: user.id.to_s, parent: 'User', id: post_id.to_s
+      user = create :simple_user
+      post = create :post, headline: 'first', user: user
+      visit edit_rademade_admin_user_path(:id => user.id)
+      click_on 'Delete'
     end
 
     it 'should have status 200' do
-      expect(response.status).to eq(200)
-    end
-
-    it 'should be successful' do
-      expect(response.body).to include('was unlinked from entity!')
-    end
-
-    it 'should link' do
-      user = User.first
-
-      expect(user.posts).to eq([])
+      expect(page).not_to have_content('first')
     end
 
   end
@@ -232,26 +207,15 @@ describe RademadeAdmin::PostsController do
   describe 'PUT link_relation' do
 
     before(:each) do
-      user = create :simple_user, email: 'l@r.t', first_name: 'first', last_name: 'second', password: '12345678'
-
-      post :create, data: { headline: 'first', text: 'first' }
-      post_id = assigns(:item).id
-
-      put :link_relation, parent_id: user.id.to_s, parent: 'User', id: post_id.to_s
-    end
-
-    it 'should have status 200' do
-      expect(response.status).to eq(200)
+      user = create :simple_user
+      visit edit_rademade_admin_user_path(:id => user.id)
+      post = create :post, headline: 'first'
+      find('.select2-input').click
+      find('.select2-result-label').click
     end
 
     it 'should be successful' do
-      expect(response.body).to include('was linked to entity!')
-    end
-
-    it 'should link' do
-      post = Post.first
-
-      expect(post.user).to_not be_nil
+      expect(page).to have_content('first')
     end
 
   end
@@ -259,10 +223,8 @@ describe RademadeAdmin::PostsController do
   describe 'GET show' do
 
     before(:each) do
-      post :create, data: { headline: 'some headline', text: 'some text' }
-      id = assigns(:item).id
-
-      get :show, id: id, format: 'json'
+      post = create :post, text: 'some text'
+      visit rademade_admin_post_path(:id => post.id, :format => :json)
     end
 
     it 'should have status 200' do
@@ -270,7 +232,7 @@ describe RademadeAdmin::PostsController do
     end
 
     it 'should show item' do
-      expect(response.body).to include('some text')
+      expect(page).to have_content('some text')
     end
 
   end

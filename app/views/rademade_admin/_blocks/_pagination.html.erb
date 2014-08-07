@@ -1,5 +1,5 @@
 <div class="paginator">
-    <%= paginate @items %>
+    <%= paginate @items, :params => { :admin_params => {} } %>
 </div>
 
 <div class="paginator-stats">

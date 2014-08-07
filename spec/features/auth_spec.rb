@@ -14,12 +14,12 @@ describe 'Auth', :type => :feature, :js => true do
   context 'without session' do
 
     it 'should redirect to login page' do
-      visit '/rademade_admin'
+      visit rademade_admin_path
       expect(page).to have_content 'LOG IN'
     end
 
     it 'should login with admin user' do
-      visit '/rademade_admin'
+      visit rademade_admin_path
 
       fill_in 'data_email', with: admin.email
       fill_in 'data_password', with: '12345678'
@@ -31,7 +31,7 @@ describe 'Auth', :type => :feature, :js => true do
     end
 
     it 'should not login with non admin user' do
-      visit '/rademade_admin'
+      visit rademade_admin_path
 
       fill_in 'data_email', with: user.email
       fill_in 'data_password', with: '12345678'
@@ -42,7 +42,7 @@ describe 'Auth', :type => :feature, :js => true do
     end
 
     it 'should not login with wrong password' do
-      visit '/rademade_admin'
+      visit rademade_admin_path
 
       fill_in 'data_email', with: user.email
       fill_in 'data_password', with: 'somewrongpass'
@@ -57,7 +57,7 @@ describe 'Auth', :type => :feature, :js => true do
   context 'when signed in' do
 
     before(:each) do
-      visit '/rademade_admin'
+      visit rademade_admin_path
 
       fill_in 'data_email', with: admin.email
       fill_in 'data_password', with: '12345678'

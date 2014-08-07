@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gemspec
 
 # Assets
-gem 'bower-rails'
 gem 'sass-rails'
 
 # Utility gems used in both development & test environments
@@ -26,6 +25,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'capybara-webkit'
+  gem 'capybara-screenshot'
   gem 'factory_girl_rails', :require => false
   gem 'simplecov'
 end

@@ -30,6 +30,7 @@ initItem = ($item) ->
     $select = $(this)
     $table = $select.siblings('.select2-items-list')
     addTable($select) if $table.length is 0
+    $table.html('') unless isMultiple
     addItem(e.added, $table)
     hideTags()
 

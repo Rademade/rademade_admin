@@ -9,6 +9,8 @@ class Post
   field :headline, :type => String
   field :text, :type => String
 
+  validates_presence_of :headline
+
   def to_s
     headline
   end

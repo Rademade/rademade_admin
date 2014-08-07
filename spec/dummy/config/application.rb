@@ -7,15 +7,11 @@ require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
 require 'mongoid'
 
-require 'devise'
-
 Bundler.require(*Rails.groups)
 require 'rademade_admin'
 
 module Dummy
   class Application < Rails::Application
-
-    require 'devise/orm/mongoid'
 
     config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
 

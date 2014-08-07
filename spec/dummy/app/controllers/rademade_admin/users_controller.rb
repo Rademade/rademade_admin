@@ -9,6 +9,7 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
       first_name
       last_name
       password
+      posts
     end
   end
 

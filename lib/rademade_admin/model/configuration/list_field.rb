@@ -4,7 +4,7 @@ module RademadeAdmin
     class Configuration
       class ListField
 
-        attr_accessor :name, :options
+        attr_accessor :name
 
         def initialize(name)
           @name = name

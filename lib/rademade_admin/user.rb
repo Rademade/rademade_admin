@@ -3,14 +3,15 @@
 module RademadeAdmin
   module UserModule
 
-    def self.included(base)
-      base.class_eval do
-        devise :database_authenticatable
-      end
+    def self.get_by_email(email)
+      raise NotImplementedError.new "Implement 'get_by_email' method"
     end
 
-    def password
-      raise NotImplementedError.new 'Implement "password" method'
+    def method_missing(name, *arguments)
+      if %w(id email password valid_password? admin?).include? name
+        raise NotImplementedError.new "Implement '#{name}' method"
+      end
+      super
     end
 
   end
