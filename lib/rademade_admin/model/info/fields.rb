@@ -23,7 +23,7 @@ module RademadeAdmin
         end
 
         def list_fields
-          @list_fields ||= _model_items.select{|field| field.in_list? }
+          @list_fields ||= _model_items.select{|_, field| field.in_list? }
         end
 
         def filter_fields
@@ -120,8 +120,10 @@ module RademadeAdmin
           end
 
           @data_adapter.relations.each do |name, relation|
-            pry.binding
+
           end
+
+          @model_items
 
         end
 

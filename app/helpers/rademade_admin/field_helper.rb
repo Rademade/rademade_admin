@@ -10,7 +10,7 @@ module RademadeAdmin::FieldHelper
   #
   def display_item_value(item, field)
     value = item.send( field.getter )
-    if field.foreign_key?
+    if field.has_relation?
       link_to value.to_s, admin_edit_uri(value)
     else
       value.to_s

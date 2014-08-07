@@ -20,17 +20,21 @@
     <table class="table table-hover">
 
         <thead>
-            <tr>
-                <% @list_fields.each_with_index do |field, index|
+            <tr><%
+                index = 0
+                @list_fields.each do |key, field|
+                    index += 1
+
                     %><th class="col-md-3 sort-button" data-column="<%= field.name %>">
-                        <% unless index == 0 %>
+                        <% unless index == 1 %>
                             <span class="line"></span>
                         <% end %>
                         <span><%= field.label + @sortable_service.sorting_sign(field) %></span>
-                    </th>
-                <% end %>
+                    </th><%
 
-                <th class="col-md-3 align-right">
+                end
+
+                %><th class="col-md-3 align-right">
                     <span class="line"></span>
                     <span><%= t('rademade_admin.management') %></span>
                 </th>
@@ -39,14 +43,14 @@
 
         <% has_position = @sortable_service.has_position? %>
         <tbody class="table-sortable" data-position='<%= has_position %>'>
-            <% @items.each_with_index do |item| %>
+            <% @items.each do |item| %>
                 <tr<%
                     if has_position
                         %> id='<%= item.position %>'<%
                     end
                 %> data-id='<%= item.id %>'>
 
-                    <% @list_fields.each do |field| %>
+                    <% @list_fields.each do |_, field| %>
                       <td><%=display_item_value(item, field)%></td>
                     <% end %>
 
