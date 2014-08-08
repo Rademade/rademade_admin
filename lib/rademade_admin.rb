@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'kaminari'
 require 'carrierwave'
+require 'breadcrumbs'
 
 require 'cancan'
 require 'bower-rails'

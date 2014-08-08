@@ -52,6 +52,7 @@ module RademadeAdmin
 
     def index
       authorize! :read, model_class
+      list_breadcrumbs
 
       #Filter
       conditions = Search::Conditions::List.new(params, model_info.fields )
@@ -65,6 +66,8 @@ module RademadeAdmin
 
     def new
       authorize! :create, model_class
+      new_breadcrumbs
+
       @item = model.new
       render_template
     end
@@ -72,6 +75,8 @@ module RademadeAdmin
     def edit
       authorize! :update, model_class
       @item = model.find(params[:id])
+
+      edit_breadcrumbs
       render_template
     end
 
@@ -83,7 +88,10 @@ module RademadeAdmin
       @items = Search::Related.new(@item, model_info, params[:relation]).find(params)
 
       respond_to do |format|
-        format.html { render_template }
+        format.html {
+          related_breadcrumbs
+          render_template
+        }
         format.json { render :json => @items }
       end
     end

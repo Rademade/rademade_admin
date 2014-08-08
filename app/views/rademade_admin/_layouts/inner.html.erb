@@ -5,13 +5,7 @@
         <div class="table-wrapper products-table">
 
             <div class="row">
-                <div class="breadcrumbs col-md-12">
-                  <%= link_to t('rademade_admin.dashboard'), :root %>
-                  <% if content_for?(:last_crumbs) %>
-                      <span class="separator">-></span>
-                      <%= yield(:last_crumbs) %>
-                  <% end %>
-                </div>
+                <%= breadcrumbs.render(:format => :inline) %>
             </div>
 
             <% if content_for?(:page_header) %>

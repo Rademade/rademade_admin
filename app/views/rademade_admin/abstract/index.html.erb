@@ -1,7 +1,3 @@
-<% content_for :last_crumbs do %>
-    <span><%= @model_info.item_name %></span>
-<% end %>
-
 <% content_for :page_header do %>
     <h3><%= @model_info.item_name %></h3>
 <% end %>
@@ -22,7 +18,7 @@
         <thead>
             <tr><%
                 index = 0
-                @list_fields.each do |key, field|
+                @list_fields.each do |_, field|
                     index += 1
 
                     %><th class="col-md-3 sort-button" data-column="<%= field.name %>">
