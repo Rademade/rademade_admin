@@ -65,9 +65,9 @@ module RademadeAdmin::UriHelper
     _entity_url(model, :update)
   end
 
-  def admin_related_item(model, related, opts = {})
+  def admin_related_item(model, relation_getter, opts = {})
     _entity_url(model, :related, opts.merge({
-      :relation => related
+      :relation => relation_getter
     }))
   end
 

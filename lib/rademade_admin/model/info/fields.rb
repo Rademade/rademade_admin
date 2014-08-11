@@ -23,7 +23,7 @@ module RademadeAdmin
         end
 
         def list_fields
-          @list_fields ||= _model_items.select{|field| field.in_list? }
+          @list_fields ||= _model_items.select { |field| field.in_list? }.sort_by(&:list_position)
         end
 
         def filter_fields
@@ -31,7 +31,11 @@ module RademadeAdmin
         end
 
         def semantic_form_fields
-          [] #todo
+          @form_fields ||= _model_items.select { |field| field.in_form? }.sort_by(&:form_position)
+        end
+
+        def save_form_fields
+          @save_form_fields ||= _model_items.select { |field| field.in_form? and not field.has_relation? }.map(&:name)
         end
 
         def origin_fields
@@ -85,14 +89,16 @@ module RademadeAdmin
         #   @model_configuration.form_fields || default_form_fields
         # end
 
+        private
+
         def _model_items
           return @model_items unless @model_items.nil?
 
-          @model_items = {}
+          @model_items = []
 
           used_relations = []
 
-          @data_adapter.fields.each do |name, field|
+          @data_adapter.fields.each do |_, field|
             if field.has_relation?
               used_relations << field.relation_name
               relation = @data_adapter.relation(field.relation_name)
@@ -102,7 +108,7 @@ module RademadeAdmin
             _add_data_item(field, relation)
           end
 
-          @data_adapter.relations.each do |name, relation|
+          @data_adapter.relations.each do |_, relation|
             unless used_relations.include? relation.name
               _add_data_item(nil, relation)
             end
@@ -111,8 +117,6 @@ module RademadeAdmin
           @model_items
 
         end
-
-        private
 
         def _add_data_item(field, relation)
           name = field.nil? ? relation.name : field.name
@@ -123,16 +127,27 @@ module RademadeAdmin
             model_item.label = label_data.label
           end
 
-          @model_configuration.form_fields.find(name) do |form_field_data|
-            model_item.as = form_field_data.as
-            model_item.in_form = true #todo index
+          # if data.adapter.uploader.include? name
+          #   model_item.uploader!
+          # end
+          #
+          #
+          #
+          #@data_adapter.has_uplaoder
+          #model_item.is_uploader
+
+          @model_configuration.form_fields.find_with_index(name) do |form_field_data, index|
+            model_item.form_params = form_field_data.params
+            model_item.in_form = true
+            model_item.form_position = index
           end
 
-          @model_configuration.list_fields.find(name) do |list_field_data|
-            model_item.in_list = true #todo index
+          @model_configuration.list_fields.find_with_index(name) do |_, index|
+            model_item.in_list = true
+            model_item.list_position = index
           end
 
-          @model_items[ model_item.name ] = model_item
+          @model_items << model_item
         end
 
       end

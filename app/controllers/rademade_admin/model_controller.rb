@@ -45,8 +45,8 @@ module RademadeAdmin
 
     def autocomplete
       authorize! :read, model_class
-      conditions = Search::Conditions::Autocomplete.new( params, model_info.fields )
-      @items = Search::Searcher.new(model_info).search( conditions )
+      conditions = Search::Conditions::Autocomplete.new(params, model_info.fields)
+      @items = Search::Searcher.new(model_info).search(conditions)
       render :json => Autocomplete::BaseSerializer.new(@items)
     end
 
@@ -55,8 +55,8 @@ module RademadeAdmin
       list_breadcrumbs
 
       #Filter
-      conditions = Search::Conditions::List.new(params, model_info.fields )
-      @items = Search::Searcher.new(model_info).search( conditions )
+      conditions = Search::Conditions::List.new(params, model_info.fields)
+      @items = Search::Searcher.new(model_info).search(conditions)
 
       respond_to do |format|
         format.html { render_template }
@@ -83,16 +83,15 @@ module RademadeAdmin
     def related
       authorize! :read, model_class
 
-      #Filter
       @item = model.find(params[:id])
-      @items = Search::Related.new(@item, model_info, params[:relation]).find(params)
+      @items = @item.send(params[:relation])
 
       respond_to do |format|
         format.html {
           related_breadcrumbs
           render_template
         }
-        format.json { render :json => @items }
+        format.json { render :json => Autocomplete::BaseSerializer.new(@items) }
       end
     end
 

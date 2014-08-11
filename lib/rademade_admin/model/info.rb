@@ -43,7 +43,7 @@ module RademadeAdmin
       # @return [RademadeAdmin::Model::Info::Fields]
       #
       def fields
-        @model_fields ||= RademadeAdmin::Model::Info::Fields.new( _data_adapter, @model_configuration, relations )
+        @model_fields ||= RademadeAdmin::Model::Info::Fields.new(_data_adapter, @model_configuration, relations)
       end
 
       # Relation data class
@@ -51,19 +51,15 @@ module RademadeAdmin
       # @return [RademadeAdmin::Model::Info::Relations]
       #
       def relations
-        @model_relations ||= RademadeAdmin::Model::Info::Relations.new( _data_adapter )
-      end
-
-      def uploaders
-        @model_reflection.data_adapter.uploaders
-      end
-
-      def uploader_fields
-        @model_reflection.data_adapter.uploader_fields
+        @model_relations ||= RademadeAdmin::Model::Info::Relations.new(_data_adapter)
       end
 
       def query_adapter
         @model_reflection.query_adapter
+      end
+
+      def label_for(name)
+        @model_configuration.field_labels.label_for(name)
       end
 
       protected

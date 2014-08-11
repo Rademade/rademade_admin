@@ -30,7 +30,7 @@ module RademadeAdmin
 
         protected
 
-        def initialize(opts= {})
+        def initialize(opts = {})
           @name = opts[:name]
           @primary = opts[:primary]
           @foreign_key = opts[:foreign_key]

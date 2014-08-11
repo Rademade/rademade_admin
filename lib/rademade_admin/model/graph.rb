@@ -32,7 +32,7 @@ module RademadeAdmin
       end
 
       def get_root_models
-        @model_infos.select { |model_name, model_info| not model_info.nested? }.values
+        @model_infos.select { |_, model_info| not model_info.nested? }.values
       end
 
     end

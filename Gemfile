@@ -19,6 +19,8 @@ group :test do
   gem 'mongoid_rails_migrations'
   gem 'mongoid-grid_fs'
   gem 'mongoid-tree'
+  gem 'light_resizer', :github => 'Rademade/light_resizer'
+  gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
   gem 'rspec', '>= 3'
   gem 'spork-rails'
   gem 'rspec-rails', '3.0.0'

@@ -4,12 +4,11 @@ module RademadeAdmin
     class Info
       class DataItem
 
-        attr_accessor :name, :field, :relation, :label, :as, :in_form, :in_list
-
-        alias_method :in_list?, :in_list
-        alias_method :in_form?, :in_form
+        attr_accessor :name, :field, :relation, :label, :form_params,
+                      :form_position, :in_form, :list_position, :in_list
 
         #
+        # @param name [Symbol]
         # @param field [RademadeAdmin::Model::Info::Field]
         # @param relation [RademadeAdmin::Model::Info::Relation]
         #
@@ -27,6 +26,18 @@ module RademadeAdmin
 
         def getter
           @getter ||= has_relation? ? @relation.name : @field.name
+        end
+
+        def in_list?
+          in_list.nil? ? false : in_list
+        end
+
+        def in_form?
+          in_form.nil? ? false : in_form
+        end
+
+        def as
+          #
         end
 
         private

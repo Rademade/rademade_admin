@@ -7,7 +7,7 @@
             <% unless index == 0 %>
               <span class="line"></span>
             <% end %>
-            <span><%= field_to_label(name) + @sortable_service.sorting_sign(name) %></span>
+            <span><%= @model_info.label_for(name) + @sortable_service.sorting_sign(name) %></span>
           </th>
         <% end %>
 

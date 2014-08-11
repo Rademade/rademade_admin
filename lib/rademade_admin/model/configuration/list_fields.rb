@@ -7,6 +7,7 @@ module RademadeAdmin
       class ListFields < Fields
 
         protected
+
         def field_class
           RademadeAdmin::Model::Configuration::ListField
         end

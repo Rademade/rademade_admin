@@ -16,36 +16,34 @@ module RademadeAdmin::FormHelper
     )
   end
 
-  def admin_field(form, name, params, model_info)
-    field_params = admin_field_params(params, model_info)
-    attrs = admin_default_params(name, model_info).merge( field_params )
+  def admin_field(form, form_field, model_info)
+    name = form_field.name
+    attrs = admin_default_params(name, model_info).merge(admin_form_params(form_field))
     concat form.input(name, input_attr(attrs))
   end
 
   def admin_default_params(name, model_info)
-    {
-      :label => field_to_label(name, model_info)
-    }
+    { :label => model_info.label_for(name) }
   end
 
-  def admin_field_params(params, model_info)
-    if params.is_a? Hash
-      params
-    else
-      #todo it's very riskly. Needs more clearer
-      { :as => params }
+  def admin_form_params(form_field)
+    params = form_field.form_params
+    unless params[:as].present?
+      params[:as] = default_field_type(form_field)
     end
+    params
   end
 
-  # todo move to other helper!
-  def default_field_type(field)
-    # if @data_adapter.association_fields.include? field
-    #   'rademade_admin/admin_select'
-    # elsif @data_adapter.uploader_fields.include? field
-    #   'rademade_admin/admin_file'
-    # else
-    #   nil
-    # end
+  private
+
+  def default_field_type(form_field)
+    if form_field.relation
+       :'rademade_admin/admin_select'
+    #elsif @model_info.uploader_fields.include? form_field.name # todo
+    #   :'rademade_admin/admin_file'
+    else
+       nil
+    end
   end
 
 end

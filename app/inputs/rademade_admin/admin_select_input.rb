@@ -24,19 +24,18 @@ module RademadeAdmin
       template.text_field_tag(extra_input_html_options[:name], input_value, html_attributes)
     end
 
+    def input_html_options_name
+      "#{object_name}[#{relation.id_getter}]"
+    end
+
     def input_value
-      object_reflection = model.send(reflection_name)
-      if multiple?
-        object_reflection.pluck(:id).map(&:to_s).join(',')
-      else
-        object_reflection.try(:id).to_s
-      end
+      model.send(relation.id_getter)
     end
 
     def html_attributes
       {
         :class => 'select-wrapper',
-        :data =>  reflection_data.merge('owner-class' => object.class.to_s),
+        :data => reflection_data.merge('owner-class' => object.class.to_s),
         :type => 'hidden'
       }
     end
@@ -46,29 +45,25 @@ module RademadeAdmin
       template.content_tag(:button, I18n.t('rademade_admin.add_new'), {
         :class => 'relation-add-button',
         'data-new' => url,
-        'data-class' => reflection_class
+        'data-class' => relation.to
       }) if url
     end
 
     def new_item_url
-      admin_new_form_uri(reflection_class.constantize)
+      admin_new_form_uri(relation.to)
     end
 
     def reflection_data
       if related_with_model?
         {
-          'rel-multiple' => multiple?.to_s,
-          'rel-class' => reflection_class,
-          'search-url' => admin_autocomplete_uri(reflection_class, format: :json),
-          'related-url' => admin_related_item(model, method)
+          'rel-multiple' => relation.many?,
+          'rel-class' => relation.to,
+          'search-url' => admin_autocomplete_uri(relation.to, format: :json),
+          'related-url' => admin_related_item(model, relation.getter)
         }
       else
         {}
       end
-    end
-
-    def reflection_class
-      related_with_model? ? reflection.class_name : nil
     end
 
     def related_with_model?
@@ -84,7 +79,13 @@ module RademadeAdmin
     end
 
     def connected_to
-      @connected_to ||= ::RademadeAdmin::LoaderService.const_get( reflection.class_name )
+      @connected_to ||= relation.to
+    end
+
+    private
+
+    def relation
+      @relation ||= Model::Graph.instance.model_info(model.class).relations.relation(reflection_name)
     end
 
   end

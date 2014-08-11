@@ -6,6 +6,7 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
     list :email, :first_name, :last_name
     form do
       email
+      avatar :'rademade_admin/admin_file'
       first_name
       last_name
       password

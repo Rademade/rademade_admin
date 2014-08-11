@@ -24,14 +24,18 @@ module RademadeAdmin
             @model.relations.each do |name, relation_info|
               name = name.to_sym
               type = relation_info.relation.macro
+              has_many = has_many_relations.include?(type)
+              id_getter = has_many ? "#{name.to_s.singularize}_ids" : "#{name}_id"
               relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
                 :name => name,
                 :from => @model.class,
                 :to => RademadeAdmin::LoaderService.const_get(relation_info.class_name),
                 :getter => name.to_s,
+                :id_getter => id_getter,
+                :id_setter => id_getter + '=',
                 :setter => relation_info.setter,
                 :type => type,
-                :has_many => has_many_relations.include?(type)
+                :has_many => has_many
               })
             end
             relations

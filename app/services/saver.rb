@@ -19,7 +19,7 @@ module RademadeAdmin
     end
 
     def update_model
-      @item = @model_info.model.find( @params[:id] )
+      @item = @model_info.model.find(@params[:id])
       item.update filter_data_params
     end
 
@@ -29,7 +29,7 @@ module RademadeAdmin
 
     def save_aggregated_data
       save_model_relations
-      save_model_uploads
+      #save_model_uploads
       item.save!
     end
 
@@ -41,12 +41,12 @@ module RademadeAdmin
 
     def save_model_relations
       data = @params[:data]
-      @model_info.relations.all.each do |name, relation|
-        setter = relation.setter
-        if data.has_key? setter
-          ids = data[ setter ]
-          ids.reject! { |id| id.empty? } if ids.kind_of?(Array)
-          item.send(setter + '=', ids)
+      @model_info.relations.all.each do |_, relation|
+        id_getter = relation.id_getter
+        if data.has_key? id_getter
+          ids = data[id_getter]
+          ids.reject! { |id| id.empty? } if ids.kind_of? Array
+          item.send(relation.id_setter, ids)
         end
       end
     end
@@ -67,7 +67,7 @@ module RademadeAdmin
     end
 
     def filter_data_params
-      @params.require(:data).permit( @model_info.fields.save_form_fields )
+      @params.require(:data).permit(@model_info.fields.save_form_fields)
     end
 
   end

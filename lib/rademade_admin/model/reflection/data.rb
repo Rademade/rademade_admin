@@ -7,11 +7,10 @@ module RademadeAdmin
         ORM_TYPE_ACTIVERECORD = 'ActiveRecord'
         ORM_TYPE_MONGOID = 'Mongoid'
 
-        # Load query adapter for current model
+        # Load data adapter for current model
         #
         # @return [RademadeAdmin::Model::Adapter::Data]
         def data_adapter
-          p orm_type
           @data_adapter ||= "RademadeAdmin::Model::Adapter::Data::#{orm_type}".constantize.new(@model)
         end
 
@@ -33,6 +32,7 @@ module RademadeAdmin
           orm_list.each do |orm_class, orm_type|
             @orm_type = orm_type if _model_ancestors.include? orm_class
           end
+          @orm_type
         end
 
         def orm_list

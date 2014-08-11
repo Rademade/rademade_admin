@@ -18,7 +18,7 @@
         <thead>
             <tr><%
                 index = 0
-                @list_fields.each do |_, field|
+                @list_fields.each do |field|
                     index += 1
 
                     %><th class="col-md-3 sort-button" data-column="<%= field.name %>">
@@ -46,7 +46,7 @@
                     end
                 %> data-id='<%= item.id %>'>
 
-                    <% @list_fields.each do |_, field| %>
+                    <% @list_fields.each do |field| %>
                       <td><%=display_item_value(item, field)%></td>
                     <% end %>
 

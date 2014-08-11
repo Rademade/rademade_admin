@@ -4,7 +4,17 @@ module RademadeAdmin
     class Configuration
       class FieldsLabels < Fields
 
+        def label_for(name)
+          field = find(name)
+          if field.nil?
+            name.to_s.humanize
+          else
+            field.label
+          end
+        end
+
         protected
+
         def field_class
           RademadeAdmin::Model::Configuration::FieldLabel
         end
