@@ -4,7 +4,7 @@ module RademadeAdmin
     class Info
       class DataItem
 
-        attr_accessor :field, :relation, :label, :as, :in_form, :in_list
+        attr_accessor :name, :field, :relation, :label, :as, :in_form, :in_list
 
         alias_method :in_list?, :in_list
         alias_method :in_form?, :in_form
@@ -13,8 +13,8 @@ module RademadeAdmin
         # @param field [RademadeAdmin::Model::Info::Field]
         # @param relation [RademadeAdmin::Model::Info::Relation]
         #
-        def initialize(field, relation)
-          @field, @relation = field, relation
+        def initialize(name, field, relation)
+          @name, @field, @relation = name, field, relation
         end
 
         def has_relation?
@@ -23,10 +23,6 @@ module RademadeAdmin
 
         def label
           @label ||= _default_label
-        end
-
-        def name
-          @name ||= has_relation? ? @relation.name : @field.name
         end
 
         def getter

@@ -23,7 +23,7 @@ module RademadeAdmin
         end
 
         def list_fields
-          @list_fields ||= _model_items.select{|_, field| field.in_list? }
+          @list_fields ||= _model_items.select{|field| field.in_list? }
         end
 
         def filter_fields
@@ -93,38 +93,46 @@ module RademadeAdmin
           used_relations = []
 
           @data_adapter.fields.each do |name, field|
-
             if field.has_relation?
               used_relations << field.relation_name
               relation = @data_adapter.relation(field.relation_name)
             else
               relation = nil
             end
-
-            model_item = RademadeAdmin::Model::Info::DataItem.new(field, relation)
-
-            @model_configuration.field_labels.find(field.name) do |label_data|
-              model_item.label = label_data.label
-            end
-
-            @model_configuration.form_fields.find(field.name) do |form_field_data|
-              model_item.as = form_field_data.as
-              model_item.in_form = true #todo index
-            end
-
-            @model_configuration.list_fields.find(field.name) do |list_field_data|
-              model_item.in_list = true #todo index
-            end
-
-            @model_items[ model_item.name ] = model_item
+            _add_data_item(field, relation)
           end
 
           @data_adapter.relations.each do |name, relation|
-
+            unless used_relations.include? relation.name
+              _add_data_item(nil, relation)
+            end
           end
 
           @model_items
 
+        end
+
+        private
+
+        def _add_data_item(field, relation)
+          name = field.nil? ? relation.name : field.name
+
+          model_item = RademadeAdmin::Model::Info::DataItem.new(name, field, relation)
+
+          @model_configuration.field_labels.find(name) do |label_data|
+            model_item.label = label_data.label
+          end
+
+          @model_configuration.form_fields.find(name) do |form_field_data|
+            model_item.as = form_field_data.as
+            model_item.in_form = true #todo index
+          end
+
+          @model_configuration.list_fields.find(name) do |list_field_data|
+            model_item.in_list = true #todo index
+          end
+
+          @model_items[ model_item.name ] = model_item
         end
 
       end
