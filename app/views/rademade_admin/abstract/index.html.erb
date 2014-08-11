@@ -9,21 +9,38 @@
 <% content_for :nav_buttons do %><%
     new_uri = admin_new_uri(@model_info)
     if new_uri
-        concat link_to t('rademade_admin.new_record') + '+', new_uri, :class => 'btn-flat success new-product'
+        concat link_to t('rademade_admin.new_record') + '+', new_uri, :class => 'btn yellow-btn fl-l'
     end
-%><% end %>
+%>
+    <div class="select-list fl-r">
+      <div class="select-list-text fl-l">
+        <span><%= t('rademade_admin.show_results') %></span>
+      </div>
 
+      <div class="select-list-box fl-r">
+        <form action="#" method="get">
+          <select class="btn blue-btn select-btn fl-l" id="perPageSelect" name="paginate">
+            <%
+               [20, 40, 60].each do |per_page|
+                   concat pagination_option(per_page)
+               end
+            %></select>
+        </form>
+      </div>
+    </div>
+
+<div class="clear"></div>
 <% content_for :content do %>
     <% if @sortable_service.can_reset? %>
         <a href="<%= request.path %>"><%= t('rademade_admin.reset_sort') %></a>
     <% end %>
-    <table class="table table-hover">
+    <table class="table-box">
 
         <thead class="table-header">
-            <tr>
+            <tr class="table-line">
                 <% @list_fields.each_with_index do |name, index|
                     list_field_name = field_name(name)
-                    %><th class="col-md-3 sort-button" data-column="<%= list_field_name %>">
+                    %><th class="table-item" data-column="<%= list_field_name %>">
                         <% unless index == 0 %>
                             <span class="line"></span>
                         <% end %>
@@ -31,7 +48,7 @@
                     </th>
                 <% end %>
 
-                <th class="col-md-3 align-right">
+                <th class="table-item">
                     <span class="line"></span>
                     <span><%= t('rademade_admin.management') %></span>
                 </th>
@@ -39,15 +56,15 @@
         </thead>
 
         <% has_position = @sortable_service.has_position? %>
-        <tbody class="table-sortable" data-position='<%= has_position %>'>
+        <tbody class="table-content" data-position='<%= has_position %>'>
             <% @items.each_with_index do |item| %>
                 <tr<%
                     if has_position
                         %> id='<%= item.position %>'<%
                     end
-                %> data-id='<%= item.id %>'>
+                %> class="table-line" data-id='<%= item.id %>'>
                     <% @list_fields.each do |name|
-                        %><td><%
+                        %><td class="table-item"><%
                             value = field_value(name, item)
                             # todo remove hard code, extract helper (data adapter)
                             if value.respond_to? :id
@@ -57,22 +74,20 @@
                             end
                         %></td>
                     <% end %>
-                    <td>
-                        <ul class="actions">
-                            <li><%= link_to t('rademade_admin.edit'), admin_edit_uri(item) %></li>
-                            <li><%= button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
-                                :method => :delete,
-                                :form => {:class => 'delete-item-form'}
-                            } %></li>
-                        </ul>
+                    <td class="table-item">
+                        <span class="table-actions">
+                          <%= link_to t('rademade_admin.edit'), admin_edit_uri(item), :class => "glyphicon glyphicon-pencil fl-l" %>
+                          <%= button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
+                                  :method => :delete,
+                                  :form => {:class => 'delete-item-form'}
+                          } %>
+                        </span>
                     </td>
                 </tr>
             <% end %>
         </tbody>
     </table>
-
-    <%= render 'rademade_admin/_blocks/pagination' %>
-
+    <%= render 'rademade_admin/_blocks/pagination' %><% end %>
 <% end %>
 
 <%= render :template => 'rademade_admin/_layouts/inner' %>

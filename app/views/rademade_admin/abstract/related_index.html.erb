@@ -1,12 +1,12 @@
 <% content_for :last_crumbs do %>
-  <%= link_to(@parent_model_info.item_name, admin_list_uri(@parent_model_info)) %>
-  <span class="separator">-></span>
+  <%= link_to(@parent_model_info.item_name, admin_list_uri(@parent_model_info), :class => "breadcrumbs-link" )%>
+  <span class="breadcrumbs-sep"></span>
   <%= link_to(@parent, admin_model_url_for(params[:parent], {
     :action => :edit,
     :id => params[:parent_id]
-  })) %>
-  <span class="separator">-></span>
-  <span><%= @model_info.item_name %></span>
+  }), :class => "breadcrumbs-link" ) %>
+  <span class="breadcrumbs-sep"></span>
+  <span class="breadcrumbs-link current"><%= @model_info.item_name %></span>
 <% end %>
 
 <% content_for :page_header do %>
