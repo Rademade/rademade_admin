@@ -27,9 +27,9 @@ module RademadeAdmin
               get :form if parent_resource_actions.include? :edit
 
               scope 'related/:relation' do
-                get '/' => :related
-                post '/' => :related_add
-                delete ':related_id' => :related_destroy
+                get '/' => :related, :as => :related
+                post '/' => :related_add, :as => :related_add
+                delete ':related_id' => :related_destroy, :as => :related_destroy
               end
 
             end
