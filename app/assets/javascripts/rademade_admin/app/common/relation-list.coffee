@@ -16,7 +16,7 @@ initItem = ($item) ->
     initSelection : (element, callback) ->
       $.getJSON(relatedUrl).done (data) ->
         $item.select2('enable', true)
-        callback( isMultiple ? data : data[0] )
+        callback(if isMultiple then data else data[0])
         addTable($item) if isMultiple
         hideTags()
 
