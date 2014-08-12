@@ -29,7 +29,12 @@ module RademadeAdmin
     end
 
     def input_value
-      model.send(relation.id_getter)
+      related_value = model.send(relation.id_getter)
+      if relation.many?
+        related_value.map(&:to_s).join(',')
+      else
+        related_value.to_s
+      end
     end
 
     def html_attributes
@@ -45,7 +50,7 @@ module RademadeAdmin
       template.content_tag(:button, I18n.t('rademade_admin.add_new'), {
         :class => 'relation-add-button',
         'data-new' => url,
-        'data-class' => relation.to
+        'data-class' => relation.to.to_s
       }) if url
     end
 
@@ -57,9 +62,8 @@ module RademadeAdmin
       if related_with_model?
         {
           'rel-multiple' => relation.many?,
-          'rel-class' => relation.to,
-          'search-url' => admin_autocomplete_uri(relation.to, format: :json),
-          'related-url' => admin_related_item(model, relation.getter)
+          'rel-class' => relation.to.to_s,
+          'search-url' => admin_autocomplete_uri(relation.to, format: :json)
         }
       else
         {}

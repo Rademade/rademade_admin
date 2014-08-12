@@ -84,7 +84,8 @@ module RademadeAdmin
       authorize! :read, model_class
 
       @item = model.find(params[:id])
-      @items = @item.send(params[:relation])
+      conditions = Search::Conditions::RelatedList.new(@item, params, model_info.fields)
+      @items = Search::Searcher.new(model_info).search(conditions)
 
       respond_to do |format|
         format.html {

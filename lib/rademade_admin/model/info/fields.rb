@@ -23,6 +23,10 @@ module RademadeAdmin
           @data_adapter.has_field?(name)
         end
 
+        def primary_field
+          @primary_field ||= find_primary_field
+        end
+
         def list_fields
           @list_fields ||= collect_list_fields
         end
@@ -46,7 +50,7 @@ module RademadeAdmin
         end
 
         def origin_fields
-          _model_items.select { |model_item| not(model_item.uploader? or model_item.has_relation?) }
+          _model_items.select { |model_item| not(model_item.uploader? or model_item.has_relation?) }.map(&:name)
         end
 
         private
@@ -100,6 +104,13 @@ module RademadeAdmin
           end
 
           @model_items << model_item
+        end
+
+        def find_primary_field
+          _model_items.each do |model_item|
+            return model_item if model_item.field.primary?
+          end
+          nil
         end
 
         def collect_list_fields

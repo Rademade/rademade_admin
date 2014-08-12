@@ -9,20 +9,19 @@ module RademadeAdmin
         attr_reader :item
 
         def base_condition(model)
-          @item.send( @params[:method] )
+          @item.send(@params[:relation])
         end
 
         protected
 
-        # todo!
         def initialize(item, params, origin_fields)
           @item = item
           super(params, origin_fields)
         end
 
         def where
-          where_conditions = Where.new(:and)
-          @params.slice(*@origin_fields).each do |field, value|
+          where_conditions = RademadeAdmin::Search::Part::Where.new(:and)
+          @params.slice(*@fields.origin_fields).each do |field, value|
             where_conditions.add(field, value)
           end
           where_conditions
@@ -44,7 +43,7 @@ module RademadeAdmin
         private
 
         def default_order_field
-          @origin_fields.include?('position') ? :position : :id
+          @fields.origin_fields.include?('position') ? :position : :id
         end
 
         def direction

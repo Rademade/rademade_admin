@@ -6,13 +6,13 @@ module RademadeAdmin
     module Conditions
       class Autocomplete < Abstract
 
-
         protected
 
         def where
           @where_conditions = RademadeAdmin::Search::Part::Where.new(:and)
           append_query_condition
           append_search_params
+          append_ids_params
           @where_conditions
         end
 
@@ -37,6 +37,12 @@ module RademadeAdmin
             @params[:search].each do |key, value|
               @where_conditions.add(key.to_sym, value) if @fields.origin_fields.include? key.to_s
             end
+          end
+        end
+
+        def append_ids_params
+          if @params[:ids].present?
+            @where_conditions.add(@fields.primary_field.name, @params[:ids])
           end
         end
 

@@ -6,7 +6,6 @@ initSelect = ->
 
 initItem = ($item) ->
   searchUrl = $item.data('searchUrl')
-  relatedUrl = $item.data('relatedUrl')
   isMultiple = $item.data('relMultiple')
 
   $item.select2(
@@ -14,7 +13,8 @@ initItem = ($item) ->
     placeholder : 'Enter search phrase'
 
     initSelection : (element, callback) ->
-      $.getJSON(relatedUrl).done (data) ->
+      params = {ids : element.val().split(',')}
+      $.getJSON(searchUrl, params).done (data) ->
         $item.select2('enable', true)
         callback(if isMultiple then data else data[0])
         addTable($item) if isMultiple
