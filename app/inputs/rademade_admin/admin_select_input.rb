@@ -82,10 +82,6 @@ module RademadeAdmin
       @model ||= builder.object
     end
 
-    def connected_to
-      @connected_to ||= relation.to
-    end
-
     private
 
     def relation

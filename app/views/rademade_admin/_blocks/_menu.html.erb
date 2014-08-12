@@ -9,27 +9,25 @@
                     if is_active
                         %> class="active"<%
                     end
-                %>>
-
-                    <% if is_active %>
-                        <div class="pointer">
+                %>><%
+                    if is_active
+                        %><div class="pointer">
                             <div class="arrow"></div>
                             <div class="arrow_border"></div>
-                        </div>
-                    <% end %>
+                        </div><%
+                    end
 
-                    <a href="<%= menu_item[:uri] %>"<%
+                    %><a href="<%= menu_item[:uri] %>"<%
                         if has_sub_items
                             %> class="dropdown-toggle"<%
                         end
                     %>>
                         <i class="<%= menu_item[:ico] %>"></i>
-                        <span><%= item_name %></span>
-                        <% if has_sub_items %>
-                            <i class="fa fa-chevron-down"></i>
-                        <% end %>
-                    </a><%
-
+                        <span><%= item_name %></span><%
+                        if has_sub_items
+                            %><i class="fa fa-chevron-down"></i><%
+                        end
+                    %></a><%
                     if has_sub_items
                         %><ul class="submenu"><%
                             concat render 'rademade_admin/_blocks/sub_menu/link', {
@@ -39,7 +37,6 @@
                             concat render 'rademade_admin/_blocks/sub_menu', :menu_item => menu_item
                         %></ul><%
                     end
-
                 %></li><%
             end
         end

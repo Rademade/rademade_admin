@@ -1,10 +1,10 @@
 <%= admin_form(@item, @model_class) do |f| %>
-  <%= f.inputs do %>
-    <% @semantic_form_fields.each do |form_field|
-      admin_field(f, form_field, @model_info)
+    <%= f.inputs do %><%
+        @semantic_form_fields.each do |form_field|
+            admin_field(f, form_field, @model_info)
+        end
     end
-  end
 
-  concat render :partial => 'rademade_admin/_blocks/form_control', :locals => {:f => f}
+    concat render :partial => 'rademade_admin/_blocks/form_control', :locals => { :f => f }
 
 end %>

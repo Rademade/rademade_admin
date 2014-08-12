@@ -19,7 +19,16 @@ module RademadeAdmin::FormHelper
   def admin_field(form, form_field, model_info)
     name = form_field.name
     attrs = admin_default_params(name, model_info).merge(form_field.form_params)
-    concat form.input(name, input_attr(attrs))
+
+    field = form.input(name, input_attr(attrs))
+
+    relation = form_field.relation
+    if relation and relation.many?
+      relation_name = RademadeAdmin::Model::Graph.instance.model_info(relation.to).item_name
+      field += link_to relation_name, admin_related_item(form.object, relation.getter)
+    end
+
+    concat field
   end
 
   def admin_default_params(name, model_info)

@@ -24,6 +24,7 @@ module RademadeAdmin
             @model.relations.each do |name, relation_info|
               name = name.to_sym
               type = relation_info.relation.macro
+              # todo
               has_many = has_many_relations.include?(type)
               id_getter = has_many ? "#{name.to_s.singularize}_ids" : "#{name}_id"
               relations[name] = ::RademadeAdmin::Model::Info::Relation.new({

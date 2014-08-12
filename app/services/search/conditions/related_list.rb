@@ -9,14 +9,14 @@ module RademadeAdmin
         attr_reader :item
 
         def base_condition(model)
-          @item.send(@params[:relation])
+          @item.send(@params[:relation]).unscoped
         end
 
         protected
 
-        def initialize(item, params, origin_fields)
+        def initialize(item, params, fields)
           @item = item
-          super(params, origin_fields)
+          super(params, fields)
         end
 
         def where

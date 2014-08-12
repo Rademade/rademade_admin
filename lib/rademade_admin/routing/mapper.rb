@@ -20,14 +20,14 @@ module RademadeAdmin
             end
 
             new do
-              get :form if parent_resource_actions.include? :new
-            end
+              get :form
+            end if parent_resource_actions.include? :new
 
             member do
               get :form if parent_resource_actions.include? :edit
 
               scope 'related/:relation' do
-                get '/' => :related, :as => :related
+                get '/' => :related, :as => :related if parent_resource_actions.include? :index
                 post '/' => :related_add, :as => :related_add
                 delete ':related_id' => :related_destroy, :as => :related_destroy
               end

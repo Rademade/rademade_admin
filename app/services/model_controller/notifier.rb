@@ -22,12 +22,16 @@ module RademadeAdmin
       success_message(item, 'was deleted!')
     end
 
-    def success_unlink(item)
-      success_message(item, 'was unlinked from entity!')
+    def success_unlink
+      render :json => {
+        :message => 'Entity was unlinked!'
+      }
     end
 
-    def success_link(item)
-      success_message(item, 'was linked to entity!')
+    def success_link
+      render :json => {
+        :message => 'Entity was linked!'
+      }
     end
 
     def success_message(item, action_message, additional_data = {})

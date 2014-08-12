@@ -1,9 +1,26 @@
-<% content_for :content do %>
-    <table class="table table-hover">
+<%
+    related_list_fields = @related_model_info.fields.list_fields
+%><% content_for :page_header do %>
+  <h3><%= @related_model_info.item_name %></h3><%
+end
+%><% content_for :content do %><%
+    # todo
+    autocomplete_uri = '' #admin_link_autocomplete_uri(@model_info, {
+        #:relation => params[:relation],
+        #:format => :json
+    #})
+    %><%= content_tag(
+        :input,
+        nil,
+        :type => 'hidden',
+        :class => 'select2-add-link',
+        :'data-model' => @model_class.to_s,
+        :'data-rel-list-url' => autocomplete_uri
+    )%><table class="table table-hover">
         <thead>
             <tr><%
                 index = 0
-                @list_fields.each do |field|
+                related_list_fields.each do |field|
                     index += 1
                     %><th class="col-md-3 sort-button" data-column="<%= field.name %>"><%
                         unless index == 1
@@ -12,7 +29,6 @@
                         %><span><%= field.label + @sortable_service.sorting_sign(field) %></span>
                     </th><%
                 end
-
                 %><th class="col-md-3 align-right">
                   <span class="line"></span>
                   <span><%= t('rademade_admin.management') %></span>
@@ -28,15 +44,19 @@
                         %> id='<%= item.position %>'<%
                     end
                 %> data-id='<%= item.id %>'><%
-                    @list_fields.each do |field|
+                    related_list_fields.each do |field|
                         %><td><%= display_item_value(item, field) %></td><%
                     end
                     %><td>
                         <ul class="actions">
-                            <li><%= button_to t('rademade_admin.unlink'), admin_unlink_uri(item, params[:parent], params[:parent_id]), {
-                                :method => :patch,
-                                :form => {:class => 'delete-item-form'}
-                            } %></li>
+                            <li>
+                                <%= button_to t('rademade_admin.unlink'), admin_unlink_uri(@item, params[:relation], {
+                                    :related_id => item.id
+                                }), {
+                                    :method => :delete,
+                                    :form => { :class => 'delete-item-form' }
+                                } %>
+                            </li>
                         </ul>
                     </td>
                 </tr><%
@@ -44,4 +64,5 @@
         %></tbody>
     </table><%
     concat render 'rademade_admin/_blocks/pagination'
-end %>
+end
+concat render :template => 'rademade_admin/_layouts/inner' %>

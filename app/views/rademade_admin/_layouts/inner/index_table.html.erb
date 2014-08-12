@@ -1,59 +1,52 @@
-<% content_for :content do %>
-    <% if @sortable_service.can_reset? %>
-        <a href="<%= request.path %>"><%= t('rademade_admin.reset_sort') %></a>
-    <% end %>
-    <table class="table table-hover">
+<% content_for :content do %><%
+    if @sortable_service.can_reset?
+        %><a href="<%= request.path %>"><%= t('rademade_admin.reset_sort') %></a><%
+    end
+    %><table class="table table-hover">
 
         <thead>
-            <tr>
-                <% @list_fields.each_with_index do |name, index| %>
-                    <th class="col-md-3 sort-button" data-column="<%=name%>">
-                        <% unless index == 0 %>
-                            <span class="line"></span>
-                        <% end %>
-                        <span><%= field_to_label(name) + @sortable_service.sorting_sign(name) %></span>
-                    </th>
-                <% end %>
+            <tr><%
+                index = 0
+                @list_fields.each do |field|
+                    index += 1
+                    %><th class="col-md-3 sort-button" data-column="<%= field.name %>"><%
+                        unless index == 1
+                            %><span class="line"></span><%
+                        end
+                        %><span><%= field.label + @sortable_service.sorting_sign(field) %></span>
+                    </th><%
+                end
 
-                <th class="col-md-3 align-right">
+                %><th class="col-md-3 align-right">
                     <span class="line"></span>
                     <span><%= t('rademade_admin.management') %></span>
                 </th>
             </tr>
-        </thead>
+        </thead><%
 
-        <% has_position = @sortable_service.has_position? %>
-        <tbody class="table-sortable" data-position='<%= has_position %>'>
-            <% @items.each_with_index do |item, index| %>
-                <tr<%
+        has_position = @sortable_service.has_position?
+        %><tbody class="table-sortable" data-position='<%= has_position %>'><%
+            @items.each do |item|
+                %><tr<%
                     if has_position
                         %> id='<%= item.position %>'<%
                     end
-                %> data-id='<%= item.id %>'>
-                    <% @list_fields.each do |name|
-                        %><td><%
-                            td_data = item.send(name)
-                            if td_data.is_a? Mongoid::Document #rm_todo remove hard code, extract helper (data adapter)
-                                concat link_to td_data.to_s, admin_edit_uri(td_data)
-                            else
-                                concat td_data
-                            end
-                        %></td>
-                    <% end %>
-                    <td>
+                %> data-id='<%= item.id %>'><%
+                    @list_fields.each do |field|
+                        %><td><%= display_item_value(item, field) %></td><%
+                    end
+                    %><td>
                         <ul class="actions">
                             <li><%= link_to t('rademade_admin.edit'), admin_edit_uri(item) %></li>
                             <li><%= button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
                                 :method => :delete,
-                                :form => {:class => 'delete-item-form'}
+                                :form => { :class => 'delete-item-form' }
                             } %></li>
                         </ul>
                     </td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
-
-    <%= render 'rademade_admin/_blocks/pagination' %>
-
-<% end %>
+                </tr><%
+            end
+        %></tbody>
+    </table><%
+    concat render 'rademade_admin/_blocks/pagination'
+end %>

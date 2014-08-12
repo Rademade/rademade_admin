@@ -20,12 +20,9 @@ module RademadeAdmin
     end
 
     def related_breadcrumbs
-      breadcrumbs.add @parent_model_info.item_name, admin_list_uri(@parent_model_info)
-      breadcrumbs.add @parent, admin_model_url_for(params[:parent], {
-        :action => :edit,
-        :id => params[:parent_id]
-      })
-      breadcrumbs.add @model_info.item_name
+      list_breadcrumbs(true)
+      breadcrumbs.add @item.to_s, admin_edit_uri(@item)
+      breadcrumbs.add @related_model_info.item_name
     end
 
   end

@@ -3,7 +3,7 @@ module RademadeAdmin
   class RelationController < RademadeAdmin::AbstractController
 
     def index
-      asdsa
+
     end
 
   end

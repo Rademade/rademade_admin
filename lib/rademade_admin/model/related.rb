@@ -14,7 +14,7 @@ module RademadeAdmin
         end
       end
 
-      def find( params)
+      def find(params)
         if relation.has_one?
           @item.send( relation.name )
         elsif relation.has_many?

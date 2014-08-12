@@ -2,32 +2,27 @@
 module RademadeAdmin
   class Linker
 
-    def initialize(model_info, parent_model, parent_id)
+    def initialize(model_info, item, relation_getter)
       @model_info = model_info
-      @parent_model_info = RademadeAdmin::Model::Graph.instance.model_info(parent_model)
-      @parent = @parent_model_info.model.find(parent_id)
+      @item = item
+      @relation_getter = relation_getter
     end
 
     def link(id)
-      process_link { |old_data| old_data << parse_id(id) }
+      process_link { |old_data| old_data << id }
     end
 
     def unlink(id)
-      process_link { |old_data| old_data - [parse_id(id)] }
+      process_link { |old_data| old_data - [id] }
     end
 
     private
 
     def process_link
-      related_name = @model_info.model_name.tableize.gsub('/', '_').to_sym # todo extract method or better guessing of related name
-      association = @parent_model_info.reflect_on_association(related_name)
-      foreign_key = @parent_model_info.association_foreign_key(association)
-      @parent.send(foreign_key + '=', yield(@parent.send(foreign_key)))
-      @parent.save
-    end
-
-    def parse_id(id)
-      Integer(id) rescue id.to_s
+      relation_field = @model_info.relations.relation(@relation_getter)
+      old_data = @item.send(relation_field.id_getter).map(&:to_s) # todo check for active record
+      @item.send(relation_field.id_setter, yield(old_data))
+      @item.save
     end
 
   end

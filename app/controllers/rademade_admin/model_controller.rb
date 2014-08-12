@@ -83,9 +83,14 @@ module RademadeAdmin
     def related
       authorize! :read, model_class
 
+      related_model = model_info.relations.relation(params[:relation]).to
+      @related_model_info = RademadeAdmin::Model::Graph.instance.model_info(related_model)
+
       @item = model.find(params[:id])
-      conditions = Search::Conditions::RelatedList.new(@item, params, model_info.fields)
-      @items = Search::Searcher.new(model_info).search(conditions)
+      conditions = Search::Conditions::RelatedList.new(@item, params, @related_model_info.fields)
+      @items = Search::Searcher.new(@related_model_info).search(conditions)
+
+      @sortable_service = RademadeAdmin::SortableService.new(@related_model_info, params)
 
       respond_to do |format|
         format.html {
@@ -97,26 +102,18 @@ module RademadeAdmin
     end
 
     def related_add
-
+      @item = model.find(params[:id])
+      linker = Linker.new(model_info, @item, params[:relation])
+      linker.link(params[:related_id])
+      success_link
     end
 
     def related_destroy
-
+      @item = model.find(params[:id])
+      linker = Linker.new(model_info, @item, params[:relation])
+      linker.unlink(params[:related_id])
+      success_link
     end
-
-    #def process_link(method)
-    #  linker = Linker.new(model_info, params[:parent], params[:parent_id])
-    #  linker.send(method, params[:id])
-    #  send("success_#{method}", find_item(params[:id]))
-    #end
-    #
-    #def link_relation
-    #  process_link :link
-    #end
-    #
-    #def unlink_relation
-    #  process_link :unlink
-    #end
 
     def show
       authorize! :read, model_class
