@@ -9,9 +9,15 @@ module RademadeAdmin::FieldHelper
   # @return [String]
   #
   def display_item_value(item, field)
-    value = item.send( field.getter )
+    value = item.send(field.getter)
     if field.has_relation?
-      link_to value.to_s, admin_edit_uri(value)
+      if field.relation.many?
+        link_to field.label, admin_related_item(item, field.getter)
+      else
+        link_to value.to_s, admin_edit_uri(value)
+      end
+    elsif field.uploader?
+      uploaded_file_html(value)
     else
       value.to_s
     end

@@ -4,8 +4,10 @@ module RademadeAdmin
     class Info
       class DataItem
 
-        attr_accessor :name, :field, :relation, :label, :form_params,
-                      :form_position, :in_form, :list_position, :in_list
+        attr_accessor :name, :field, :relation, :label,
+                      :form_position, :list_position
+        attr_writer :is_uploader, :in_form, :in_list
+        attr_reader :form_params
 
         #
         # @param name [Symbol]
@@ -14,6 +16,7 @@ module RademadeAdmin
         #
         def initialize(name, field, relation)
           @name, @field, @relation = name, field, relation
+          @in_list, @in_form, @is_uploader = false, false, false
         end
 
         def has_relation?
@@ -29,21 +32,38 @@ module RademadeAdmin
         end
 
         def in_list?
-          in_list.nil? ? false : in_list
+          @in_list
         end
 
         def in_form?
-          in_form.nil? ? false : in_form
+          @in_form
         end
 
-        def as
-          #
+        def uploader?
+          @is_uploader
+        end
+
+        def form_params=(params)
+          unless params[:as].present?
+            params[:as] = default_field_type
+          end
+          @form_params = params
         end
 
         private
 
         def _default_label
           name.to_s.humanize
+        end
+
+        def default_field_type
+          if relation
+             :'rademade_admin/admin_select'
+          elsif uploader?
+             :'rademade_admin/admin_file'
+          else
+             nil
+          end
         end
 
       end

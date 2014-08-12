@@ -24,7 +24,7 @@ module RademadeAdmin
 
         def append_query_condition
           if @params[:q].present?
-            query_where = Where.new(:or)
+            query_where = RademadeAdmin::Search::Part::Where.new(:or)
             @fields.filter_fields.each do |field|
               query_where.add(field, /#{@params[:q]}/i)
             end

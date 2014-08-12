@@ -15,7 +15,7 @@ module RademadeAdmin
     end
 
     def create_model
-      @item = @model_info.model.new filter_data_params
+      @item = @model_info.model.new(filter_data_params)
     end
 
     def update_model
@@ -29,7 +29,7 @@ module RademadeAdmin
 
     def save_aggregated_data
       save_model_relations
-      #save_model_uploads
+      save_model_uploads
       item.save!
     end
 
@@ -53,14 +53,15 @@ module RademadeAdmin
 
     def save_model_uploads
       data = @params[:data]
-      @model_info.uploaders.each do |name, _|
+      @model_info.fields.uploader_fields.each do |data_item|
+        name = data_item.name
         if data.has_key?(name) and not data[name].blank?
           image_path = CarrierWave.root + data[name].to_s
           setter_method = (name.to_s + '=').to_sym
           begin
             item.send(setter_method, File.open(image_path))
           rescue
-            #rm_todo clear image
+            # rm_todo clear image
           end
         end
       end

@@ -12,10 +12,11 @@ module RademadeAdmin
         # @param model_configuration [RademadeAdmin::Model::Configuration]
         # @param relations [RademadeAdmin::Model::Info::Relations]
         #
-        def initialize(data_adapter, model_configuration, relations)
+        def initialize(data_adapter, model_configuration, relations, uploaders)
           @data_adapter = data_adapter
           @model_configuration = model_configuration
           @relations = relations
+          @uploaders = uploaders
         end
 
         def has_field?(name)
@@ -23,71 +24,30 @@ module RademadeAdmin
         end
 
         def list_fields
-          @list_fields ||= _model_items.select { |field| field.in_list? }.sort_by(&:list_position)
-        end
-
-        def filter_fields
-          []
+          @list_fields ||= collect_list_fields
         end
 
         def semantic_form_fields
-          @form_fields ||= _model_items.select { |field| field.in_form? }.sort_by(&:form_position)
+          @form_fields ||= collect_form_fields
+        end
+
+        def uploader_fields
+          @uploader_fields ||= _model_items.select { |model_item| model_item.uploader? }
         end
 
         def save_form_fields
-          @save_form_fields ||= _model_items.select { |field| field.in_form? and not field.has_relation? }.map(&:name)
+          @save_form_fields ||= _model_items.select { |model_item|
+            model_item.in_form? and not model_item.has_relation?
+          }.map(&:name)
+        end
+
+        def filter_fields
+          @autocomplete_fields ||= _model_items.select { |model_item| model_item.field.type == String }.map(&:name)
         end
 
         def origin_fields
-          []
+          _model_items.select { |model_item| not(model_item.uploader? or model_item.has_relation?) }
         end
-
-        # def origin_fields
-        #   @data_adapter.fields.keys + ['id']
-        # end
-        #
-
-        # def default_form_fields
-        #   simple_fields + @data_adapter.association_fields
-        # end
-
-        # def save_form_fields
-        #   @save_form_fields ||= semantic_form_fields.keys
-        # end
-
-        # Return arrays of fields for semantic form
-        #
-        # @return [Array]
-        #
-        # def semantic_form_fields
-        #   @semantic_form_fields ||= collected_form_fields
-        # end
-
-        # def filter_fields
-        #   @filter_fields ||= list_fields.select do |field|
-        #     field.type == String
-        #   end
-        # end
-
-        # def label_for(field)
-        #   @model_configuration.field_labels.label_for(field)
-        # end
-
-        # def has_field? name
-        #   @data_adapter.has_field? name
-        # end
-
-        # def simple_fields
-        #   @simple_fields
-        # end
-
-        # Return array of collected RademadeAdmin::Model::Info::Field
-        #
-        # @return [Array]
-        #
-        # def collected_form_fields
-        #   @model_configuration.form_fields || default_form_fields
-        # end
 
         private
 
@@ -122,19 +82,11 @@ module RademadeAdmin
           name = field.nil? ? relation.name : field.name
 
           model_item = RademadeAdmin::Model::Info::DataItem.new(name, field, relation)
+          model_item.is_uploader = @uploaders.has_key? name
 
           @model_configuration.field_labels.find(name) do |label_data|
             model_item.label = label_data.label
           end
-
-          # if data.adapter.uploader.include? name
-          #   model_item.uploader!
-          # end
-          #
-          #
-          #
-          #@data_adapter.has_uplaoder
-          #model_item.is_uploader
 
           @model_configuration.form_fields.find_with_index(name) do |form_field_data, index|
             model_item.form_params = form_field_data.params
@@ -148,6 +100,26 @@ module RademadeAdmin
           end
 
           @model_items << model_item
+        end
+
+        def collect_list_fields
+          fields = _model_items.select { |model_item| model_item.in_list? }
+          if fields.empty?
+            fields = _model_items
+          else
+            fields = fields.sort_by(&:list_position)
+          end
+          fields
+        end
+
+        def collect_form_fields
+          fields = _model_items.select { |model_item| model_item.in_form? }
+          if fields.empty?
+            fields = _model_items
+          else
+            fields = fields.sort_by(&:form_position)
+          end
+          fields
         end
 
       end

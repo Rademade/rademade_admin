@@ -12,7 +12,7 @@ module RademadeAdmin
 
           def where(where_conditions)
             if defined?(::Mongoid::Paranoia) and @model.ancestors.include? ::Mongoid::Paranoia
-              where_condition = RademadeAdmin::Search::Conditions::Where.new(:and)
+              where_condition = RademadeAdmin::Search::Part::Where.new(:and)
               where_condition.add(:deleted_at, nil)
               where_condition.sub_add(where_conditions) if where_conditions
               where_conditions = where_condition
@@ -30,7 +30,7 @@ module RademadeAdmin
           def collect_where_condition(where_conditions, result)
             where_method = WHERE_METHOD_MAP[where_conditions.type]
             where_conditions.parts.each do |part|
-              if part.is_a? RademadeAdmin::Search::Conditions::Where
+              if part.is_a? RademadeAdmin::Search::Part::Where
                 result = result.send(where_method, where_sub_condition(part))
               else
                 field = part[:field]

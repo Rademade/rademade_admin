@@ -25,7 +25,7 @@ module RademadeAdmin
             condition = ''
             where_conditions.parts.each do |part|
               condition += " #{where_conditions.type.to_s.capitalize} " unless condition.empty?
-              if part.is_a? RademadeAdmin::Search::Conditions::Where
+              if part.is_a? RademadeAdmin::Search::Part::Where
                 condition += "(#{collect_where_conditions(part)})"
               else
                 if part[:value].is_a? Array
