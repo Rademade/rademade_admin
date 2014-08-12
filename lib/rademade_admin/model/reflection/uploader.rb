@@ -4,6 +4,7 @@ module RademadeAdmin
     class Reflection
       module Uploader
 
+        # todo return object classs
         def uploaders
           @model.respond_to?(:uploaders) ? @model.uploaders : []
         end

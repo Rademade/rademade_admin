@@ -83,6 +83,8 @@ module RademadeAdmin
     def related
       authorize! :read, model_class
 
+      #rm_todo extract to RelationService
+
       related_model = model_info.relations.relation(params[:relation]).to
       @related_model_info = RademadeAdmin::Model::Graph.instance.model_info(related_model)
 

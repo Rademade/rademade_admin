@@ -25,6 +25,7 @@ module RademadeAdmin::FormHelper
     relation = form_field.relation
     if relation and relation.many?
       relation_name = RademadeAdmin::Model::Graph.instance.model_info(relation.to).item_name
+      #rm_todo Лучше эту ссылку перенести в сам AdminSelectInput
       field += link_to relation_name, admin_related_item(form.object, relation.getter)
     end
 

@@ -20,6 +20,9 @@ module RademadeAdmin
 
     def process_link
       relation_field = @model_info.relations.relation(@relation_getter)
+
+      #rm_todo via model_info.items (DataItem has field and relation setters and getters)
+
       old_data = @item.send(relation_field.id_getter).map(&:to_s) # todo check for active record
       @item.send(relation_field.id_setter, yield(old_data))
       @item.save

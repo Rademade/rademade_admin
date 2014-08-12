@@ -28,6 +28,7 @@ module RademadeAdmin
         end
 
         def order
+          #todo RademadeAdmin::Search::Part::Order
           field = @params[:sort] || default_order_field
           [{field => direction}]
         end

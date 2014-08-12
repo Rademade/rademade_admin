@@ -11,6 +11,7 @@ module RademadeAdmin
         # @param data_adapter [RademadeAdmin::Model::Adapter::Data]
         # @param model_configuration [RademadeAdmin::Model::Configuration]
         # @param relations [RademadeAdmin::Model::Info::Relations]
+        # rm_todo add uploader to comments
         #
         def initialize(data_adapter, model_configuration, relations, uploaders)
           @data_adapter = data_adapter
@@ -46,10 +47,12 @@ module RademadeAdmin
         end
 
         def filter_fields
+          #rm_todo extract method `model_item.string_item?`
           @autocomplete_fields ||= _model_items.select { |model_item| model_item.field.type == String }.map(&:name)
         end
 
         def origin_fields
+          #rm_todo extract method `model_item.simple_field?`
           _model_items.select { |model_item| not(model_item.uploader? or model_item.has_relation?) }.map(&:name)
         end
 
@@ -85,6 +88,8 @@ module RademadeAdmin
         def _add_data_item(field, relation)
           name = field.nil? ? relation.name : field.name
 
+          #rm_todo добавить в DataItem сам uploader
+
           model_item = RademadeAdmin::Model::Info::DataItem.new(name, field, relation)
           model_item.is_uploader = @uploaders.has_key? name
 
@@ -108,6 +113,8 @@ module RademadeAdmin
 
         def find_primary_field
           _model_items.each do |model_item|
+            #rm_todo Зависимости между элементами увеличиватся. Давай выделим просто `model_item.primary?`
+            #rm_todo + У некторых элементов нет field'ов
             return model_item if model_item.field.primary?
           end
           nil

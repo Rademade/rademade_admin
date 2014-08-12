@@ -14,6 +14,8 @@ module RademadeAdmin
         # @param field [RademadeAdmin::Model::Info::Field]
         # @param relation [RademadeAdmin::Model::Info::Relation]
         #
+        # rm_todo. Добавить +1 компонент uploader. initialize(name, field, relation, uploader)
+        #
         def initialize(name, field, relation)
           @name, @field, @relation = name, field, relation
           @in_list, @in_form, @is_uploader = false, false, false
@@ -56,6 +58,7 @@ module RademadeAdmin
           name.to_s.humanize
         end
 
+        # rm_todo эту задачу пускай решает helper. На низком уровне такая реализация лишняя
         def default_field_type
           if relation
              :'rademade_admin/admin_select'

@@ -42,6 +42,9 @@ module RademadeAdmin
     def save_model_relations
       data = @params[:data]
       @model_info.relations.all.each do |_, relation|
+        #rm_todo Мы должны работать Fields c DataItem. Он уже знает про связь relation'a и field'a
+        #rm_todo @model_info.fields.related.each {|data_item| data_item.field.setter }
+        #rm_todo Это будет супер!
         id_getter = relation.id_getter
         if data.has_key? id_getter
           ids = data[id_getter]
@@ -57,6 +60,7 @@ module RademadeAdmin
         name = data_item.name
         if data.has_key?(name) and not data[name].blank?
           image_path = CarrierWave.root + data[name].to_s
+          #rm_todo Так-же вынести data_item.setter
           setter_method = (name.to_s + '=').to_sym
           begin
             item.send(setter_method, File.open(image_path))
