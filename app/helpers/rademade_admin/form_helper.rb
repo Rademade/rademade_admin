@@ -2,7 +2,7 @@
 module RademadeAdmin::FormHelper
 
   def admin_form(record, model, &block)
-    semantic_form_for(
+    simple_form_for(
       record,
       :url => record.new_record? ? admin_create_uri(model) : admin_update_uri(record),
       :as => :data,

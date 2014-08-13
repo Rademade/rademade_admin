@@ -4,21 +4,15 @@
         <div class="box">
             <div class="content-wrap">
                 <h6><%= t('rademade_admin.login') %></h6>
-                <%= semantic_form_for(RademadeAdmin.user_class.new, :url => [:sessions],
-                                     :as => :data, :html => { :id => 'login-form' }) do |f|
-
-                    concat f.input :email,
-                                   :label => false,
-                                   :input_html => {:class => 'form-control'}
-
-                    concat f.input :password,
-                                   :label => false,
-                                   :input_html => {:class => 'form-control'}
-
-                    concat f.action :submit,
-                                    :label => t('rademade_admin.login'),
-                                    :as => :button,
-                                    :button_html => {:class => 'btn-glow primary login'}
+                <%= simple_form_for(
+                    RademadeAdmin.user_class.new,
+                    :url => [:sessions],
+                    :as => :data,
+                    :html => { :id => 'login-form' }
+                ) do |f|
+                    concat f.input :email, :label => false
+                    concat f.input :password, :label => false
+                    concat f.submit t('rademade_admin.login')
                 end
             %></div>
         </div>

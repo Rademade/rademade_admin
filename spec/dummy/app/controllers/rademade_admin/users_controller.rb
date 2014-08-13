@@ -5,11 +5,12 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
     list :email, :first_name, :last_name
     form do
       email
-      avatar
+      #avatar
       first_name
       last_name
       password
-      posts
+      #posts
+      admin :'rademade_admin/boolean'
     end
   end
 

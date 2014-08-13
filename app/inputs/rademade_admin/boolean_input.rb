@@ -1,13 +1,9 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  class BooleanInput < Formtastic::Inputs::BooleanInput
+  class BooleanInput < SimpleForm::Inputs::BooleanInput
 
-    def label_with_nested_checkbox
-      builder.label(
-        method,
-        label_text,
-        label_html_options
-      ) + check_box_html
+    def input
+      "#{@builder.check_box(attribute_name, input_html_options)}".html_safe
     end
 
   end

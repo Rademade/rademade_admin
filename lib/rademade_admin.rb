@@ -10,7 +10,7 @@ require 'compass-rails'
 # js assets
 require 'turbolinks'
 
-require 'formtastic'
+require 'simple_form'
 require 'ckeditor'
 
 require 'rademade_admin/sortable'

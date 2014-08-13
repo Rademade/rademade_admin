@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'turbolinks', '~> 2.2'
 
   # Admin
-  s.add_dependency 'formtastic', '~> 2.2'
+  s.add_dependency 'simple_form'
   s.add_dependency 'ckeditor', '~> 4.0'
   s.add_dependency 'cancan', '~> 1.6', '>= 1.6.8'
   s.add_dependency 'breadcrumbs'
