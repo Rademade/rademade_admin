@@ -16,7 +16,7 @@ module RademadeAdmin::FieldHelper
       else
         link_to value.to_s, admin_edit_uri(value)
       end
-    elsif field.uploader?
+    elsif field.has_uploader?
       uploaded_file_html(value)
     else
       value.to_s

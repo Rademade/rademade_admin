@@ -41,29 +41,24 @@ module RademadeAdmin
 
     def save_model_relations
       data = @params[:data]
-      @model_info.relations.all.each do |_, relation|
-        #rm_todo Мы должны работать Fields c DataItem. Он уже знает про связь relation'a и field'a
-        #rm_todo @model_info.fields.related.each {|data_item| data_item.field.setter }
-        #rm_todo Это будет супер!
-        id_getter = relation.id_getter
-        if data.has_key? id_getter
-          ids = data[id_getter]
+      @model_info.data_items.related_fields.each do |_, data_item|
+        getter = data_item.getter
+        if data.has_key? getter
+          ids = data[getter]
           ids.reject! { |id| id.empty? } if ids.kind_of? Array
-          item.send(relation.id_setter, ids)
+          item.send(data_item.setter, data_item.relation.related_entities(ids))
         end
       end
     end
 
     def save_model_uploads
       data = @params[:data]
-      @model_info.fields.uploader_fields.each do |data_item|
+      @model_info.data_items.uploader_fields.each do |_, data_item|
         name = data_item.name
         if data.has_key?(name) and not data[name].blank?
           image_path = CarrierWave.root + data[name].to_s
-          #rm_todo Так-же вынести data_item.setter
-          setter_method = (name.to_s + '=').to_sym
           begin
-            item.send(setter_method, File.open(image_path))
+            item.send(data_item.setter, File.open(image_path))
           rescue
             # rm_todo clear image
           end
@@ -72,7 +67,7 @@ module RademadeAdmin
     end
 
     def filter_data_params
-      @params.require(:data).permit(@model_info.fields.save_form_fields)
+      @params.require(:data).permit(@model_info.data_items.save_form_fields)
     end
 
   end

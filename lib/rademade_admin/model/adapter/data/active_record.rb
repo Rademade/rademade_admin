@@ -34,10 +34,6 @@ module RademadeAdmin
             @model.column_types
           end
 
-          def has_field?(field)
-            fields.include? field
-          end
-
           def foreign_key?(field)
             if field.is_a? ::ActiveRecord::AttributeMethods::TimeZoneConversion::Type # why another behaviour?
               field_name = field.instance_values['column'].name

@@ -8,6 +8,10 @@ module RademadeAdmin
           @model = model
         end
 
+        def find(ids)
+          @model.find(ids)
+        end
+
         #
         # @param search_conditions [RademadeAdmin::Search::Conditions::Abstract]
         #

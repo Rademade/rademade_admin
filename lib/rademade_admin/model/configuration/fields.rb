@@ -45,8 +45,7 @@ module RademadeAdmin
         end
 
         def field_class
-          #todo custom exception
-          raise 'Field class for {CLASS} fields not defined'
+          raise NotImplementedError, 'Field class for {CLASS} fields not defined'
         end
 
         def _init_from_options(*options)

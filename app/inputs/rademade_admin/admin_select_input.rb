@@ -11,7 +11,7 @@ module RademadeAdmin
         :div,
         RademadeAdmin::HtmlBuffer.new([select_ui_html, add_new_button_html]),
         html_attributes
-      )
+      ) + related_list_link_html
     end
 
     private
@@ -24,14 +24,25 @@ module RademadeAdmin
       template.text_field_tag(extra_input_html_options[:name], input_value, html_attributes)
     end
 
+    def related_list_link_html
+      if relation.many?
+        relation_name = RademadeAdmin::Model::Graph.instance.model_info(relation.to).item_name
+        template.content_tag(:a, relation_name, {
+          :href => admin_related_item(model, relation.getter)
+        })
+      end
+    end
+
     def input_html_options_name
-      "#{object_name}[#{relation.id_getter}]"
+      "#{object_name}[#{relation.getter}]"
     end
 
     def input_value
-      related_value = model.send(relation.id_getter)
+      related_value = model.send(relation.getter)
       if relation.many?
-        related_value.map(&:to_s).join(',')
+        related_value.map { |related_entity|
+          related_entity.id.to_s
+        }.join(',')
       else
         related_value.to_s
       end
@@ -71,7 +82,7 @@ module RademadeAdmin
     end
 
     def related_with_model?
-      !association.nil?
+      not association.nil?
     end
 
     def reflection_name

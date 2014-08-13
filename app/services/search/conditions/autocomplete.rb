@@ -25,7 +25,7 @@ module RademadeAdmin
         def append_query_condition
           if @params[:q].present?
             query_where = RademadeAdmin::Search::Part::Where.new(:or)
-            @fields.filter_fields.each do |field|
+            @data_items.filter_fields.each do |field|
               query_where.add(field, /#{@params[:q]}/i)
             end
             @where_conditions.sub_add(query_where)
@@ -35,14 +35,14 @@ module RademadeAdmin
         def append_search_params
           if @params[:search].present?
             @params[:search].each do |key, value|
-              @where_conditions.add(key.to_sym, value) if @fields.origin_fields.include? key.to_s
+              @where_conditions.add(key.to_sym, value) if @data_items.origin_fields.include? key.to_s
             end
           end
         end
 
         def append_ids_params
           if @params[:ids].present?
-            @where_conditions.add(@fields.primary_field.name, @params[:ids])
+            @where_conditions.add(@data_items.primary_field.name, @params[:ids])
           end
         end
 

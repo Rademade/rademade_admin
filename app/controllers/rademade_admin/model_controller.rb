@@ -45,7 +45,7 @@ module RademadeAdmin
 
     def autocomplete
       authorize! :read, model_class
-      conditions = Search::Conditions::Autocomplete.new(params, model_info.fields)
+      conditions = Search::Conditions::Autocomplete.new(params, model_info.data_items)
       @items = Search::Searcher.new(model_info).search(conditions)
       render :json => Autocomplete::BaseSerializer.new(@items)
     end
@@ -55,7 +55,7 @@ module RademadeAdmin
       list_breadcrumbs
 
       #Filter
-      conditions = Search::Conditions::List.new(params, model_info.fields)
+      conditions = Search::Conditions::List.new(params, model_info.data_items)
       @items = Search::Searcher.new(model_info).search(conditions)
 
       respond_to do |format|
@@ -83,13 +83,11 @@ module RademadeAdmin
     def related
       authorize! :read, model_class
 
-      #rm_todo extract to RelationService
-
-      related_model = model_info.relations.relation(params[:relation]).to
-      @related_model_info = RademadeAdmin::Model::Graph.instance.model_info(related_model)
+      relation_service = RademadeAdmin::RelationService.new
+      @related_model_info = relation_service.related_model_info(model_info, params[:relation])
 
       @item = model.find(params[:id])
-      conditions = Search::Conditions::RelatedList.new(@item, params, @related_model_info.fields)
+      conditions = Search::Conditions::RelatedList.new(@item, params, @related_model_info.data_items)
       @items = Search::Searcher.new(@related_model_info).search(conditions)
 
       @sortable_service = RademadeAdmin::SortableService.new(@related_model_info, params)
@@ -114,7 +112,7 @@ module RademadeAdmin
       @item = model.find(params[:id])
       linker = Linker.new(model_info, @item, params[:relation])
       linker.unlink(params[:related_id])
-      success_link
+      success_unlink
     end
 
     def show

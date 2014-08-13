@@ -11,7 +11,7 @@ module RademadeAdmin
         # @param data_adapter [RademadeAdmin::Model::Adapter::Data]
         # @param model_configuration [RademadeAdmin::Model::Configuration]
         # @param relations [RademadeAdmin::Model::Info::Relations]
-        # rm_todo add uploader to comments
+        # @param uploaders [RademadeAdmin::Model::Info::Uploaders]
         #
         def initialize(data_adapter, model_configuration, relations, uploaders)
           @data_adapter = data_adapter
@@ -20,49 +20,14 @@ module RademadeAdmin
           @uploaders = uploaders
         end
 
-        def has_field?(name)
-          @data_adapter.has_field?(name)
-        end
-
-        def primary_field
-          @primary_field ||= find_primary_field
-        end
-
-        def list_fields
-          @list_fields ||= collect_list_fields
-        end
-
-        def semantic_form_fields
-          @form_fields ||= collect_form_fields
-        end
-
-        def uploader_fields
-          @uploader_fields ||= _model_items.select { |model_item| model_item.uploader? }
-        end
-
-        def save_form_fields
-          @save_form_fields ||= _model_items.select { |model_item|
-            model_item.in_form? and not model_item.has_relation?
-          }.map(&:name)
-        end
-
-        def filter_fields
-          #rm_todo extract method `model_item.string_item?`
-          @autocomplete_fields ||= _model_items.select { |model_item| model_item.field.type == String }.map(&:name)
-        end
-
-        def origin_fields
-          #rm_todo extract method `model_item.simple_field?`
-          _model_items.select { |model_item| not(model_item.uploader? or model_item.has_relation?) }.map(&:name)
+        def data_items
+          @data_items ||= init_data_items
         end
 
         private
 
-        def _model_items
-          return @model_items unless @model_items.nil?
-
-          @model_items = []
-
+        def init_data_items
+          data_items = RademadeAdmin::Model::Info::DataItems.new
           used_relations = []
 
           @data_adapter.fields.each do |_, field|
@@ -72,72 +37,40 @@ module RademadeAdmin
             else
               relation = nil
             end
-            _add_data_item(field, relation)
+            data_items.add_data_item(init_data_item(field, relation))
           end
 
           @data_adapter.relations.each do |_, relation|
             unless used_relations.include? relation.name
-              _add_data_item(nil, relation)
+              data_items.add_data_item(init_data_item(nil, relation))
             end
           end
 
-          @model_items
-
+          data_items
         end
 
-        def _add_data_item(field, relation)
+        def init_data_item(field, relation)
           name = field.nil? ? relation.name : field.name
 
-          #rm_todo добавить в DataItem сам uploader
-
-          model_item = RademadeAdmin::Model::Info::DataItem.new(name, field, relation)
-          model_item.is_uploader = @uploaders.has_key? name
+          uploader = @uploaders.uploader(name)
+          data_item = RademadeAdmin::Model::Info::DataItem.new(name, field, relation, uploader)
 
           @model_configuration.field_labels.find(name) do |label_data|
-            model_item.label = label_data.label
+            data_item.label = label_data.label
           end
 
           @model_configuration.form_fields.find_with_index(name) do |form_field_data, index|
-            model_item.form_params = form_field_data.params
-            model_item.in_form = true
-            model_item.form_position = index
+            data_item.form_params = form_field_data.params
+            data_item.in_form = true
+            data_item.form_position = index
           end
 
           @model_configuration.list_fields.find_with_index(name) do |_, index|
-            model_item.in_list = true
-            model_item.list_position = index
+            data_item.in_list = true
+            data_item.list_position = index
           end
 
-          @model_items << model_item
-        end
-
-        def find_primary_field
-          _model_items.each do |model_item|
-            #rm_todo Зависимости между элементами увеличиватся. Давай выделим просто `model_item.primary?`
-            #rm_todo + У некторых элементов нет field'ов
-            return model_item if model_item.field.primary?
-          end
-          nil
-        end
-
-        def collect_list_fields
-          fields = _model_items.select { |model_item| model_item.in_list? }
-          if fields.empty?
-            fields = _model_items
-          else
-            fields = fields.sort_by(&:list_position)
-          end
-          fields
-        end
-
-        def collect_form_fields
-          fields = _model_items.select { |model_item| model_item.in_form? }
-          if fields.empty?
-            fields = _model_items
-          else
-            fields = fields.sort_by(&:form_position)
-          end
-          fields
+          data_item
         end
 
       end

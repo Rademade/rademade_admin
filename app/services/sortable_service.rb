@@ -21,7 +21,7 @@ module RademadeAdmin
     end
 
     #
-    # @return [RademadeAdmin::Model::Info::Field]
+    # @return [RademadeAdmin::Model::Info::DataItem]
     #
     def sorting_sign(field)
       if field.name.to_s == @params[:sort]
@@ -32,7 +32,7 @@ module RademadeAdmin
     end
 
     def has_position?
-      @model_info.fields.has_field? 'position'
+      @model_info.data_items.has_field? 'position'
     end
 
   end

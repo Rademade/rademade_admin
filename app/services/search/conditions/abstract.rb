@@ -7,11 +7,11 @@ module RademadeAdmin
         attr_reader :params
 
         # @param params [Hash]
-        # @param fields [RademadeAdmin::Model::Info::Fields]
+        # @param data_items [RademadeAdmin::Model::Info::DataItems]
         #
-        def initialize(params, fields)
+        def initialize(params, data_items)
           @params = params
-          @fields = fields
+          @data_items = data_items
         end
 
         def conditions
@@ -37,7 +37,7 @@ module RademadeAdmin
         end
 
         def order
-          {}
+          nil
         end
 
         def page

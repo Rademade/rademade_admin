@@ -7,6 +7,7 @@ module RademadeAdmin
       class FormFields < Fields
 
         protected
+
         def field_class
           RademadeAdmin::Model::Configuration::FormField
         end

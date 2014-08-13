@@ -4,25 +4,27 @@ module RademadeAdmin
     class Info
       class DataItem
 
-        attr_accessor :name, :field, :relation, :label,
+        attr_accessor :name, :field, :relation, :label, :form_params,
                       :form_position, :list_position
         attr_writer :is_uploader, :in_form, :in_list
-        attr_reader :form_params
 
         #
         # @param name [Symbol]
         # @param field [RademadeAdmin::Model::Info::Field]
         # @param relation [RademadeAdmin::Model::Info::Relation]
+        # @param uploader [RademadeAdmin::Model::Info::Uploader]
         #
-        # rm_todo. Добавить +1 компонент uploader. initialize(name, field, relation, uploader)
-        #
-        def initialize(name, field, relation)
-          @name, @field, @relation = name, field, relation
-          @in_list, @in_form, @is_uploader = false, false, false
+        def initialize(name, field, relation, uploader)
+          @name, @field, @relation, @uploader = name, field, relation, uploader
+          @in_list, @in_form = false, false
         end
 
         def has_relation?
           not @relation.nil?
+        end
+
+        def has_uploader?
+          not @uploader.nil?
         end
 
         def label
@@ -33,6 +35,10 @@ module RademadeAdmin
           @getter ||= has_relation? ? @relation.name : @field.name
         end
 
+        def setter
+          @setter ||= :"#{getter}="
+        end
+
         def in_list?
           @in_list
         end
@@ -41,32 +47,22 @@ module RademadeAdmin
           @in_form
         end
 
-        def uploader?
-          @is_uploader
+        def primary_field?
+          @field and @field.primary?
         end
 
-        def form_params=(params)
-          unless params[:as].present?
-            params[:as] = default_field_type
-          end
-          @form_params = params
+        def string_field?
+          @field and @field.type == String
+        end
+
+        def simple_field?
+          not(has_uploader? or has_relation?)
         end
 
         private
 
         def _default_label
           name.to_s.humanize
-        end
-
-        # rm_todo эту задачу пускай решает helper. На низком уровне такая реализация лишняя
-        def default_field_type
-          if relation
-             :'rademade_admin/admin_select'
-          elsif uploader?
-             :'rademade_admin/admin_file'
-          else
-             nil
-          end
         end
 
       end

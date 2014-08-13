@@ -4,13 +4,11 @@ require 'search/part/abstract'
 module RademadeAdmin
   module Search
     module Part
-      class Where < Abstract
+      class Order < Abstract
 
-        attr_reader :type
-
-        def initialize(type)
-          super()
-          @type = type
+        def add(field, value)
+          value ||= :asc
+          super(field, value.to_sym)
         end
 
       end

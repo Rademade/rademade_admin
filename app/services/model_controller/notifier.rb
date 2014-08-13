@@ -23,14 +23,12 @@ module RademadeAdmin
     end
 
     def success_unlink
-      #rm_todo Уже можно сделать через success_message
       render :json => {
         :message => 'Entity was unlinked!'
       }
     end
 
     def success_link
-      #rm_todo Уже можно сделать через success_message
       render :json => {
         :message => 'Entity was linked!'
       }

@@ -1,5 +1,5 @@
 <%
-    related_list_fields = @related_model_info.fields.list_fields
+    related_list_fields = @related_model_info.data_items.list_fields
 %><% content_for :page_header do %>
   <h3><%= @related_model_info.item_name %></h3><%
 end

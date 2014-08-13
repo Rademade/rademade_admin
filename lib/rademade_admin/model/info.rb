@@ -38,6 +38,10 @@ module RademadeAdmin
         @model_configuration.parent_menu_item
       end
 
+      def data_items
+        fields.data_items
+      end
+
       # Fields data class
       #
       # @return [RademadeAdmin::Model::Info::Fields]
@@ -47,16 +51,8 @@ module RademadeAdmin
           _data_adapter,
           @model_configuration,
           relations,
-          @model_reflection.uploaders
+          uploaders
         )
-      end
-
-      # Relation data class
-      #
-      # @return [RademadeAdmin::Model::Info::Relations]
-      #
-      def relations
-        @model_relations ||= RademadeAdmin::Model::Info::Relations.new(_data_adapter)
       end
 
       def query_adapter
@@ -71,6 +67,16 @@ module RademadeAdmin
 
       def _data_adapter
         @model_reflection.data_adapter
+      end
+
+      # @return [RademadeAdmin::Model::Info::Relations]
+      def relations
+        @model_relations ||= RademadeAdmin::Model::Info::Relations.new(_data_adapter)
+      end
+
+      # @return [RademadeAdmin::Model::Info::Uploaders]
+      def uploaders
+        @model_uploaders ||= RademadeAdmin::Model::Info::Uploaders.new(_data_adapter)
       end
 
     end

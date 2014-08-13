@@ -54,13 +54,6 @@ module RademadeAdmin
         end
 
         #
-        # @return [Bool]
-        #
-        def has_field?(name)
-          not field(name).nil?
-        end
-
-        #
         # @return [RademadeAdmin::Model::Info::Field]
         #
         def field(name)
@@ -71,14 +64,22 @@ module RademadeAdmin
         # @return [Array]
         #
         def has_many
-          @has_many_relations ||= relations.filter{|rel| has_many_relations.include?(rel.type) }
+          @has_many_relations ||= relations.filter { |rel| has_many_relations.include?(rel.type) }
         end
 
         #
         # @return [Array]
         #
         def has_one
-          @has_one_relations ||= relations.filter{|rel| has_one_relations.include?(rel.type) }
+          @has_one_relations ||= relations.filter { |rel| has_one_relations.include?(rel.type) }
+        end
+
+        def uploaders
+          @uploaders ||= _map_uploaders
+        end
+
+        def uploader(name)
+          uploaders[name.to_sym]
         end
 
         protected
@@ -92,13 +93,20 @@ module RademadeAdmin
         end
 
         def _map_relations
-          #todo custom error
-          raise 'Not defined _map_relations for class'
+          raise NotImplementedError, 'Not defined _map_relations for class'
         end
 
         def _map_fields
-          #todo custom error
-          raise 'Not defined _map_fields for class'
+          raise NotImplementedError, 'Not defined _map_fields for class'
+        end
+
+        def _map_uploaders
+          uploaders = {}
+          return uploaders unless @model.respond_to?(:uploaders)
+          @model.uploaders.each do |name, uploader|
+            uploaders[name] = RademadeAdmin::Model::Info::Uploader.new(name, uploader)
+          end
+          uploaders
         end
 
       end

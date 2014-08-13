@@ -35,9 +35,9 @@
         </thead><%
 
         has_position = @sortable_service.has_position?
-        %><tbody class="table-sortable" data-position='<%= has_position %>'>
-            <% @items.each do |item| %>
-                <tr<%
+        %><tbody class="table-sortable" data-position='<%= has_position %>'><%
+            @items.each do |item|
+                %><tr<%
                     if has_position
                         %> id='<%= item.position %>'<%
                     end
@@ -54,9 +54,9 @@
                             } %></li>
                         </ul>
                     </td>
-                </tr>
-            <% end %>
-        </tbody>
+                </tr><%
+            end
+        %></tbody>
     </table><%
     concat render 'rademade_admin/_blocks/pagination'
 end
