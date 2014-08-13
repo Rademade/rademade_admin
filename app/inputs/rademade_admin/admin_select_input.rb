@@ -25,21 +25,21 @@ module RademadeAdmin
     end
 
     def related_list_link_html
-      if relation.many?
-        relation_name = RademadeAdmin::Model::Graph.instance.model_info(relation.to).item_name
+      if multiple?
+        relation_name = RademadeAdmin::Model::Graph.instance.model_info(related_to).item_name
         template.content_tag(:a, relation_name, {
-          :href => admin_related_item(model, relation.getter)
+          :href => admin_related_item(model, relation_getter)
         })
       end
     end
 
     def input_html_options_name
-      "#{object_name}[#{relation.getter}]"
+      "#{object_name}[#{relation_getter}]"
     end
 
     def input_value
-      related_value = model.send(relation.getter)
-      if relation.many?
+      related_value = model.send(relation_getter)
+      if multiple?
         related_value.map { |related_entity|
           related_entity.id.to_s
         }.join(',')
@@ -61,20 +61,20 @@ module RademadeAdmin
       template.content_tag(:button, I18n.t('rademade_admin.add_new'), {
         :class => 'relation-add-button',
         'data-new' => url,
-        'data-class' => relation.to.to_s
+        'data-class' => related_to.to_s
       }) if url
     end
 
     def new_item_url
-      admin_new_form_uri(relation.to)
+      admin_new_form_uri(related_to)
     end
 
     def reflection_data
       if related_with_model?
         {
-          'rel-multiple' => relation.many?,
-          'rel-class' => relation.to.to_s,
-          'search-url' => admin_autocomplete_uri(relation.to, format: :json)
+          'rel-multiple' => multiple?,
+          'rel-class' => related_to.to_s,
+          'search-url' => admin_autocomplete_uri(related_to, format: :json)
         }
       else
         {}
@@ -95,8 +95,20 @@ module RademadeAdmin
 
     private
 
-    def relation
-      @relation ||= Model::Graph.instance.model_info(model.class).relations.relation(reflection_name)
+    def related_data_item
+      unless @related_data_item
+        model_info = Model::Graph.instance.model_info(model.class)
+        @related_data_item = model_info.data_items.data_item(reflection_name)
+      end
+      @related_data_item
+    end
+    
+    def related_to
+      related_data_item.relation.to
+    end
+    
+    def relation_getter
+      related_data_item.getter
     end
 
   end

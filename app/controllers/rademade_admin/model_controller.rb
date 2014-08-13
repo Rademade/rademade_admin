@@ -50,11 +50,21 @@ module RademadeAdmin
       render :json => Autocomplete::BaseSerializer.new(@items)
     end
 
+    def link_autocomplete
+      authorize! :read, model_class
+
+      relation_service = RademadeAdmin::RelationService.new
+      @related_model_info = relation_service.related_model_info(model_info, params[:relation])
+
+      conditions = Search::Conditions::Autocomplete.new(params, @related_model_info.data_items)
+      @items = Search::Searcher.new(@related_model_info).search(conditions)
+      render :json => Autocomplete::LinkSerializer.new(@items, model.find(params[:id]), params[:relation])
+    end
+
     def index
       authorize! :read, model_class
       list_breadcrumbs
 
-      #Filter
       conditions = Search::Conditions::List.new(params, model_info.data_items)
       @items = Search::Searcher.new(model_info).search(conditions)
 

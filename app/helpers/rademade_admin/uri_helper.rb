@@ -1,15 +1,6 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::UriHelper
 
-  def admin_link_uri(model, parent, parent_id)
-    admin_model_url_for(model.class, {
-      :action => :link_relation,
-      :id => model.id,
-      :parent => parent,
-      :parent_id => parent_id
-    })
-  end
-
   def admin_list_uri(model)
     admin_model_url_for(model, {
       :action => :index
@@ -57,13 +48,23 @@ module RademadeAdmin::UriHelper
   end
 
   def admin_related_item(model, relation_getter, opts = {})
-    _entity_url(model, :related, opts.merge({
-      :relation => relation_getter
-    }))
+    admin_related_uri(model, :related, relation_getter, opts)
+  end
+
+  def admin_link_autocomplete_uri(model, relation_getter, opts = {})
+    admin_related_uri(model, :link_autocomplete, relation_getter, opts)
+  end
+
+  def admin_link_uri(model, relation_getter, opts = {})
+    admin_related_uri(model, :related_add, relation_getter, opts)
   end
 
   def admin_unlink_uri(model, relation_getter, opts = {})
-    _entity_url(model, :related_destroy, opts.merge({
+    admin_related_uri(model, :related_destroy, relation_getter, opts)
+  end
+
+  def admin_related_uri(model, action, relation_getter, opts = {})
+    _entity_url(model, action, opts.merge({
       :relation => relation_getter
     }))
   end

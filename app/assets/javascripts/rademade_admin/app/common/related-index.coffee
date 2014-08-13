@@ -9,9 +9,8 @@ initSelect = ->
     initSelection : (element, callback) ->
       ids = element.val().replace(/\s*/g, '').split(',')
       $.getJSON(url, {search : {id : ids}}).done (data) ->
-        data = if isMultiple then data else data[0]
         $item.select2('enable', true)
-        callback(data)
+        callback(data[0])
 
     ajax :
       url : url
@@ -25,7 +24,7 @@ initSelect = ->
 sendNew = (linkUrl) ->
   $.ajax
     url : linkUrl
-    type : 'PUT'
+    type : 'POST'
     success : ->
       location.reload()
 

@@ -7,7 +7,7 @@
     if new_uri
         concat link_to t('rademade_admin.new_record') + '+', new_uri, :class => 'btn-flat success new-product'
     end
-%><% end %>
+end %>
 
 <% content_for :content do %><%
     if @sortable_service.can_reset?
@@ -50,7 +50,7 @@
                             <li><%= link_to t('rademade_admin.edit'), admin_edit_uri(item) %></li>
                             <li><%= button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
                                 :method => :delete,
-                                :form => {:class => 'delete-item-form'}
+                                :form => { :class => 'delete-item-form' }
                             } %></li>
                         </ul>
                     </td>
