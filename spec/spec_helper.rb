@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'simplecov'
 require 'coveralls'
+require 'minitest/autorun' 
 
 SimpleCov.start('rails') do
   adapters.delete(:root_filter)
