@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gemspec
-gem 'devise'
 
 # Assets
 gem 'sass'
@@ -13,7 +12,6 @@ gem 'bower-rails'
 # File upload
 gem 'light_resizer'
 gem 'carrierwave'
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'rmagick'
 
 # Utility gems used in both development & test environments
@@ -30,7 +28,6 @@ group :test do
   gem 'mongoid_rails_migrations'
   gem 'mongoid-grid_fs'
   gem 'mongoid-tree'
-  gem 'light_resizer', :github => 'Rademade/light_resizer'
   gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
   gem 'rspec', '>= 3'
   gem 'spork-rails'
