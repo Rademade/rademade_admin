@@ -2,4 +2,4 @@
     <h3><%= t('rademade_admin.edit') %> "<%= @item.to_s %>"</h3>
 <% end %>
 
-<%= render :template => 'rademade_admin/_layouts/inner/form' %>
+<%= render :template => @template_service.inner_form_layout %>

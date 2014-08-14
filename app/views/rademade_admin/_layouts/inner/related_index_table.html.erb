@@ -1,6 +1,6 @@
 <% content_for :content do %>
     <table class="table table-hover"><%
-        concat render 'rademade_admin/_blocks/table/head', {
+        concat render @template_service.table_head_block, {
             :list_fields => @list_fields
         }
         %><tbody data-position='false'><%
@@ -17,7 +17,7 @@
                         <ul class="actions">
                             <li><%= button_to t('rademade_admin.unlink'), admin_unlink_uri(item, params[:parent], params[:parent_id]), {
                                 :method => :patch,
-                                :form => {:class => 'delete-item-form'}
+                                :form => { :class => 'delete-item-form' }
                             } %></li>
                         </ul>
                     </td>
@@ -25,5 +25,5 @@
             end
         %></tbody>
     </table><%
-    concat render 'rademade_admin/_blocks/pagination'
+    concat render @template_service.pagination_block
 end %>

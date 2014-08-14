@@ -1,6 +1,6 @@
 <%
-    concat render :partial => 'rademade_admin/_blocks/header'
-    concat render :partial => 'rademade_admin/_blocks/menu'
+    concat render @template_service.header_block
+    concat render @template_service.menu_block
 %><div class="content">
     <div id="pad-wrapper" class="form-page">
         <div class="table-wrapper products-table">

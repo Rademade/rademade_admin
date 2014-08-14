@@ -1,10 +1,10 @@
 <ul class="submenu"><%
     menu_item[:sub].each do |sub_item|
-        concat render 'rademade_admin/_blocks/sub_menu/link', {
+        concat render @template_service.sub_menu_link_block, {
             :uri => admin_list_uri(sub_item[:model_info]),
             :title => sub_item[:model_info].item_name
         }
-        concat render 'rademade_admin/_blocks/sub_menu', {
+        concat render @template_service.sub_menu_block, {
             :menu_item => sub_item
         }
     end

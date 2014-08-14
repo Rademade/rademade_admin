@@ -14,7 +14,7 @@ module RademadeAdmin
         # @param relation [RademadeAdmin::Model::Info::Relation]
         # @param uploader [RademadeAdmin::Model::Info::Uploader]
         #
-        def initialize(name, field, relation, uploader)
+        def initialize(name, field = nil, relation = nil, uploader = nil)
           @name, @field, @relation, @uploader = name, field, relation, uploader
           @in_list, @in_form = false, false
         end

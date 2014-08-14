@@ -14,11 +14,12 @@ module RademadeAdmin
     end
 
     def abstract_template(template)
-      if template_exists?(template, "rademade_admin/#{native_template_folder}")
-        "rademade_admin/#{native_template_folder}/#{template}"
+      if template_exists?(template, @template_service.template_path(native_template_folder))
+        folder = native_template_folder
       else
-        "rademade_admin/abstract/#{template}"
+        folder = 'abstract'
       end
+      @template_service.template_path(folder, template)
     end
 
   end

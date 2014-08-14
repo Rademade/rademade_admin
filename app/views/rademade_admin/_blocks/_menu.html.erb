@@ -30,11 +30,11 @@
                     %></a><%
                     if has_sub_items
                         %><ul class="submenu"><%
-                            concat render 'rademade_admin/_blocks/sub_menu/link', {
+                            concat render @template_service.sub_menu_link_block, {
                                 :uri => admin_list_uri(menu_item[:model_info]),
                                 :title => menu_item[:model_info].item_name
                             }
-                            concat render 'rademade_admin/_blocks/sub_menu', :menu_item => menu_item
+                            concat render @template_service.sub_menu_block, :menu_item => menu_item
                         %></ul><%
                     end
                 %></li><%

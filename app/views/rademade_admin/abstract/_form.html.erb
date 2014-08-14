@@ -5,6 +5,5 @@
         end
     end
 
-    concat render :partial => 'rademade_admin/_blocks/form_control', :locals => { :f => f }
-
+    concat render :partial => @template_service.form_control_block, :locals => { :f => f }
 end %>

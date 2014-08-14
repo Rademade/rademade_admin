@@ -45,7 +45,7 @@ module RademadeAdmin
           @model_configuration.all_field_names.each do |field_name|
             data_item = data_items.data_item(field_name)
             unless data_item
-              data_item = RademadeAdmin::Model::Info::DataItem.new(field_name, nil, nil, nil)
+              data_item = RademadeAdmin::Model::Info::DataItem.new(field_name)
               add_configuration_data(data_item, field_name)
               data_items.add_data_item(data_item)
             end
