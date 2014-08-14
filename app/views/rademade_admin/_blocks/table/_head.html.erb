@@ -1,0 +1,19 @@
+<thead>
+    <tr><%
+        index = 0
+        list_fields.each do |field|
+            index += 1
+            %><th class="col-md-3 sort-button" data-column="<%= field.name %>"><%
+                unless index == 1
+                    %><span class="line"></span><%
+                end
+                %><span><%= field.label + @sortable_service.sorting_sign(field) %></span>
+            </th><%
+        end
+
+        %><th class="col-md-3 align-right">
+            <span class="line"></span>
+            <span><%= t('rademade_admin.management') %></span>
+        </th>
+    </tr>
+</thead>

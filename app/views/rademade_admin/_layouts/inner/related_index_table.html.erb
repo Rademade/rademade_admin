@@ -1,30 +1,12 @@
 <% content_for :content do %>
-    <table class="table table-hover">
-        <thead>
-            <tr><%
-                index = 0
-                @list_fields.each do |field|
-                    index += 1
-                    %><th class="col-md-3 sort-button" data-column="<%= field.name %>"><%
-                        unless index == 1
-                            %><span class="line"></span><%
-                        end
-                        %><span><%= field.label + @sortable_service.sorting_sign(field) %></span>
-                    </th><%
-                end
-
-                %><th class="col-md-3 align-right">
-                  <span class="line"></span>
-                  <span><%= t('rademade_admin.management') %></span>
-                </th>
-            </tr>
-        </thead><%
-
-        has_position = @sortable_service.has_position?
+    <table class="table table-hover"><%
+        concat render 'rademade_admin/_blocks/table/head', {
+            :list_fields => @list_fields
+        }
         %><tbody data-position='false'><%
             @items.each do |item|
                 %><tr<%
-                    if has_position
+                    if @sortable_service.has_position?
                         %> id='<%= item.position %>'<%
                     end
                 %> data-id='<%= item.id %>'><%

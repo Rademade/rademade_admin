@@ -19,7 +19,7 @@ class User
   end
 
   def password=(password)
-    self[:encrypted_password] = password
+    self[:encrypted_password] = password unless password.empty?
   end
 
   def password

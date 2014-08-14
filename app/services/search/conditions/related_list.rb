@@ -8,11 +8,6 @@ module RademadeAdmin
 
         attr_reader :item
 
-        def base_condition(model)
-          # fixme unscoped on active record removes also association and this query returns all related items
-          @item.send(@params[:relation]).unscoped
-        end
-
         protected
 
         def initialize(item, params, data_items)
@@ -22,6 +17,7 @@ module RademadeAdmin
 
         def where
           where_conditions = RademadeAdmin::Search::Part::Where.new(:and)
+          where_conditions.add(:id, related_item_ids)
           @params.slice(*@data_items.origin_fields).each do |field, value|
             where_conditions.add(field, value)
           end
@@ -47,6 +43,13 @@ module RademadeAdmin
 
         def default_order_field
           @data_items.origin_fields.include?('position') ? :position : :id
+        end
+
+        def related_item_ids
+          related_items = @item.send(params[:relation])
+          related_items.map do |related_item|
+            related_item.id.to_s
+          end
         end
 
       end

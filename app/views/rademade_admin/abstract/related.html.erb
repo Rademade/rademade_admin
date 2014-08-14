@@ -14,26 +14,10 @@ end
         :class => 'select2-add-link',
         :'data-model' => @model_class.to_s,
         :'data-rel-list-url' => autocomplete_uri
-    )%><table class="table table-hover">
-        <thead>
-            <tr><%
-                index = 0
-                related_list_fields.each do |field|
-                    index += 1
-                    %><th class="col-md-3 sort-button" data-column="<%= field.name %>"><%
-                        unless index == 1
-                            %><span class="line"></span><%
-                        end
-                        %><span><%= field.label + @sortable_service.sorting_sign(field) %></span>
-                    </th><%
-                end
-                %><th class="col-md-3 align-right">
-                    <span class="line"></span>
-                    <span><%= t('rademade_admin.management') %></span>
-                </th>
-            </tr>
-        </thead><%
-
+    )%><table class="table table-hover"><%
+        concat render 'rademade_admin/_blocks/table/head', {
+            :list_fields => related_list_fields
+        }
         has_position = @sortable_service.has_position?
         %><tbody data-position='false'><%
             @items.each do |item|

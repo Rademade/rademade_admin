@@ -45,6 +45,10 @@ module RademadeAdmin
         @field_labels ||= RademadeAdmin::Model::Configuration::FieldsLabels.new
       end
 
+      def all_field_names
+        @all_field_names ||= Set.new(list_fields.all.map(&:name) + form_fields.all.map(&:name))
+      end
+
       private
 
       def model(model_name)
