@@ -44,7 +44,7 @@ module RademadeAdmin
           related_entity.id.to_s
         }.join(',')
       else
-        related_value.to_s
+        related_value.try(:id).to_s
       end
     end
 
@@ -85,10 +85,6 @@ module RademadeAdmin
       not association.nil?
     end
 
-    def reflection_name
-      reflection.is_a?(Hash) ? reflection[:name] : reflection.name
-    end
-
     def model
       @model ||= builder.object
     end
@@ -98,7 +94,7 @@ module RademadeAdmin
     def related_data_item
       unless @related_data_item
         model_info = Model::Graph.instance.model_info(model.class)
-        @related_data_item = model_info.data_items.data_item(reflection_name)
+        @related_data_item = model_info.data_items.data_item(reflection.name)
       end
       @related_data_item
     end

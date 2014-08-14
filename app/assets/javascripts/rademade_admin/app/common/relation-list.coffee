@@ -11,6 +11,7 @@ initItem = ($item) ->
   $item.select2(
     multiple : isMultiple
     placeholder : 'Enter search phrase'
+    allowClear : true
 
     initSelection : (element, callback) ->
       params = {ids : element.val().split(',')}

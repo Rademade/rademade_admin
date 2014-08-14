@@ -9,6 +9,7 @@ module RademadeAdmin
         attr_reader :item
 
         def base_condition(model)
+          # fixme unscoped on active record removes also association and this query returns all related items
           @item.send(@params[:relation]).unscoped
         end
 

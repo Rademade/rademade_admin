@@ -8,41 +8,6 @@ module RademadeAdmin
         #
         class ActiveRecord < RademadeAdmin::Model::Adapter::Data
 
-          def relations
-            @model.reflections
-          end
-
-          def reflect_on_association(name)
-            @model.reflect_on_association(name)
-          end
-
-          def many_relation?(field)
-            reflect_on_association(field).try(:collection?)
-          end
-
-          def association_foreign_key(relation)
-            assoc_key = relation.name.to_s
-            if relation.collection?
-              assoc_key.singularize.foreign_key.pluralize
-            else
-              assoc_key.foreign_key
-            end
-          end
-
-          def fields
-            #todo map to field class
-            @model.column_types
-          end
-
-          def foreign_key?(field)
-            if field.is_a? ::ActiveRecord::AttributeMethods::TimeZoneConversion::Type # why another behaviour?
-              field_name = field.instance_values['column'].name
-            else
-              field_name = field.name
-            end
-            field_name[-3, 3] == '_id'
-          end
-
           protected
 
           def has_many_relations
@@ -51,6 +16,53 @@ module RademadeAdmin
 
           def has_one_relations
             [:has_one, :belongs_to]
+          end
+
+          def _map_fields
+            fields = {}
+            @model.column_types.each do |name, field_data|
+              name = name.to_sym
+              column_data = extract_column_data(field_data)
+              getter = name.to_s
+              fields[name] = RademadeAdmin::Model::Info::Field.new({
+                :name => name,
+                :primary => column_data.primary,
+                :getter => getter,
+                :setter => getter + '=',
+                :type => column_data.type
+              })
+            end
+            fields
+          end
+
+          def _map_relations
+            relations = {}
+            @model.reflections.each do |name, relation_info|
+              name = name.to_sym
+              getter = name.to_s
+              type = relation_info.macro
+              relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
+                :name => name,
+                :from => @model,
+                :to => RademadeAdmin::LoaderService.const_get(relation_info.class_name),
+                :getter => getter,
+                :setter => getter + '=',
+                :type => type,
+                :has_many => has_many_relations.include?(type),
+                :foreign_key => relation_info.foreign_key
+              })
+            end
+            relations
+          end
+
+          private
+
+          def extract_column_data(field_data)
+            if field_data.is_a? ::ActiveRecord::AttributeMethods::TimeZoneConversion::Type # why another behaviour?
+              field_data.instance_values['column']
+            else
+              field_data
+            end
           end
 
         end

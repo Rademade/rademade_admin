@@ -15,8 +15,12 @@ module RademadeAdmin
           end
 
           def order(order_conditions)
-            order_conditions.each do |order_condition|
-              @result = @result.order(order_condition)
+            order_conditions.parts.each do |part|
+              if part.is_a? RademadeAdmin::Search::Part::Order
+                # todo
+              else
+                @result = @result.order(part[:field] => part[:value])
+              end
             end
             @result
           end
