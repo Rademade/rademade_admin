@@ -28,5 +28,4 @@ group :test do
   gem 'capybara-screenshot'
   gem 'factory_girl_rails', :require => false
   gem 'simplecov'
-  gem 'minitest-colorize'
 end
