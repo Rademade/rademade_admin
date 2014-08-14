@@ -4,12 +4,12 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
   options do
     list :email, :first_name, :last_name
     form do
-      email
+      email :hint => 'Электронная почта'
       avatar
       first_name
       last_name
-      password
       posts
+      admin :boolean
     end
   end
 

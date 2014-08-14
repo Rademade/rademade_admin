@@ -35,14 +35,8 @@ module RademadeAdmin::FieldHelper
   end
 
   def input_attr(attrs = {})
-    attrs.merge :wrapper_html => {:class => 'form-group'},
-                :input_html => {:class => 'form-control'}
-  end
-
-  private
-
-  def configured_field?(field)
-    field.is_a? Hash
+    attrs.merge :wrapper_html => { :class => 'form-group' },
+                :input_html => { :class => 'form-control' }
   end
 
 end

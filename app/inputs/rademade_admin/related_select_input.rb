@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  class AdminSelectInput < SimpleForm::Inputs::CollectionSelectInput
+  class RelatedSelectInput < SimpleForm::Inputs::CollectionSelectInput
 
     include ::RademadeAdmin::UriHelper
 
@@ -47,7 +47,7 @@ module RademadeAdmin
     def html_attributes
       {
         :class => 'select-wrapper',
-        :data => reflection_data.merge('owner-class' => object.class.to_s),
+        :data => reflection_data.merge('owner-class' => model.class.to_s),
         :type => 'hidden'
       }
     end
@@ -66,22 +66,16 @@ module RademadeAdmin
     end
 
     def reflection_data
-      if true # todo what is it?
-        {
-          'rel-multiple' => multiple?,
-          'rel-class' => related_to.to_s,
-          'search-url' => admin_autocomplete_uri(related_to, format: :json)
-        }
-      else
-        {}
-      end
+      {
+        'rel-multiple' => multiple?,
+        'rel-class' => related_to.to_s,
+        'search-url' => admin_autocomplete_uri(related_to, format: :json)
+      }
     end
 
     def model
       @model ||= @builder.object
     end
-
-    private
 
     def related_data_item
       unless @related_data_item

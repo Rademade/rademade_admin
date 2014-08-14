@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  class AdminFileInput < SimpleForm::Inputs::FileInput
+  class FileInput < SimpleForm::Inputs::FileInput
 
     include UploadPreviewHelper
     include UriHelper
@@ -12,6 +12,8 @@ module RademadeAdmin
         { :class => 'uploader-block' }
       )
     end
+
+    private
 
     def file_html
       template.content_tag(
@@ -54,8 +56,6 @@ module RademadeAdmin
         :style => 'display:none;clear:both'
       })
     end
-
-    protected
 
     def data_item
       unless @data_item
