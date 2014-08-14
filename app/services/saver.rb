@@ -45,8 +45,14 @@ module RademadeAdmin
         getter = data_item.getter
         if data.has_key? getter
           ids = data[getter]
-          ids.reject! { |id| id.empty? } if ids.kind_of? Array
-          item.send(data_item.setter, data_item.relation.related_entities(ids))
+          if ids.kind_of? Array
+            ids.reject! { |id| id.empty? }
+            default_value = []
+          else
+            default_value = nil
+          end
+          entities = ids.empty? ? default_value : data_item.relation.related_entities(ids)
+          item.send(data_item.setter, entities)
         end
       end
     end

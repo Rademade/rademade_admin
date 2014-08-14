@@ -19,6 +19,22 @@ module RademadeAdmin
             [:has_one, :embeds_one, :belongs_to]
           end
 
+          def _map_fields
+            fields = {}
+            @model.fields.each do |name, field_data|
+              name = name.to_sym
+              getter = name.to_s
+              fields[name] = RademadeAdmin::Model::Info::Field.new({
+                :name => name,
+                :primary => name == :_id,
+                :getter => getter,
+                :setter => getter + '=',
+                :type => field_data.type
+              })
+            end
+            fields
+          end
+
           def _map_relations
             relations = {}
             @model.relations.each do |name, relation_info|
@@ -31,27 +47,11 @@ module RademadeAdmin
                 :getter => name.to_s,
                 :setter => relation_info.setter,
                 :type => type,
-                :has_many => has_many_relations.include?(type)
+                :has_many => has_many_relations.include?(type),
+                :foreign_key => relation_info.foreign_key
               })
             end
             relations
-          end
-
-          def _map_fields
-            fields = {}
-            @model.fields.each do |name, field_data|
-              name = name.to_sym
-              fields[name] = RademadeAdmin::Model::Info::Field.new({
-                :name => name,
-                :primary => name == :_id,
-                :foreign_key => field_data.foreign_key?,
-                :setter => name.to_s + '=',
-                :getter => name.to_s,
-                :type => field_data.type,
-                :relation_name => field_data.metadata.nil? ? nil : field_data.metadata.name
-              })
-            end
-            fields
           end
 
         end

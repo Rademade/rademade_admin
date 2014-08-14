@@ -4,7 +4,7 @@ module RademadeAdmin
     class Info
       class Relation
 
-        attr_reader :name, :from, :to, :id_setter, :setter, :id_getter, :getter, :type
+        attr_reader :name, :from, :to, :getter, :setter, :type, :foreign_key
 
         def many?
           @has_many
@@ -25,12 +25,11 @@ module RademadeAdmin
           @name = opt[:name]
           @from = opt[:from]
           @to = opt[:to]
-          @id_setter = opt[:id_setter]
-          @setter = opt[:setter]
-          @id_getter = opt[:id_getter]
           @getter = opt[:getter]
+          @setter = opt[:setter]
           @type = opt[:type]
           @has_many = opt[:has_many]
+          @foreign_key = opt[:foreign_key]
         end
 
       end

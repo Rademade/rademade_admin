@@ -3,8 +3,10 @@ Rails.application.routes.draw do
 
   mount RademadeAdmin::Engine => '/rademade_admin'
   namespace :rademade_admin do
-    admin_resources :users
-    admin_resources :posts
-    admin_resources :tags
+
+    admin_resources :users, :posts, :tags
+    admin_resources :authors, :articles
+
   end
+
 end

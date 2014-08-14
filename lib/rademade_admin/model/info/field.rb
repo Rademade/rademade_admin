@@ -6,7 +6,7 @@ module RademadeAdmin
 
         UNSAVED_FIELDS = [:id, :_id, :created_at, :deleted_at, :position]
 
-        attr_accessor :name, :setter, :getter, :type, :relation_name
+        attr_reader :name, :setter, :getter, :type
 
         def key=(status)
           @is_key = status
@@ -16,16 +16,8 @@ module RademadeAdmin
           @primary
         end
 
-        def foreign_key?
-          @foreign_key
-        end
-
         def save?
           not UNSAVED_FIELDS.include? name
-        end
-
-        def has_relation?
-          @relation_name
         end
 
         protected
@@ -33,11 +25,9 @@ module RademadeAdmin
         def initialize(opts = {})
           @name = opts[:name]
           @primary = opts[:primary]
-          @foreign_key = opts[:foreign_key]
           @setter = opts[:setter]
           @getter = opts[:getter]
           @type = opts[:type]
-          @relation_name = opts[:relation_name]
         end
 
       end
