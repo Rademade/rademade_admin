@@ -8,7 +8,7 @@ require 'rails/test_unit/railtie'
 require 'mongoid'
 require 'carrierwave/mount'
 require 'carrierwave/mongoid'
-require 'devise'
+require 'light_resizer'
 
 Bundler.require(*Rails.groups)
 require 'rademade_admin'

@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'kaminari'
 require 'carrierwave'
+require 'breadcrumbs'
 
 require 'cancan'
 require 'bower-rails'
@@ -9,7 +10,7 @@ require 'compass-rails'
 # js assets
 require 'turbolinks'
 
-require 'formtastic'
+require 'simple_form'
 require 'ckeditor'
 
 require 'rademade_admin/sortable'

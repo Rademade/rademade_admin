@@ -1,5 +1,6 @@
-<% unless uri.nil? %>
-    <li class="menu-box">
-      <a class="menu-link" href="<%= uri %>"><%= title %></a>
-    </li>
-<% end %>
+<%
+unless uri.nil?
+    %><li>
+        <a href="<%= uri %>"><%= title %></a>
+    </li><%
+end %>

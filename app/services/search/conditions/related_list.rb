@@ -6,24 +6,32 @@ module RademadeAdmin
     module Conditions
       class RelatedList < Abstract
 
+        attr_reader :item
+
         def base_condition(model)
-          model_related_name = model.to_s.tableize.gsub('/', '_').to_sym
-          @params[:parent].constantize.find(@params[:parent_id]).send(model_related_name)
+          @item.send(@params[:relation]).unscoped
         end
 
         protected
 
+        def initialize(item, params, data_items)
+          @item = item
+          super(params, data_items)
+        end
+
         def where
-          where_conditions = Where.new(:and)
-          @params.slice(*@origin_fields).each do |field, value|
+          where_conditions = RademadeAdmin::Search::Part::Where.new(:and)
+          @params.slice(*@data_items.origin_fields).each do |field, value|
             where_conditions.add(field, value)
           end
           where_conditions
         end
 
         def order
+          order_conditions = RademadeAdmin::Search::Part::Order.new
           field = @params[:sort] || default_order_field
-          [{field => direction}]
+          order_conditions.add(field, @params[:direction])
+          order_conditions
         end
 
         def page
@@ -37,15 +45,7 @@ module RademadeAdmin
         private
 
         def default_order_field
-          @origin_fields.include?('position') ? :position : :id
-        end
-
-        def direction
-          if @params[:direction].present?
-            @params[:direction].to_sym
-          else
-            :asc
-          end
+          @data_items.origin_fields.include?('position') ? :position : :id
         end
 
       end

@@ -1,25 +1,26 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::FieldHelper
 
-  def field_to_label(field, model_info = @model_info)
-    model_info.label_for(field)
-  end
-
-  def field_name(field)
-    configured_field?(field) ? field.keys.first : field
-  end
-
-  def field_value(field, item)
-    if configured_field?(field)
-      if field.values.first[:method].present?
-        method_name = field.values.first[:method]
+  # Display the field of given item
+  #
+  # @param item [Object]
+  # @param field [RademadeAdmin::Model::Info::Field]
+  #
+  # @return [String]
+  #
+  def display_item_value(item, field)
+    value = item.send(field.getter)
+    if field.has_relation?
+      if field.relation.many?
+        link_to field.label, admin_related_item(item, field.getter)
       else
-        method_name = field.keys.first
+        link_to value.to_s, admin_edit_uri(value)
       end
+    elsif field.has_uploader?
+      uploaded_file_html(value)
     else
-      method_name = field
+      value.to_s
     end
-    item.send(method_name)
   end
 
   def pagination_option(number, name = 'paginate')
@@ -34,14 +35,8 @@ module RademadeAdmin::FieldHelper
   end
 
   def input_attr(attrs = {})
-    attrs.merge :wrapper_html => {:class => 'form-group'},
-                :input_html => {:class => 'form-control'}
-  end
-
-  private
-
-  def configured_field?(field)
-    field.is_a? Hash
+    attrs.merge :wrapper_html => { :class => 'form-group' },
+                :input_html => { :class => 'form-control' }
   end
 
 end

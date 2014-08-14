@@ -2,17 +2,19 @@
 module Autocomplete
   class LinkSerializer < BaseSerializer
 
-    def initialize(collection, parent, parent_id)
+    def initialize(collection, item, relation)
       super(collection)
-      @parent = parent
-      @parent_id = parent_id
+      @item = item
+      @relation = relation
     end
 
     protected
 
     def item_to_json(item)
       super(item).merge({
-        :link_url => admin_link_uri(item, @parent, @parent_id)
+        :link_url => admin_link_uri(@item, @relation, {
+          :related_id => item.id
+        })
       })
     end
 

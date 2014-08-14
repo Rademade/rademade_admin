@@ -1,13 +1,11 @@
-# -*- encoding : utf-8 -*-
 module RademadeAdmin
   module Search
-    module Conditions
-      class Where
+    module Part
+      class Abstract
 
-        attr_reader :type, :parts
+        attr_reader :parts
 
-        def initialize(type)
-          @type = type
+        def initialize
           @parts = []
         end
 
@@ -18,8 +16,8 @@ module RademadeAdmin
           }
         end
 
-        def sub_add(where)
-          @parts << where
+        def sub_add(part)
+          @parts << part
         end
 
       end

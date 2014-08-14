@@ -1,12 +1,10 @@
 # -*- encoding : utf-8 -*-
-require 'rademade_admin/model/reflection/uploader'
 require 'rademade_admin/model/reflection/data'
 
 module RademadeAdmin
   module Model
     class Reflection
-      include Uploader
-      include Data
+      include RademadeAdmin::Model::Reflection::Data
 
       attr_reader :model, :controller
 

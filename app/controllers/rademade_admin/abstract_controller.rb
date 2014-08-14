@@ -1,11 +1,13 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
   class AbstractController < ApplicationController
+
     include ::RademadeAdmin::UriHelper
+    include ::RademadeAdmin::Breadcrumbs
 
     layout 'rademade_admin'
 
-    before_action :init_user, :require_login
+    before_action :init_user, :require_login, :root_breadcrumbs
 
     rescue_from ::CanCan::AccessDenied do |exception|
       redirect_to root_url, :alert => exception.message

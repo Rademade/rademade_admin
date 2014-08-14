@@ -6,23 +6,16 @@ module RademadeAdmin
 
         attr_reader :params
 
-        def initialize(params, origin_fields)
+        # @param params [Hash]
+        # @param data_items [RademadeAdmin::Model::Info::DataItems]
+        #
+        def initialize(params, data_items)
           @params = params
-          @origin_fields = origin_fields
+          @data_items = data_items
         end
 
         def conditions
-          @conditions ||= init_conditions
-        end
-
-        def base_condition(model)
-          model.unscoped
-        end
-
-        protected
-
-        def init_conditions
-          {
+          @conditions ||= {
             :where => where,
             :order => order,
             :page => page,
@@ -31,12 +24,20 @@ module RademadeAdmin
           }
         end
 
+        def base_condition(model)
+          # todo. deleted at?
+          # We can't use default scope. It can be patched
+          model.unscoped
+        end
+
+        protected
+
         def where
           nil
         end
 
         def order
-          {}
+          nil
         end
 
         def page

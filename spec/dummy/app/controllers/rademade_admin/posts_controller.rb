@@ -18,6 +18,9 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
              },
              :include_blank => false
     end
+    labels do
+      headline 'Post name'
+    end
   end
 
 end

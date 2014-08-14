@@ -1,5 +1,3 @@
-<%= f.actions :class => 'col-md-12 submit-box' do %>
-    <%= f.action :submit, :button_html => {:class => 'btn-glow primary'} %>
-    <span><%= t('rademade_admin.or') %></span>
-    <%= f.action :cancel, :button_html => {:class => 'reset'} %>
-<% end %>
+<%= f.button :submit, :class => 'btn-glow primary' %>
+<span><%= t('rademade_admin.or') %></span>
+<%= link_to t('rademade_admin.cancel'), admin_list_uri(@model) %>

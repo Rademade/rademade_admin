@@ -2,6 +2,15 @@
 module RademadeAdmin
   module ModelOptions
 
+    # Configure admin part of model
+    # Support options
+    #  - model
+    #  - name
+    #  - parent_menu (todo extract to menu method)
+    #  - list
+    #  - form
+    #  - labels
+    #
     def options(&options_block)
       configuration.instance_eval &options_block
     end
@@ -26,12 +35,6 @@ module RademadeAdmin
       @model_info ||= Model::Graph.instance.model_info(model_class)
     end
 
-    def init_model_info(model_reflection)
-      Model::Info.new(model_reflection, configuration)
-    end
-
-    private
-    
     def configuration
       @configuration ||= Model::Configuration.new(controller_name)
     end
