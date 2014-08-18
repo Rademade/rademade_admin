@@ -1,9 +1,6 @@
-<%= admin_form(@item, @model_class) do |f| %>
-    <%= f.inputs do %><%
-        @semantic_form_fields.each do |form_field|
-            admin_field(f, form_field, @model_info)
-        end
+<%= admin_form(@item, @model_class) do |f| %><%
+    @semantic_form_fields.each do |form_field|
+        admin_field(f, form_field, @model_info)
     end
-
     concat render :partial => @template_service.form_control_block, :locals => { :f => f }
 end %>

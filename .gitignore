@@ -3,7 +3,6 @@
 Gemfile.lock
 /spec/dummy/log/*
 /spec/dummy/tmp/*
-/spec/dummy/db/*
 /vendor/
 /.bundle/
 /coverage

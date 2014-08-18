@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'rademade_admin/routing/mapper'
-require 'formtastic'
+require 'simple_form'
 
 module RademadeAdmin
   class Engine < ::Rails::Engine
@@ -18,7 +18,7 @@ module RademadeAdmin
     )
 
     paths.each do |path|
-      Dir[path].each {|f| require f }
+      Dir[path].each { |f| require f  }
     end
 
   end

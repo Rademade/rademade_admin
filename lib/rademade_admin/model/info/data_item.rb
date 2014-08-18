@@ -7,6 +7,7 @@ module RademadeAdmin
         attr_accessor :name, :field, :relation, :label, :form_params,
                       :form_position, :list_position
         attr_writer :is_uploader, :in_form, :in_list
+        attr_reader :uploader
 
         #
         # @param name [Symbol]

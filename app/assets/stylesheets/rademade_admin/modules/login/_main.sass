@@ -1,0 +1,73 @@
+.login-bg
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: #34495e
+
+.admin-logo
+    position: absolute
+    top: 100px
+    left: 50%
+    margin-left: -88px
+    width: 175px
+    height: 20px
+
+.login-form
+    position: absolute
+    top: 150px
+    left: 50%
+    margin-left: -200px
+    padding: 20px 30px
+    width: 400px
+    background-color: #ecf0f1
+    +box-sizing(border-box)
+    +border-radius(6px)
+
+.login-form
+    li
+        list-style: none
+
+    .login-form-title
+        margin-bottom: 20px
+        color: #2c3e50
+        font-size: 25px
+        text-align: center
+
+
+    .form-input:focus + label
+        color: #34495e
+
+    .form-box
+        position: relative
+        margin-bottom: 20px
+        +clear
+
+        .form-label
+            position: absolute
+            color: #bfc9ca
+            top: 14px
+            right: 15px
+            font-size: 20px
+            +glyph
+            &.password
+                right: 14px
+
+        .form-input
+            display: inline-block
+            width: 100%
+            border: 2px solid #fff
+            color: #34495e
+            font-size: 15px
+            padding: 8px 12px
+            height: 42px
+            background-color: #fff
+            +box-sizing(border-box)
+            +border-radius(6px)
+            +transition(border .25s linear, color .25s linear, background-color .25s linear)
+            &:focus
+                border: 2px solid #34495e
+            &:-webkit-autofill
+                color: #34495e
+                -webkit-box-shadow: 0 0 0px 1000px white inset
