@@ -77,8 +77,7 @@ changeSelectValue = ($table, $input) ->
   itemsList = []
 
   $table.children('li').each ->
-    $li = $(this)
-    itemsList.push({ id : $li.data('id'), text : $li.text() })
+    itemsList.push id : $(this).data('id')
 
   $input.select2('data', itemsList)
   hideTags()

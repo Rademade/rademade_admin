@@ -10,7 +10,6 @@ gem 'compass-rails'
 gem 'bower-rails'
 
 # File upload
-gem 'light_resizer'
 gem 'carrierwave'
 gem 'rmagick'
 

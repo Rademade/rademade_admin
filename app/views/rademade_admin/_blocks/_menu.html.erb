@@ -1,15 +1,15 @@
-<div id="sidebar-nav">
+<div id="sidebar-nav" class="content-menu">
     <ul id="dashboard-menu"><%
         main_menu.each do |menu_item|
             has_sub_items = (menu_item[:sub].is_a? Array and menu_item[:sub].size > 0)
             if has_sub_items || menu_item[:uri]
                 item_name = menu_item[:name] || menu_item[:model_info].item_name
                 is_active = active?(menu_item)
-                %><li<%
+                %><li class="menu-box<%
                     if is_active
-                        %> class="active"<%
+                        %> active<%
                     end
-                %>><%
+                %>"><%
                     if is_active
                         %><div class="pointer">
                             <div class="arrow"></div>
@@ -17,15 +17,15 @@
                         </div><%
                     end
 
-                    %><a href="<%= menu_item[:uri] %>"<%
+                    %><a href="<%= menu_item[:uri] %>" class="menu-link<%
                         if has_sub_items
-                            %> class="dropdown-toggle"<%
+                            %> dropdown-toggle<%
                         end
-                    %>>
+                    %>">
                         <i class="<%= menu_item[:ico] %>"></i>
                         <span><%= item_name %></span><%
                         if has_sub_items
-                            %><i class="fa fa-chevron-down"></i><%
+                            %><span class="caret"></span><%
                         end
                     %></a><%
                     if has_sub_items

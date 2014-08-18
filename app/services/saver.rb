@@ -23,10 +23,12 @@ module RademadeAdmin
       item.update filter_data_params
     end
 
+    #rm_todo glue methods
     def save_model
-      item.save @params
+      item.save filter_data_params
     end
 
+    #rm_todo glue methods
     def save_aggregated_data
       save_model_relations
       save_model_uploads
@@ -47,11 +49,15 @@ module RademadeAdmin
           ids = data[getter]
           if ids.kind_of? Array
             ids.reject! { |id| id.empty? }
-            default_value = []
+            item.send(getter).clear # rm_todo for AR
+            entities = related_entities(data_item, ids)
           else
-            default_value = nil
+            if ids.empty?
+              entities = nil
+            else
+              entities = data_item.relation.related_entities(ids)
+            end
           end
-          entities = ids.empty? ? default_value : data_item.relation.related_entities(ids)
           item.send(data_item.setter, entities)
         end
       end
@@ -74,6 +80,12 @@ module RademadeAdmin
 
     def filter_data_params
       @params.require(:data).permit(@model_info.data_items.save_form_fields)
+    end
+
+    def related_entities(data_item, ids)
+      ids.map do |id|
+        data_item.relation.related_entities(id)
+      end
     end
 
   end

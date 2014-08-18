@@ -3,7 +3,6 @@
         <div class="col-md-9 with-sidebar">
             <%= render @form_template_path %>
         </div>
-    </div>
-<% end %>
-
-<%= render :template => @template_service.inner_layout %>
+    </div><%
+end
+concat render :template => @template_service.inner_layout %>

@@ -1,30 +1,31 @@
 <% content_for :content do %><%
+    concat render @template_service.on_page_select_block
     if @sortable_service.can_reset?
         %><a href="<%= request.path %>"><%= t('rademade_admin.reset_sort') %></a><%
     end
-    %><table class="table table-hover"><%
+    %><table class="table-box"><%
         concat render @template_service.table_head_block, {
             :list_fields => @list_fields
         }
         has_position = @sortable_service.has_position?
-        %><tbody class="table-sortable" data-position='<%= has_position %>'><%
+        %><tbody class="table-content" data-position='<%= has_position %>'><%
             @items.each do |item|
                 %><tr<%
                     if has_position
                         %> id='<%= item.position %>'<%
                     end
-                %> data-id='<%= item.id %>'><%
+                %> class="table-line" data-id='<%= item.id %>'><%
                     @list_fields.each do |field|
-                        %><td><%= display_item_value(item, field) %></td><%
+                        %><td class="table-item"><%= display_item_value(item, field) %></td><%
                     end
-                    %><td>
-                        <ul class="actions">
-                            <li><%= link_to t('rademade_admin.edit'), admin_edit_uri(item) %></li>
-                            <li><%= button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
+                    %><td class="table-item">
+                        <span class="table-actions">
+                            <%= link_to t('rademade_admin.edit'), admin_edit_uri(item), :class => 'glyphicon glyphicon-pencil fl-l' %>
+                            <%= button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
                                 :method => :delete,
                                 :form => { :class => 'delete-item-form' }
-                            } %></li>
-                        </ul>
+                            } %>
+                        </span>
                     </td>
                 </tr><%
             end

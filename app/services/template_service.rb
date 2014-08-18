@@ -26,6 +26,10 @@ module RademadeAdmin
       block_path 'pagination'
     end
 
+    def on_page_select_block
+      block_path 'on_page_select'
+    end
+
     def header_block
       block_path 'header'
     end

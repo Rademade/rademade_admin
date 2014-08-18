@@ -1,25 +1,26 @@
-<% content_for :content do %>
-    <table class="table table-hover"><%
+<% content_for :content do %><%
+    concat render @template_service.on_page_select_block
+    %><table class="table-box"><%
         concat render @template_service.table_head_block, {
             :list_fields => @list_fields
         }
-        %><tbody data-position='false'><%
+        %><tbody class="table-content" data-position='false'><%
             @items.each do |item|
                 %><tr<%
                     if @sortable_service.has_position?
                         %> id='<%= item.position %>'<%
                     end
-                %> data-id='<%= item.id %>'><%
+                %> class="table-line" data-id='<%= item.id %>'><%
                     @list_fields.each do |field|
-                        %><td><%= display_item_value(item, field) %></td><%
+                        %><td class="table-item"><%= display_item_value(item, field) %></td><%
                     end
-                    %><td>
-                        <ul class="actions">
-                            <li><%= button_to t('rademade_admin.unlink'), admin_unlink_uri(item, params[:parent], params[:parent_id]), {
+                    %><td class="table-item">
+                        <span class="table-actions">
+                            <%= button_to t('rademade_admin.unlink'), admin_unlink_uri(item, params[:parent], params[:parent_id]), {
                                 :method => :patch,
                                 :form => { :class => 'delete-item-form' }
-                            } %></li>
-                        </ul>
+                            } %>
+                        </span>
                     </td>
                 </tr><%
             end

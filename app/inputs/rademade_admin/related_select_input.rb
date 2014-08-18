@@ -34,13 +34,18 @@ module RademadeAdmin
     end
 
     def input_value
+      #if multiple?
+      #  model.send("#{relation_getter.to_s.singularize}_ids").join(',')
+      #else
+      #  model.send(relation_getter).id.to_s
+      #end
       related_value = model.send(relation_getter)
       if multiple?
         related_value.map { |related_entity|
           related_entity.id.to_s
         }.join(',')
       else
-        related_value.to_s
+        related_value.id.to_s
       end
     end
 
