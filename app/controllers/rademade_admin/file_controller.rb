@@ -1,8 +1,7 @@
-#todo extract like service
-
+# -*- encoding : utf-8 -*-
 class RademadeAdmin::FileController < RademadeAdmin::AbstractController
 
-  include RademadeAdmin::UploadPreviewHelper #todo via :helper include
+  include RademadeAdmin::UploadPreviewHelper #todo via :helper include or service
 
   #todo extract service
   def upload
