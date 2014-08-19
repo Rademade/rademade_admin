@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'tzinfo-data'
+
 # Assets
 gem 'sass'
 gem 'sass-rails'
