@@ -9,6 +9,7 @@ module RademadeAdmin::FieldHelper
   # @return [String]
   #
   def display_item_value(item, field)
+    return '' if item.nil?
     value = item.send(field.getter)
     if field.has_relation?
       if field.relation.many?
