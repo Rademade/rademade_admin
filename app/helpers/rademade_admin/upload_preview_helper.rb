@@ -55,10 +55,10 @@ module RademadeAdmin::UploadPreviewHelper
 
   def uploaded_image_preview
     content_tag(:img, '', {
-      :src => uploader.resize(230, 150),
+      :src => uploader.resize(230, 130),
       :class => 'image-preview',
       :width => 230,
-      :height => 150
+      :height => 130
     })
   end
 
