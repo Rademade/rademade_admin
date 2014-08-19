@@ -30,7 +30,7 @@ module RademadeAdmin
     def input_file_html
       @builder.file_field(attribute_name, {
         :id => nil,
-        :class => 'uploader-input-file',
+        :class => 'btn yellow-btn uploader-input-file',
         :name => attribute_name,
         :data => {
           :column => attribute_name,

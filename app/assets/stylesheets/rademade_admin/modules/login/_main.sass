@@ -46,11 +46,17 @@
 
         .form-label
             position: absolute
+            float: none
+            width: auto
+            margin: 0
+            padding: 0
             color: #bfc9ca
             top: 14px
             right: 15px
             font-size: 20px
             +glyph
+            &:after
+                display: none
             &.password
                 right: 14px
 

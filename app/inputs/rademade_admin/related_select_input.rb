@@ -53,7 +53,7 @@ module RademadeAdmin
     def add_button_html
       url = new_item_url
       template.content_tag(:button, I18n.t('rademade_admin.add_new'), {
-        :class => 'relation-add-button',
+        :class => 'btn green-btn relation-add-button r-margin fl-l',
         'data-new' => url,
         'data-class' => related_to.to_s
       }) if url
