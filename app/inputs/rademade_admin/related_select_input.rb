@@ -36,7 +36,7 @@ module RademadeAdmin
     def input_value
       related_value = model.send(relation_getter)
       if multiple?
-        related_value.map(&:id.to_s).join(',')
+        related_value.map(&:id).join(',')
       else
         related_value.nil? ? nil : related_value.id.to_s
       end
