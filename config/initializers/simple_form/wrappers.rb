@@ -11,7 +11,7 @@ SimpleForm.setup do |config|
       end
     end
     form_box.wrapper :tag => 'div', :class => 'input-holder' do |input_holder|
-      input_holder.use :input, :input_html => {:class =>'form-input'}
+      input_holder.use :input, :class => 'form-input'
     end
   end
 
