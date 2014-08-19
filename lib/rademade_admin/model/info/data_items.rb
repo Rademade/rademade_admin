@@ -3,22 +3,31 @@ module RademadeAdmin
   module Model
     class Info
       class DataItems
+        include ::Enumerable
 
         def initialize
           @data_items = {}
         end
 
+        def items
+          @data_items
+        end
+
+        def each(&block)
+          items.each(&block)
+        end
+
         # @param data_item [RademadeAdmin::Model::Info::DataItem]
         def add_data_item(data_item)
-          @data_items[data_item.name] = data_item
+          items[data_item.name] = data_item
         end
 
         def data_item(name)
-          @data_items[name.to_sym]
+          items[name.to_sym]
         end
 
         def has_field?(name)
-          not @data_items[name.to_sym].nil?
+          not items[name.to_sym].nil?
         end
 
         def primary_field
@@ -30,11 +39,11 @@ module RademadeAdmin
         end
 
         def related_fields
-          @related_fields ||= @data_items.select { |_, data_item| data_item.has_relation? }
+          @related_fields ||= items.select { |_, data_item| data_item.has_relation? }
         end
 
         def uploader_fields
-          @uploader_fields ||= @data_items.select { |_, data_item| data_item.has_uploader? }
+          @uploader_fields ||= items.select { |_, data_item| data_item.has_uploader? }
         end
 
         def list_fields
@@ -45,10 +54,18 @@ module RademadeAdmin
           @autocomplete_fields ||= collect_field_names { |data_item| data_item.string_field? }
         end
 
+        # Get Array of RademadeAdmin::Model::Info::DataItem for rendering form
+        #
+        # @return [Array]
+        #
         def semantic_form_fields
           @form_fields ||= collect_form_fields
         end
 
+        # Get Array of RademadeAdmin::Model::Info::DataItem for saving
+        #
+        # @return [Array]
+        #
         def save_form_fields
           @save_form_fields ||= collect_field_names { |data_item| data_item.in_form? and not data_item.has_relation? }
         end
@@ -56,35 +73,25 @@ module RademadeAdmin
         private
 
         def find_primary_field
-          @data_items.each do |_, data_item|
+          items.each do |_, data_item|
             return data_item if data_item.primary_field?
           end
           nil
         end
 
         def collect_list_fields
-          fields = @data_items.select { |_, data_item| data_item.in_list? }
-          if fields.empty?
-            fields = @data_items
-          else
-            fields = fields.values.sort_by(&:list_position)
-          end
-          fields
+          fields = items.select { |_, data_item| data_item.in_list? }
+          fields.empty? ? items.values : fields.values.sort_by(&:list_position)
         end
 
         def collect_form_fields
-          fields = @data_items.select { |_, data_item| data_item.in_form? }
-          if fields.empty?
-            fields = @data_items
-          else
-            fields = fields.values.sort_by(&:form_position)
-          end
-          fields
+          fields = items.select { |_, data_item| data_item.in_form? }
+          fields.empty? ? items.values : fields.values.sort_by(&:form_position)
         end
 
         def collect_field_names
           field_names = []
-          @data_items.each do |_, data_item|
+          items.each do |_, data_item|
             field_names << data_item.name if yield(data_item)
           end
           field_names

@@ -3,6 +3,8 @@ module RademadeAdmin
   module Model
     class Info
 
+      attr_reader :model_reflection
+
       # Initialization for model info. Model mapper
       #
       # @param model_reflection [RademadeAdmin::Model::Reflection]
@@ -18,7 +20,7 @@ module RademadeAdmin
       # @return [Object]
       #
       def model
-        @model_reflection.model
+        model_reflection.model
       end
 
       def item_name
@@ -30,7 +32,7 @@ module RademadeAdmin
       end
 
       def nested?
-        @model_reflection.nested?
+        model_reflection.nested?
       end
 
       # todo extract menu service Info::Menu
@@ -56,7 +58,7 @@ module RademadeAdmin
       end
 
       def query_adapter
-        @model_reflection.query_adapter
+        model_reflection.query_adapter
       end
 
       def label_for(name)
@@ -66,7 +68,7 @@ module RademadeAdmin
       protected
 
       def _data_adapter
-        @model_reflection.data_adapter
+        model_reflection.data_adapter
       end
 
       # @return [RademadeAdmin::Model::Info::Relations]

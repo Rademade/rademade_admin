@@ -93,6 +93,7 @@ module RademadeAdmin
     def related
       authorize! :read, model_class
 
+      #rm_todo extract relation service
       relation_service = RademadeAdmin::RelationService.new
       @related_model_info = relation_service.related_model_info(model_info, params[:relation])
 

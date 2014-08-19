@@ -6,8 +6,13 @@ module RademadeAdmin
 
         attr_accessor :name
 
-        def initialize(name)
+        def initialize(name, opts = {})
           @name = name
+          @opts = opts
+        end
+
+        def preview_accessor
+          @opts.has_key?(:method) ? @opts[:method] : nil
         end
 
       end

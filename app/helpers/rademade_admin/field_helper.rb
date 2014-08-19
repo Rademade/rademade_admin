@@ -4,20 +4,20 @@ module RademadeAdmin::FieldHelper
   # Display the field of given item
   #
   # @param item [Object]
-  # @param field [RademadeAdmin::Model::Info::Field]
+  # @param data_item [RademadeAdmin::Model::Info::DataItem]
   #
   # @return [String]
   #
-  def display_item_value(item, field)
-    return '' if item.nil?
-    value = item.send(field.getter)
-    if field.has_relation?
-      if field.relation.many?
-        link_to field.label, admin_related_item(item, field.getter)
+  def display_item_value(item, data_item)
+    value = item.send(data_item.preview_accessor)
+    if data_item.has_relation?
+      #rm_todo extract method
+      if data_item.relation.many?
+        link_to data_item.label, admin_related_item(item, data_item.getter)
       else
         link_to value.to_s, admin_edit_uri(value)
       end
-    elsif field.has_uploader?
+    elsif data_item.has_uploader?
       uploaded_file_html(value)
     else
       value.to_s

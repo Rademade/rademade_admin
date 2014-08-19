@@ -1,4 +1,7 @@
 # -*- encoding : utf-8 -*-
+
+#rm_todo name like data_items initializer. Remove from accessors at model_info
+
 module RademadeAdmin
   module Model
     class Info
@@ -72,8 +75,9 @@ module RademadeAdmin
             data_item.form_position = index
           end
 
-          @model_configuration.list_fields.find_with_index(name) do |_, index|
+          @model_configuration.list_fields.find_with_index(name) do |list_field_data, index|
             data_item.in_list = true
+            data_item.preview_accessor = list_field_data.preview_accessor
             data_item.list_position = index
           end
         end

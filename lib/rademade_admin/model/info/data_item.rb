@@ -4,9 +4,19 @@ module RademadeAdmin
     class Info
       class DataItem
 
-        attr_accessor :name, :field, :relation, :label, :form_params,
-                      :form_position, :list_position
-        attr_writer :is_uploader, :in_form, :in_list
+        attr_accessor :name,
+                      :field,
+                      :relation,
+                      :label,
+                      :form_position,
+                      :list_position
+
+        attr_writer :is_uploader,
+                    :in_form,
+                    :form_params,
+                    :in_list,
+                    :preview_accessor
+
         attr_reader :uploader
 
         #
@@ -16,8 +26,15 @@ module RademadeAdmin
         # @param uploader [RademadeAdmin::Model::Info::Uploader]
         #
         def initialize(name, field = nil, relation = nil, uploader = nil)
-          @name, @field, @relation, @uploader = name, field, relation, uploader
-          @in_list, @in_form = false, false
+          @name = name
+          @field = field
+          @relation = relation
+          @uploader = uploader
+          @in_list = false
+          @in_form = false
+          @form_params = nil
+          @preview_accessor = nil
+          #rm_todo pry.binding if not has_relation? and @field.nil? create custom notification
         end
 
         def has_relation?
@@ -40,12 +57,20 @@ module RademadeAdmin
           @setter ||= :"#{getter}="
         end
 
+        def preview_accessor
+          @preview_accessor.nil? ? getter : @preview_accessor
+        end
+
         def in_list?
           @in_list
         end
 
         def in_form?
           @in_form
+        end
+
+        def form_params
+          @form_params.nil? ? {} : @form_params
         end
 
         def primary_field?

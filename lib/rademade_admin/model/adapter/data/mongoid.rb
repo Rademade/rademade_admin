@@ -43,7 +43,7 @@ module RademadeAdmin
               relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
                 :name => name,
                 :from => @model,
-                :to => RademadeAdmin::LoaderService.const_get(relation_info.class_name),
+                :to => relation_info.polymorphic? ? nil :RademadeAdmin::LoaderService.const_get(relation_info.class_name),
                 :getter => name.to_s,
                 :setter => relation_info.setter,
                 :type => type,
