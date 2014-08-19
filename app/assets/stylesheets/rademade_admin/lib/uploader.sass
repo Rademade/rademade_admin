@@ -7,11 +7,20 @@
 
         .file-preview-wrapper
             width: 250px
-            padding: 5px
+            padding: 0 5px
+            height: 34px
             background-color: #fff
             border: 1px solid #cccccc
+            +to
+            +box-sizing(border-box)
+            +border-radius(4px)
+            span
+                font-size: 14px
+                line-height: 34px
+                color: #555
 
-        .image-preview-wrapper
+        .image-preview-wrapper,
+        .video-preview-wrapper
             display: table-cell
             width: 250px
             padding: 5px
