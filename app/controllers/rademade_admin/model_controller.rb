@@ -45,16 +45,6 @@ module RademadeAdmin
 
     def autocomplete
       authorize! :read, model_class
-      # todo another action and pass params[:relation]
-      #if params[:ids].present?
-      #  relation = model_info.data_items.data_item(params[:relation]).relation
-      #  @items = params[:ids].map do |id|
-      #    relation.related_entities(id)
-      #  end
-      #else
-      #  conditions = Search::Conditions::Autocomplete.new(params, model_info.data_items)
-      #  @items = Search::Searcher.new(model_info).search(conditions)
-      #end
       conditions = Search::Conditions::Autocomplete.new(params, model_info.data_items)
       @items = Search::Searcher.new(model_info).search(conditions)
       render :json => Autocomplete::BaseSerializer.new(@items)

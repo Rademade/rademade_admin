@@ -23,7 +23,7 @@ end
 group :test do
   gem 'coveralls', :require => false
   # Mongoid
-  gem 'mongoid'
+  gem 'mongoid', :github => 'mongoid/mongoid'
   gem 'mongoid-paranoia'
   gem 'mongoid_rails_migrations'
   gem 'mongoid-grid_fs'

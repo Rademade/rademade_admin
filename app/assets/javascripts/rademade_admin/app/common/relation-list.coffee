@@ -14,10 +14,18 @@ initItem = ($item) ->
     allowClear : true
 
     initSelection : (element, callback) ->
-      params = {ids : element.val().split(',')}
-      $.getJSON(searchUrl, params).done (data) ->
+      ids = element.val().split(',')
+      $.getJSON(searchUrl, { ids : ids }).done (data) ->
         $item.select2('enable', true)
-        callback(if isMultiple then data else data[0])
+        if isMultiple
+          data_hash = {}
+          _.each data, (data_item) ->
+            data_hash[data_item.id] = data_item
+          result = _.map ids, (id) -> data_hash[id]
+        else
+          result = data[0]
+        callback(result)
+#        callback(if isMultiple then data else data[0])
         addTable($item) if isMultiple
         hideTags()
 
