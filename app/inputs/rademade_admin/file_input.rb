@@ -5,6 +5,11 @@ module RademadeAdmin
     include UploadPreviewHelper
     include UriHelper
 
+    def initialize(*args)
+        super
+        @uploader = object.send(attribute_name)
+    end
+
     def input
       template.content_tag(
         :div,
@@ -18,13 +23,9 @@ module RademadeAdmin
     def file_html
       template.content_tag(
         :div,
-        HtmlBuffer.new([preview_html, input_file_html, upload_progress_html, input_hidden_html]),
+        HtmlBuffer.new([preview_html, input_file_html, upload_progress_html, upload_button_html, input_hidden_html]),
         { :class => 'uploader-wrapper' }
       )
-    end
-
-    def preview_html
-      file_preview_html(object.send(attribute_name))
     end
 
     def input_file_html
@@ -52,9 +53,14 @@ module RademadeAdmin
     def upload_progress_html
       progress_slider = template.content_tag(:div, '', { :class => 'upload-progress' })
       template.content_tag(:div, progress_slider, {
-        :class => 'upload-progress-wrapper',
-        :style => 'display:none;clear:both'
+        :class => 'upload-progress-wrapper'
       })
+    end
+
+    def upload_button_html
+        template.content_tag(:span, 'Upload file', { #rm_todo add to translations
+            :class => 'btn green-btn upload-btn'
+        })
     end
 
     def data_item

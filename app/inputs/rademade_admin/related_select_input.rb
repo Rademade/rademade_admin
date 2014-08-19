@@ -22,7 +22,8 @@ module RademadeAdmin
       if multiple?
         relation_name = RademadeAdmin::Model::Graph.instance.model_info(related_to).item_name
         template.content_tag(:a, relation_name, {
-          :href => admin_related_item(model, relation_getter)
+          :href => admin_related_item(model, relation_getter),
+          :class => 'related-link'
         })
       end
     end

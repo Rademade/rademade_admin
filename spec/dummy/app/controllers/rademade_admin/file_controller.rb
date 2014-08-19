@@ -1,14 +1,15 @@
+#todo extract like service
+
 class RademadeAdmin::FileController < RademadeAdmin::AbstractController
 
   include RademadeAdmin::UploadPreviewHelper #todo via :helper include
 
-  #todo extract service
   def upload
     begin
       param_key = params[:column].to_sym
       uploader.store!(params[param_key])
       render :json => {
-        :html => file_preview_html(uploader),
+        :html => preview_html,
         :file => uploader
       }
     rescue CarrierWave::UploadError => e
