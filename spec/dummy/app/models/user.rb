@@ -12,12 +12,14 @@ class User
   field :admin, :type => Boolean, :default => false
   field :status, :type => String
 
+  mount_uploader :avatar, PosterUploader
+
   def self.get_by_email(email)
     self.where(:email => email).first
   end
 
   def password=(password)
-    self[:encrypted_password] = password
+    self[:encrypted_password] = password unless password.empty?
   end
 
   def password

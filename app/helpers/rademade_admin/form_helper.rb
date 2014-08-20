@@ -2,8 +2,9 @@
 module RademadeAdmin::FormHelper
 
   def admin_form(record, model, &block)
-    semantic_form_for(
+    simple_form_for(
       record,
+      :wrapper => :rademade,
       :url => record.new_record? ? admin_create_uri(model) : admin_update_uri(record),
       :as => :data,
       :html => {
@@ -16,41 +17,31 @@ module RademadeAdmin::FormHelper
     )
   end
 
-  def admin_field(form, name, params, model_info, record)
-    attrs = admin_default_params(name, model_info).merge(admin_field_params(params))
-
-    field = form.input(name, input_attr(attrs))
-
-    if model_info.model_reflection.many_relation? name
-      link = admin_field_link_to_list(name, model_info, record).to_s
-    else
-      link = ''
-    end
-
-    concat field + link
+  def admin_field(form, form_field, model_info)
+    name = form_field.name
+    attrs = admin_default_params(name, model_info).merge(field_params(form_field))
+    concat form.input(name, input_attr(attrs))
   end
+
+  private
 
   def admin_default_params(name, model_info)
-    {:label => field_to_label(name, model_info)}
+    { :label => model_info.label_for(name) }
   end
 
-  def admin_field_link_to_list(name, model_info, record)
-    if record.id
-      related_model = model_info.reflect_on_association(name).class_name
-      uri = admin_model_url_for(related_model, {
-        :action => :related_index,
-        :parent => model_info.model,
-        :parent_id => record.id.to_s
-      })
-      link_to(RademadeAdmin::Model::Graph.instance.model_info(related_model).item_name, uri) if uri
-    end
+  def field_params(form_field)
+    field_params = form_field.form_params
+    field_params[:as] = default_field_type(form_field) unless field_params[:as].present?
+    field_params
   end
 
-  def admin_field_params(field_params)
-    if field_params.is_a? Hash
-      field_params
+  def default_field_type(form_field)
+    if form_field.has_relation?
+       :'rademade_admin/related_select'
+    elsif form_field.has_uploader?
+       :'rademade_admin/file'
     else
-      {:as => field_params}
+       nil
     end
   end
 

@@ -6,11 +6,16 @@ module RademadeAdmin
 
       def add_pair(controller_name, inner)
         controller_full_name = ('rademade_admin/' + controller_name + '_controller')
+
+        # Controller includes configuration for mapping model
         controller = controller_full_name.camelize.constantize
         model = controller.model_class
+
+        #rm_todo it's not support we controller to one model
+
         unless @model_infos[model.to_s]
-          model_reflection = Reflection.new(model, controller_name, controller_full_name, inner)
-          @model_infos[model.to_s] = controller.init_model_info(model_reflection)
+          model_reflection = RademadeAdmin::Model::Reflection.new(model, controller_name, controller_full_name, inner)
+          @model_infos[model.to_s] = RademadeAdmin::Model::Info.new(model_reflection, controller.configuration)
         end
       end
 
@@ -29,7 +34,7 @@ module RademadeAdmin
       end
 
       def get_root_models
-        @model_infos.select { |model_name, model_info| not model_info.nested? }.values
+        @model_infos.select { |_, model_info| not model_info.nested? }.values
       end
 
     end

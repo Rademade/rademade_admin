@@ -1,11 +1,13 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
   class AbstractController < ApplicationController
+
     include ::RademadeAdmin::UriHelper
+    include ::RademadeAdmin::Breadcrumbs
 
     layout 'rademade_admin'
 
-    before_action :init_user, :require_login
+    before_action :init_user, :init_template_service, :require_login, :root_breadcrumbs
 
     rescue_from ::CanCan::AccessDenied do |exception|
       redirect_to root_url, :alert => exception.message
@@ -19,6 +21,10 @@ module RademadeAdmin
 
     def init_user
       @current_user = RademadeAdmin.user_class.find(session[:user_id]) if session[:user_id].present?
+    end
+
+    def init_template_service
+      @template_service = RademadeAdmin::TemplateService.new('rademade_admin')
     end
 
     def render_errors(errors)

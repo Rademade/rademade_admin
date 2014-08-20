@@ -1,9 +1,4 @@
-<% content_for(:form_last_crumbs) do %>
-    <span><%= t('rademade_admin.new_record') %></span>
-<% end %>
-
 <% content_for(:page_header) do %>
     <h3><%= t('rademade_admin.new_record') %></h3>
-<% end %>
-
-<%= render :template => 'rademade_admin/_layouts/inner/form' %>
+<% end
+concat render :template => @template_service.inner_form_layout %>

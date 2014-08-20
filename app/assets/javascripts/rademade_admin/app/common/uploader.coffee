@@ -31,7 +31,7 @@ initUploader = ->
     @$wrapper.find('.upload-progress').width(progress + '%')
 
   bindFileUploader::_appendUploadResult = (result)->
-    @$wrapper.find('.image-preview-wrapper').replaceWith(result.html)
+    @$wrapper.find('.preview-wrapper').replaceWith(result.html)
     @$wrapper.find('.hidden').val(result.file[@$el.data('column')].url)
 
   bindFileUploader::init = () ->

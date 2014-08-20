@@ -6,17 +6,13 @@ module RademadeAdmin
     module Conditions
       class Autocomplete < Abstract
 
-        def initialize(params, origin_fields, filter_fields)
-          super(params, origin_fields)
-          @filter_fields = filter_fields
-        end
-
         protected
 
         def where
-          @where_conditions = Where.new(:and)
+          @where_conditions = RademadeAdmin::Search::Part::Where.new(:and)
           append_query_condition
           append_search_params
+          append_ids_params
           @where_conditions
         end
 
@@ -28,8 +24,8 @@ module RademadeAdmin
 
         def append_query_condition
           if @params[:q].present?
-            query_where = Where.new(:or)
-            @filter_fields.each do |field|
+            query_where = RademadeAdmin::Search::Part::Where.new(:or)
+            @data_items.filter_fields.each do |field|
               query_where.add(field, /#{@params[:q]}/i)
             end
             @where_conditions.sub_add(query_where)
@@ -39,8 +35,14 @@ module RademadeAdmin
         def append_search_params
           if @params[:search].present?
             @params[:search].each do |key, value|
-              @where_conditions.add(key.to_sym, value) if @origin_fields.include? key.to_s
+              @where_conditions.add(key.to_sym, value) if @data_items.origin_fields.include? key.to_s
             end
+          end
+        end
+
+        def append_ids_params
+          if @params[:ids].present?
+            @where_conditions.add(@data_items.primary_field.name, @params[:ids])
           end
         end
 

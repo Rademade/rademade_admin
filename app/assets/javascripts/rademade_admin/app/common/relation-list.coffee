@@ -5,27 +5,36 @@ initSelect = ->
     initItem $(this)
 
 initItem = ($item) ->
-  url = $item.data('relListUrl')
+  searchUrl = $item.data('searchUrl')
   isMultiple = $item.data('relMultiple')
 
   $item.select2(
     multiple : isMultiple
     placeholder : 'Enter search phrase'
+    allowClear : true
 
     initSelection : (element, callback) ->
-      ids = element.val().replace(/\s*/g, '').split(',')
-      $.getJSON(url, {search : {id : ids}}).done (data) ->
-        data = if isMultiple then data else data[0]
+      ids = element.val().split(',')
+      $.getJSON(searchUrl, { ids : ids }).done (data) ->
         $item.select2('enable', true)
-        callback(data)
+        if isMultiple
+          data_hash = {}
+          _.each data, (data_item) ->
+            data_hash[data_item.id] = data_item
+          result = _.map ids, (id) -> data_hash[id]
+        else
+          result = data[0]
+        callback(result)
+#        callback(if isMultiple then data else data[0])
         addTable($item) if isMultiple
         hideTags()
 
     ajax :
-      url : url
+      url : searchUrl
       dataType : 'json'
       data : (term) -> {q : term}
       results : (data) -> {results : data}
+
   ).unbind('change').bind 'change', (e) ->
     $select = $(this)
     $table = $select.siblings('.select2-items-list')
@@ -33,6 +42,7 @@ initItem = ($item) ->
     $table.html('') unless isMultiple
     addItem(e.added, $table)
     hideTags()
+
   $item.select2('enable', false) if $item.val().length > 0
 
 hideTags = ->
@@ -75,8 +85,7 @@ changeSelectValue = ($table, $input) ->
   itemsList = []
 
   $table.children('li').each ->
-    $li = $(this)
-    itemsList.push({ id : $li.data('id'), text : $li.text() })
+    itemsList.push id : $(this).data('id')
 
   $input.select2('data', itemsList)
   hideTags()

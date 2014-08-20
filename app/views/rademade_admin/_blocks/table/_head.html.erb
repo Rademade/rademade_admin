@@ -1,0 +1,13 @@
+<thead class="table-header">
+    <tr class="table-line"><%
+        list_fields.each do |field|
+            %><th class="table-item" data-column="<%= field.name %>">
+                <span><%= field.label + @sortable_service.sorting_sign(field) %></span>
+            </th><%
+        end
+        %><th class="table-item">
+            <span class="line"></span>
+            <span><%= t('rademade_admin.management') %></span>
+        </th>
+    </tr>
+</thead>

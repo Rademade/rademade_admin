@@ -1,54 +1,30 @@
-<% content_for :content do %>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <% @list_fields.each_with_index do |name, index| %>
-          <th class="col-md-3 sort-button" data-column="<%= name %>">
-            <% unless index == 0 %>
-              <span class="line"></span>
-            <% end %>
-            <span><%= field_to_label(name) + @sortable_service.sorting_sign(name) %></span>
-          </th>
-        <% end %>
-
-        <th class="col-md-3 align-right">
-          <span class="line"></span>
-          <span><%= t('rademade_admin.management') %></span>
-        </th>
-      </tr>
-    </thead>
-
-    <% has_position = @sortable_service.has_position? %>
-    <tbody data-position='false'>
-      <% @items.each_with_index do |item, index| %>
-        <tr<%
-          if has_position
-            %> id='<%= item.position %>'<%
-          end
-        %> data-id='<%= item.id %>'>
-          <% @list_fields.each do |name|
-            %><td><%
-              td_data = item.send(name)
-              if td_data.is_a? Mongoid::Document #rm_todo remove hard code, extract helper (data adapter)
-                concat link_to td_data.to_s, admin_edit_uri(td_data)
-              else
-                concat td_data
-              end
-            %></td>
-          <% end %>
-          <td>
-            <ul class="actions">
-              <li><%= button_to t('rademade_admin.unlink'), admin_unlink_uri(item, params[:parent], params[:parent_id]), {
-                :method => :patch,
-                :form => {:class => 'delete-item-form'}
-              } %></li>
-            </ul>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <%= render 'rademade_admin/_blocks/pagination' %>
-
-<% end %>
+<% content_for :content do %><%
+    concat render @template_service.on_page_select_block
+    %><table class="table-box"><%
+        concat render @template_service.table_head_block, {
+            :list_fields => @list_fields
+        }
+        %><tbody class="table-content" data-position='false'><%
+            @items.each do |item|
+                %><tr<%
+                    if @sortable_service.has_position?
+                        %> id='<%= item.position %>'<%
+                    end
+                %> class="table-line" data-id='<%= item.id %>'><%
+                    @list_fields.each do |field|
+                        %><td class="table-item"><%= display_item_value(item, field) %></td><%
+                    end
+                    %><td class="table-item">
+                        <span class="table-actions">
+                            <%= button_to t('rademade_admin.unlink'), admin_unlink_uri(item, params[:parent], params[:parent_id]), {
+                                :method => :patch,
+                                :form => { :class => 'delete-item-form' }
+                            } %>
+                        </span>
+                    </td>
+                </tr><%
+            end
+        %></tbody>
+    </table><%
+    concat render @template_service.pagination_block
+end %>
