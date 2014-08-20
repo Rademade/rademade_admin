@@ -3,7 +3,8 @@ class @FormPopup.View extends Backbone.View
   className : 'add_new_popup soft-hide'
 
   events :
-    'click .reset' : 'onReset'
+    'click' : 'onClick'
+    'click .cancel-btn' : 'onReset'
 
   initialize : () ->
     @model.on 'show', () =>
@@ -15,6 +16,9 @@ class @FormPopup.View extends Backbone.View
     e.preventDefault()
     @closePopup()
 
+  onClick : (e) ->
+    @closePopup() if $(e.target).closest('.simple_form').length is 0
+
   closePopup : () ->
     @model.destroy()
     @undelegateEvents()
@@ -23,6 +27,8 @@ class @FormPopup.View extends Backbone.View
   renderFromUrl : (url) ->
     $.get url, (html) =>
       @$el.html html
+      @$el.find('form').css
+        top : "#{window.pageYOffset}px"
       @delegateEvents()
       @_init()
 

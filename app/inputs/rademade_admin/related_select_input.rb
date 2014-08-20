@@ -21,10 +21,11 @@ module RademadeAdmin
     def related_list_link_html
       if multiple?
         relation_name = RademadeAdmin::Model::Graph.instance.model_info(related_to).item_name
+        url = admin_related_item(model, relation_getter)
         template.content_tag(:a, relation_name, {
-          :href => admin_related_item(model, relation_getter),
+          :href => url,
           :class => 'related-link'
-        })
+        }) if url
       end
     end
 

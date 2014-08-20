@@ -77,7 +77,7 @@ module RademadeAdmin::UriHelper
 
   def admin_url_for(opts)
     opts = opts.merge({
-      :controller => 'rademade_admin/' + opts[:controller],
+      :controller => "rademade_admin/#{opts[:controller]}",
       :only_path => true
     })
     begin
@@ -97,7 +97,7 @@ module RademadeAdmin::UriHelper
     admin_model_url_for(model.class, opts.merge({
       :action => action,
       :id => model.id
-    }))
+    })) if model.persisted? # rm_todo: check for AR
   end
 
   def _real_model_info(model)

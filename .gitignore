@@ -1,6 +1,5 @@
 /.idea/
 .DS_Store
-Gemfile.lock
 /spec/dummy/log/*
 /spec/dummy/tmp/*
 /vendor/
