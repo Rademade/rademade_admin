@@ -69,9 +69,9 @@ module RademadeAdmin::UriHelper
     }))
   end
 
-  def admin_model_url_for(model_info, opts = {})
+  def admin_model_url_for(model, opts = {})
     admin_url_for(opts.merge({
-      :controller => _real_model_info(model_info).controller
+      :controller => _real_model_info(model).controller
     }))
   end
 
@@ -100,11 +100,9 @@ module RademadeAdmin::UriHelper
     }))
   end
 
-  def _real_model_info(model_info)
-    unless model_info.is_a? RademadeAdmin::Model::Info
-      model_info = RademadeAdmin::Model::Graph.instance.model_info(model_info)
-    end
-    model_info
+  def _real_model_info(model)
+    return model if model.is_a? RademadeAdmin::Model::Info
+    RademadeAdmin::Model::Graph.instance.model_info(model)
   end
 
 end

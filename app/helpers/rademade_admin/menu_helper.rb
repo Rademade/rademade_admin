@@ -4,7 +4,7 @@ module RademadeAdmin::MenuHelper
   def main_menu
     @model_infos = RademadeAdmin::Model::Graph.instance.root_models
     menu = collect_children
-    menu.unshift({ :uri => url_for(:root), :name => t('rademade_admin.home'), :ico => 'glyphicon glyphicon-home', :sub => [] })
+    unshift_root_url(menu)
   end
 
   def active?(menu_item)
@@ -12,15 +12,23 @@ module RademadeAdmin::MenuHelper
       true
     else
       menu_item[:sub].each do |sub_item|
-        if active?(sub_item)
-          return true
-        end
+        return true if active?(sub_item)
       end
       false
     end
   end
 
   private
+
+  def unshift_root_url(menu)
+    menu.unshift({
+      :uri => root_url,
+      :name => t('rademade_admin.home'),
+      :ico => 'glyphicon glyphicon-home',
+      :is_current => current_page?(root_url),
+      :sub => []
+    })
+  end
 
   def collect_children(parent = nil)
     menu = []

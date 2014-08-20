@@ -4,23 +4,19 @@
         concat render @template_service.table_head_block, {
             :list_fields => @list_fields
         }
-        %><tbody class="table-content" data-position='false'><%
+        %><tbody class="table-content" data-sortable="false"><%
             @items.each do |item|
-                %><tr<%
-                    if @sortable_service.has_position?
-                        %> id='<%= item.position %>'<%
-                    end
-                %> class="table-line" data-id='<%= item.id %>'><%
+                %><tr id="item_<%= item.id %>" class="table-line" data-id="<%= item.id %>"><%
                     @list_fields.each do |field|
                         %><td class="table-item"><%= display_item_value(item, field) %></td><%
                     end
                     %><td class="table-item">
-                        <span class="table-actions">
-                            <%= button_to t('rademade_admin.unlink'), admin_unlink_uri(item, params[:parent], params[:parent_id]), {
+                        <span class="table-actions"><%
+                            concat button_to t('rademade_admin.unlink'), admin_unlink_uri(item, params[:parent], params[:parent_id]), {
                                 :method => :patch,
                                 :form => { :class => 'delete-item-form' }
-                            } %>
-                        </span>
+                            }
+                        %></span>
                     </td>
                 </tr><%
             end

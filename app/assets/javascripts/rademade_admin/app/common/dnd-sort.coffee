@@ -1,42 +1,33 @@
-minimum = 0
-
 sendSorted = (dataList) ->
   $.ajax
-    type: "PATCH"
-    url: urlWithoutParams()
-    data:
-      sorted: dataList
-      minimum: minimum
-
+    type : 'PATCH'
+    url : "#{window.location.pathname}/sort"
+    data :
+      sorted : dataList
 
 initDnDSorting = ->
-  if isDnDSorting()
-    setMinimum()
-    $(".table-sortable").tableDnD 
-      onDrop: (table, row) ->
-        rows = $(table).children('tr')
-        i = 0
-        resortedList = []
+  $table = $('[data-sortable]')
+  $tableRows = $table.children('tr')
 
-        rows.each (index, item) ->
-          resortedList[i] = [ $(item).data('id'), item.id ]
-          i++
-        sendSorted(resortedList)
+  if isDnDSorting($table, $tableRows)
+    minimum = $tableRows.first().data('position')
+    $table.tableDnD
+      onDrop : ->
+        resortedList = []
+        $table.children('tr').each (index, item) ->
+          $item = $(item)
+          resortedList.push
+            id : $item.data('id')
+            position : index + minimum
+        sendSorted resortedList
         return
     return
 
-urlWithoutParams = ->
-  window.location.pathname + '/re_sort'
-
-setMinimum = ->
- minimum = $('.table-sortable').children('tr')[0].id
-
-isDnDSorting = ->
-  first  = window.location.search.indexOf('sort') == -1
-  second = $('.table-sortable').children('tr').length > 0
-  third  = $('.table-sortable').data('position')
-
-  first && second && third
+isDnDSorting = ($table, $tableRows) ->
+  first = window.location.search.indexOf('sort') is -1
+  second = $tableRows.length > 0
+  third = $table.data('sortable')
+  first and second and third
 
 $ ->
-  $(document).on('ready page:load', initDnDSorting)
+  $(document).on 'ready page:load', initDnDSorting

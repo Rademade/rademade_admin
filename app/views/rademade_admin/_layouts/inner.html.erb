@@ -1,34 +1,25 @@
-<%= render @template_service.header_block %>
-<div class="page">
-  <div class="fix">
-    <%= render @template_service.menu_block %>
-    <div id="pad-wrapper" class="content">
-      <%#= breadcrumbs.render(:format => :inline) %>
-      <div class="breadcrumbs">
-        <%= link_to t('rademade_admin.dashboard'), :root, { :class => 'breadcrumbs-link'} %>
-        <% if content_for?(:last_crumbs) %>
-            <span class="breadcrumbs-sep"></span>
-            <span class="breadcrumbs-link current"><%= yield(:last_crumbs) %></span>
-        <% end %>
-      </div>
-      <div class="table-wrapper products-table content-box">
-        <% if content_for?(:page_header) %>
-            <div class="page-headline">
-              <%= yield(:page_header) %> <span class="small-desc">In this field small page description</span>
+<%
+concat render @template_service.header_block
+%><div class="page">
+    <div class="fix"><%
+        concat render @template_service.menu_block
+        %><div id="pad-wrapper" class="content"><%
+            concat breadcrumbs.render(:format => :rademade)
+            %><div class="table-wrapper products-table content-box"><%
+                if content_for?(:page_header)
+                    %><div class="page-headline">
+                        <%= yield(:page_header) %> <span class="small-desc hide">In this field small page description</span>
+                    </div><%
+                end
+                if content_for?(:nav_buttons)
+                    %><div class="row filter-block">
+                        <div class="pull-right">
+                            <%= yield(:nav_buttons) %>
+                        </div>
+                    </div><%
+                end
+                %><%= yield(:content) if content_for?(:content) %>
             </div>
-        <% end %>
-
-        <% if content_for?(:nav_buttons) %>
-            <div class="row filter-block">
-              <div class="pull-right">
-                <%= yield(:nav_buttons) %>
-              </div>
-            </div>
-        <% end %>
-
-        <%= yield(:content) if content_for?(:content) %>
-
-      </div>
+        </div>
     </div>
-  </div>
 </div>

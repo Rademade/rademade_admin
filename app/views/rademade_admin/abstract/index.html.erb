@@ -19,25 +19,24 @@ end %>
             :list_fields => @list_fields
         }
         has_position = @sortable_service.has_position?
-        %><tbody class="table-content" data-position='<%= has_position %>'><%
+        %><tbody class="table-content" data-sortable="<%= has_position %>"><%
             @items.each do |item|
-                %><tr<%
+                %><tr id="item_<%= item.id %>" class="table-line" data-id="<%= item.id %>"<%
                     if has_position
-                        %> id='<%= item.position %>'<%
+                        %> data-position="<%= item.position %>"<%
                     end
-                %> class="table-line" data-id='<%= item.id %>'><%
+                %>><%
                     @list_fields.each do |field|
                         %><td class="table-item"><%= display_item_value(item, field) %></td><%
                     end
                     %><td class="table-item">
-                        <span class="table-actions">
-                            <%= link_to t('rademade_admin.edit'), admin_edit_uri(item), :class => 'glyphicon glyphicon-pencil fl-l' %>
-                            <%= button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
+                        <span class="table-actions"><%
+                            concat link_to t('rademade_admin.edit'), admin_edit_uri(item), :class => 'glyphicon glyphicon-pencil fl-l'
+                            concat button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
                                 :method => :delete,
-                                :class => 'asdasd',
                                 :form => { :class => 'delete-item-form' }
-                            } %>
-                        </span>
+                            }
+                        %></span>
                     </td>
                 </tr><%
             end

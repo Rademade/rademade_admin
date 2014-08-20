@@ -8,8 +8,8 @@ module RademadeAdmin
 
       attr_reader :model, :controller
 
-      def initialize(model, controller, controller_name, inner)
-        @model, @controller, @controller_name, @inner = model, controller, controller_name, inner
+      def initialize(model, controller, inner)
+        @model, @controller, @inner = model, controller, inner
       end
 
       def nested?

@@ -34,7 +34,7 @@ module RademadeAdmin
         private
 
         def default_order_field
-          @data_items.origin_fields.include?('position') ? :position : :id
+          @data_items.has_field?(:position) ? :position : :id
         end
 
       end

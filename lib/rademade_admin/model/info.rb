@@ -28,7 +28,7 @@ module RademadeAdmin
       end
 
       def controller
-        @model_configuration.controller_name
+        model_reflection.controller
       end
 
       def nested?

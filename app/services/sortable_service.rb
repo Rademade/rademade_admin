@@ -8,10 +8,9 @@ module RademadeAdmin
     end
 
     def sort_items
-      min = @params[:minimum].to_i
-      @params[:sorted].each do |k, v|
-        item = @model_info.model.find(v[0])
-        item.position = k.to_i + 1 + min
+      @params[:sorted].each do |_, sorted_data|
+        item = @model_info.query_adapter.find(sorted_data[:id])
+        item.position = sorted_data[:position].to_i
         item.save
       end
     end
@@ -32,7 +31,7 @@ module RademadeAdmin
     end
 
     def has_position?
-      @model_info.data_items.has_field? 'position'
+      @model_info.data_items.has_field? :position
     end
 
   end

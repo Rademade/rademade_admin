@@ -3,15 +3,10 @@ module RademadeAdmin
   module Model
     class Configuration
 
-      attr_reader :controller, :controller_name, :parent_menu_item
+      attr_reader :controller, :parent_menu_item, :model_name
 
-      def initialize(controller, controller_name)
+      def initialize(controller)
         @controller = controller
-        @controller_name = controller_name
-      end
-
-      def model_name
-        @model_name ||= @controller_name.classify
       end
 
       def item_name
@@ -50,11 +45,11 @@ module RademadeAdmin
         @all_field_names ||= Set.new(list_fields.all.map(&:name) + form_fields.all.map(&:name))
       end
 
-      private
-
       def model(model_name)
         @model_name = model_name
       end
+
+      private
 
       def name(item_name)
         @item_name = item_name

@@ -1,27 +1,22 @@
-
 swapDirection = (sortDirection) ->
-  if sortDirection == 'asc'
-    sortDirection = 'desc'
-  else
-    sortDirection = 'asc'
+  if sortDirection is 'asc' then 'desc' else 'asc'
 
 getUrlParams = ->
   pl = /\+/g
   search = /([^&=]+)=?([^&]*)/g
 
   decode = (s) ->
-    decodeURIComponent s.replace(pl, " ")
+    decodeURIComponent s.replace(pl, ' ')
 
   query = window.location.search.substring(1)
   urlParams = {}
-  urlParams[decode(match[1])] = decode(match[2])  while match = search.exec(query)
-
+  urlParams[decode(match[1])] = decode(match[2]) while match = search.exec(query)
   urlParams
 
-paramsToString = (params)->
+paramsToString = (params) ->
   str = []
   for param of params
-    str.push(param + '=' + params[param])
+    str.push("#{param}=#{params[param]}")
   str.join('&')
 
 initSorting = ->
@@ -29,18 +24,19 @@ initSorting = ->
 
   params['direction'] ?= 'asc'
 
-  $('.sort-button').click ->
-    params['direction'] = if $(@).data('column') == params['sort']
+  $('[data-column]').click ->
+    column = $(this).data('column')
+    params['direction'] = if column is params['sort']
       swapDirection(params['direction'])
     else
       'asc'
 
-    params['sort'] = $(@).data('column')
+    params['sort'] = column
     params['page'] ?= '1'
 
     query_string = paramsToString(params)
 
-    Turbolinks.visit(window.location.pathname+'?'+query_string)
+    Turbolinks.visit("#{window.location.pathname}?#{query_string}")
 
 $ ->
 
