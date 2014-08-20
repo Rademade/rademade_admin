@@ -36,7 +36,7 @@ module RademadeAdmin
     end
 
     def configuration
-      @configuration ||= Model::Configuration.new(controller_name)
+      @configuration ||= Model::Configuration.new(self, controller_name)
     end
 
   end

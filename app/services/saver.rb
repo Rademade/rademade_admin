@@ -23,12 +23,10 @@ module RademadeAdmin
       item.update filter_data_params
     end
 
-    #rm_todo glue methods
     def save_model
       item.save filter_data_params
     end
 
-    #rm_todo glue methods
     def save_aggregated_data
       save_model_relations
       save_model_uploads

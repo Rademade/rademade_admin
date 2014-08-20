@@ -13,7 +13,6 @@ module RademadeAdmin
         end
 
         def find_with_index(name)
-          name = name.to_sym
           found_field, found_index = nil, nil
           @fields.each_with_index do |field, index|
             if field.name == name

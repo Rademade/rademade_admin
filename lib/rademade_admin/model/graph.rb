@@ -11,6 +11,8 @@ module RademadeAdmin
         controller = controller_full_name.camelize.constantize
         model = controller.model_class
 
+        #rm_todo it's not support we controller to one model
+
         unless @model_infos[model.to_s]
           model_reflection = RademadeAdmin::Model::Reflection.new(model, controller_name, controller_full_name, inner)
           @model_infos[model.to_s] = RademadeAdmin::Model::Info.new(model_reflection, controller.configuration)

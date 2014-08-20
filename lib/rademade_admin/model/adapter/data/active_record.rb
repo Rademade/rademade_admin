@@ -49,7 +49,7 @@ module RademadeAdmin
                 :setter => getter + '=',
                 :type => type,
                 :has_many => has_many_relations.include?(type),
-                :foreign_key => relation_info.foreign_key
+                :foreign_key => relation_info.foreign_key.to_sym
               })
             end
             relations

@@ -5,6 +5,8 @@ module RademadeAdmin
       class DataItems
         include ::Enumerable
 
+        UNINFORMATIVE_FIELDS = [:_id, :deleted_at, :position]
+
         def initialize
           @data_items = {}
         end
@@ -27,7 +29,7 @@ module RademadeAdmin
         end
 
         def has_field?(name)
-          not items[name.to_sym].nil?
+          items.select{|_, data_item| data_item.has_name? name }.length > 0
         end
 
         def primary_field
@@ -81,12 +83,20 @@ module RademadeAdmin
 
         def collect_list_fields
           fields = items.select { |_, data_item| data_item.in_list? }
-          fields.empty? ? items.values : fields.values.sort_by(&:list_position)
+          fields.empty? ? _default_list_fields : fields.values.sort_by(&:list_position)
         end
 
         def collect_form_fields
           fields = items.select { |_, data_item| data_item.in_form? }
-          fields.empty? ? items.values : fields.values.sort_by(&:form_position)
+          fields.empty? ? _default_form_fields : fields.values.sort_by(&:form_position)
+        end
+
+        def _default_list_fields
+          items.values.reject {|data_item| UNINFORMATIVE_FIELDS.include? data_item.name }
+        end
+
+        def _default_form_fields
+          _default_list_fields # it's now same
         end
 
         def collect_field_names

@@ -37,8 +37,16 @@ module RademadeAdmin
           #rm_todo pry.binding if not has_relation? and @field.nil? create custom notification
         end
 
+        def has_name?(name)
+          (has_relation? and @relation.name == name) or (has_field? and @field.name == name)
+        end
+
         def has_relation?
           not @relation.nil?
+        end
+
+        def has_field?
+          not @field.nil?
         end
 
         def has_uploader?

@@ -46,8 +46,7 @@ module RademadeAdmin
           end
 
           @model_configuration.all_field_names.each do |field_name|
-            data_item = data_items.data_item(field_name)
-            unless data_item
+            unless data_items.has_field?(field_name)
               data_item = RademadeAdmin::Model::Info::DataItem.new(field_name)
               add_configuration_data(data_item, field_name)
               data_items.add_data_item(data_item)
@@ -58,7 +57,7 @@ module RademadeAdmin
         end
 
         def init_data_item(field, relation)
-          name = field.nil? ? relation.name : field.name
+          name = relation.nil? ? field.name : relation.name
           data_item = RademadeAdmin::Model::Info::DataItem.new(name, field, relation, @uploaders.uploader(name))
           add_configuration_data(data_item, name)
           data_item

@@ -16,7 +16,7 @@ module RademadeAdmin
       saver = RademadeAdmin::Saver.new(model_info, params)
       saver.create_model
       if saver.save_model
-        saver.save_aggregated_data
+        saver.save_aggregated_data #rm_todo glue methods
         @item = saver.item
         success_insert @item
       else
@@ -28,7 +28,7 @@ module RademadeAdmin
       authorize! :update, model_class
       saver = RademadeAdmin::Saver.new(model_info, params)
       if saver.update_model
-        saver.save_aggregated_data
+        saver.save_aggregated_data #rm_todo glue methods
         @item = saver.item
         success_update @item
       else
