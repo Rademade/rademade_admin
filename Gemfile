@@ -39,6 +39,7 @@ group :test do
   gem 'spork-rails'
   gem 'rspec-rails', '3.0.0'
   gem 'capybara'
+  gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'capybara-webkit'
   gem 'factory_girl_rails', :require => false

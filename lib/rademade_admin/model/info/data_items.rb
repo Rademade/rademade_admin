@@ -29,7 +29,7 @@ module RademadeAdmin
         end
 
         def has_field?(name)
-          items.select{|_, data_item| data_item.has_name? name }.length > 0
+          items.select{ |_, data_item| data_item.has_name? name }.length > 0
         end
 
         def primary_field
@@ -69,7 +69,7 @@ module RademadeAdmin
         # @return [Array]
         #
         def save_form_fields
-          @save_form_fields ||= collect_field_names { |data_item| data_item.in_form? and not data_item.has_relation? }
+          @save_form_fields ||= collect_save_form_fields
         end
 
         private
@@ -83,20 +83,21 @@ module RademadeAdmin
 
         def collect_list_fields
           fields = items.select { |_, data_item| data_item.in_list? }
-          fields.empty? ? _default_list_fields : fields.values.sort_by(&:list_position)
+          fields.empty? ? _default_fields : fields.values.sort_by(&:list_position)
         end
 
         def collect_form_fields
           fields = items.select { |_, data_item| data_item.in_form? }
-          fields.empty? ? _default_form_fields : fields.values.sort_by(&:form_position)
+          fields.empty? ? _default_fields : fields.values.sort_by(&:form_position)
         end
 
-        def _default_list_fields
-          items.values.reject {|data_item| UNINFORMATIVE_FIELDS.include? data_item.name }
+        def collect_save_form_fields
+          field_names = collect_field_names { |data_item| data_item.in_form? and not data_item.has_relation? }
+          field_names.empty? ? _default_fields.map(&:name) : field_names
         end
 
-        def _default_form_fields
-          _default_list_fields # it's now same
+        def _default_fields
+          items.values.reject { |data_item| UNINFORMATIVE_FIELDS.include? data_item.name }
         end
 
         def collect_field_names

@@ -11,7 +11,7 @@ module RademadeAdmin::FieldHelper
   def display_item_value(item, data_item)
     value = item.send(data_item.preview_accessor)
     if data_item.has_relation?
-      #rm_todo extract method
+      # rm_todo extract method
       if data_item.relation.many?
         link_to data_item.label, admin_related_item(item, data_item.getter)
       else
@@ -37,7 +37,7 @@ module RademadeAdmin::FieldHelper
 
   def input_attr(attrs = {})
     attrs.merge :wrapper_html => { :class => 'form-group' },
-                :input_html => { :class => 'form-control' }
+                :input_html => { :class => 'form-input' }
   end
 
 end

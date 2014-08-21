@@ -26,13 +26,13 @@ module RademadeAdmin::UploadPreviewHelper
   end
 
   def preview_style_class
-      if is_image?
-          'image-preview-wrapper'
-      elsif is_video?
-          'video-preview-wrapper'
-      else
-          'file-preview-wrapper'
-      end
+    if is_image?
+      'image-preview-wrapper'
+    elsif is_video?
+      'video-preview-wrapper'
+    else
+      'file-preview-wrapper'
+    end
   end
 
   def uploaded_file_html
@@ -46,11 +46,11 @@ module RademadeAdmin::UploadPreviewHelper
   end
 
   def is_image?
-      uploader.class.ancestors.include? RademadeAdmin::Uploader::Photo
+    uploader.class.ancestors.include? RademadeAdmin::Uploader::Photo
   end
 
   def is_video?
-      uploader.class.ancestors.include? RademadeAdmin::Uploader::Video
+    uploader.class.ancestors.include? RademadeAdmin::Uploader::Video
   end
 
   def uploaded_image_preview
@@ -72,7 +72,7 @@ module RademadeAdmin::UploadPreviewHelper
 
   def uploaded_file_default_preview
     file_path = uploader.file.file
-    text = File.basename(file_path) + ', ' + RademadeAdmin::FileInfoFormatter.format_size(File.size(file_path))
+    text = "#{File.basename(file_path)}, #{RademadeAdmin::FileInfoFormatter.format_size(File.size(file_path))}"
     content_tag(:span, text, {
       :class => 'file-uploaded'
     })

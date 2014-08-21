@@ -10,8 +10,7 @@ module RademadeAdmin
     # @param params [Hash]
     #
     def initialize(model_info, params)
-      @model_info = model_info
-      @params = params
+      @model_info, @params = model_info, params
     end
 
     def create_model

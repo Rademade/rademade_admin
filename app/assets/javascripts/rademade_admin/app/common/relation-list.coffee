@@ -25,7 +25,6 @@ initItem = ($item) ->
         else
           result = data[0]
         callback(result)
-#        callback(if isMultiple then data else data[0])
         addTable($item) if isMultiple
         hideTags()
 
