@@ -53,6 +53,10 @@ module RademadeAdmin
           not @uploader.nil?
         end
 
+        def sortable_relation?
+          @relation.sortable?
+        end
+
         def label
           @label ||= _default_label
         end
@@ -67,6 +71,10 @@ module RademadeAdmin
 
         def preview_accessor
           @preview_accessor.nil? ? getter : @preview_accessor
+        end
+
+        def sortable_setter
+          @sortable_setter ||= :"#{@relation.sortable_field}="
         end
 
         def in_list?

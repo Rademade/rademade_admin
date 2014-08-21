@@ -4,10 +4,14 @@ module RademadeAdmin
     class Info
       class Relation
 
-        attr_reader :name, :from, :to, :getter, :setter, :type, :foreign_key
+        attr_reader :name, :from, :to, :getter, :setter, :type, :foreign_key, :sortable_field
 
         def many?
           @has_many
+        end
+
+        def sortable?
+          @sortable
         end
 
         def related_entities(ids)
@@ -30,6 +34,8 @@ module RademadeAdmin
           @type = opt[:type]
           @has_many = opt[:has_many]
           @foreign_key = opt[:foreign_key]
+          @sortable = opt[:sortable]
+          @sortable_field = opt[:sortable_field]
         end
 
       end

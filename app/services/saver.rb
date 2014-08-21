@@ -48,6 +48,9 @@ module RademadeAdmin
             ids.reject! { |id| id.empty? }
             item.send(getter).clear # rm_todo for AR
             entities = related_entities(data_item, ids)
+            entities.each_with_index do |entity, index|
+              entity.send(data_item.sortable_setter, index + 1)
+            end if data_item.sortable_relation?
           else
             if ids.empty?
               entities = nil
