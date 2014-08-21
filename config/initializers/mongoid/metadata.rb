@@ -23,7 +23,7 @@ module Mongoid
 
       # rm_todo rename
       def prefix_name
-        @prefix ||= polymorphic? ? as : inverse_class_name.underscore
+        @prefix ||= polymorphic? ? as : inverse_class_name.underscore.gsub('/', '_')
       end
 
     end
