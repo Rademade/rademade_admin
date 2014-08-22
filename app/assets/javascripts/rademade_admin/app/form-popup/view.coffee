@@ -7,8 +7,7 @@ class @FormPopup.View extends Backbone.View
     'click .cancel-btn' : 'onReset'
 
   initialize : () ->
-    @model.on 'show', () =>
-      @$el.show()
+    @model.on 'show', @onShow
     @model.on 'hide', () =>
       @$el.hide()
 
@@ -19,6 +18,10 @@ class @FormPopup.View extends Backbone.View
   onClick : (e) ->
     @closePopup() if $(e.target).closest('.simple_form').length is 0
 
+  onShow : () =>
+    @$el.show()
+    @_updatePosition()
+
   closePopup : () ->
     @model.destroy()
     @undelegateEvents()
@@ -27,8 +30,7 @@ class @FormPopup.View extends Backbone.View
   renderFromUrl : (url) ->
     $.get url, (html) =>
       @$el.html html
-      @$el.find('form').css
-        top : "#{window.pageYOffset}px"
+      @_updatePosition()
       @delegateEvents()
       @_init()
 
@@ -54,6 +56,9 @@ class @FormPopup.View extends Backbone.View
   _bindButton : () ->
     @$el.find('button').click (e) =>
       @renderFromUrl $(e.currentTarget).data('new')
+
+  _updatePosition : () ->
+    @$el.css top : "#{window.pageYOffset}px"
 
 
 @FormPopup.View.init = (popupModel, url) ->
