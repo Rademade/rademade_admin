@@ -14,14 +14,14 @@ end
         :class => 'select2-add-link',
         :'data-model' => @model_class.to_s,
         :'data-rel-list-url' => autocomplete_uri
-    )%><table class="table table-hover"><%
+    )%><table class="table-box"><%
         concat render @template_service.table_head_block, {
             :list_fields => related_list_fields
         }
         has_position = @sortable_service.has_position?
-        %><tbody data-position='false'><%
+        %><tbody class="table-content" data-position='false'><%
             @items.each do |item|
-                %><tr<%
+                %><tr class="table-line" <%
                     if has_position
                         %> id='<%= item.position %>'<%
                     end
@@ -29,17 +29,14 @@ end
                     related_list_fields.each do |field|
                         %><td><%= display_item_value(item, field) %></td><%
                     end
-                    %><td>
-                        <ul class="actions">
-                            <li>
-                                <%= button_to t('rademade_admin.unlink'), admin_unlink_uri(@item, params[:relation], {
-                                    :related_id => item.id
+                    %><td class="table-item">
+                        <span class="table-actions"><%=
+                            button_to t('rademade_admin.unlink'), admin_unlink_uri(@item, params[:relation], {
+                                :related_id => item.id
                                 }), {
-                                    :method => :delete,
-                                    :form => { :class => 'delete-item-form' }
-                                } %>
-                            </li>
-                        </ul>
+                                      :method => :delete,
+                                      :form => { :class => 'delete-item-form' }
+                        } %></span>
                     </td>
                 </tr><%
             end
