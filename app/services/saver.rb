@@ -46,11 +46,13 @@ module RademadeAdmin
           ids = data[getter]
           if ids.kind_of? Array
             ids.reject! { |id| id.empty? }
-            item.send(getter).clear # rm_todo for AR
             entities = related_entities(data_item, ids)
             entities.each_with_index do |entity, index|
               entity.send(data_item.sortable_setter, index + 1)
+              entity.save
             end if data_item.sortable_relation?
+            # todo for AR
+            item.send(getter).clear if data_item.relation.type == :has_and_belongs_to_many # review for many to many
           else
             if ids.empty?
               entities = nil
