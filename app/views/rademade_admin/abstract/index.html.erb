@@ -32,11 +32,14 @@ end %>
                     %><td class="table-item">
                         <span class="table-actions"><%
                             concat link_to t('rademade_admin.edit'), admin_edit_uri(item), :class => 'glyphicon glyphicon-pencil fl-l'
-                            concat button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
-                                :method => :delete,
-                                :form => { :class => 'delete-item-form' }
-                            }
-                        %></span>
+                            %><div class="glyphicon glyphicon-remove fl-l"><%
+                                concat button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
+                                    :method => :delete,
+                                    # :class => 'glyphicon glyphicon-remove',
+                                    :form => { :class => 'delete-item-form' }
+                                }
+                            %></div>
+                        </span>
                     </td>
                 </tr><%
             end

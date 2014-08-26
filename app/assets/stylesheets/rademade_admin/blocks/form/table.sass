@@ -1,33 +1,42 @@
 .table-box
-    width: 100%
+  width: 100%
 
-    .table-line
-        border-bottom: 1px solid #ddd
+  .table-line
+    border-bottom: 1px solid #ddd
 
-    .table-header
-        .table-item
-            font-size: 15px
-            font-weight: bold
-
+  .table-header
     .table-item
-        padding: 10px 20px 10px 0
-        font-size: 14px
+      font-size: 15px
+      font-weight: bold
 
-    .table-actions
-        display: inline-block
-        +clear
+  .table-item
+    padding: 10px 20px 10px 0
+    font-size: 14px
 
-        .glyphicon
-            float: left
-            padding: 5px 0 0 0
-            font-size: 16px
-            line-height: 16px
-            margin-right: 10px
-            color: #000000
-            &:hover
-                color: #3071a9
+  .table-actions
+    display: inline-block
+    +clear
 
-        .delete-item-form
-            float: left
-            input
-                margin: 0
+    .glyphicon
+      float: left
+      padding: 5px 0 0 0
+      font-size: 16px
+      line-height: 16px
+      margin-right: 10px
+      color: #000000
+      &:hover
+        color: #3071a9
+      &.glyphicon-remove
+        position: relative
+        width: 20px
+        height: 16px
+        overflow: hidden
+
+    .delete-item-form
+      float: left
+      input
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 0
+        cursor: pointer
