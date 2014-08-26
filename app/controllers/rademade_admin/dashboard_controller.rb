@@ -9,7 +9,7 @@ module RademadeAdmin
     end
 
     def login
-      redirect_to :action => 'index' unless @current_user.nil?
+      redirect_to :action => 'index' if admin_logged_in?
     end
 
   end

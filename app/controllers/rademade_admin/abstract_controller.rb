@@ -16,7 +16,7 @@ module RademadeAdmin
     protected
 
     def require_login
-      redirect_to :controller => 'dashboard', :action => 'login' if @current_user.nil?
+      redirect_to :controller => 'dashboard', :action => 'login' unless admin_logged_in?
     end
 
     def init_user
@@ -32,6 +32,10 @@ module RademadeAdmin
         :errors => errors,
         :message => 'Error occurred'
       }, :status => :unprocessable_entity
+    end
+
+    def admin_logged_in?
+      @current_user.is_a? RademadeAdmin.user_class and @current_user.admin?
     end
 
   end
