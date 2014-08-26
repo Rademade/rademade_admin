@@ -17,7 +17,7 @@ class @FormPopup.Initializer extends Backbone.View
   onRelationEdit : (e) ->
     e.preventDefault()
     $button = $ e.currentTarget
-    @showPopup $button.closest('.select-wrapper').data('rel-class'), $button.data('edit')
+    @showPopup $button.closest('.input-holder').find('.select-wrapper').data('rel-class'), $button.data('edit') # REVIEW
 
   showPopup : (modelClassName, url) ->
     popupModel = @_popups.getModelWithClass modelClassName

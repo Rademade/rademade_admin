@@ -32,7 +32,7 @@ module RademadeAdmin::FieldHelper
     options = '?' + hash_params.map { |k, v| "#{k.to_s}=#{v}" }.join('&')
     selected = number == request.query_parameters[name.to_sym].to_i
 
-    content_tag(:option, number.to_s, selected: selected, value: request.path + options)
+    content_tag(:option, number.to_s, :selected => selected, :value => request.path + options)
   end
 
   def input_attr(attrs = {})

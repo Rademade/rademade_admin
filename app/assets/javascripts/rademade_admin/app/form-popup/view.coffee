@@ -43,9 +43,8 @@ class @FormPopup.View extends Backbone.View
       @_bindButton()
 
   _initPlugins : () ->
-    $(document)
-      .trigger('init-select')
-      .trigger('init-uploader')
+    $(document).trigger('init-uploader')
+    Select2Input.View.initAll @$el
 
   _initForm : ($form) ->
     (new FormAjaxSubmit($form)).init()

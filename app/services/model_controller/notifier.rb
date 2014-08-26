@@ -36,7 +36,7 @@ module RademadeAdmin
 
     def success_message(item, action_message, additional_data = {})
       render :json => {
-        :data => item,
+        :data => Autocomplete::BaseSerializer.new([item]).as_json.first,
         :message => "#{item_name.capitalize} #{action_message}"
       }.merge(additional_data)
     end
