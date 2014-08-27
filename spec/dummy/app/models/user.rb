@@ -3,7 +3,7 @@ class User
   include Mongoid::Document
   include RademadeAdmin::UserModule
 
-  has_many :posts, :sortable => true
+  has_many :posts, :dependent => :destroy, :sortable => true
 
   field :first_name, :type => String
   field :last_name, :type => String

@@ -47,12 +47,13 @@ module RademadeAdmin
           if ids.kind_of? Array
             ids.reject! { |id| id.empty? }
             entities = related_entities(data_item, ids)
+            clear_relations item.send(getter)
             entities.each_with_index do |entity, index|
               entity.send(data_item.sortable_setter, index + 1)
               entity.save
+              entity.reload
             end if data_item.sortable_relation?
             # todo for AR
-            item.send(getter).clear if data_item.relation.type == :has_and_belongs_to_many # review for many to many
           else
             if ids.empty?
               entities = nil
@@ -70,7 +71,7 @@ module RademadeAdmin
       @model_info.data_items.uploader_fields.each do |_, data_item|
         name = data_item.name
         if data.has_key?(name) and not data[name].blank?
-          image_path = CarrierWave.root + data[name].to_s
+          image_path = "#{CarrierWave.root}#{data[name]}"
           begin
             item.send(data_item.setter, File.open(image_path))
           rescue
@@ -86,6 +87,10 @@ module RademadeAdmin
 
     def related_entities(data_item, ids)
       ids.map { |id| data_item.relation.related_entities(id) }
+    end
+
+    def clear_relations(related_items)
+      related_items.nullify unless related_items.empty?
     end
 
   end

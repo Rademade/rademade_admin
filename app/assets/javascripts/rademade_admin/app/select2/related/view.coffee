@@ -17,6 +17,7 @@ class @Select2Input.RelatedView extends Backbone.View
   removeRelation : (e) ->
     e.preventDefault()
     @model.relationRemove() if confirm 'Вы действительно хотите удалить данную модель?'
+    false
 
   render : () ->
     @$el.html @_getTemplateHtml()
