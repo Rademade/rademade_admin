@@ -92,8 +92,8 @@ module RademadeAdmin
         end
 
         def collect_save_form_fields
-          field_names = collect_field_names { |data_item| data_item.in_form? and not data_item.has_relation? }
-          field_names.empty? ? _default_fields.map(&:name) : field_names
+          fields = items.select { |_, data_item| data_item.in_form? and not data_item.has_relation? }
+          fields.empty? ? origin_fields : fields.values.map(&:name)
         end
 
         def _default_fields

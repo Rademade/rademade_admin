@@ -14,27 +14,27 @@ module RademadeAdmin
         :div,
         RademadeAdmin::HtmlBuffer.new([select_ui_html, add_button_html]),
         html_attributes
-      ) + related_list_link_html
+      ) + related_html
     end
 
     private
 
     def select_ui_html
-      template.text_field_tag(input_html_options_name, input_value, html_attributes)
+      template.text_field_tag(input_html_options_name, '', html_attributes)
+    end
+
+    def related_html
+      if multiple?
+        related_list_html
+      else
+        related_item_html
+      end
     end
 
     def input_html_options_name
       name = "#{object_name}[#{relation_getter}]"
       name += '[]' if multiple?
       name
-    end
-
-    def input_value
-      if multiple?
-        ''
-      else
-        related_value.nil? ? nil : related_value.id.to_s
-      end
     end
 
     def html_attributes
@@ -60,6 +60,18 @@ module RademadeAdmin
         :'rel-class' => related_to.to_s,
         :'search-url' => admin_autocomplete_uri(related_to, :format => :json)
       }
+    end
+
+    def related_item_html
+      if related_value.nil?
+        nil
+      else
+        serialized_data = Autocomplete::BaseSerializer.new([related_value]).as_json.first
+        template.content_tag(:input, '', {
+          :type => 'hidden',
+          :data => serialized_data
+        })
+      end
     end
 
   end

@@ -13,16 +13,16 @@ class @Select2Input.RelatedCollection extends Backbone.Collection
     @remove model
     @_triggerChange()
 
-  update : (data) ->
-    @add new Select2Input.RelatedModel(data), merge : true
-    @_triggerChange()
-
   resort : () ->
     @sort()
     @_triggerChange()
 
+  update : (data) ->
+    @add new Select2Input.RelatedModel(data), merge : true
+    @_triggerChange()
+
   getData : () ->
-    @pluck 'id'
+    @map (model) -> model.getData()
 
   _triggerChange : () ->
     @trigger 'data-change'

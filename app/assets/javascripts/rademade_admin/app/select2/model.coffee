@@ -3,5 +3,5 @@ class @Select2Input.Model extends Backbone.Model
   isMultiple : () ->
     @get('multiple')
 
-  getData : () ->
+  getRelatedData : () ->
     @get('related').getData()

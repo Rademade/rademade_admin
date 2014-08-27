@@ -1,43 +1,30 @@
 class @FormPopup.Initializer extends Backbone.View
 
-  _popups : undefined
+  _popupViews : []
 
-  events :
-    'click .relation-add-button' : 'onRelationAdd'
-    'click [data-edit]' : 'onRelationEdit'
-
-  initialize : () ->
-    @_popups = new FormPopup.Collection
-
-  onRelationAdd : (e) ->
-    e.preventDefault()
-    $button = $ e.currentTarget
-    @showPopup $button.data('class'), $button.data('new')
-
-  onRelationEdit : (e) ->
-    e.preventDefault()
-    $button = $ e.currentTarget
-    @showPopup $button.closest('.input-holder').find('.select-wrapper').data('rel-class'), $button.data('edit') # REVIEW
-
-  showPopup : (modelClassName, url) ->
-    popupModel = @_popups.getModelWithClass modelClassName
-    if popupModel
-      @_popups.showModel popupModel
-    else
-      @createPopup modelClassName, url
-
-  createPopup : (modelClassName, url) ->
-    popupModel = new FormPopup.Model
-      modelClassName : modelClassName
-    popupView = FormPopup.View.init popupModel, url
-    @_popups.add popupView.model
+  showPopup : (model) ->
+    popupView = FormPopup.View.init model
+    @addPopup popupView
     @$el.append popupView.$el
 
-formPopup = undefined
+  addPopup : (popup) ->
+    popup.on 'close', @_onPopupClose
+    @_last().hide() if @_hasPopups()
+    @_popupViews.push popup
 
-$(document).on 'ready page:load', () =>
-  formPopup = new @FormPopup.Initializer
-    el : document.getElementById 'pad-wrapper'
+  _onPopupClose : () =>
+    @_popupViews.pop()
+    @_last().show() if @_hasPopups()
 
-$(document).on 'show:popup', (e, modelClassName, url) =>
-  formPopup.showPopup modelClassName, url
+  _last : () ->
+    _.last @_popupViews
+
+  _hasPopups : () ->
+    @_popupViews.length > 0
+
+
+  @getInstance : () ->
+    instance = null
+    do () ->
+      instance ||= new @FormPopup.Initializer
+        el : document.getElementById 'pad-wrapper'

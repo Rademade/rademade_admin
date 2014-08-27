@@ -3,11 +3,16 @@ class @Select2Input.RelatedView extends Backbone.View
   tagName : 'li'
 
   events :
+    'click [data-edit]' : 'editRelation'
     'click [data-remove]' : 'removeRelation'
 
   initialize : () ->
     @model.on 'relation-remove', @remove, this
     @model.on 'change', @render, this
+
+  editRelation : (e) ->
+    e.preventDefault()
+    FormPopup.Initializer.getInstance().showPopup @model
 
   removeRelation : (e) ->
     e.preventDefault()
