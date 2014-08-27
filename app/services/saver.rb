@@ -85,9 +85,7 @@ module RademadeAdmin
     end
 
     def related_entities(data_item, ids)
-      ids.map do |id|
-        data_item.relation.related_entities(id)
-      end
+      ids.map { |id| data_item.relation.related_entities(id) }
     end
 
   end
