@@ -1,19 +1,21 @@
 class @Select2Input.RelatedCollectionView extends Backbone.View
 
-  initialize : () ->
+  initialize : (options) ->
     @collection.on 'add', @appendRelatedView
+    @_views = options.views
 
   appendRelatedView : (model) =>
     view = new Select2Input.RelatedView
       model : model
     @$el.append view.render().$el
+    @_views.push view
 
-  initSort : (views) ->
+  initSort : () ->
     @$el.disableSelection()
     @$el.sortable
       stop : () =>
         $children = @$el.children()
-        _.each views, (view) =>
+        _.each @_views, (view) =>
           view.model.set 'position', $children.index(view.$el) + 1
         @collection.resort()
 
@@ -27,5 +29,6 @@ class @Select2Input.RelatedCollectionView extends Backbone.View
     collectionView = new this
       collection : collection
       el : $list
-    collectionView.initSort views
+      views : views
+    collectionView.initSort()
     collectionView
