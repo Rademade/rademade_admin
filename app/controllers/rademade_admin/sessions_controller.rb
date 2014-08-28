@@ -7,7 +7,7 @@ module RademadeAdmin
     def login
       begin
         user = RademadeAdmin::Login.admin(params)
-        session[:user_id] = user.id
+        session[:user_id] = user.id.to_s
         render :json => user, :status => :ok
       rescue RademadeAdmin::Login::Error => e
         render :json => {:errors => e.field_messages}, :status => :precondition_failed
