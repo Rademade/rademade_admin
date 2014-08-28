@@ -15,7 +15,7 @@ module Origin
           criterion.__sort_option__.each_pair do |field, direction|
             add_sort_option(options, field, direction, true)
           end
-          query.pipeline.push('$sort' => options[:sort]) if aggregating?
+          query.pipeline.push('$sort' => options[:sort]) if query and aggregating? # todo unknown method aggregating?
         end
       end
     end
@@ -34,7 +34,7 @@ module Origin
         prepend ? sorting.unshift(sort_params) : sorting.push(sort_params)
       else
         sorting = (options[:sort] || {}).dup
-        prepend ? sorting = {field => direction}.merge(sorting) : sorting[field] = direction
+        prepend ? sorting = { field => direction }.merge(sorting) : sorting[field] = direction
       end
       options.store(:sort, sorting)
     end

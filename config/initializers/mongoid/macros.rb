@@ -13,7 +13,7 @@ module Mongoid
           if metadata.sortable?
             to_class = RademadeAdmin::LoaderService.const_get(metadata.class_name)
             to_class.field metadata.sortable_field, :type => Integer
-            to_class.scope metadata.sortable_scope, -> { all.prepend_order_by(metadata.sortable_field => :asc) }
+            to_class.scope metadata.sortable_scope, -> { prepend_order_by(metadata.sortable_field => :asc) }
           end
         end
 
