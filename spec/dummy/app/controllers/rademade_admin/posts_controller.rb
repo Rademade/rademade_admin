@@ -9,6 +9,7 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
       video
       text :text
       user
+      other_posts
       tags
       document
       status :as => :select,

@@ -15,7 +15,7 @@ describe 'Auth', :type => :feature, :js => true do
 
     it 'should redirect to login page' do
       visit rademade_admin_path
-      expect(page).to have_content 'LOG IN'
+      expect(page).to have_content 'Log in'
     end
 
     it 'should login with admin user' do
@@ -24,8 +24,7 @@ describe 'Auth', :type => :feature, :js => true do
       fill_in 'data_email', with: admin.email
       fill_in 'data_password', with: '12345678'
 
-      first('#data_submit_action button').click
-
+      click_on 'Log in'
       find('#sidebar-nav')
       expect(page).to have_content 'Dashboard'
     end
@@ -36,8 +35,7 @@ describe 'Auth', :type => :feature, :js => true do
       fill_in 'data_email', with: user.email
       fill_in 'data_password', with: '12345678'
 
-      first('#data_submit_action button').click
-
+      click_on 'Log in'
       expect(page).to have_content 'Access denied'
     end
 
@@ -47,8 +45,7 @@ describe 'Auth', :type => :feature, :js => true do
       fill_in 'data_email', with: user.email
       fill_in 'data_password', with: 'somewrongpass'
 
-      first('#data_submit_action button').click
-
+      click_on 'Log in'
       expect(page).to have_content 'Incorrect password'
     end
 
@@ -62,14 +59,13 @@ describe 'Auth', :type => :feature, :js => true do
       fill_in 'data_email', with: admin.email
       fill_in 'data_password', with: '12345678'
 
-      first('#data_submit_action button').click
+      click_on 'Log in'
     end
 
     it 'should sign out' do
-      click_on admin.to_s
       click_on 'Exit'
 
-      expect(page).to have_content 'LOG IN'
+      expect(page).to have_content 'Log in'
     end
 
   end

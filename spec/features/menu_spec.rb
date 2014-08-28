@@ -14,7 +14,7 @@ describe 'Menu', :type => :feature, :js => true do
     fill_in 'data_email', with: admin.email
     fill_in 'data_password', with: '12345678'
 
-    first('#data_submit_action button').click
+    click_on 'Log in'
     find('#sidebar-nav')
   end
 

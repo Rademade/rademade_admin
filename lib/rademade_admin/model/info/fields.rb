@@ -34,13 +34,13 @@ module RademadeAdmin
           used_relations = []
 
           @data_adapter.fields.each do |_, field|
-            relation = @data_adapter.relation_by_key(field.name)
+            relation = field.relation_name.nil? ? nil : @data_adapter.relation(field.relation_name)
             used_relations << field.name if relation
             data_items.add_data_item(init_data_item(field, relation))
           end
 
           @data_adapter.relations.each do |_, relation|
-            unless used_relations.include? relation.foreign_key
+            unless used_relations.include? relation.name
               data_items.add_data_item(init_data_item(nil, relation))
             end
           end

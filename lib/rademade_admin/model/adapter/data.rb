@@ -35,13 +35,6 @@ module RademadeAdmin
           relations[name.to_sym]
         end
 
-        def relation_by_key(key)
-          relations.each do |_, relation|
-            return relation if relation.foreign_key == key
-          end
-          nil
-        end
-
         #
         # Returns array of relations keys
         #

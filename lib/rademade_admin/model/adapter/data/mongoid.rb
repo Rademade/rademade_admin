@@ -29,7 +29,8 @@ module RademadeAdmin
                 :primary => name == :_id,
                 :getter => getter,
                 :setter => getter + '=',
-                :type => field_data.type
+                :type => field_data.type,
+                :relation_name => field_data.options[:metadata].try(:name)
               })
             end
             fields

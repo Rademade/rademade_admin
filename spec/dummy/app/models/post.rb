@@ -4,7 +4,9 @@ class Post
   include Sortable
 
   belongs_to :user
-  has_and_belongs_to_many :tags
+  belongs_to :main_post, :class_name => 'Post', :inverse_of => :other_posts
+  has_many :other_posts, :class_name => 'Post', :inverse_of => :main_post, :sortable => true
+  has_and_belongs_to_many :tags, :sortable => true
 
   mount_uploader :avatar, PosterUploader
   mount_uploader :document, FileUploader

@@ -39,6 +39,7 @@ Capybara.default_wait_time = 10
 Capybara.automatic_reload = false
 
 Capybara::Screenshot.autosave_on_failure = false
+#Capybara::Screenshot.webkit_options = {width: 1920, height: 1080}
 
 Coveralls.wear!
 

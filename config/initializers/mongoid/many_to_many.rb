@@ -8,9 +8,9 @@ module Mongoid
           def build(type = nil)
             return object.try(:dup) unless query?
             ids = object || []
-            metadata.criteria(ids, base.class).add_filter do |entities|
-              sorted_entities(entities, ids)
-            end
+            criteria = metadata.criteria(ids, base.class)
+            criteria.add_filter { |entities| sorted_entities(entities, ids) } if metadata.sortable?
+            criteria
           end
 
           private
