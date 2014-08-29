@@ -19,7 +19,11 @@ module RademadeAdmin
     end
 
     def form_control_block
-      block_path 'form_control'
+      block_path 'form/control'
+    end
+
+    def form_lang_panel
+      block_path 'form/lang_panel'
     end
 
     def pagination_block

@@ -28,8 +28,8 @@ PATH
       coffee-rails (~> 4.0)
       compass-rails (~> 1.0)
       kaminari (~> 0.16)
-      rails (~> 4.0)
-      sass-rails (~> 4.0)
+      rails (>= 4.0)
+      sass-rails (>= 4.0)
       simple_form
       sprockets-sass (~> 1.0)
       turbolinks (~> 2.2)

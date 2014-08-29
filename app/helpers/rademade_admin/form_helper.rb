@@ -23,6 +23,14 @@ module RademadeAdmin::FormHelper
     concat form.input(name, input_attr(attrs))
   end
 
+  def admin_localized_field(form, form_field, model_info, locale)
+    name = "#{form_field.localizable_getter}][#{locale}"
+    attrs = admin_default_params(form_field.name, model_info)
+      .merge(field_params(form_field))
+      .merge(localized_field_params(form_field, locale))
+    concat form.input(name, input_attr(attrs))
+  end
+
   private
 
   def admin_default_params(name, model_info)
@@ -33,6 +41,15 @@ module RademadeAdmin::FormHelper
     field_params = form_field.form_params
     field_params[:as] = default_field_type(form_field) unless field_params[:as].present?
     field_params
+  end
+
+  def localized_field_params(form_field, locale)
+    {
+      :input_html => {
+        :id => "#{form_field.localizable_getter}_#{locale}",
+        :value => @item.send(form_field.localizable_getter)[locale]
+      }
+    }
   end
 
   def default_field_type(form_field)

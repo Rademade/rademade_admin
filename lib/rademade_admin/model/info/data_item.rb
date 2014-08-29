@@ -41,6 +41,10 @@ module RademadeAdmin
           (has_relation? and @relation.name == name) or (has_field? and @field.name == name)
         end
 
+        def permit_name
+          localizable? ? { localizable_getter => I18n.available_locales } : name # RM_REVIEW
+        end
+
         def has_relation?
           not @relation.nil?
         end
@@ -57,12 +61,21 @@ module RademadeAdmin
           @relation.sortable?
         end
 
+        def localizable?(localizable = true)
+          return false unless has_field?
+          field.localizable == localizable
+        end
+
         def label
           @label ||= _default_label
         end
 
         def getter
           @getter ||= _getter
+        end
+
+        def localizable_getter
+          @localizable_getter ||= @field.localizable_getter
         end
 
         def setter

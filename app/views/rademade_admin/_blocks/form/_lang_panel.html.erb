@@ -1,0 +1,19 @@
+<%
+if @localizable_form_fields.length > 0
+    %><div id="lang-panel">
+        <ul><%
+            I18n.available_locales.each do |locale|
+                %><li class="btn blue-btn" style="margin-right: 10px; padding: 0px">
+                    <a href="#locale-<%= locale %>" style="color: #ffffff; display: block; width: 37px; line-height: 30px"><%= locale %></a>
+                </li><%
+            end
+        %></ul><%
+        I18n.available_locales.each do |locale|
+            %><div id="locale-<%= locale %>"><%
+                @localizable_form_fields.each do |form_field|
+                    admin_localized_field(f, form_field, @model_info, locale)
+                end
+            %></div><%
+        end
+    %></div><%
+end %>

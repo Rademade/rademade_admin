@@ -12,8 +12,8 @@ class Post
   mount_uploader :document, FileUploader
   mount_uploader :video, VideoUploader
 
-  field :headline, :type => String
-  field :text, :type => String
+  field :headline, :type => String, :localize => true
+  field :text, :type => String, :localize => true
   field :status, :type => Integer
 
   validates_presence_of :headline

@@ -36,7 +36,7 @@ module RademadeAdmin::FieldHelper
   end
 
   def input_attr(attrs = {})
-    attrs.merge :wrapper_html => { :class => 'form-group' },
+    attrs.deep_merge :wrapper_html => { :class => 'form-group' },
                 :input_html => { :class => 'form-input' }
   end
 

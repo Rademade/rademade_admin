@@ -56,12 +56,16 @@ module RademadeAdmin
           @autocomplete_fields ||= collect_field_names { |data_item| data_item.string_field? }
         end
 
-        # Get Array of RademadeAdmin::Model::Info::DataItem for rendering form
-        #
-        # @return [Array]
-        #
-        def semantic_form_fields
+        def form_fields
           @form_fields ||= collect_form_fields
+        end
+
+        def simple_form_fields
+          @simple_form_fields ||= collect_localized_form_fields(false)
+        end
+
+        def localizable_form_fields
+          @localized_form_fields ||= collect_localized_form_fields(true)
         end
 
         # Get Array of RademadeAdmin::Model::Info::DataItem for saving
@@ -88,12 +92,19 @@ module RademadeAdmin
 
         def collect_form_fields
           fields = items.select { |_, data_item| data_item.in_form? }
-          fields.empty? ? _default_fields : fields.values.sort_by(&:form_position)
+          fields.empty? ? items : fields
+        end
+
+        def collect_localized_form_fields(localizable)
+          form_fields.select { |_, data_item|
+            data_item.localizable?(localizable)
+          }.values.sort_by(&:form_position)
         end
 
         def collect_save_form_fields
-          fields = items.select { |_, data_item| data_item.in_form? and not data_item.has_relation? }
-          fields.empty? ? origin_fields : fields.values.map(&:name)
+          fields = form_fields.select { |_, data_item| data_item.simple_field? }
+          fields = items.select { |_, data_item| data_item.simple_field? } if fields.empty?
+          fields.values.map(&:permit_name)
         end
 
         def _default_fields

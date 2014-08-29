@@ -6,6 +6,7 @@
 #= require jquery-ui/ui/resizable
 #= require jquery-ui/ui/sortable
 #= require jquery-ui/ui/slider
+#= require jquery-ui/ui/tabs
 #= require jquery-fileupload/js/jquery.fileupload
 #= require jquery-fileupload/js/jquery.iframe-transport
 #= require jquery-form/jquery.form

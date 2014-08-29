@@ -6,7 +6,7 @@ module RademadeAdmin
 
         UNSAVED_FIELDS = [:id, :_id, :created_at, :deleted_at, :position]
 
-        attr_reader :name, :setter, :getter, :type, :relation_name
+        attr_reader :name, :setter, :getter, :type, :localizable, :localizable_getter, :relation_name
 
         def key=(status)
           @is_key = status
@@ -28,6 +28,8 @@ module RademadeAdmin
           @setter = opts[:setter]
           @getter = opts[:getter]
           @type = opts[:type]
+          @localizable = opts[:localizable]
+          @localizable_getter = opts[:localizable_getter]
           @relation_name = opts[:relation_name]
         end
 

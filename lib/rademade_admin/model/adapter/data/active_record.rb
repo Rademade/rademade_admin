@@ -29,7 +29,10 @@ module RademadeAdmin
                 :primary => column_data.primary,
                 :getter => getter,
                 :setter => getter + '=',
-                :type => column_data.type
+                :type => column_data.type,
+                :localizable => false, # todo
+                :localizable_getter => nil, # todo
+                :relation_name => '' # todo
               })
             end
             fields
@@ -49,6 +52,8 @@ module RademadeAdmin
                 :setter => getter + '=',
                 :type => type,
                 :has_many => has_many_relations.include?(type),
+                :sortable => false,
+                :sortable_field => nil,
                 :foreign_key => relation_info.foreign_key.to_sym
               })
             end
