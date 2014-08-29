@@ -7,6 +7,7 @@ module RademadeAdmin
         if name == 'resize'
           raise NotImplemented.new 'Implement "resize" error'
         end
+        super
       end
 
     end

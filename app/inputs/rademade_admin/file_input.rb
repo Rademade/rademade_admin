@@ -6,8 +6,8 @@ module RademadeAdmin
     include UriHelper
 
     def initialize(*args)
-        super
-        @uploader = object.send(attribute_name)
+      super
+      @uploader = object.send(attribute_name)
     end
 
     def input

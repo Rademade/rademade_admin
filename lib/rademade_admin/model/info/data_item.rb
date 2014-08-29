@@ -62,7 +62,7 @@ module RademadeAdmin
         end
 
         def getter
-          @getter ||= has_relation? ? @relation.name : @field.name
+          @getter ||= _getter
         end
 
         def setter
@@ -105,6 +105,12 @@ module RademadeAdmin
 
         def _default_label
           name.to_s.humanize
+        end
+
+        def _getter
+          return @relation.name if has_relation?
+          return @field.name if has_field?
+          name
         end
 
       end
