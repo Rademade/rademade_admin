@@ -36,7 +36,7 @@ module RademadeAdmin::UploadPreviewHelper
   end
 
   def uploaded_file_html(uploader = nil)
-    @uploader ||= uploader
+    @uploader = uploader unless uploader.nil?
     if is_image?
       uploaded_image_preview
     elsif is_video?

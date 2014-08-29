@@ -62,7 +62,7 @@ module RademadeAdmin
         end
 
         def localizable?(localizable = true)
-          return false unless has_field?
+          return !localizable unless has_field?
           field.localizable == localizable
         end
 
