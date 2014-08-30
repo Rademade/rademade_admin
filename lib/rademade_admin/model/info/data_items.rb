@@ -4,6 +4,7 @@ module RademadeAdmin
     class Info
       class DataItems
         include ::Enumerable
+        # rm_todo extract mixins
 
         UNINFORMATIVE_FIELDS = [:_id, :deleted_at, :position]
 
@@ -60,12 +61,12 @@ module RademadeAdmin
           @form_fields ||= collect_form_fields
         end
 
-        def simple_form_fields
-          @simple_form_fields ||= collect_localized_form_fields(false)
+        def form_fields_without_locale
+          @form_fields_without_locale ||= collect_localized_form_fields(false)
         end
 
-        def localizable_form_fields
-          @localized_form_fields ||= collect_localized_form_fields(true)
+        def form_fields_with_locale
+          @form_fields_with_locale ||= collect_localized_form_fields(true)
         end
 
         # Get Array of RademadeAdmin::Model::Info::DataItem for saving

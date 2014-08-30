@@ -44,6 +44,7 @@ module RademadeAdmin
         getter = data_item.getter
         if data.has_key? getter
           ids = data[getter]
+          # rm_todo extract sub-methods
           if ids.kind_of? Array
             ids.reject! { |id| id.empty? }
             entities = related_entities(data_item, ids)

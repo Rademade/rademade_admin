@@ -1,5 +1,5 @@
 <%
-if @localizable_form_fields.length > 0
+if @form_fields_with_locale.length > 0
     %><div id="lang-panel">
         <ul><%
             I18n.available_locales.each do |locale|
@@ -10,7 +10,7 @@ if @localizable_form_fields.length > 0
         %></ul><%
         I18n.available_locales.each do |locale|
             %><div id="locale-<%= locale %>"><%
-                @localizable_form_fields.each do |form_field|
+                @form_fields_with_locale.each do |form_field|
                     admin_localized_field(f, form_field, @model_info, locale)
                 end
             %></div><%

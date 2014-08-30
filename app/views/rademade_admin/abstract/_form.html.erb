@@ -1,5 +1,5 @@
 <%= admin_form(@item, @model_class) do |f| %><%
-    @simple_form_fields.each do |form_field|
+    @form_fields_without_locale.each do |form_field|
         admin_field(f, form_field, @model_info)
     end
     concat render @template_service.form_lang_panel, { :f => f }

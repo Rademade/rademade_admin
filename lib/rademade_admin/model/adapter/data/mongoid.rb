@@ -24,7 +24,7 @@ module RademadeAdmin
             @model.fields.each do |name, field_data|
               name = name.to_sym
               getter = name.to_s
-              is_localizable = field_data.options.fetch(:localize, false)
+              is_localizable = field_data.localized?
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
                 :primary => name == :_id,
