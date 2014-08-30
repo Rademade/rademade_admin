@@ -12,8 +12,9 @@ module RademadeAdmin
         model = controller.model_class
 
         unless @model_infos[model.to_s]
-          model_reflection = RademadeAdmin::Model::Reflection.new(model, controller_name, inner)
-          @model_infos[model.to_s] = RademadeAdmin::Model::Info.new(model_reflection, controller.configuration)
+          model_reflection = RademadeAdmin::Model::Reflection.new(model, controller_name)
+          model_info = RademadeAdmin::Model::Info.new(model_reflection, controller.configuration, inner)
+          @model_infos[model.to_s] = model_info
         end
       end
 
@@ -22,17 +23,13 @@ module RademadeAdmin
       end
 
       def root_models
-        @root_models ||= get_root_models
+        @root_models ||= @model_infos.select { |_, model_info| not model_info.nested? }.values
       end
 
       private
 
       def initialize
         @model_infos = {}
-      end
-
-      def get_root_models
-        @model_infos.select { |_, model_info| not model_info.nested? }.values
       end
 
     end
