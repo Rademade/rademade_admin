@@ -1,11 +1,11 @@
 rademade_admin
 ========
 
-![Gem Version](http://img.shields.io/gem/v/rademade_admin.svg)][gem]
-![Build Status](https://travis-ci.org/Rademade/rademade_admin.svg?branch=master)][travis-ci]
-![Coverage Status](https://coveralls.io/repos/Rademade/rademade_admin/badge.png)][coveralls]
-![Code Climate](http://img.shields.io/codeclimate/github/Rademade/rademade_admin.svg)][codeclimate]
-![PullReview stats](https://www.pullreview.com/github/Rademade/rademade_admin/badges/master.svg?)][pullreview]
+[![Gem Version](http://img.shields.io/gem/v/rademade_admin.svg)][gem]
+[![Build Status](https://travis-ci.org/Rademade/rademade_admin.svg?branch=master)][travis-ci]
+[![Coverage Status](https://coveralls.io/repos/Rademade/rademade_admin/badge.png)][coveralls]
+[![Code Climate](http://img.shields.io/codeclimate/github/Rademade/rademade_admin.svg)][codeclimate]
+[![PullReview stats](https://www.pullreview.com/github/Rademade/rademade_admin/badges/master.svg?)][pullreview]
 
 
 [gem]: https://rubygems.org/gems/rademade_admin
