@@ -44,7 +44,7 @@ module RademadeAdmin::FormHelper
   end
 
   def localized_field_params(form_field, locale)
-    {
+    { 
       :input_html => {
         :id => "#{form_field.localizable_getter}_#{locale}",
         :value => @item.send(form_field.localizable_getter)[locale]
