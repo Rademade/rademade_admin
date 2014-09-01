@@ -88,12 +88,12 @@ module RademadeAdmin
 
         def collect_list_fields
           fields = items.select { |_, data_item| data_item.in_list? }
-          fields.empty? ? _default_fields : fields.values.sort_by(&:list_position)
+          fields.empty? ? _default_fields.values : fields.values.sort_by(&:list_position)
         end
 
         def collect_form_fields
           fields = items.select { |_, data_item| data_item.in_form? }
-          fields.empty? ? items : fields
+          fields.empty? ? _default_fields : fields
         end
 
         def collect_localized_form_fields(localizable)
@@ -109,7 +109,7 @@ module RademadeAdmin
         end
 
         def _default_fields
-          items.values.reject { |data_item| UNINFORMATIVE_FIELDS.include? data_item.name }
+          items.reject { |_, data_item| UNINFORMATIVE_FIELDS.include? data_item.name } # todo remove sortable fields
         end
 
         def collect_field_names

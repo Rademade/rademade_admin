@@ -45,6 +45,7 @@ class @FormPopup.View extends Backbone.View
 
   _initPlugins : () ->
     $(document).trigger('init-uploader')
+    $(document).trigger('init-lang-panel')
     Select2Input.View.initAll @$el
 
   _initForm : ($form) ->

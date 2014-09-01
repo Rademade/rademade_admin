@@ -7,7 +7,7 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
       headline
       avatar
       video
-      text :text
+      text :ckeditor
       user
       other_posts
       tags

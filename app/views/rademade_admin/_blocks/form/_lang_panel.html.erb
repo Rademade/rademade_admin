@@ -1,6 +1,6 @@
 <%
 if @form_fields_with_locale.length > 0
-    %><div id="lang-panel">
+    %><div data-lang-panel>
         <ul><%
             I18n.available_locales.each do |locale|
                 %><li class="btn blue-btn" style="margin-right: 10px; padding: 0px">
