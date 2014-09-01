@@ -16,13 +16,20 @@ module RademadeAdmin
 
     def edit_breadcrumbs
       list_breadcrumbs(true)
-      breadcrumbs.add @item.to_s
+      breadcrumbs.add edit_name
     end
 
     def related_breadcrumbs
       list_breadcrumbs(true)
       breadcrumbs.add @item.to_s, admin_edit_uri(@item)
       breadcrumbs.add @related_model_info.item_name
+    end
+
+    private
+
+    def edit_name
+      item_name = @item.to_s
+      item_name.empty? ? t('rademade_admin.edit_record') : item_name
     end
 
   end
