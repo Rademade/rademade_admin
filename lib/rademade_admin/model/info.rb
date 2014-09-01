@@ -4,15 +4,17 @@ module RademadeAdmin
     class Info
 
       attr_reader :model_reflection
+      attr_writer :nested
 
       # Initialization for model info. Model mapper
       #
       # @param model_reflection [RademadeAdmin::Model::Reflection]
       # @param model_configuration [RademadeAdmin::Model::Configuration]
       #
-      def initialize(model_reflection, model_configuration)
+      def initialize(model_reflection, model_configuration, nested)
         @model_reflection = model_reflection
         @model_configuration = model_configuration
+        @nested = nested
       end
 
       # Return model class
@@ -32,7 +34,7 @@ module RademadeAdmin
       end
 
       def nested?
-        model_reflection.nested?
+        @nested
       end
 
       # todo extract menu service Info::Menu
