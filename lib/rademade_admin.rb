@@ -16,6 +16,8 @@ require 'ckeditor'
 require 'rademade_admin/sortable'
 require 'rademade_admin/engine'
 
+require 'mongoid_sortable_relation'
+
 module RademadeAdmin
 
   def self.user_class

@@ -15,7 +15,7 @@ gem 'bower-rails'
 gem 'carrierwave'
 gem 'rmagick'
 
-gem 'mongoid_sortable_relation'
+gem 'mongoid_sortable_relation' # todo move to rademade_admin_mongoid module
 
 # Utility gems used in both development & test environments
 gem 'rake', :require => false
