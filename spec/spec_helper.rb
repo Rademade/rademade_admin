@@ -35,11 +35,10 @@ FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'factorie
 FactoryGirl.reload
 
 Capybara.javascript_driver = :webkit
-Capybara.default_wait_time = 10
 Capybara.automatic_reload = false
 
 Capybara::Screenshot.autosave_on_failure = false
-#Capybara::Screenshot.webkit_options = {width: 1920, height: 1080}
+Capybara::Screenshot.webkit_options = { :width => 1920, :height => 1080 }
 
 Coveralls.wear!
 
@@ -129,15 +128,14 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.orm = 'mongoid'
+    DatabaseCleaner[:mongoid].strategy = :truncation
   end
 
-  config.before :each do
+  config.before(:each) do
     DatabaseCleaner.start
   end
 
-  config.after :each do
+  config.after(:each) do
     DatabaseCleaner.clean
   end
 

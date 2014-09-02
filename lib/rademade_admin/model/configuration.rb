@@ -10,7 +10,11 @@ module RademadeAdmin
       end
 
       def item_name
-        @item_name ||= model_name.underscore.gsub('/', '_').humanize.pluralize
+        @item_name ||= singular_name.pluralize
+      end
+
+      def singular_name
+        @singular_name ||= model_name.underscore.gsub('/', '_').humanize
       end
 
       def model_class

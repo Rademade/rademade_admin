@@ -21,8 +21,8 @@ describe 'Auth', :type => :feature, :js => true do
     it 'should login with admin user' do
       visit rademade_admin_path
 
-      fill_in 'data_email', with: admin.email
-      fill_in 'data_password', with: '12345678'
+      fill_in 'data_email', :with => admin.email
+      fill_in 'data_password', :with => '12345678'
 
       click_on 'Log in'
       find('#sidebar-nav')
@@ -32,8 +32,8 @@ describe 'Auth', :type => :feature, :js => true do
     it 'should not login with non admin user' do
       visit rademade_admin_path
 
-      fill_in 'data_email', with: user.email
-      fill_in 'data_password', with: '12345678'
+      fill_in 'data_email', :with => user.email
+      fill_in 'data_password', :with => '12345678'
 
       click_on 'Log in'
       expect(page).to have_content 'Access denied'
@@ -42,8 +42,8 @@ describe 'Auth', :type => :feature, :js => true do
     it 'should not login with wrong password' do
       visit rademade_admin_path
 
-      fill_in 'data_email', with: user.email
-      fill_in 'data_password', with: 'somewrongpass'
+      fill_in 'data_email', :with => user.email
+      fill_in 'data_password', :with => 'somewrongpass'
 
       click_on 'Log in'
       expect(page).to have_content 'Incorrect password'
@@ -56,8 +56,8 @@ describe 'Auth', :type => :feature, :js => true do
     before(:each) do
       visit rademade_admin_path
 
-      fill_in 'data_email', with: admin.email
-      fill_in 'data_password', with: '12345678'
+      fill_in 'data_email', :with => admin.email
+      fill_in 'data_password', :with => '12345678'
 
       click_on 'Log in'
     end

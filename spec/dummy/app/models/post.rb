@@ -12,7 +12,7 @@ class Post
   mount_uploader :document, FileUploader
   mount_uploader :video, VideoUploader
 
-  field :headline, :type => String, :localize => true
+  field :headline, :type => String
   field :text, :type => String, :localize => true
   field :status, :type => Integer
 

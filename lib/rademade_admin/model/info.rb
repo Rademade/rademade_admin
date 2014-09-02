@@ -29,6 +29,10 @@ module RademadeAdmin
         @model_configuration.item_name
       end
 
+      def singular_name
+        @model_configuration.singular_name
+      end
+
       def controller
         model_reflection.controller
       end

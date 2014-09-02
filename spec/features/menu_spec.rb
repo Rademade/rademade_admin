@@ -11,8 +11,8 @@ describe 'Menu', :type => :feature, :js => true do
     # login
     visit rademade_admin_path
 
-    fill_in 'data_email', with: admin.email
-    fill_in 'data_password', with: '12345678'
+    fill_in 'data_email', :with => admin.email
+    fill_in 'data_password', :with => '12345678'
 
     click_on 'Log in'
     find('#sidebar-nav')
