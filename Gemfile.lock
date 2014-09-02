@@ -28,6 +28,7 @@ PATH
       coffee-rails (~> 4.0)
       compass-rails (~> 1.0)
       kaminari (~> 0.16)
+      mongoid_sortable_relation
       rails (>= 4.0)
       sass-rails (>= 4.0)
       simple_form
@@ -299,7 +300,6 @@ DEPENDENCIES
   mongoid-paranoia
   mongoid-tree
   mongoid_rails_migrations
-  mongoid_sortable_relation
   mysql2
   pry
   rademade_admin!
