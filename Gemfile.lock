@@ -156,11 +156,18 @@ GEM
       mongoid (~> 4.0.0)
     mongoid-tree (2.0.0)
       mongoid (>= 4.0, <= 5.0)
+    mongoid_criteria_filter (0.0.1)
+      mongoid (>= 4.0)
+      rails (>= 4.0)
     mongoid_rails_migrations (1.0.1)
       activesupport (>= 3.2.0)
       bundler (>= 1.0.0)
       rails (>= 3.2.0)
       railties (>= 3.2.0)
+    mongoid_sortable_relation (0.0.1)
+      mongoid (>= 4.0)
+      mongoid_criteria_filter
+      rails (>= 4.0)
     moped (2.0.0)
       bson (~> 2.2)
       connection_pool (~> 2.0)
@@ -292,6 +299,7 @@ DEPENDENCIES
   mongoid-paranoia
   mongoid-tree
   mongoid_rails_migrations
+  mongoid_sortable_relation
   mysql2
   pry
   rademade_admin!
