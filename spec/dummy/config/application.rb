@@ -19,7 +19,7 @@ module Dummy
 
     config.middleware.insert_before(Rack::Sendfile, LightResizer::Middleware, Rails.root)
 
-    config.i18n.available_locales = [:en, :ru]
+    I18n.config.available_locales = [:en, :ru]
 
   end
 end
