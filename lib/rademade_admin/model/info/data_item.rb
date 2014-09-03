@@ -62,8 +62,12 @@ module RademadeAdmin
         end
 
         def localizable?(localizable = true)
-          return !localizable unless has_field?
-          field.localizable == localizable
+          if @form_params.has_key? :localize
+            @form_params[:localize] == localizable
+          else
+            return !localizable unless has_field?
+            field.localizable == localizable
+          end
         end
 
         def label
@@ -75,7 +79,7 @@ module RademadeAdmin
         end
 
         def localizable_getter
-          @localizable_getter ||= @field.localizable_getter
+          @localizable_getter ||= _localizable_getter
         end
 
         def setter
@@ -124,6 +128,11 @@ module RademadeAdmin
           return @relation.name if has_relation?
           return @field.name if has_field?
           name
+        end
+
+        def _localizable_getter
+          return @field.localizable_getter if has_field?
+          :"#{getter}_translations" # todo if this name is not same for AR - make some method name for translations
         end
 
       end

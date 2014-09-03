@@ -52,8 +52,8 @@ module RademadeAdmin
             entities.each_with_index do |entity, index|
               entity.send(data_item.sortable_setter, index + 1)
               entity.save
-              entity.reload
             end if data_item.sortable_relation?
+            entities.each &:reload
             # todo for AR
           else
             if ids.empty?

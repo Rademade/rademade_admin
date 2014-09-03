@@ -52,7 +52,8 @@ class @Select2Input.View extends Backbone.View
 
   _updateData : () =>
     relatedData = @model.getRelatedData()
-    @$item.select2('data', relatedData)
+    if @model.isMultiple() or not _.isEmpty(relatedData)
+      @$item.select2('data', relatedData)
 
   @init : ($el) ->
     view = new this
