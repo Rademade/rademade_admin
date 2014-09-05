@@ -18,7 +18,7 @@ $(document).on('ready page:load', function(){
         'class': null, // additional css class
         hideOnClick: true,// whether to hide the notifications on mouse click (default: true)
         loader: false,  // whether to display loader animation in notifications (default: false)
-        destroy: false,// notification or selector of notifications to hide on show (default: false)
+        destroy: true,// notification or selector of notifications to hide on show (default: false)
         opacity: 1, // notification's opacity (default: 1)
         offsetY: 0, // distance between the notifications and the top/bottom edge (default: 0)
         fadeInMs: 500,  // duration (milliseconds) of notification's fade-in effect (default: 500)

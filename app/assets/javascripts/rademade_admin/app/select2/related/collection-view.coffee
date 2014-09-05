@@ -12,12 +12,13 @@ class @Select2Input.RelatedCollectionView extends Backbone.View
 
   initSort : () ->
     @$el.disableSelection()
-    @$el.sortable
-      stop : () =>
-        $children = @$el.children()
-        _.each @_views, (view) =>
-          view.model.set 'position', $children.index(view.$el) + 1
-        @collection.resort()
+    if @$el.data('sortable')
+      @$el.sortable
+        stop : () =>
+          $children = @$el.children()
+          _.each @_views, (view) =>
+            view.model.set 'position', $children.index(view.$el) + 1
+          @collection.resort()
 
   @init : ($list) ->
     views = []

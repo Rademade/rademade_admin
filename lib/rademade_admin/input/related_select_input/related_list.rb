@@ -7,7 +7,12 @@ module RademadeAdmin
         private
 
         def related_list_html
-          template.content_tag(:ul, related_list_items_html, :class => 'select2-items-list')
+          template.content_tag(:ul, related_list_items_html, {
+            :class => 'select2-items-list',
+            :data => {
+              :sortable => related_data_item.relation.sortable?
+            }
+          })
         end
 
         def related_list_items_html
