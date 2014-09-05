@@ -5,7 +5,7 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
     list :email, :first_name, :last_name
     form do
       email :hint => 'Электронная почта'
-      avatar :localize => true
+      avatar
       first_name
       last_name
       posts

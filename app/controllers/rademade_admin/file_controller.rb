@@ -7,10 +7,10 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
   def upload
     begin
       param_key = params[:column].to_sym
-      uploader.store!( params[param_key] )
+      uploader.store!(params[param_key])
       render :json => {
-          :html => preview_html,
-          :file => uploader
+        :html => preview_html,
+        :file => uploader
       }
     rescue CarrierWave::UploadError => e
       render :json => { :error => e.to_s }, :status => :unprocessable_entity
@@ -18,12 +18,12 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
   end
 
   def uploader
-    @uploader ||= RademadeAdmin::LoaderService.const_get( params[:uploader] ).new( model, params[:column] )
+    @uploader ||= RademadeAdmin::LoaderService.const_get(params[:uploader]).new(model, params[:column])
   end
 
   def model
-    model_class = RademadeAdmin::LoaderService.const_get( params[:model] )
-    params[:saved].to_i.zero? ? model_class.new : model_class.find( params[:id] )
+    model_class = RademadeAdmin::LoaderService.const_get(params[:model])
+    params[:saved].to_i.zero? ? model_class.new : model_class.find(params[:id])
   end
 
 end

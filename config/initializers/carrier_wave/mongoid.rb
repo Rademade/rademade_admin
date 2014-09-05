@@ -6,6 +6,8 @@ module CarrierWave
     def mount_uploader(column, uploader = nil, options = {}, &block)
       if options[:localize]
 
+        field options[:mount_on] || column, :localize => true
+
         I18n.available_locales.each do |locale|
           original_mount_uploader("#{column}_#{locale}", uploader, options, &block)
         end
