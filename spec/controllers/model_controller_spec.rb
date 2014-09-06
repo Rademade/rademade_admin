@@ -55,7 +55,7 @@ describe RademadeAdmin::PostsController, :js => true do
 
     before(:each) do
       visit new_rademade_admin_post_path
-      fill_in 'data_headline', :with => 'test headline'
+      fill_in 'data[headline]', :with => 'test headline'
       click_on 'Create'
     end
 
@@ -81,7 +81,7 @@ describe RademadeAdmin::PostsController, :js => true do
 
     before(:each) do
       visit edit_rademade_admin_post_path(:id => post.id)
-      fill_in 'data_headline', :with => 'new headline'
+      fill_in 'data[headline]', :with => 'new headline'
       click_on 'Update Post'
     end
 
@@ -197,7 +197,7 @@ describe RademadeAdmin::PostsController, :js => true do
 
     it 'should show form for existing item' do
       visit form_rademade_admin_post_path(:id => post.id)
-      expect(page).to have_field('data_headline', :with => post.headline)
+      expect(page).to have_field('data[headline]', :with => post.headline)
     end
 
   end

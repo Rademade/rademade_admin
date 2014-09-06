@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: 4e3b39e9bbcf1b36d0472c6b09f8f394c55065f4
+  revision: 1f7dc9acacbd2c4f2c1e27f31583490d4d0c3d4d
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0)
@@ -157,16 +157,16 @@ GEM
       mongoid (~> 4.0.0)
     mongoid-tree (2.0.0)
       mongoid (>= 4.0, <= 5.0)
-    mongoid_criteria_filter (0.0.1)
-      mongoid (>= 4.0)
+    mongoid_criteria_filter (0.0.2)
+      mongoid
       rails (>= 4.0)
     mongoid_rails_migrations (1.0.1)
       activesupport (>= 3.2.0)
       bundler (>= 1.0.0)
       rails (>= 3.2.0)
       railties (>= 3.2.0)
-    mongoid_sortable_relation (0.0.1)
-      mongoid (>= 4.0)
+    mongoid_sortable_relation (0.0.3)
+      mongoid
       mongoid_criteria_filter
       rails (>= 4.0)
     moped (2.0.0)

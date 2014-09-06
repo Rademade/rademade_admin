@@ -58,9 +58,9 @@ module RademadeAdmin
     end
 
     def upload_button_html
-        template.content_tag(:span, 'Upload file', { #rm_todo add to translations
-            :class => 'btn green-btn upload-btn'
-        })
+      template.content_tag(:span, I18n.t('rademade_admin.upload_file'), {
+        :class => 'btn green-btn upload-btn'
+      })
     end
 
     def data_item
