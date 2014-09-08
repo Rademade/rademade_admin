@@ -32,7 +32,7 @@ module RademadeAdmin
                 :type => column_data.type,
                 :localizable => false, # todo
                 :localizable_getter => nil, # todo
-                :relation_name => '' # todo
+                :relation_name => name[/(.+)_id$/, 1]
               })
             end
             fields
@@ -51,6 +51,7 @@ module RademadeAdmin
                 :getter => getter,
                 :setter => getter + '=',
                 :type => type,
+                :many => type == :has_many,
                 :has_many => has_many_relations.include?(type),
                 :sortable => false,
                 :sortable_field => nil,

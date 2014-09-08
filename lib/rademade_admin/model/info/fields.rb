@@ -35,7 +35,7 @@ module RademadeAdmin
 
           @data_adapter.fields.each do |_, field|
             relation = field.relation_name.nil? ? nil : @data_adapter.relation(field.relation_name)
-            used_relations << field.name if relation
+            used_relations << field.relation_name if relation
             data_items.add_data_item(init_data_item(field, relation))
           end
 
