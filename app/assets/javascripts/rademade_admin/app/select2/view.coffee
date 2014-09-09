@@ -43,10 +43,9 @@ class @Select2Input.View extends Backbone.View
     FormPopup.Initializer.getInstance().showPopup relatedModel
 
   _createRelatedModel : (url) ->
-    relatedModel = new Select2Input.RelatedModel
-      edit_url : url
+    relatedModel = @_relatedModel url
     relatedModel.on 'data-change', () =>
-      @model.get('related').add relatedModel
+      @model.get('related').add(relatedModel) if @model.isMultiple()
       @_updateData()
     relatedModel
 
@@ -54,6 +53,14 @@ class @Select2Input.View extends Backbone.View
     relatedData = @model.getRelatedData()
     if @model.isMultiple() or not _.isEmpty(relatedData)
       @$item.select2('data', relatedData)
+
+  _relatedModel : (url) ->
+    if @model.isMultiple()
+      relatedModel = new Select2Input.RelatedModel
+    else
+      relatedModel = @model.get('related')
+    relatedModel.set 'edit_url', url
+    relatedModel
 
   @init : ($el) ->
     view = new this
