@@ -1,4 +1,5 @@
 if (CKEDITOR && CKEDITOR.config) {
+    CKEDITOR.config.language = 'en';
     CKEDITOR.config.toolbar = [
         { name: 'document', groups: [ 'mode' ], items: [ 'Source' ] },
         { name: 'editing', groups: [ 'find' ], items: [ 'Find', 'Replace' ] },
