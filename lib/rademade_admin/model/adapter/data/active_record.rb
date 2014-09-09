@@ -29,11 +29,31 @@ module RademadeAdmin
                 :primary => column_data.primary,
                 :getter => getter,
                 :setter => getter + '=',
-                :type => column_data.type,
-                :localizable => false, # todo
-                :localizable_getter => nil, # todo
+                :type => column_data.type, # review: is it using somewhere?
+                :localizable => false,
+                :localizable_getter => nil,
                 :relation_name => name[/(.+)_id$/, 1]
               })
+            end
+            translation_class = @model.try(:translation_class)
+            if translation_class
+              @model.try(:translated_attribute_names).each do |name|
+                fields[name] = RademadeAdmin::Model::Info::Field.new({
+                  :name => name,
+                  :primary => false,
+                  :getter => name,
+                  :setter => name + '=',
+                  :type => :string,
+                  :localizable => true,
+                  :localizable_getter => nil, # todo
+                  :relation_name => nil
+                })
+              end
+              # it is easier to change I18n before setting new value, for Mongoid same
+              # Article::Translation.where(:article_id => a.id, :locale => :en).first
+              # set attr
+              # save
+              binding.pry
             end
             fields
           end
@@ -44,19 +64,21 @@ module RademadeAdmin
               name = name.to_sym
               getter = name.to_s
               type = relation_info.macro
-              relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
-                :name => name,
-                :from => @model,
-                :to => RademadeAdmin::LoaderService.const_get(relation_info.class_name),
-                :getter => getter,
-                :setter => getter + '=',
-                :type => type,
-                :many => type == :has_many,
-                :has_many => has_many_relations.include?(type),
-                :sortable => false,
-                :sortable_field => nil,
-                :foreign_key => relation_info.foreign_key.to_sym
-              })
+              if name != :translations
+                relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
+                  :name => name,
+                  :from => @model,
+                  :to => RademadeAdmin::LoaderService.const_get(relation_info.class_name),
+                  :getter => getter,
+                  :setter => getter + '=',
+                  :type => type,
+                  :many => type == :has_many,
+                  :has_many => has_many_relations.include?(type),
+                  :sortable => false,
+                  :sortable_field => nil,
+                  :foreign_key => relation_info.foreign_key.to_sym
+                })
+              end
             end
             relations
           end
