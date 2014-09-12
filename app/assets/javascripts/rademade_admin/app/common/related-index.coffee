@@ -4,7 +4,7 @@ initSelect = ->
 
   $item.select2(
     multiple : false
-    placeholder : 'Enter search phrase'
+    placeholder : I18n.t('rademade_admin.enter_search')
 
     initSelection : (element, callback) ->
       ids = element.val().replace(/\s*/g, '').split(',')

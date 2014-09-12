@@ -10,6 +10,8 @@ require 'compass-rails'
 # js assets
 require 'turbolinks'
 
+require 'i18n-js'
+
 require 'simple_form'
 require 'ckeditor'
 

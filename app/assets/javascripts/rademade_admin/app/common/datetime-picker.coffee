@@ -1,6 +1,5 @@
 initDatetimePicker = () ->
   $('[data-date-time-picker]').each () ->
-    # todo init with current language: $datetimePicker.datetimepicker(language : 'en')
     $datetimePicker = $(this)
     $hiddenInput = $datetimePicker.siblings('input')
 

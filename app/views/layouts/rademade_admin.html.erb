@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>Rademade Admin</title>
-        <%= stylesheet_link_tag(:rademade_admin, :media => "all", "data-turbolinks-track" => true) %>
-        <%= javascript_include_tag(:rademade_admin, "data-turbolinks-track" => true) %>
+        <%= stylesheet_link_tag(:rademade_admin, :media => 'all', 'data-turbolinks-track' => true) %>
+        <%= javascript_include_tag(:rademade_admin, 'data-turbolinks-track' => true) %>
         <%= csrf_meta_tags %>
     </head>
 
@@ -12,5 +12,11 @@
             <%= yield %>
         </div>
     </body>
+
+    <%= javascript_tag do %>
+        I18n.defaultLocale = "<%= I18n.default_locale %>";
+        I18n.locale = "<%= I18n.locale %>";
+        I18n.fallbacks = true;
+    <% end %>
 
 </html>

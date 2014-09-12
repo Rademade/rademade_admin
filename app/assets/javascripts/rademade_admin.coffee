@@ -1,3 +1,5 @@
+#= require i18n
+#= require i18n/translations
 #= require jquery/dist/jquery
 #= require jquery-ui/ui/core
 #= require jquery-ui/ui/widget
