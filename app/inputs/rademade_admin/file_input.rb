@@ -2,7 +2,6 @@
 module RademadeAdmin
   class FileInput < SimpleForm::Inputs::FileInput
 
-    include UploadPreviewHelper
     include UriHelper
 
     def initialize(*args)
@@ -23,7 +22,10 @@ module RademadeAdmin
     def file_html
       template.content_tag(
         :div,
-        HtmlBuffer.new([preview_html, input_file_html, upload_progress_html, upload_button_html, input_hidden_html]),
+        HtmlBuffer.new([
+          upload_preview_service.preview_html, input_file_html,
+          upload_progress_html, upload_button_html, input_hidden_html
+        ]),
         { :class => 'uploader-wrapper' }
       )
     end
@@ -61,6 +63,10 @@ module RademadeAdmin
       template.content_tag(:span, I18n.t('rademade_admin.upload_file'), {
         :class => 'btn green-btn upload-btn'
       })
+    end
+
+    def upload_preview_service
+      @upload_preview_service ||= RademadeAdmin::Upload::PreviewService.new(@uploader)
     end
 
     def data_item
