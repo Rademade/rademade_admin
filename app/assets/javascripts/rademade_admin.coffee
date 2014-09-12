@@ -15,6 +15,7 @@
 #= require jquery-validation/src/core
 #= require jquery-validation/src/ajax
 #= require jquery-validation/src/delegate
+#= require moment/moment
 #= require turbolinks
 #= require select2
 #= require ckeditor/init
@@ -29,6 +30,7 @@
 #= require backbone/backbone
 #= require bootstrap/dist/js/bootstrap
 #= require bootstrap-datepicker/js/bootstrap-datepicker
+#= require bootstrap-datetimepicker/src/js/bootstrap-datetimepicker
 #= require_tree ./rademade_admin/library
 #= require_tree ./rademade_admin/form
 #= require_tree ./rademade_admin/app

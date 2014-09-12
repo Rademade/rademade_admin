@@ -15,6 +15,7 @@ class Post
   field :headline, :type => String
   field :text, :type => String, :localize => true
   field :status, :type => Integer
+  field :post_time, :type => DateTime
 
   validates_presence_of :headline
 
