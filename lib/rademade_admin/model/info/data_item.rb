@@ -62,7 +62,7 @@ module RademadeAdmin
         end
 
         def localizable?(localizable = true)
-          if @form_params.has_key? :localize
+          if not @form_params.nil? and @form_params.has_key? :localize
             @form_params[:localize] == localizable
           else
             return !localizable unless has_field?
