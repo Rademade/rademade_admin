@@ -52,31 +52,11 @@ module RademadeAdmin
       I18n.locale = current_locale
     end
 
-    def save_model_relations
+	def save_model_relations
       data = @params[:data]
       @model_info.data_items.related_fields.each do |_, data_item|
-        getter = data_item.getter
-        if data.has_key? getter
-          ids = data[getter]
-          # rm_todo extract sub-methods
-          if ids.kind_of? Array
-            ids.reject! { |id| id.empty? }
-            entities = related_entities(data_item, ids)
-            clear_relations item.send(getter)
-            entities.each_with_index do |entity, index|
-              entity.send(data_item.sortable_setter, index + 1)
-              entity.save
-            end if data_item.sortable_relation?
-            entities.each &:reload
-            # todo for AR
-          else
-            if ids.empty?
-              entities = nil
-            else
-              entities = data_item.relation.related_entities(ids)
-            end
-          end
-          item.send(data_item.setter, entities)
+        if data.has_key? data_item.getter
+          item.send(data_item.setter, find_entities(data_item, data[data_item.getter]))
         end
       end
     end
@@ -94,6 +74,29 @@ module RademadeAdmin
           end
         end
       end
+    end
+
+    def find_entities(data_item, ids)
+      if ids.kind_of? Array
+        ids.reject! { |id| id.empty? }
+        entities = related_entities(data_item, ids)
+        sort_related_entities(data_item, entities)
+      else
+        ids.empty? ? nil : data_item.relation.related_entities(ids)
+      end
+    end
+
+    def sort_related_entities(data_item, new_entities)
+      if data_item.sortable_relation?
+        clear_relations item.send(data_item.getter)
+        new_entities.each_with_index do |entity, index|
+          entity.send(data_item.sortable_setter, index + 1)
+          entity.save
+        end if data_item.relation.many?
+        new_entities.each &:reload
+      end
+      # todo for AR
+      new_entities
     end
 
     def simple_field_params

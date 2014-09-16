@@ -12,7 +12,7 @@ module RademadeAdmin::FieldHelper
     value = item.send(data_item.preview_accessor)
     if data_item.has_relation?
       # rm_todo extract method
-      if data_item.relation.many?
+      if data_item.relation.has_many?
         link_to data_item.label, admin_related_item(item, data_item.getter)
       else
         link_to value.to_s, admin_edit_uri(value) unless value.nil?

@@ -6,8 +6,12 @@ module RademadeAdmin
 
         attr_reader :name, :from, :to, :getter, :setter, :type, :foreign_key, :sortable_field
 
-        def many?
+        def has_many?
           @has_many
+        end
+
+        def many?
+          @many
         end
 
         def sortable?
@@ -33,6 +37,7 @@ module RademadeAdmin
           @setter = opt[:setter]
           @type = opt[:type]
           @has_many = opt[:has_many]
+          @many = opt[:many]
           @foreign_key = opt[:foreign_key]
           @sortable = opt[:sortable]
           @sortable_field = opt[:sortable_field]
