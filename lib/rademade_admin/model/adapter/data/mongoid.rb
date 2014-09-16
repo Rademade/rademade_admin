@@ -24,15 +24,13 @@ module RademadeAdmin
             @model.fields.each do |name, field_data|
               name = name.to_sym
               getter = name.to_s
-              is_localizable = field_data.localized?
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
                 :primary => name == :_id,
                 :getter => getter,
                 :setter => getter + '=',
                 :type => field_data.type,
-                :localizable => is_localizable,
-                :localizable_getter => is_localizable ? :"#{getter}_translations" : nil,
+                :localizable => field_data.localized?,
                 :relation_name => field_data.options[:metadata].try(:name)
               })
             end

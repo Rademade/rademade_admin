@@ -4,11 +4,6 @@ module RademadeAdmin
 
     include UriHelper
 
-    def initialize(*args)
-      super
-      @uploader = object.send(attribute_name)
-    end
-
     def input
       template.content_tag(
         :div,
@@ -31,23 +26,23 @@ module RademadeAdmin
     end
 
     def input_file_html
-      @builder.file_field(attribute_name, {
+      @builder.file_field(uploader.mounted_as, {
         :id => nil,
         :class => 'btn yellow-btn uploader-input-file',
-        :name => attribute_name,
+        :name => uploader.mounted_as,
         :data => {
-          :column => attribute_name,
+          :column => uploader.mounted_as,
           :id => object.id.to_s,
           :saved => object.new_record? ? 0 : 1,
           :model => object.class.to_s,
-          :uploader => data_item.uploader.uploader.to_s,
+          :uploader => uploader.class.to_s,
           :url => admin_url_for(:controller => 'file', :action => 'upload')
         }
       })
     end
 
     def input_hidden_html
-      @builder.hidden_field(attribute_name, {
+      @builder.hidden_field(uploader.mounted_as, {
         :class => 'uploader-input-hidden hidden'
       })
     end
@@ -66,15 +61,11 @@ module RademadeAdmin
     end
 
     def upload_preview_service
-      @upload_preview_service ||= RademadeAdmin::Upload::PreviewService.new(@uploader)
+      @upload_preview_service ||= RademadeAdmin::Upload::PreviewService.new(uploader)
     end
 
-    def data_item
-      unless @data_item
-        model_info = Model::Graph.instance.model_info(object.class)
-        @data_item = model_info.data_items.data_item(attribute_name)
-      end
-      @data_item
+    def uploader
+      @uploader ||= input_html_options[:value] || object.send(attribute_name)
     end
 
   end

@@ -32,7 +32,7 @@ initUploader = ->
 
   bindFileUploader::_appendUploadResult = (result)->
     @$wrapper.find('.preview-wrapper').replaceWith(result.html)
-    @$wrapper.find('.hidden').val(result.file[@$el.data('column')].url)
+    @$wrapper.find('input[type="hidden"]').val(result.file[@$el.data('column')].url)
 
   bindFileUploader::init = () ->
     #todo url take from dom

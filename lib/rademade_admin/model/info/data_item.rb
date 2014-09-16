@@ -9,27 +9,25 @@ module RademadeAdmin
                       :relation,
                       :label,
                       :form_position,
-                      :list_position
+                      :list_position,
+                      :has_uploader
 
-        attr_writer :is_uploader,
-                    :in_form,
+        attr_writer :in_form,
                     :form_params,
                     :in_list,
                     :preview_accessor
-
-        attr_reader :uploader
 
         #
         # @param name [Symbol]
         # @param field [RademadeAdmin::Model::Info::Field]
         # @param relation [RademadeAdmin::Model::Info::Relation]
-        # @param uploader [RademadeAdmin::Model::Info::Uploader]
+        # @param has_uploader [Boolean]
         #
-        def initialize(name, field = nil, relation = nil, uploader = nil)
+        def initialize(name, field = nil, relation = nil, has_uploader = false)
           @name = name
           @field = field
           @relation = relation
-          @uploader = uploader
+          @has_uploader = has_uploader
           @in_list = false
           @in_form = false
           @form_params = nil
@@ -41,10 +39,6 @@ module RademadeAdmin
           (has_relation? and @relation.name == name) or (has_field? and @field.name == name)
         end
 
-        def permit_name
-          localizable? ? { localizable_getter => I18n.available_locales } : name # RM_REVIEW
-        end
-
         def has_relation?
           not @relation.nil?
         end
@@ -54,7 +48,7 @@ module RademadeAdmin
         end
 
         def has_uploader?
-          not @uploader.nil?
+          has_uploader
         end
 
         def sortable_relation?
@@ -76,10 +70,6 @@ module RademadeAdmin
 
         def getter
           @getter ||= _getter
-        end
-
-        def localizable_getter
-          @localizable_getter ||= _localizable_getter
         end
 
         def setter
@@ -128,11 +118,6 @@ module RademadeAdmin
           return @relation.name if has_relation?
           return @field.name if has_field?
           name
-        end
-
-        def _localizable_getter
-          return @field.localizable_getter if has_field?
-          :"#{getter}_translations" # todo if this name is not same for AR - make some method name for translations
         end
 
       end
