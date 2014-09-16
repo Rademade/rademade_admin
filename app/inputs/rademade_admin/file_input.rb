@@ -49,7 +49,7 @@ module RademadeAdmin
     def input_hidden_html
       @builder.hidden_field(attribute_name, {
         :class => 'uploader-input-hidden hidden'
-      })
+      }.merge(input_html_options))
     end
 
     def upload_progress_html

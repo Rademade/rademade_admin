@@ -9,27 +9,25 @@ module RademadeAdmin
                       :relation,
                       :label,
                       :form_position,
-                      :list_position
+                      :list_position,
+                      :has_uploader
 
-        attr_writer :is_uploader,
-                    :in_form,
+        attr_writer :in_form,
                     :form_params,
                     :in_list,
                     :preview_accessor
-
-        attr_reader :uploader
 
         #
         # @param name [Symbol]
         # @param field [RademadeAdmin::Model::Info::Field]
         # @param relation [RademadeAdmin::Model::Info::Relation]
-        # @param uploader [RademadeAdmin::Model::Info::Uploader]
+        # @param has_uploader [Boolean]
         #
-        def initialize(name, field = nil, relation = nil, uploader = nil)
+        def initialize(name, field = nil, relation = nil, has_uploader = false)
           @name = name
           @field = field
           @relation = relation
-          @uploader = uploader
+          @has_uploader = has_uploader
           @in_list = false
           @in_form = false
           @form_params = nil
@@ -50,7 +48,7 @@ module RademadeAdmin
         end
 
         def has_uploader?
-          not @uploader.nil?
+          has_uploader
         end
 
         def sortable_relation?
