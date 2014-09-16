@@ -16,11 +16,11 @@ module CarrierWave
         class_eval <<-RUBY, __FILE__, __LINE__+1
 
           def #{column}=(new_file)
-            #{column}_#{I18n.locale} = new_file
+            send(:"#{column}_\#{I18n.locale}=", new_file)
           end
 
           def #{column}
-            #{column}_#{I18n.locale}
+            send(:"#{column}_\#{I18n.locale}")
           end
 
           def #{column}_translations=(translations)
