@@ -49,6 +49,10 @@ module RademadeAdmin
           @uploader_fields ||= items.select { |_, data_item| data_item.has_uploader? }
         end
 
+        def localizable_fields
+          @localizable_fields ||= items.select { |_, data_item| data_item.localizable? }
+        end
+
         def list_fields
           @list_fields ||= collect_list_fields
         end
@@ -105,7 +109,7 @@ module RademadeAdmin
         def collect_save_form_fields
           fields = form_fields.select { |_, data_item| data_item.simple_field? }
           fields = items.select { |_, data_item| data_item.simple_field? } if fields.empty?
-          fields.values.map(&:permit_name)
+          fields.values.map(&:getter)
         end
 
         def _default_fields
