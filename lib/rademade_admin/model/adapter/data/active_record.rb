@@ -31,7 +31,6 @@ module RademadeAdmin
                 :setter => getter + '=',
                 :type => column_data.type,
                 :localizable => false, # todo
-                :localizable_getter => nil, # todo
                 :relation_name => '' # todo
               })
             end

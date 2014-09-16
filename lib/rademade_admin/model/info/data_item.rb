@@ -41,10 +41,6 @@ module RademadeAdmin
           (has_relation? and @relation.name == name) or (has_field? and @field.name == name)
         end
 
-        def permit_name
-          localizable? ? { localizable_getter => I18n.available_locales } : name # RM_REVIEW
-        end
-
         def has_relation?
           not @relation.nil?
         end
@@ -76,10 +72,6 @@ module RademadeAdmin
 
         def getter
           @getter ||= _getter
-        end
-
-        def localizable_getter
-          @localizable_getter ||= _localizable_getter
         end
 
         def setter
@@ -128,11 +120,6 @@ module RademadeAdmin
           return @relation.name if has_relation?
           return @field.name if has_field?
           name
-        end
-
-        def _localizable_getter
-          return @field.localizable_getter if has_field?
-          :"#{getter}_translations" # todo if this name is not same for AR - make some method name for translations
         end
 
       end

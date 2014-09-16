@@ -14,16 +14,18 @@ module RademadeAdmin
     end
 
     def create_model
-      @item = @model_info.model.new(filter_data_params)
+      @item = @model_info.model.new
     end
 
     def update_model
       @item = @model_info.model.find(@params[:id])
-      item.update filter_data_params
+      save_model
     end
 
     def save_model
-      item.save filter_data_params
+      item.assign_attributes simple_field_params
+      save_localizable_fields
+      item.save
     end
 
     def save_aggregated_data
@@ -37,6 +39,18 @@ module RademadeAdmin
     end
 
     private
+
+    def save_localizable_fields
+      current_locale = I18n.locale
+      @model_info.data_items.localizable_fields.each do |_, data_item|
+        values = @params[:data].try(:[], data_item.getter)
+        values.each do |locale, value|
+          I18n.locale = locale
+          item.send(data_item.setter, value)
+        end if values
+      end
+      I18n.locale = current_locale
+    end
 
     def save_model_relations
       data = @params[:data]
@@ -82,7 +96,7 @@ module RademadeAdmin
       end
     end
 
-    def filter_data_params
+    def simple_field_params
       @params.require(:data).permit(@model_info.data_items.save_form_fields)
     end
 
