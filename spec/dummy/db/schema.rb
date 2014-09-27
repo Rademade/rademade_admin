@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140927150400) do
+ActiveRecord::Schema.define(version: 20140927181000) do
 
   create_table "article_translations", force: true do |t|
     t.integer  "article_id", null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20140927150400) do
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "author_position"
   end
 
   add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree

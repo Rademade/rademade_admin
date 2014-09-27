@@ -1,5 +1,19 @@
 module ActiveRecord
 
+  module Associations
+    module Builder
+      class Association
+
+        alias_method :original_valid_options, :valid_options
+
+        def valid_options
+          original_valid_options + [:sortable, :sortable_field]
+        end
+
+      end
+    end
+  end
+
   module Reflection
     class AssociationReflection
 
@@ -9,6 +23,23 @@ module ActiveRecord
 
       def sortable?
         @options.fetch(:sortable, false)
+      end
+
+    end
+  end
+
+  module Associations
+    class HasManyAssociation
+
+      alias_method :original_reader, :reader
+
+      def reader(force_reload = false)
+        result = original_reader(force_reload)
+        # todo do not order if it was ordered
+        if reflection.sortable?
+          result = result.order("#{reflection.table_name}.#{reflection.sortable_field} ASC")
+        end
+        result
       end
 
     end
@@ -35,6 +66,7 @@ module ActiveRecord
             .where(through_reflection.foreign_key.to_sym => owner.id)
             .where(source_reflection.foreign_key.to_sym => records.map(&:id))
           intermediate_records.each_with_index do |intermediate_record, index|
+            # todo do has many through
             intermediate_record.send(:"#{association_reflection.sortable_field}=", index + 1)
             intermediate_record.save
           end
