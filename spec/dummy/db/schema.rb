@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140909175800) do
+ActiveRecord::Schema.define(version: 20140926142600) do
 
   create_table "article_translations", force: true do |t|
     t.integer  "article_id", null: false
@@ -32,9 +32,19 @@ ActiveRecord::Schema.define(version: 20140909175800) do
 
   add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
 
+  create_table "author_translations", force: true do |t|
+    t.integer  "author_id",  null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo"
+  end
+
+  add_index "author_translations", ["author_id"], name: "index_author_translations_on_author_id", using: :btree
+  add_index "author_translations", ["locale"], name: "index_author_translations_on_locale", using: :btree
+
   create_table "authors", force: true do |t|
     t.string   "name"
-    t.string   "photo"
     t.boolean  "verified"
     t.datetime "created_at"
     t.datetime "updated_at"

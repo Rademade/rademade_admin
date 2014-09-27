@@ -46,13 +46,17 @@ module RademadeAdmin
         values = @params[:data].try(:[], data_item.getter)
         values.each do |locale, value|
           I18n.locale = locale
-          item.send(data_item.setter, value)
+          if data_item.has_uploader?
+            save_model_upload(data_item, value)
+          else
+            item.send(data_item.setter, value)
+          end
         end if values
       end
       I18n.locale = current_locale
     end
 
-	def save_model_relations
+	  def save_model_relations
       data = @params[:data]
       @model_info.data_items.related_fields.each do |_, data_item|
         if data.has_key? data_item.getter
@@ -65,13 +69,17 @@ module RademadeAdmin
       data = @params[:data]
       @model_info.data_items.uploader_fields.each do |_, data_item|
         name = data_item.name
-        if data.has_key?(name) and not data[name].blank?
-          image_path = "#{CarrierWave.root}#{data[name]}"
-          begin
-            item.send(data_item.setter, File.open(image_path))
-          rescue
-            # rm_todo clear image
-          end
+        save_model_upload(data_item, data[name]) if data.has_key?(name)
+      end
+    end
+
+    def save_model_upload(data_item, image_path)
+      unless image_path.blank?
+        full_image_path = "#{CarrierWave.root}#{image_path}"
+        begin
+          (item.try(:translation) || item).send(data_item.setter, File.open(full_image_path))
+        rescue
+          # rm_todo clear image
         end
       end
     end

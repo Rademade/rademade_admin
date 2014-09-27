@@ -36,7 +36,7 @@ module RademadeAdmin
                   :from => @model,
                   :to => RademadeAdmin::LoaderService.const_get(relation_info.class_name),
                   :getter => getter,
-                  :setter => getter + '=',
+                  :setter => "#{getter}=",
                   :type => type,
                   :many => type == :has_many,
                   :has_many => has_many_relations.include?(type),
@@ -58,7 +58,7 @@ module RademadeAdmin
                 :name => name,
                 :primary => column_data.primary,
                 :getter => getter,
-                :setter => getter + '=',
+                :setter => "#{getter}=",
                 :type => column_data.type,
                 :localizable => false,
                 :relation_name => name[/(.+)_id$/, 1]
@@ -75,13 +75,18 @@ module RademadeAdmin
                 :name => name,
                 :primary => false,
                 :getter => getter,
-                :setter => getter + '=',
+                :setter => "#{getter}=",
                 :type => :string,
                 :localizable => true,
                 :relation_name => nil
               })
-            end if @model.try(:translation_class)
+            end if @model.respond_to?(:translation_class)
             fields
+          end
+
+          def _model_uploaders
+            return super unless @model.respond_to?(:translation_class)
+            super.merge(@model.translation_class.uploaders)
           end
 
           private

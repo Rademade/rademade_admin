@@ -5,6 +5,7 @@ require 'rails/all'
 require 'mongoid'
 require 'carrierwave/mount'
 require 'carrierwave/mongoid'
+require 'carrierwave/orm/activerecord'
 require 'light_resizer'
 require 'globalize'
 

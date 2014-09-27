@@ -25,14 +25,14 @@ module CarrierWave
 
           def #{column}_translations=(translations)
             translations.each do |locale, translation|
-              send("#{column}_\#{locale}=", translation)
+              send(:"#{column}_\#{locale}=", translation)
             end
           end
 
           def #{column}_translations
             translations = {}
             I18n.available_locales.each do |locale|
-              translations[locale] = send("#{column}_\#{locale}")
+              translations[locale] = send(:"#{column}_\#{locale}")
             end
             translations
           end
