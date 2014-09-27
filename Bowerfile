@@ -16,6 +16,8 @@ asset 'jquery-fileupload', :github => 'blueimp/jQuery-File-Upload'
 asset 'jquery-timepicker', :github => 'trentrichardson/jQuery-Timepicker-Addon'
 asset 'magnific-popup', :github => 'dimsemenov/Magnific-Popup'
 
+asset 'moment'
+
 # Form
 asset 'jquery-form', :github => 'malsup/form'
 asset 'jquery-serialize', :github => 'macek/jquery-serialize-object'
