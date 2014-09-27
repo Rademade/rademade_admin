@@ -1,6 +1,7 @@
 class Author < ActiveRecord::Base
 
   has_many :articles
+  has_and_belongs_to_many :rubrics, :sortable => true
 
   translates :photo
 

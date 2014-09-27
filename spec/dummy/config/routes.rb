@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :rademade_admin do
 
     admin_resources :users, :posts, :tags
-    admin_resources :authors, :articles
+    admin_resources :authors, :articles, :rubrics
 
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926142600) do
+ActiveRecord::Schema.define(version: 20140927150400) do
 
   create_table "article_translations", force: true do |t|
     t.integer  "article_id", null: false
@@ -46,6 +46,20 @@ ActiveRecord::Schema.define(version: 20140926142600) do
   create_table "authors", force: true do |t|
     t.string   "name"
     t.boolean  "verified"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "authors_rubrics", id: false, force: true do |t|
+    t.integer "author_id"
+    t.integer "rubric_id"
+    t.integer "position"
+  end
+
+  add_index "authors_rubrics", ["author_id", "rubric_id"], name: "index_authors_rubrics_on_author_id_and_rubric_id", unique: true, using: :btree
+
+  create_table "rubrics", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

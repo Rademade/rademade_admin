@@ -116,7 +116,8 @@ module RademadeAdmin
     end
 
     def clear_relations(related_items)
-      related_items.nullify unless related_items.empty?
+      # todo nullify only mongoid
+      related_items.try(:nullify) unless related_items.empty?
     end
 
   end
