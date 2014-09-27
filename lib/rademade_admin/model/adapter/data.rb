@@ -103,10 +103,14 @@ module RademadeAdmin
         def _map_uploaders
           uploaders = {}
           return uploaders unless @model.respond_to?(:uploaders)
-          @model.uploaders.each do |name, uploader|
+          _model_uploaders.each do |name, uploader|
             uploaders[name] = RademadeAdmin::Model::Info::Uploader.new(name, uploader)
           end
           uploaders
+        end
+
+        def _model_uploaders
+          @model.uploaders
         end
 
       end

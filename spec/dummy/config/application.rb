@@ -5,7 +5,9 @@ require 'rails/all'
 require 'mongoid'
 require 'carrierwave/mount'
 require 'carrierwave/mongoid'
+require 'carrierwave/orm/activerecord'
 require 'light_resizer'
+require 'globalize'
 
 Bundler.require(*Rails.groups)
 require 'rademade_admin'
@@ -13,7 +15,7 @@ require 'rademade_admin'
 module Dummy
   class Application < Rails::Application
 
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
     config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
 

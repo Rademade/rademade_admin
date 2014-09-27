@@ -27,7 +27,7 @@ module RademadeAdmin
         end
 
         def multiple?
-          related_data_item.relation.many?
+          related_data_item.relation.has_many?
         end
 
         def related_value

@@ -50,6 +50,7 @@ module RademadeAdmin
                 :getter => name.to_s,
                 :setter => relation_info.setter,
                 :type => type,
+                :many => type == :has_many,
                 :has_many => has_many_relations.include?(type),
                 :sortable => is_sortable,
                 :sortable_field => is_sortable ? relation_info.sortable_field : nil,
