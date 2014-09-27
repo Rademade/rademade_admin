@@ -9,6 +9,9 @@
 #= require jquery-ui/ui/sortable
 #= require jquery-ui/ui/slider
 #= require jquery-ui/ui/tabs
+#= require jquery-ui/ui/datepicker
+#= require jquery-timepicker/dist/jquery-ui-timepicker-addon
+#= require jquery-timepicker/dist/jquery-ui-sliderAccess
 #= require jquery-fileupload/js/jquery.fileupload
 #= require jquery-fileupload/js/jquery.iframe-transport
 #= require jquery-form/jquery.form
@@ -30,9 +33,6 @@
 #= require wysihtml5/dist/wysihtml5-0.3.0
 #= require underscore/underscore
 #= require backbone/backbone
-#= require bootstrap/dist/js/bootstrap
-#= require bootstrap-datepicker/js/bootstrap-datepicker
-#= require bootstrap-datetimepicker/src/js/bootstrap-datetimepicker
 #= require_tree ./rademade_admin/library
 #= require_tree ./rademade_admin/form
 #= require_tree ./rademade_admin/app
