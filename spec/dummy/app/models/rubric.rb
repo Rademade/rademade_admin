@@ -1,6 +1,7 @@
 class Rubric < ActiveRecord::Base
 
-  has_and_belongs_to_many :authors
+  has_many :author_rubrics, :dependent => :destroy
+  has_many :authors, :through => :author_rubrics
 
   def to_s
     name

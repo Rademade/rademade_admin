@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140927181000) do
+ActiveRecord::Schema.define(version: 20140930172800) do
 
   create_table "article_translations", force: true do |t|
     t.integer  "article_id", null: false
@@ -33,6 +33,12 @@ ActiveRecord::Schema.define(version: 20140927181000) do
 
   add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
 
+  create_table "author_rubrics", force: true do |t|
+    t.integer "author_id", null: false
+    t.integer "rubric_id", null: false
+    t.integer "position"
+  end
+
   create_table "author_translations", force: true do |t|
     t.integer  "author_id",  null: false
     t.string   "locale",     null: false
@@ -50,14 +56,6 @@ ActiveRecord::Schema.define(version: 20140927181000) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "authors_rubrics", id: false, force: true do |t|
-    t.integer "author_id"
-    t.integer "rubric_id"
-    t.integer "position"
-  end
-
-  add_index "authors_rubrics", ["author_id", "rubric_id"], name: "index_authors_rubrics_on_author_id_and_rubric_id", unique: true, using: :btree
 
   create_table "rubrics", force: true do |t|
     t.string   "name"

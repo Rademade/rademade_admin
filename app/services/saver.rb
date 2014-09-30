@@ -87,24 +87,10 @@ module RademadeAdmin
     def find_entities(data_item, ids)
       if ids.kind_of? Array
         ids.reject! { |id| id.empty? }
-        entities = related_entities(data_item, ids)
-        sort_related_entities(data_item, entities)
+        related_entities(data_item, ids)
       else
         ids.empty? ? nil : data_item.relation.related_entities(ids)
       end
-    end
-
-    def sort_related_entities(data_item, new_entities)
-      if data_item.sortable_relation?
-        clear_relations item.send(data_item.getter)
-        new_entities.each_with_index do |entity, index|
-          entity.send(data_item.sortable_setter, index + 1)
-          entity.save
-        end if data_item.relation.many?
-        new_entities.each &:reload
-      end
-      # todo for AR
-      new_entities
     end
 
     def simple_field_params
@@ -113,11 +99,6 @@ module RademadeAdmin
 
     def related_entities(data_item, ids)
       ids.map { |id| data_item.relation.related_entities(id) }
-    end
-
-    def clear_relations(related_items)
-      # todo nullify only mongoid
-      related_items.try(:nullify) unless related_items.empty?
     end
 
   end
