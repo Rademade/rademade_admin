@@ -7,6 +7,7 @@ module RademadeAdmin
       if name == 'position'
         raise NotImplementedError.new 'Implement "position" method'
       end
+      super
     end
 
   end
