@@ -1,3 +1,4 @@
+# todo extract to active record sortable gem
 module ActiveRecord
 
   module Associations
@@ -28,20 +29,26 @@ module ActiveRecord
     end
   end
 
+  class AssociationRelation
+
+    alias_method :original_to_a, :to_a
+
+    def to_a
+      if proxy_association.reflection.sortable? and order_values.empty?
+        sortable_table_name = (proxy_association.try(:through_reflection) || proxy_association.reflection).table_name
+        order("#{sortable_table_name}.#{proxy_association.reflection.sortable_field} ASC").to_a
+      else
+        original_to_a
+      end
+    end
+
+  end
+
   module Associations
     class HasManyAssociation
 
       alias_method :original_reader, :reader
       alias_method :original_writer, :writer
-
-      def reader(force_reload = false)
-        result = original_reader(force_reload)
-        # todo do not order if it was ordered
-        if reflection.sortable?
-          result = result.order("#{(try(:through_reflection) || reflection).table_name}.#{reflection.sortable_field} ASC")
-        end
-        result
-      end
 
       def writer(records)
         original_writer(records)
@@ -51,28 +58,37 @@ module ActiveRecord
       private
 
       def sort_entities(records)
-        if respond_to? :through_reflection
-          if through_reflection.sortable?
-            record_positions = {}
-            records.each_with_index do |record, index|
-              record_positions[record.id] = index + 1
-            end
-
-            intermediate_entities = owner.send(through_reflection.name)
-            intermediate_entities.each do |intermediate_entity|
-              new_position = record_positions[intermediate_entity.send(source_reflection.foreign_key)]
-              intermediate_entity.send(:"#{reflection.sortable_field}=", new_position)
-              intermediate_entity.save
-            end
-          end
-        else
-          if reflection.sortable?
-            records.each_with_index do |record, index|
-              record.send(:"#{reflection.sortable_field}=", index + 1)
-              record.save
-            end
+        if reflection.sortable?
+          if respond_to? :through_reflection
+            sort_many_to_many_entities(records)
+          else
+            sort_one_to_many_entities(records)
           end
         end
+      end
+
+      def sort_many_to_many_entities(records)
+        record_positions = struct_record_positions(records)
+        owner.send(through_reflection.name).each do |intermediate_entity|
+          new_position = record_positions[intermediate_entity.send(source_reflection.foreign_key)]
+          intermediate_entity.send(:"#{reflection.sortable_field}=", new_position)
+          intermediate_entity.save
+        end
+      end
+
+      def sort_one_to_many_entities(records)
+        records.each_with_index do |record, index|
+          record.send(:"#{reflection.sortable_field}=", index + 1)
+          record.save
+        end
+      end
+
+      def struct_record_positions(records)
+        record_positions = {}
+        records.each_with_index do |record, index|
+          record_positions[record.id] = index + 1
+        end
+        record_positions
       end
 
     end
