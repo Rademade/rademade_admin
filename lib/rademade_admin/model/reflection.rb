@@ -42,8 +42,8 @@ module RademadeAdmin
 
       def orm_list
         @orm_list ||= {
-            'ActiveRecord::Base' => ORM_TYPE_ACTIVERECORD,
-            'Mongoid::Document' => ORM_TYPE_MONGOID
+          'ActiveRecord::Base' => ORM_TYPE_ACTIVERECORD,
+          'Mongoid::Document' => ORM_TYPE_MONGOID
         }
       end
 

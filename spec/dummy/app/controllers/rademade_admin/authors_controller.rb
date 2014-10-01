@@ -7,6 +7,7 @@ class RademadeAdmin::AuthorsController < RademadeAdmin::ModelController
       photo
       articles
       verified :boolean
+      rubrics
     end
   end
 

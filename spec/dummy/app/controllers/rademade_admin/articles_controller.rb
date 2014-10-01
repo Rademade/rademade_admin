@@ -4,6 +4,7 @@ class RademadeAdmin::ArticlesController < RademadeAdmin::ModelController
     list :name
     form do
       name
+      publish_time
     end
   end
 
