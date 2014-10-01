@@ -51,6 +51,10 @@ module RademadeAdmin
           has_uploader
         end
 
+        def date_time?
+          @field.is_date_time
+        end
+
         def sortable_relation?
           @relation.sortable?
         end

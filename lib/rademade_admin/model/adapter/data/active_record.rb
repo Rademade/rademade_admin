@@ -60,6 +60,7 @@ module RademadeAdmin
                 :getter => getter,
                 :setter => "#{getter}=",
                 :type => column_data.type,
+                :is_date_time => column_data.type == :datetime,
                 :localizable => false,
                 :relation_name => name[/(.+)_id$/, 1]
               })

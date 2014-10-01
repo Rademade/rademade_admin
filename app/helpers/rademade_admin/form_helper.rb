@@ -67,6 +67,8 @@ module RademadeAdmin::FormHelper
        :'rademade_admin/related_select'
     elsif form_field.has_uploader?
        :'rademade_admin/file'
+    elsif form_field.date_time?
+       :'rademade_admin/date_time'
     else
        nil
     end

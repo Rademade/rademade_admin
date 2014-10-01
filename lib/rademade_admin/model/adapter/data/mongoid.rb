@@ -30,6 +30,7 @@ module RademadeAdmin
                 :getter => getter,
                 :setter => getter + '=',
                 :type => field_data.type,
+                :is_date_time => field_data.type == DateTime,
                 :localizable => field_data.localized?,
                 :relation_name => field_data.options[:metadata].try(:name)
               })

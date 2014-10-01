@@ -7,7 +7,7 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
       headline
       avatar
       video
-      post_time :'rademade_admin/date_time'
+      post_time
       text :ckeditor
       user
       other_posts
