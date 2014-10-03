@@ -15,9 +15,15 @@ window.FormAjaxSubmit = ($form) ->
 
   FormAjaxSubmit::displayFieldErrors = (errors) ->
     messages = {}
+    globalMessages = []
 
     $.each errors, (field, message) =>
-      messages['data[' + field + ']'] = message
+      name = "data[#{field}]"
+      if $("[name='#{name}']").length > 0
+        messages[name] = message
+      else
+        _.each message, (subMessage) ->
+          globalMessages.push "#{field} #{subMessage}"
 
     unless $.isEmptyObject(messages)
       try
@@ -25,11 +31,17 @@ window.FormAjaxSubmit = ($form) ->
       catch e
         @displayGlobalErrors messages
       return true
+
+    unless messages.length is 0
+      @displayGlobalErrors globalMessages
+
     false
 
   FormAjaxSubmit::displayGlobalErrors = (errors) ->
-    $.each errors, (i, error) ->
-      #todo show global errors
+    errorMessage = ''
+    _.each errors, (error) ->
+      errorMessage += "<p>#{error}</p>"
+    window.notifier.notify errorMessage
 
 
   FormAjaxSubmit::.__loadValidationRules = (validation_data) ->
@@ -106,12 +118,11 @@ window.FormAjaxSubmit = ($form) ->
         _self.__processFormError( data )
       #rm_todo error catching.
       #rm_todo extract fail process method
-    ).always((response) ->
+    ).always (response) ->
       data = if (response.responseJSON) then response.responseJSON else response
-      window.notifier.notify(message: data.message) if data.message
+      window.notifier.notify(data.message) if data.message
       _self.trigger('ajax-submit-always', [data])
       _self._sending = false
-    )
 
   FormAjaxSubmit::trigger = ->
     @_$form.triggerHandler.apply(@_$form, arguments)
