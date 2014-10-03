@@ -18,7 +18,7 @@ module RademadeAdmin::FieldHelper
         link_to value.to_s, admin_edit_uri(value) unless value.nil?
       end
     elsif data_item.has_uploader?
-      uploaded_file_html(value)
+      RademadeAdmin::Upload::PreviewService.new(value).uploaded_file_html
     else
       value.to_s
     end
