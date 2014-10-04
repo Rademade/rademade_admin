@@ -15,8 +15,8 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
       document
       status :as => :select,
              :collection => {
-                 'Новый'    => '1',
-                 'Отклонен' => '2'
+               'Новый' => '1',
+               'Отклонен' => '2'
              },
              :include_blank => false
     end

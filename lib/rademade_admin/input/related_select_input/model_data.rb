@@ -19,7 +19,7 @@ module RademadeAdmin
         end
 
         def related_to
-          related_data_item.relation.to
+          related_data_item.relation.to || related_value.class
         end
 
         def relation_getter
