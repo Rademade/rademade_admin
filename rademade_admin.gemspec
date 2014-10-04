@@ -39,5 +39,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan', '~> 1.6', '>= 1.6.8'
   s.add_dependency 'breadcrumbs'
   s.add_dependency 'mongoid_sortable_relation' # todo move to rademade_admin_mongoid module
+  s.add_dependency 'activerecord_sortable'
 
 end
