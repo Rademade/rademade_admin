@@ -51,7 +51,7 @@ class @FormPopup.View extends Backbone.View
     Select2Input.View.initAll @$el
 
   _initForm : ($form) ->
-    (new FormAjaxSubmit($form)).init()
+    Form.init $form
     $form.on 'ajax-submit-done', (e, response) =>
       @model.update response.data
       @closePopup()
