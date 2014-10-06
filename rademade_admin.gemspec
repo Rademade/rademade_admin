@@ -6,8 +6,8 @@ require 'rademade_admin/version'
 Gem::Specification.new do |s|
   s.name        = 'rademade_admin'
   s.version     = RademadeAdmin::VERSION
-  s.authors     = ['Vladislav Melanitskiy', 'Denis Sergienko']
-  s.email       = %w(co@rademade.com olol.toor@gmail.com)
+  s.authors     = ['Vladislav Melanitskiy', 'Denis Sergienko', 'Sergey Kuzhavskiy']
+  s.email       = %w(co@rademade.com olol.toor@gmail.com kuzh@rademade.com)
   s.homepage    = 'https://github.com/Rademade/rademade_admin'
   s.summary     = 'Rails admin panel engine'
   s.description = 'Best rails admin panel. Great mechanism for customization and rapid development'
