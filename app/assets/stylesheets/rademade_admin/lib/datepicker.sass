@@ -1,0 +1,373 @@
+.ui-datepicker
+  .ui-slider-horizontal
+    height: 5px
+    background-color: #f6a828
+    +border-radius(3px)
+
+  .ui-datepicker-prev
+    width: 40px
+    cursor: pointer
+    span
+      position: relative
+      top: 5px
+      left: 5px
+  .ui-datepicker-next
+    width: 40px
+    cursor: pointer
+    span
+      position: relative
+      top: 5px
+      left: 5px
+
+  .ui_tpicker_hour
+    margin-bottom: 20px
+
+  .ui-slider-handle
+    top: -6px
+    cursor: pointer
+    outline: none
+    +border-radius(50%)
+
+  .ui-helper-hidden
+    display: none
+
+  .ui-helper-hidden-accessible
+    border: 0
+    clip: rect(0 0 0 0)
+    height: 1px
+    margin: -1px
+    overflow: hidden
+    padding: 0
+    position: absolute
+    width: 1px
+
+  .ui-helper-reset
+    margin: 0
+    padding: 0
+    border: 0
+    outline: 0
+    line-height: 1.3
+    text-decoration: none
+    font-size: 100%
+    list-style: none
+
+  &.ui-helper-clearfix
+    &:before
+      content: ""
+      display: table
+      border-collapse: collapse
+    &:after
+      content: ""
+      display: table
+      border-collapse: collapse
+      clear: both
+    min-height: 0
+  /* support: IE7
+
+  .ui-helper-zfix
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    position: absolute
+    opacity: 0
+    filter: Alpha(Opacity = 0)
+  /* support: IE8
+
+  .ui-front
+    z-index: 100
+
+  /* Interaction Cues
+   *----------------------------------
+
+  .ui-state-disabled
+    cursor: default !important
+
+  /* Icons
+   *----------------------------------
+
+  /* states and images
+
+  .ui-icon
+    display: block
+    text-indent: 0 !important
+    overflow: hidden
+    background-repeat: no-repeat
+
+  /* Misc visuals
+   *----------------------------------
+
+  /* Overlays
+
+  .ui-widget-overlay
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+
+  .ui-datepicker
+    width: 17em
+    padding: .2em .2em 0
+    display: none
+    .ui-datepicker-header
+      position: relative
+      padding: .2em 0
+    .ui-datepicker-prev, .ui-datepicker-next
+      position: absolute
+      top: 2px
+      width: auto
+      height: auto
+    .ui-datepicker-prev-hover, .ui-datepicker-next-hover
+      top: 1px
+    .ui-datepicker-prev
+      width: 50px
+      left: 2px
+    .ui-datepicker-next
+      width: 50px
+      margin-left: -5px
+      right: 2px
+    .ui-datepicker-prev-hover
+      left: 1px
+    .ui-datepicker-next-hover
+      right: 1px
+
+    .ui-datepicker-prev span, .ui-datepicker-next span
+      display: block
+      position: absolute
+      left: 50%
+      margin-left: -8px
+      top: 50%
+      margin-top: -8px
+    .ui-datepicker-title
+      margin: 0 2.3em
+      line-height: 1.8em
+      text-align: center
+      select
+        font-size: 1em
+        margin: 1px 0
+    select
+      &.ui-datepicker-month, &.ui-datepicker-year
+        width: 45%
+    table
+      width: 100%
+      font-size: .9em
+      border-collapse: collapse
+      margin: 0 0 .4em
+    th
+      padding: .7em .3em
+      text-align: center
+      font-weight: bold
+      border: 0
+    td
+      border: 0
+      padding: 1px
+      span, a
+        display: block
+        padding: .2em
+        text-align: right
+        text-decoration: none
+    .ui-datepicker-buttonpane
+      background-image: none
+      margin: .7em 0 0 0
+      padding: 0 .2em
+      border-left: 0
+      border-right: 0
+      border-bottom: 0
+      button
+        float: right
+        margin: .5em .2em .4em
+        cursor: pointer
+        padding: .2em .6em .3em .6em
+        width: auto
+        overflow: visible
+        &.ui-datepicker-current
+          float: left
+    &.ui-datepicker-multi
+      width: auto
+
+  /* with multiple calendars
+
+  .ui-datepicker-multi .ui-datepicker-group
+    float: left
+    table
+      width: 95%
+      margin: 0 auto .4em
+
+  .ui-datepicker-multi-2 .ui-datepicker-group
+    width: 50%
+
+  .ui-datepicker-multi-3 .ui-datepicker-group
+    width: 33.3%
+
+  .ui-datepicker-multi-4 .ui-datepicker-group
+    width: 25%
+
+  .ui-datepicker-multi
+    .ui-datepicker-group-last .ui-datepicker-header, .ui-datepicker-group-middle .ui-datepicker-header
+      border-left-width: 0
+    .ui-datepicker-buttonpane
+      clear: left
+
+  .ui-datepicker-row-break
+    clear: both
+    width: 100%
+    font-size: 0
+
+  /* RTL support
+
+  .ui-datepicker-rtl
+    direction: rtl
+    .ui-datepicker-prev
+      right: 2px
+      left: auto
+    .ui-datepicker-next
+      left: 2px
+      right: auto
+    .ui-datepicker-prev:hover
+      right: 1px
+      left: auto
+    .ui-datepicker-next:hover
+      left: 1px
+      right: auto
+    .ui-datepicker-buttonpane
+      clear: right
+      button
+        float: left
+        &.ui-datepicker-current
+          float: right
+    .ui-datepicker-group
+      float: right
+    .ui-datepicker-group-last .ui-datepicker-header, .ui-datepicker-group-middle .ui-datepicker-header
+      border-right-width: 0
+      border-left-width: 1px
+
+  /* Component containers
+   *----------------------------------
+
+  &.ui-widget
+    font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif
+    font-size: 1.1em
+    .ui-widget
+      font-size: 1em
+    input, select, textarea, button
+      font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif
+      font-size: 1em
+
+  &.ui-widget-content
+    border: 1px solid #dddddd
+    background: #eeeeee url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x
+    color: #333333
+    a
+      color: #333333
+
+  .ui-widget-header
+    border: 1px solid #e78f08
+    background: #f6a828 url("images/ui-bg_gloss-wave_35_f6a828_500x100.png") 50% 50% repeat-x
+    color: #ffffff
+    font-weight: bold
+    a
+      color: #ffffff
+
+  /* Interaction states
+   *----------------------------------
+
+  .ui-state-default, &.ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
+    border: 1px solid #cccccc
+    background: #f6f6f6 url("images/ui-bg_glass_100_f6f6f6_1x400.png") 50% 50% repeat-x
+    font-weight: bold
+    color: #1c94c4
+
+  .ui-state-default a
+    color: #1c94c4
+    text-decoration: none
+    &:link, &:visited
+      color: #1c94c4
+      text-decoration: none
+
+  .ui-state-hover, &.ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, &.ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus
+    border: 1px solid #fbcb09
+    background: #fdf5ce url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x
+    font-weight: bold
+    color: #c77405
+
+  .ui-state-hover a
+    color: #c77405
+    text-decoration: none
+    &:hover, &:link, &:visited
+      color: #c77405
+      text-decoration: none
+
+  .ui-state-focus a
+    color: #c77405
+    text-decoration: none
+    &:hover, &:link, &:visited
+      color: #c77405
+      text-decoration: none
+
+  .ui-state-active, &.ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active
+    border: 1px solid #fbd850
+    background: white url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x
+    font-weight: bold
+    color: #eb8f00
+
+  .ui-state-active a
+    color: #eb8f00
+    text-decoration: none
+    &:link, &:visited
+      color: #eb8f00
+      text-decoration: none
+
+  /* Interaction Cues
+   *----------------------------------
+
+  .ui-state-highlight, &.ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight
+    border: 1px solid #fed22f
+    background: #ffe45c url("images/ui-bg_highlight-soft_75_ffe45c_1x100.png") 50% top repeat-x
+    color: #363636
+
+  .ui-state-highlight a, &.ui-widget-content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a
+    color: #363636
+
+  .ui-state-error, &.ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error
+    border: 1px solid #cd0a0a
+    background: #b81900 url("images/ui-bg_diagonals-thick_18_b81900_40x40.png") 50% 50% repeat
+    color: #ffffff
+
+  .ui-state-error a, &.ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a, .ui-state-error-text, &.ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text
+    color: #ffffff
+
+  .ui-priority-primary, &.ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary
+    font-weight: bold
+
+  .ui-priority-secondary, &.ui-widget-content .ui-priority-secondary, .ui-widget-header .ui-priority-secondary
+    opacity: .7
+    filter: Alpha(Opacity = 70)
+    /* support: IE8
+    font-weight: normal
+
+  .ui-state-disabled, &.ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled
+    opacity: .35
+    filter: Alpha(Opacity = 35)
+    /* support: IE8
+    background-image: none
+
+  .ui-state-disabled .ui-icon
+    filter: Alpha(Opacity = 35)
+
+  /* Overlays
+
+  .ui-widget-overlay
+    background: #666666 url("images/ui-bg_diagonals-thick_20_666666_40x40.png") 50% 50% repeat
+    opacity: .5
+    filter: Alpha(Opacity = 50)
+  /* support: IE8
+
+  .ui-widget-shadow
+    margin: -5px 0 0 -5px
+    padding: 5px
+    background: black url("images/ui-bg_flat_10_000000_40x100.png") 50% 50% repeat-x
+    opacity: .2
+    filter: Alpha(Opacity = 20)
+    /* support: IE8
+    border-radius: 5px
