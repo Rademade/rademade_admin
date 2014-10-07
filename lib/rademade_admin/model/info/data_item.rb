@@ -52,7 +52,7 @@ module RademadeAdmin
         end
 
         def date_time?
-          @field.is_date_time
+          has_field? and @field.is_date_time
         end
 
         def sortable_relation?
