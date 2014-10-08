@@ -19,7 +19,6 @@ require 'rademade_admin/sortable'
 require 'rademade_admin/engine'
 
 require 'mongoid_sortable_relation'
-require 'activerecord_sortable'
 
 module RademadeAdmin
 
