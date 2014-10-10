@@ -34,6 +34,7 @@ group :test do
   # AR
   gem 'mysql2'
   gem 'globalize', '~> 4.0.2'
+  gem 'activerecord_sortable'
 
   gem 'light_resizer', :github => 'Rademade/light_resizer'
   gem 'rspec', '>= 3'
