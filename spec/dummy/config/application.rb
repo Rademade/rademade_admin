@@ -8,6 +8,7 @@ require 'carrierwave/mongoid'
 require 'carrierwave/orm/activerecord'
 require 'light_resizer'
 require 'globalize'
+require 'activerecord_sortable'
 
 Bundler.require(*Rails.groups)
 require 'rademade_admin'
