@@ -21,6 +21,9 @@ end
         has_position = @sortable_service.has_position?
         %><tbody class="table-content" data-position='false'><%
             @items.each do |item|
+                unlink_url = admin_unlink_uri(@item, params[:relation], {
+                    :related_id => item.id
+                })
                 %><tr class="table-line" <%
                     if has_position
                         %> id='<%= item.position %>'<%
@@ -30,13 +33,15 @@ end
                         %><td><%= display_item_value(item, field) %></td><%
                     end
                     %><td class="table-item">
-                        <span class="table-actions"><%=
-                            button_to t('rademade_admin.unlink'), admin_unlink_uri(@item, params[:relation], {
-                                :related_id => item.id
-                                }), {
-                                      :method => :delete,
-                                      :form => { :class => 'delete-item-form' }
-                        } %></span>
+                        <span class="table-actions"><%
+                            concat link_to t('rademade_admin.edit'), admin_edit_uri(item), :class => 'glyphicon glyphicon-pencil fl-l'
+                            %><div class="glyphicon glyphicon-remove fl-l"><%
+                                concat button_to t('rademade_admin.unlink'), unlink_url, {
+                                    :method => :delete,
+                                    :form => { :class => 'delete-item-form' }
+                                }
+                            %></div>
+                        </span>
                     </td>
                 </tr><%
             end
