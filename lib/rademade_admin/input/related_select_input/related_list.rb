@@ -12,7 +12,7 @@ module RademadeAdmin
             :data => {
               :sortable => related_data_item.relation.sortable?
             }
-          })
+          }) + related_list_link_html
         end
 
         def related_list_items_html
@@ -44,14 +44,12 @@ module RademadeAdmin
         end
 
         def related_list_link_html
-          if multiple?
-            relation_name = RademadeAdmin::Model::Graph.instance.model_info(related_to).item_name
-            url = admin_related_item(model, relation_getter)
-            template.content_tag(:a, relation_name, {
-              :href => url,
-              :class => 'related-link'
-            }) + related_list_html if url
-          end
+          relation_name = RademadeAdmin::Model::Graph.instance.model_info(related_to).item_name
+          url = admin_related_item(model, relation_getter)
+          template.content_tag(:a, relation_name, {
+            :href => url,
+            :class => 'related-link'
+          }) if url
         end
 
       end
