@@ -171,7 +171,7 @@ GEM
       bundler (>= 1.0.0)
       rails (>= 3.2.0)
       railties (>= 3.2.0)
-    mongoid_sortable_relation (0.0.7)
+    mongoid_sortable_relation (0.0.9)
       mongoid
       mongoid_criteria_filter
     moped (2.0.0)

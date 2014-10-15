@@ -84,10 +84,6 @@ module RademadeAdmin
           @preview_accessor.nil? ? getter : @preview_accessor
         end
 
-        def sortable_setter
-          @sortable_setter ||= :"#{@relation.sortable_field}="
-        end
-
         def in_list?
           @in_list
         end
