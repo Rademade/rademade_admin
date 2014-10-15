@@ -94,7 +94,7 @@ module RademadeAdmin
     end
 
     def simple_field_params
-      @params.require(:data).permit(@model_info.data_items.save_form_fields)
+      @params.require(:data).symbolize_keys.slice(*@model_info.data_items.save_form_fields)
     end
 
     def related_entities(data_item, ids)
