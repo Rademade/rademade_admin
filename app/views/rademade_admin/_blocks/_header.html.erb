@@ -5,7 +5,7 @@
                 <img src="<%= image_path 'rademade_admin/logos/logo.png' %>" alt="Rademade admin">
             </a>
             <div class="fl-r">
-                <form class="header-search fl-l" role="search">
+                <form class="header-search fl-l hide" role="search">
                     <div class="header-search-box">
                         <input type="text" class="header-search-input" placeholder="<%= t('rademade_admin.search') %>">
                     </div>
@@ -15,7 +15,7 @@
                     <div class="menu-item">
                         <span class="menu-link disabled"><%= @current_user %> <b class="caret"></b></span>
                     </div>
-                    <div class="menu-item js-box">
+                    <div class="menu-item js-box hide">
                         <span class="menu-link js-link"><i class="glyphicon glyphicon-list"></i></span>
                         <div class="menu-droplist js-droplist">
                             <%# <div class="menu-droplist-header">Active links</div>
