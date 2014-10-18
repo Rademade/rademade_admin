@@ -9,17 +9,32 @@ module RademadeAdmin
     end
 
     def success_insert(item)
-      success_message(item, 'was inserted!', {
-        :form_action => admin_update_uri(item)
-      })
+      respond_to do |format|
+        format.html { redirect_to admin_edit_uri(item) }
+        format.json {
+          success_message(item, 'was inserted!', {
+            :form_action => admin_update_uri(item)
+          })
+        }
+      end
     end
 
     def success_update(item)
-      success_message(item, 'data was updated!')
+      respond_to do |format|
+        format.html { redirect_to admin_edit_uri(item) }
+        format.json {
+          success_message(item, 'data was updated!')
+        }
+      end
     end
 
     def success_delete(item)
-      success_message(item, 'was deleted!')
+      respond_to do |format|
+        format.html { redirect_to admin_list_uri(item) }
+        format.json {
+          success_message(item, 'was deleted!')
+        }
+      end
     end
 
     def success_unlink
