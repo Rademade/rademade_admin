@@ -1,0 +1,7 @@
+ru:
+  helpers:
+    submit:
+      create: "Создать"
+      update: "Сохранить изменения"
+      reset: "Сбросить"
+      cancel: "Отмена"
