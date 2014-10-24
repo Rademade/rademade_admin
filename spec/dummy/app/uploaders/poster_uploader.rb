@@ -10,6 +10,14 @@ class PosterUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{model.id}/#{mounted_as}"
   end
 
+  def cropped_image(params)
+    image = MiniMagick::Image.open(self.image.path)
+    crop_params = "#{params[:w]}x#{params[:h]}+#{params[:x]}+#{params[:y]}"
+    image.crop(crop_params)
+
+    image
+  end
+
   def filename
     if original_filename == File.basename(model.send(mounted_as).to_s)
       super

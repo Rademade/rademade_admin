@@ -19,7 +19,7 @@ module RademadeAdmin
         :div,
         HtmlBuffer.new([
           upload_preview_service.preview_html, input_file_html,
-          upload_progress_html, upload_button_html, input_hidden_html
+          upload_progress_html, upload_button_html, crop_button_html, input_hidden_html
         ]),
         { :class => 'uploader-wrapper' }
       )
@@ -56,7 +56,38 @@ module RademadeAdmin
 
     def upload_button_html
       template.content_tag(:span, I18n.t('rademade_admin.upload_file'), {
-        :class => 'btn green-btn upload-btn'
+        :class => 'btn green-btn upload-btn',
+        :data => {
+          :upload => true
+        }
+      })
+    end
+
+    def crop_button_html
+      if photo_uploader?
+        template.content_tag(:span, I18n.t('rademade_admin.crop'), {
+          :class => 'btn red-btn upload-btn',
+          :data => {
+            :crop => true,
+            :url => admin_url_for(:controller => 'file', :action => 'crop')
+          }
+        }) + crop_attributes_html
+      end
+    end
+
+    def crop_attributes_html
+      HtmlBuffer.new([
+        crop_attribute_html('x'), crop_attribute_html('y'),
+        crop_attribute_html('w'), crop_attribute_html('h')
+      ])
+    end
+
+    def crop_attribute_html(name)
+      template.content_tag(:input, '', {
+        :type => :hidden,
+        :data => {
+          :'crop-attribute' => name
+        }
       })
     end
 
@@ -66,6 +97,10 @@ module RademadeAdmin
 
     def uploader
       @uploader ||= input_html_options[:value] || object.send(attribute_name)
+    end
+
+    def photo_uploader?
+      uploader.class.ancestors.include? RademadeAdmin::Uploader::Photo
     end
 
   end
