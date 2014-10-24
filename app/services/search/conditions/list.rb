@@ -17,7 +17,7 @@ module RademadeAdmin
         end
 
         def order
-          order_conditions = RademadeAdmin::Search::Part::Order.new
+          order_conditions = super
           field = @params[:sort] || default_order_field
           order_conditions.add(field, @params[:direction])
           order_conditions
