@@ -37,7 +37,9 @@ module RademadeAdmin
         end
 
         def order
-          nil
+          order_conditions = RademadeAdmin::Search::Part::Order.new
+          order_conditions.add(:id, :desc)
+          order_conditions
         end
 
         def page
