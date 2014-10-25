@@ -19,7 +19,7 @@ module RademadeAdmin
         def order
           order_conditions = super
           field = @params[:sort] || default_order_field
-          order_conditions.add(field, @params[:direction])
+          order_conditions.unshift(field, @params[:direction])
           order_conditions
         end
 
