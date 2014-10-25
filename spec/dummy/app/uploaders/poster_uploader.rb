@@ -10,11 +10,9 @@ class PosterUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{model.id}/#{mounted_as}"
   end
 
-  def cropped_image(params)
-    image = MiniMagick::Image.open(self.image.path)
-    crop_params = "#{params[:w]}x#{params[:h]}+#{params[:x]}+#{params[:y]}"
-    image.crop(crop_params)
-
+  def cropped_image(image_path, params)
+    image = MiniMagick::Image.open(File.join(Rails.root, 'public', image_path))
+    image.crop("#{params[:w]}x#{params[:h]}+#{params[:x]}+#{params[:y]}")
     image
   end
 
@@ -24,6 +22,11 @@ class PosterUploader < CarrierWave::Uploader::Base
     else
       Digest::MD5.hexdigest(super) << File.extname(super) if super
     end
+  end
+
+  def original_dimensions
+    return MiniMagick::Image.open(file.file)[:dimensions] if file && model
+    []
   end
 
   def extension_white_list

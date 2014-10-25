@@ -14,8 +14,8 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
   end
 
   def crop
-    param_key = params[:column].to_sym
-    uploader.store!(params[param_key])
+    image = uploader.cropped_image(params[:path], params[:crop])
+    uploader.store!(image)
     upload_preview_service = RademadeAdmin::Upload::PreviewService.new(uploader)
     render :json => {
       :html => upload_preview_service.preview_html,
