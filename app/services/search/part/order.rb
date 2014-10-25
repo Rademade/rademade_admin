@@ -6,7 +6,9 @@ module RademadeAdmin
     module Part
       class Order < Abstract
 
-        def add(field, value)
+        protected
+
+        def part_object(field, value)
           value ||= :asc
           super(field, value.to_sym)
         end
