@@ -1,9 +1,12 @@
 <%
 if @form_fields_with_locale.length > 0
     %><div data-lang-panel>
-        <ul><%
+        <ul class="form-box">
+          <li class="form-label">
+            <span class="text">Язык</span>
+          </li><%
             I18n.available_locales.each do |locale|
-                %><li class="btn blue-btn" style="margin-right: 10px; padding: 0px">
+                %><li class="lang-btn" style="margin-right: 10px; padding: 0px">
                     <a href="#locale-<%= locale %>" style="color: #ffffff; display: block; width: 37px; line-height: 30px"><%= locale %></a>
                 </li><%
             end

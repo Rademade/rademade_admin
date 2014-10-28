@@ -45,4 +45,4 @@ module CarrierWave
     end
 
   end
-end
+end if defined? CarrierWave::Mongoid

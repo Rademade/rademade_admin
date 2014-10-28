@@ -78,4 +78,47 @@
 .select-btn
     padding: 4px 12px
 
-.uploader-input-file
+.lang-btn
+    position: relative
+    display: inline-block
+    margin: 0
+    padding: 6px 12px
+    font-size: 13px
+    font-weight: 400
+    color: #fff
+    text-align: center
+    cursor: pointer
+    border: 1px solid #397bc1
+    background-color: #428bca
+    +border-radius(5px)
+    +user-select
+    &:hover
+        background-color: #3071a9
+        border-color: #285e8e
+
+    &.ui-state-active
+        border: 1px solid #abc993
+        background-color: #eaf7de
+        a
+            position: relative
+            color: #70ab3c !important
+            &:after,
+            &:before
+                top: 100%
+                left: 50%
+                border: solid transparent
+                content: " "
+                height: 0
+                width: 0
+                position: absolute
+                pointer-events: none
+            &:after
+                border-color: rgba(234, 247, 222, 0)
+                border-top-color: #eaf7de
+                border-width: 4px
+                margin-left: -4px
+            &:before
+                border-color: rgba(171, 201, 147, 0)
+                border-top-color: #abc993
+                border-width: 5px
+                margin-left: -5px
