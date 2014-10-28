@@ -45,7 +45,6 @@ class @FormPopup.View extends Backbone.View
 
   _initPlugins : () ->
     $(document)
-      .trigger('init-uploader')
       .trigger('init-lang-panel')
       .trigger('init-plugins') # todo move all custom inits to init-plugins
     Select2Input.View.initAll @$el

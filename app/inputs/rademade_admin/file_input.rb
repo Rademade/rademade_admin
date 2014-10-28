@@ -64,31 +64,13 @@ module RademadeAdmin
     end
 
     def crop_button_html
-      if photo_uploader?
-        template.content_tag(:span, I18n.t('rademade_admin.crop'), {
-          :class => 'btn red-btn upload-btn',
-          :data => {
-            :crop => true,
-            :url => admin_url_for(:controller => 'file', :action => 'crop')
-          }
-        }) + crop_attributes_html
-      end
-    end
-
-    def crop_attributes_html
-      HtmlBuffer.new([
-        crop_attribute_html('x'), crop_attribute_html('y'),
-        crop_attribute_html('w'), crop_attribute_html('h')
-      ])
-    end
-
-    def crop_attribute_html(name)
-      template.content_tag(:input, '', {
-        :type => :hidden,
+      template.content_tag(:span, I18n.t('rademade_admin.crop'), {
+        :class => 'btn red-btn upload-btn',
         :data => {
-          :'crop-attribute' => name
+          :crop => true,
+          :url => admin_url_for(:controller => 'file', :action => 'crop')
         }
-      })
+      }) if photo_uploader?
     end
 
     def upload_preview_service

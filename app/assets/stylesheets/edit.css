@@ -1,0 +1,13 @@
+.crop {
+    text-align: center;
+}
+
+.crop .jcrop-holder {
+    margin: 20px auto 0;
+    display: block;
+}
+
+.crop img {
+    max-width: 1000px;
+    max-height: 1000px;
+}
