@@ -28,16 +28,15 @@ module RademadeAdmin
             relations = {}
             @model.reflections.each do |name, relation_info|
               name = name.to_sym
-              getter = name.to_s
               type = relation_info.macro
               if name != :translations
-                is_sortable = relation_info.sortable?
+                is_sortable = relation_info.respond_to?(:sortable?) ? relation_info.sortable? : false
                 relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
                   :name => name,
                   :from => @model,
                   :to => relation_info.polymorphic? ? nil : RademadeAdmin::LoaderService.const_get(relation_info.class_name),
-                  :getter => getter,
-                  :setter => "#{getter}=",
+                  :getter => name,
+                  :setter => :"#{name}=",
                   :type => type,
                   :many => type == :has_many,
                   :has_many => has_many_relations.include?(type),
@@ -54,12 +53,11 @@ module RademadeAdmin
             @model.column_types.each do |name, field_data|
               name = name.to_sym
               column_data = extract_column_data(field_data)
-              getter = name.to_s
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
                 :primary => column_data.primary,
-                :getter => getter,
-                :setter => "#{getter}=",
+                :getter => name,
+                :setter => :"#{name}=",
                 :type => column_data.type,
                 :is_date_time => column_data.type == :datetime,
                 :localizable => false,
@@ -77,7 +75,7 @@ module RademadeAdmin
                 :name => name,
                 :primary => false,
                 :getter => getter,
-                :setter => "#{getter}=",
+                :setter => :"#{getter}=",
                 :type => :string,
                 :localizable => true,
                 :relation_name => nil
