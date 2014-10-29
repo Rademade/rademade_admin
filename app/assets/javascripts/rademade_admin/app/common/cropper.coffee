@@ -64,7 +64,10 @@ class @Cropper extends Backbone.View
     """
       <div class="crop">
         <img class="crop-image" src="#{imagePath}">
-        <button class="crop-button">Crop</button>
+        <div class="crop-actions">
+          <button class="btn blue-btn">Crop</button>
+          <button class="btn red-btn">Discard</button>
+        </div>
         <input type="hidden" data-crop-attribute="x"/>
         <input type="hidden" data-crop-attribute="y"/>
         <input type="hidden" data-crop-attribute="w"/>
