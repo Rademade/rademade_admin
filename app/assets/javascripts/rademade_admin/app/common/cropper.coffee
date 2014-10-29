@@ -7,7 +7,8 @@ class @Cropper extends Backbone.View
 
   events :
     'click' : 'check'
-    'click .crop-button' : 'crop'
+    'click [data-crop]' : 'crop'
+    'click [data-close]' : 'close'
 
   setOriginalDimensions : (originalDimensions) ->
     @originalDimensions = originalDimensions
@@ -31,14 +32,19 @@ class @Cropper extends Backbone.View
         onSelect : @_updateCropAttributes
 
   check : (e) ->
-    @close() if $(e.target).closest('.crop').length is 0
+    @closePopup() if $(e.target).closest('.crop').length is 0
 
   crop : (e) ->
     e.preventDefault()
-    @close()
+    @closePopup()
     @trigger 'crop-image', @_getCropData()
+    false
 
-  close : () ->
+  close : (e) ->
+    e.preventDefault()
+    @closePopup()
+
+  closePopup : () ->
     @$el.hide()
 
   _getCropData : () ->
@@ -65,8 +71,8 @@ class @Cropper extends Backbone.View
       <div class="crop">
         <img class="crop-image" src="#{imagePath}">
         <div class="crop-actions">
-          <button class="btn blue-btn">Crop</button>
-          <button class="btn red-btn">Discard</button>
+          <button class="btn blue-btn" data-crop>Crop</button>
+          <button class="btn red-btn" data-close>Discard</button>
         </div>
         <input type="hidden" data-crop-attribute="x"/>
         <input type="hidden" data-crop-attribute="y"/>
