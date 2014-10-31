@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'coffee-rails', '~> 4.0'
 
   s.add_dependency 'i18n-js'
+  s.add_dependency 'ejs'
   
   # Public JS assets
   s.add_dependency 'turbolinks', '~> 2.2'
