@@ -20,15 +20,11 @@ class @Select2Input.RelatedView extends Backbone.View
     false
 
   render : () ->
-    @$el.html @_getTemplateHtml()
+    @$el.html @_getHtml(@model.toJSON())
     return this
 
-  _getTemplateHtml : () ->
-    """
-      <span>#{@model.get('text')}</span>
-      <button data-edit="#{@model.get('edit_url')}">Edit</button>
-      <button data-remove>Delete</button>
-    """
+  _getHtml : (data) ->
+    JST['rademade_admin/app/templates/related-item'](data)
 
   @init : ($el) ->
     model = new Select2Input.RelatedModel
