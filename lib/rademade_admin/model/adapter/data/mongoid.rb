@@ -29,7 +29,7 @@ module RademadeAdmin
                 :primary => name == :_id,
                 :getter => getter,
                 :setter => getter + '=',
-                :type => field_data.type,
+                :is_string => field_data.type == String,
                 :is_date_time => field_data.type == DateTime,
                 :localizable => field_data.localized?,
                 :relation_name => field_data.options[:metadata].try(:name)

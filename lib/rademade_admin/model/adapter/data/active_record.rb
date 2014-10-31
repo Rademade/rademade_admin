@@ -53,13 +53,14 @@ module RademadeAdmin
             @model.column_types.each do |name, field_data|
               name = name.to_sym
               column_data = extract_column_data(field_data)
+              type = column_data.type
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
                 :primary => column_data.primary,
                 :getter => name,
                 :setter => :"#{name}=",
-                :type => column_data.type,
-                :is_date_time => column_data.type == :datetime,
+                :is_string => type == :string,
+                :is_date_time => type == :datetime,
                 :localizable => false,
                 :relation_name => name[/(.+)_id$/, 1]
               })
@@ -76,7 +77,7 @@ module RademadeAdmin
                 :primary => false,
                 :getter => getter,
                 :setter => :"#{getter}=",
-                :type => :string,
+                :is_string => false,
                 :localizable => true,
                 :relation_name => nil
               })

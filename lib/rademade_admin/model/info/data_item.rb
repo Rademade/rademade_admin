@@ -51,10 +51,6 @@ module RademadeAdmin
           has_uploader
         end
 
-        def date_time?
-          has_field? and @field.is_date_time
-        end
-
         def sortable_relation?
           @relation.sortable?
         end
@@ -97,11 +93,15 @@ module RademadeAdmin
         end
 
         def primary_field?
-          @field and @field.primary?
+          has_field? and @field.primary?
         end
 
         def string_field?
-          @field and @field.type == String
+          has_field? and @field.string?
+        end
+
+        def date_time?
+          has_field? and @field.date_time?
         end
 
         def simple_field?
