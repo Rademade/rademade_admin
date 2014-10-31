@@ -240,7 +240,7 @@ describe RademadeAdmin::PostsController, :js => true do
     before(:each) do
       visit edit_rademade_admin_user_path(:id => user.id)
       page.evaluate_script('window.confirm = function() { return true; }') # accept confirm
-      click_on 'Delete'
+      click_on 'Destroy'
       click_on 'Update User'
       find('.notifier')
       visit current_path
