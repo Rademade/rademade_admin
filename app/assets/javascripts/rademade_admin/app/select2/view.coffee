@@ -69,10 +69,12 @@ class @Select2Input.View extends Backbone.View
     view.initItem()
     view
 
-  @initAll : (within) ->
-    $('.input-holder:has(.select-wrapper)', within).each (index, select) =>
-      Select2Input.View.init $(select)
+  @initAll : () ->
+    $('.input-holder:has(.select-wrapper)').each (index, select) =>
+      $select = $(select)
+      unless $select.data('initialized')
+        Select2Input.View.init $select
+        $select.data('initialized', true)
 
 $ ->
-  $(document).on 'ready page:load', () ->
-    Select2Input.View.initAll()
+  $(document).on 'ready page:load init-plugins', Select2Input.View.initAll

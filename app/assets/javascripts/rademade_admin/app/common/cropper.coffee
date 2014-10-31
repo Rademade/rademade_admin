@@ -19,7 +19,7 @@ class @Cropper extends Backbone.View
     @$el.show()
 
   render : (imagePath) ->
-    @$el.html @_getHTML(imagePath)
+    @$el.html @_getHTML(imagePath : imagePath)
 
   initCrop : () ->
     @$cropAttributes = @$el.find('[data-crop-attribute]')
@@ -66,17 +66,5 @@ class @Cropper extends Backbone.View
     _.each @verticalAttributes, (attribute) =>
       attributes[attribute] *= @verticalRatio
 
-  _getHTML : (imagePath) ->
-    """
-      <div class="crop">
-        <img class="crop-image" src="#{imagePath}">
-        <div class="crop-actions">
-          <button class="btn blue-btn" data-crop>Crop</button>
-          <button class="btn red-btn" data-close>Discard</button>
-        </div>
-        <input type="hidden" data-crop-attribute="x"/>
-        <input type="hidden" data-crop-attribute="y"/>
-        <input type="hidden" data-crop-attribute="w"/>
-        <input type="hidden" data-crop-attribute="h"/>
-      </div>
-    """
+  _getHTML : (data) ->
+    JST['rademade_admin/app/templates/crop'](data)
