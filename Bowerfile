@@ -5,6 +5,7 @@ asset 'backbone'
 
 asset 'wysihtml5', :github => 'xing/wysihtml5'
 asset 'select2', :github => 'ivaynberg/select2'
+asset 'leaflet'
 
 # jQuery
 asset 'data-tables', :github => 'DataTables/DataTables'
