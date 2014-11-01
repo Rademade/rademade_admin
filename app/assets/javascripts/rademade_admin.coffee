@@ -20,6 +20,7 @@
 #= require jquery-validation/src/core
 #= require jquery-validation/src/ajax
 #= require jquery-validation/src/delegate
+#= require leaflet/dist/leaflet-src
 #= require moment/moment
 #= require turbolinks
 #= require select2
