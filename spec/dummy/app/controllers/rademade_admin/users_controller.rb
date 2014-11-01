@@ -8,6 +8,7 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
       avatar
       first_name
       last_name
+      address :'rademade_admin/location'
       posts
       admin :boolean
     end

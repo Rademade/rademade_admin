@@ -11,6 +11,9 @@ class User
   field :encrypted_password, :type => String
   field :admin, :type => Boolean, :default => false
   field :status, :type => String
+  field :address_lat, :type => Float
+  field :address_lng, :type => Float
+  field :address_zoom, :type => Integer
 
   mount_uploader :avatar, PosterUploader, :localize => true
 
@@ -28,6 +31,20 @@ class User
 
   def valid_password?(password)
     self[:encrypted_password] == password
+  end
+
+  def address
+    {
+      :latitude => address_lat,
+      :longitude => address_lng,
+      :zoom => address_zoom
+    }
+  end
+
+  def address=(location)
+    self.address_lat = location['latitude']
+    self.address_lng = location['longitude']
+    self.address_zoom = location['zoom']
   end
 
   def to_s
