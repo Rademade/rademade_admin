@@ -10,10 +10,8 @@ class PosterUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{model.id}/#{mounted_as}"
   end
 
-  def cropped_image(image_path, params)
-    image = MiniMagick::Image.open(File.join(Rails.root, 'public', image_path))
-    image.crop("#{params[:w]}x#{params[:h]}+#{params[:x]}+#{params[:y]}")
-    image
+  def crop_image(image_path, crop_params)
+    crop(full_image_path(image_path), crop_params[:x], crop_params[:y], crop_params[:w], crop_params[:h])
   end
 
   def filename
@@ -25,8 +23,12 @@ class PosterUploader < CarrierWave::Uploader::Base
   end
 
   def original_dimensions
-    return MiniMagick::Image.open(file.file)[:dimensions] if file && model
-    []
+    if file && model
+      image = Magick::Image.read(file.file).first
+      [image.columns, image.rows]
+    else
+      []
+    end
   end
 
   def extension_white_list
@@ -37,7 +39,7 @@ class PosterUploader < CarrierWave::Uploader::Base
 
     new_file = File.basename(new_image)
 
-    full_path = File.join(Rails.root, 'public', store_dir)
+    full_path = full_image_path(store_dir)
 
     return unless File.exist? full_path
 
@@ -48,6 +50,12 @@ class PosterUploader < CarrierWave::Uploader::Base
         FileUtils.rm_r(File.join(full_path, item))
       end
     end
+  end
+
+  private
+
+  def full_image_path(image_path)
+    File.join(Rails.root, 'public', image_path)
   end
 
 end

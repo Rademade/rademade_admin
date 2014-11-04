@@ -14,7 +14,7 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
   end
 
   def crop
-    image = uploader.cropped_image(params[:path], params[:crop])
+    image = uploader.crop_image(params[:path], params[:crop])
     uploader.store!(image)
     upload_preview_service = RademadeAdmin::Upload::PreviewService.new(uploader)
     render :json => {
