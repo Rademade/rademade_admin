@@ -23,7 +23,11 @@ class @Location extends Backbone.View
     }).addTo(@map)
 
   _initMarker : () ->
-    marker = new L.marker(@center, draggable : true)
+    marker = new L.marker @center,
+      icon : L.icon
+        iconUrl : '<%= asset_path('rademade_admin/leaflet/marker-icon.png') %>'
+        shadowUrl : '<%= asset_path('rademade_admin/leaflet/marker-shadow.png') %>'
+      draggable : true
     marker.on 'dragend', (event) =>
       @_updateLatLng event.target.getLatLng()
     marker.addTo(@map)
