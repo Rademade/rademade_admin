@@ -6,6 +6,7 @@ RademadeAdmin::Engine.routes.draw do
   root 'dashboard#index'
 
   match 'file-upload' => 'file#upload', :via => [:post, :patch]
+  match 'file-crop' => 'file#crop', :via => [:post, :patch]
 
   post 'sessions' => 'sessions#login'
   get 'login' => 'dashboard#login', :as => 'login'

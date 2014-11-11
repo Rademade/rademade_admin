@@ -11,6 +11,8 @@ gem 'compass'
 gem 'compass-rails'
 gem 'bower-rails'
 
+gem 'ejs'
+
 # File upload
 gem 'carrierwave'
 gem 'rmagick'

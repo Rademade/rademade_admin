@@ -61,7 +61,10 @@ module RademadeAdmin
           :src => @uploader.resize(230, 130),
           :class => 'image-preview',
           :width => 230,
-          :height => 130
+          :height => 130,
+          :data => {
+            :'original-dimensions' => @uploader.original_dimensions.join(',')
+          }
         })
       end
 
