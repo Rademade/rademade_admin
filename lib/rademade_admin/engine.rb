@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'rademade_admin/routing/mapper'
 require 'simple_form'
+require 'breadcrumbs'
 
 module RademadeAdmin
   class Engine < ::Rails::Engine
@@ -13,6 +14,7 @@ module RademadeAdmin
     paths = %W(
       #{config.root}/app/helpers/**/*.rb
       #{config.root}/app/services/**/*.rb
+      #{config.root}/app/cells/**/*.rb
       #{config.root}/app/inputs/**/*.rb
       #{config.root}/lib/rademade_admin/**/*.rb
     )

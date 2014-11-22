@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::UriHelper
 
+  def root_uri
+    admin_url_for(controller: 'dashboard')
+  end
+
   def admin_list_uri(model)
     admin_model_url_for(model, {
       :action => :index
@@ -83,11 +87,7 @@ module RademadeAdmin::UriHelper
     begin
       Rails.application.routes.url_helpers.url_for(opts)
     rescue
-      begin
-        RademadeAdmin::Engine.routes.url_helpers.url_for(opts)
-      rescue
-        nil
-      end
+      RademadeAdmin::Engine.routes.url_helpers.url_for(opts)
     end
   end
 
