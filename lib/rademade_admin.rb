@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'kaminari'
 require 'carrierwave'
-require 'breadcrumbs'
 
 require 'cancan'
 require 'bower-rails'
@@ -12,6 +11,8 @@ require 'turbolinks'
 
 require 'i18n-js'
 
+require 'slim'
+require 'cells'
 require 'simple_form'
 require 'ckeditor'
 

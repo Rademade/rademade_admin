@@ -8,7 +8,7 @@ module RademadeAdmin
     include RademadeAdmin::Templates
     include RademadeAdmin::Notifier
 
-    before_filter :load_options
+    before_filter :load_options, :additional_options
     before_filter :sortable_service, :only => [:index]
 
     def create
@@ -158,6 +158,10 @@ module RademadeAdmin
 
     def sortable_service
       @sortable_service ||= RademadeAdmin::SortableService.new(model_info, params)
+    end
+
+    def additional_options
+      MenuCell.current_model = model
     end
 
   end

@@ -3,6 +3,7 @@ class RademadeAdmin::TagsController < RademadeAdmin::ModelController
 
   options do
     parent_menu 'Post'
+    remove_from_menu
     list :name
     form :name
   end
