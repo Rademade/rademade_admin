@@ -111,18 +111,20 @@ Supported options
 options do
   model 'ModelName'
   
-  // Navigation menu settings
+  # Navigation menu settings
   parent_menu 'ModelName'
   remove_from_menu 
   
-  //list :attr, :attr_other
+  # Setting for list data (index action)
+  # list :attr, :attr_other
   list do
     
   end
   
-  //form :attr, :attr_other
+  # Settings for form
+  # form :attr, :attr_other
   form do
-    attr :boolean //Other :text
+    attr :boolean #Other :text, :file, :editor
   end
   
   labels do
