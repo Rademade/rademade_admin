@@ -103,3 +103,31 @@ end
 8) Start rails `rails s`
 
 **Good luck :)**
+
+
+Supported options
+--------------
+```ruby
+options do
+  model 'ModelName'
+  
+  // Navigation menu settings
+  parent_menu 'ModelName'
+  remove_from_menu 
+  
+  //list :attr, :attr_other
+  list do
+    
+  end
+  
+  //form :attr, :attr_other
+  form do
+    attr :boolean //Other :text
+  end
+  
+  labels do
+    attr 'Label for attribute'
+  end
+  
+end
+```
