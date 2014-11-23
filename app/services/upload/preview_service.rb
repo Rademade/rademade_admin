@@ -30,6 +30,18 @@ module RademadeAdmin
         end
       end
 
+      def is_image?
+        @uploader.class.ancestors.include? RademadeAdmin::Uploader::Photo
+      end
+
+      def is_crop?
+        @uploader.class.ancestors.include? RademadeAdmin::Uploader::CropPhoto
+      end
+
+      def is_video?
+        @uploader.class.ancestors.include? RademadeAdmin::Uploader::Video
+      end
+
       private
 
       def empty_file_html
@@ -48,23 +60,13 @@ module RademadeAdmin
         end
       end
 
-      def is_image?
-        @uploader.class.ancestors.include? RademadeAdmin::Uploader::Photo
-      end
-
-      def is_video?
-        @uploader.class.ancestors.include? RademadeAdmin::Uploader::Video
-      end
-
       def uploaded_image_preview
         content_tag(:img, '', {
           :src => @uploader.resize(230, 130),
           :class => 'image-preview',
           :width => 230,
           :height => 130,
-          :data => {
-            :'original-dimensions' => @uploader.original_dimensions.join(',')
-          }
+          :data => preview_data
         })
       end
 
@@ -82,6 +84,12 @@ module RademadeAdmin
         content_tag(:span, text, {
           :class => 'file-uploaded'
         })
+      end
+
+      def preview_data
+        {
+          :'original-dimensions' =>  is_crop? ? @uploader.original_dimensions.join(',') : ''
+        }
       end
 
     end

@@ -18,8 +18,12 @@ module RademadeAdmin
       template.content_tag(
         :div,
         HtmlBuffer.new([
-          upload_preview_service.preview_html, input_file_html,
-          upload_progress_html, upload_button_html, crop_button_html, input_hidden_html
+          upload_preview_service.preview_html,
+          input_file_html,
+          upload_progress_html,
+          upload_button_html,
+          upload_preview_service.is_crop? ? crop_button_html : '',
+          input_hidden_html
         ]),
         { :class => 'uploader-wrapper' }
       )
