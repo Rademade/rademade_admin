@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'kaminari'
+require 'light_resizer'
 require 'carrierwave'
 
 require 'cancan'
