@@ -20,7 +20,7 @@ rademade_admin
 How to use it
 --------------
 
-1) Add `gem 'rademade_admin', :github => 'rademade/rademade_admin'` to Gemfile
+1) Add `gem 'rademade_admin'` to Gemfile
 
 2) Update `config/initializers/assets.rb` with line:
 ```ruby
@@ -80,7 +80,7 @@ end
 ```ruby
 class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 
-  #You can leave controller absolutely empty!
+  # You can leave controller absolutely empty!
   
   options do
     list do
