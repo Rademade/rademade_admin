@@ -97,11 +97,12 @@ module RademadeAdmin
       relation_service = RademadeAdmin::RelationService.new
       @related_model_info = relation_service.related_model_info(model_info, params[:relation])
 
-      @item = model.find(params.delete(:id))
-      conditions = Search::Conditions::RelatedList.new(@item, params, @related_model_info.data_items)
+      @item = model.find(params[:id])
+      search_params = params.except(:id)
+      conditions = Search::Conditions::RelatedList.new(@item, search_params, @related_model_info.data_items)
       @items = Search::Searcher.new(@related_model_info).search(conditions)
 
-      @sortable_service = RademadeAdmin::SortableService.new(@related_model_info, params)
+      @sortable_service = RademadeAdmin::SortableService.new(@related_model_info, search_params)
 
       respond_to do |format|
         format.html {
