@@ -1,4 +1,4 @@
 li class=('menu-box' + (@is_active ? ' active' : ''))
   a.menu-link(href="#{@uri}") #{@name}
   - if @has_sub_items
-    =render(:menu, :sub_items, @sub_items)
+    =render_cell(:menu, :sub_items, @sub_items)
