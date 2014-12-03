@@ -87,7 +87,11 @@ module RademadeAdmin::UriHelper
     begin
       Rails.application.routes.url_helpers.url_for(opts)
     rescue
-      RademadeAdmin::Engine.routes.url_helpers.url_for(opts)
+      begin
+        RademadeAdmin::Engine.routes.url_helpers.url_for(opts)
+      rescue
+        nil
+      end
     end
   end
 
