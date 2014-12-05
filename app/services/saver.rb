@@ -17,25 +17,16 @@ module RademadeAdmin
       @item = @model_info.model.new
     end
 
-    def update_model
+    def find_model
       @item = @model_info.model.find(@params[:id])
-      save_model
     end
 
-    def save_model
+    def save_data
       item.assign_attributes simple_field_params
       save_localizable_fields
-      item.save
-    end
-
-    def save_aggregated_data
       save_model_relations
       save_model_uploads
       item.save!
-    end
-
-    def errors
-      item.errors
     end
 
     private
