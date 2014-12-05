@@ -44,7 +44,10 @@ class @Location extends Backbone.View
 
   @initAll : () ->
     $('.location').each () ->
-      Location.init $(this)
+      $location = $(this)
+      unless $location.data('initialized')
+        Location.init $location
+        $location.data('initialized', true)
 
 $ ->
   $(document).on('page:load ready init-plugins', Location.initAll)
