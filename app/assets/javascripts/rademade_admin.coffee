@@ -36,6 +36,7 @@
 #= require underscore/underscore
 #= require backbone/backbone
 #= require_tree ./rademade_admin/library
+#= require_tree ./rademade_admin/settings
 #= require_tree ./rademade_admin/form
 #= require_tree ./rademade_admin/app
 #= require_tree ./rademade_admin

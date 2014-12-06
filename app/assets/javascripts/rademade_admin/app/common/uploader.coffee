@@ -65,6 +65,7 @@ class @Uploader extends Backbone.View
   _getUploaderData : () ->
     uploaderData = _.pick(@$uploader.data(), 'id', 'saved', 'model', 'column', 'uploader')
     uploaderData.path = @$el.find('.form-input[type="hidden"]').val()
+    uploaderData.authenticity_token = encodeURI($('meta[name="csrf-token"]').attr('content'))
     uploaderData
 
   _setUploadProgress : (progress) =>
