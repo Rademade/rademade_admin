@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'compass-rails', '~> 1.0'
   s.add_dependency 'coffee-rails', '~> 4.0'
 
-  s.add_dependency 'i18n-js', '~> 2.1'
+  s.add_dependency 'i18n-js'
   s.add_dependency 'ejs', '~> 1.1'
   
   # Public JS assets
