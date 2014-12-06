@@ -8,6 +8,8 @@ module RademadeAdmin
     layout 'rademade_admin'
 
     before_action :init_user, :init_template_service, :require_login, :root_breadcrumbs
+    
+    attr_reader :current_user
 
     rescue_from ::CanCan::AccessDenied do |exception|
       redirect_to root_url, :alert => exception.message
