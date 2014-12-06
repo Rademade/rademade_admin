@@ -7,6 +7,10 @@ module RademadeAdmin
     include RademadeAdmin::InstanceOptions
     include RademadeAdmin::Templates
     include RademadeAdmin::Notifier
+    
+    helper ::RademadeAdmin::FieldHelper
+    helper ::RademadeAdmin::FormHelper
+    helper ::RademadeAdmin::UriHelper
 
     before_filter :load_options, :additional_options
     before_filter :sortable_service, :only => [:index]
