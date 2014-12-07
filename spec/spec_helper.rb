@@ -3,7 +3,6 @@ require 'simplecov'
 require 'coveralls'
 
 SimpleCov.start('rails') do
-  adapters.delete(:root_filter)
   filters.clear
   add_filter do |src|
     !(src.filename =~ /^#{SimpleCov.root}/) unless src.filename =~ /rademade_admin/

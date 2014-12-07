@@ -9,7 +9,7 @@ module RademadeAdmin
     include ::RademadeAdmin::Input::RelatedSelectInput::ModelData
     include ::RademadeAdmin::Input::RelatedSelectInput::RelatedList
 
-    def input
+    def input(wrapper_options = {})
       template.content_tag(
         :div,
         RademadeAdmin::HtmlBuffer.new([select_ui_html, add_button_html]),

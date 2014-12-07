@@ -4,7 +4,7 @@ module RademadeAdmin
 
     include UriHelper
 
-    def input
+    def input(wrapper_options = {})
       template.content_tag(
         :div,
         HtmlBuffer.new([file_html]),

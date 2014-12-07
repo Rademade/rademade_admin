@@ -51,16 +51,17 @@
         margin: 10px 10px 0 0
 
     .upload-progress-wrapper
+        position: relative
+        top: -5px
         display: none
         float: right
-        margin-top: 18px
-        width: 130px
-        height: 10px
-        border: 1px solid #bdc3c7
-        +border-radius(11px)
+        width: 100%
+        height: 5px
+        overflow: hidden
+        +border-radius(5px)
 
         .upload-progress
             height: 100%
             width: 0
             background: #00c83e
-            +border-radius(11px)
+            +border-radius(5px)

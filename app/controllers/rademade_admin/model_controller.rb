@@ -19,14 +19,20 @@ module RademadeAdmin
       authorize! :create, model_class
       saver = RademadeAdmin::Saver.new(model_info, params)
       saver.create_model
-      save_item(saver)
+      saver.save_data
+      success_insert( saver.item )
+    rescue Exception => e
+      render_errors e.record.errors
     end
 
     def update
       authorize! :update, model_class
       saver = RademadeAdmin::Saver.new(model_info, params)
       saver.find_model
-      save_item(saver)
+      saver.save_data
+      success_update( saver.item )
+    rescue Exception => e
+      render_errors e.record.errors
     end
 
     def destroy
@@ -157,14 +163,5 @@ module RademadeAdmin
     def additional_options
       MenuCell.current_model = model
     end
-
-    def save_item(saver)
-      saver.save_data
-      @item = saver.item
-      success_update @item
-    rescue Exception => e
-      render_errors e.record.errors
-    end
-
   end
 end

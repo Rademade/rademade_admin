@@ -2,7 +2,7 @@
 module RademadeAdmin
   class LocationInput < SimpleForm::Inputs::Base
 
-    def input
+    def input(wrapper_options = {})
       template.content_tag(
         :div,
         HtmlBuffer.new([map_html, location_attributes_html]),
