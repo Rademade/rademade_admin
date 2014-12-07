@@ -26,8 +26,7 @@ class @FormPopup.View extends Backbone.View
     @$el.remove()
 
   renderFromUrl : (url) ->
-    $.get url, (html) =>
-      @$el.html html
+    @$el.load url, ->
       @_updatePosition()
       @delegateEvents()
       @_init()
