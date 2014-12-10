@@ -1,15 +1,16 @@
-li class=('menu-box' + (@is_active ? ' active' : ''))
+- if @uri
+  li class=('menu-box' + (@is_active ? ' active' : ''))
 
-  .pointer
-    .arrow
-    .arrow_border
+    .pointer
+      .arrow
+      .arrow_border
 
-  a href="#{@uri}" class=('menu-link' + (@has_sub_items ? ' dropdown-toggle' : ''))
-    i(class="#{@ico_class}")
-    span #{@name}
+    a href="#{@uri}" class=('menu-link' + (@has_sub_items ? ' dropdown-toggle' : ''))
+      i(class="#{@ico_class}")
+      span #{@name}
+
+      - if @has_sub_items
+        span.caret
 
     - if @has_sub_items
-      span.caret
-
-  - if @has_sub_items
-    =render_cell(:menu, :sub_items, @sub_items)
+      =render_cell(:menu, :sub_items, @sub_items)
