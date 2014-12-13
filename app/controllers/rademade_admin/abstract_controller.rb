@@ -40,5 +40,9 @@ module RademadeAdmin
       @current_user.is_a? RademadeAdmin.user_class and @current_user.admin?
     end
 
+    def current_ability
+      @current_ability ||= ::RademadeAdmin::Ability.new(@current_user)
+    end
+
   end
 end
