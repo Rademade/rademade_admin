@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'turbolinks', '~> 2.2'
 
   # Admin
+  s.add_dependency 'mini_magick'
   s.add_dependency 'slim', '~> 2.1'
   s.add_dependency 'cells', '~> 3.11'
   s.add_dependency 'simple_form', '~> 3.1'
