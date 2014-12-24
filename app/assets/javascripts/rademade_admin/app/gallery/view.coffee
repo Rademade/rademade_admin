@@ -18,7 +18,6 @@ class @Gallery extends Backbone.View
         $form.submit().done @_appendUploadResult
 
   _appendUploadResult : (result) =>
-    console.log result
     $.each result.gallery_images_html, (index, image_html) =>
       @collectionView.addImage $(image_html)
 

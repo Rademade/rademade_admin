@@ -6,7 +6,7 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
     form do
       headline
       avatar
-      gallery :'rademade_admin/gallery'
+      gallery
       video
       post_time
       text :ckeditor

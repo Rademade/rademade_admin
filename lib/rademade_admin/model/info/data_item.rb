@@ -55,6 +55,10 @@ module RademadeAdmin
           @relation.sortable?
         end
 
+        def gallery_relation?
+          @relation.gallery?
+        end
+
         def localizable?(localizable = true)
           if not @form_params.nil? and @form_params.has_key? :localize
             @form_params[:localize] == localizable

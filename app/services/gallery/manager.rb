@@ -37,7 +37,7 @@ module RademadeAdmin
         preview_service = RademadeAdmin::Upload::GalleryPreviewService.new
         @gallery_images_html = []
         @params[:files].each do |image|
-          gallery_image = @gallery_image_model.new
+          gallery_image = @gallery_image_model.create
           gallery_image.image.store!(image)
           @gallery.images << gallery_image
           @gallery_images_html << preview_service.preview_html(gallery_image.image)

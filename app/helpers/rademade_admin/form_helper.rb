@@ -64,13 +64,17 @@ module RademadeAdmin::FormHelper
 
   def default_field_type(form_field)
     if form_field.has_relation?
-       :'rademade_admin/related_select'
+      if form_field.gallery_relation?
+        :'rademade_admin/gallery'
+      else
+        :'rademade_admin/related_select'
+      end
     elsif form_field.has_uploader?
-       :'rademade_admin/file'
+      :'rademade_admin/file'
     elsif form_field.date_time?
-       :'rademade_admin/date_time'
+      :'rademade_admin/date_time'
     else
-       nil
+      nil
     end
   end
 
