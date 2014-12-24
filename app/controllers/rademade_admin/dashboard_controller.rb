@@ -5,7 +5,7 @@ module RademadeAdmin
     skip_before_action :require_login, :only => [:login]
 
     def index
-
+      MenuCell.current_model = nil
     end
 
     def login
