@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
     admin_resources :users, :posts, :tags
     admin_resources :authors, :articles, :rubrics
+    admin_resources :galleries, :only => [:create]
 
   end
 

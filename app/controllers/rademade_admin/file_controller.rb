@@ -9,7 +9,25 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
       :file => uploader
     }
   rescue CarrierWave::UploadError => e
-    render :json => { :error => e.to_s }, :status => :unprocessable_entity
+    show_error(e)
+  end
+
+  def gallery_upload
+    gallery_service = RademadeAdmin::Gallery::Manager.new(params)
+    gallery_service.upload_images
+    render :json => {
+      :gallery_images_html => gallery_service.gallery_images_html
+    }
+  rescue CarrierWave::UploadError => e
+    show_error(e)
+  end
+
+  def gallery_remove
+    gallery_service = RademadeAdmin::Gallery::Manager.new(params)
+    gallery_service.remove_image
+    render :json => { }
+  rescue Exception => e
+    show_error(e)
   end
 
   def crop
@@ -21,10 +39,14 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
       :file => uploader
     }
   rescue CarrierWave::UploadError => e
-    render :json => { :error => e.to_s }, :status => :unprocessable_entity
+    show_error(e)
   end
 
   private
+
+  def show_error(error)
+    render :json => { :error => error.to_s }, :status => :unprocessable_entity
+  end
 
   def uploader
     @uploader ||= RademadeAdmin::LoaderService.const_get(params[:uploader]).new(model, params[:column])

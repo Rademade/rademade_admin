@@ -26,6 +26,7 @@ en:
     enter_search: "Enter search phrase"
     record_remove_confirm: "Do you really want delete this record?"
     model_remove_confirm: "Do you really want delete this model?"
+    image_remove_confirm: "Do you really want delete this image?"
     language: "Language"
     locale_en: "English"
     locale_ru: "Russian"
