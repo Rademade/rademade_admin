@@ -32,7 +32,12 @@ module RademadeAdmin
               if name != :translations
                 to_class = relation_info.polymorphic? ? nil : RademadeAdmin::LoaderService.const_get(relation_info.class_name)
                 is_sortable = relation_info.respond_to?(:sortable?) ? relation_info.sortable? : false
-                relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
+                if !to_class.nil? && to_class.ancestors.include?(RademadeAdmin::Gallery)
+                  relation_class_name = ::RademadeAdmin::Model::Info::Relation::Gallery
+                else
+                  relation_class_name = ::RademadeAdmin::Model::Info::Relation
+                end
+                relations[name] = relation_class_name.new({
                   :name => name,
                   :from => @model,
                   :to => to_class,
@@ -43,7 +48,6 @@ module RademadeAdmin
                   :has_many => has_many_relations.include?(type),
                   :sortable => is_sortable,
                   :sortable_field => is_sortable ? relation_info.sortable_field : nil,
-                  :is_gallery => !to_class.nil? && to_class.ancestors.include?(RademadeAdmin::Gallery),
                   :foreign_key => relation_info.foreign_key.to_sym
                 })
               end

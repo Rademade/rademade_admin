@@ -50,7 +50,7 @@ module RademadeAdmin
     end
 
     def gallery
-      @gallery ||= object.send(attribute_name) || gallery_class.create # todo
+      @gallery ||= object.send(attribute_name) || gallery_class.create
     end
 
     def gallery_relation

@@ -13,8 +13,8 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
   end
 
   def gallery_upload
-    gallery_service = RademadeAdmin::Gallery::Manager.new(params)
-    gallery_service.upload_images
+    gallery_service = RademadeAdmin::Gallery::Manager.new(params[:class_name])
+    gallery_service.upload_images(params[:gallery], params[:files])
     render :json => {
       :gallery_images_html => gallery_service.gallery_images_html
     }
@@ -23,8 +23,8 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
   end
 
   def gallery_remove
-    gallery_service = RademadeAdmin::Gallery::Manager.new(params)
-    gallery_service.remove_image
+    gallery_service = RademadeAdmin::Gallery::Manager.new(params[:class_name])
+    gallery_service.remove_image(params[:id])
     render :json => { }
   rescue Exception => e
     show_error(e)
