@@ -1,3 +1,9 @@
-<%= f.button :submit, :class => 'blue-btn' %>
-<span class="btn-sep"><%= t('rademade_admin.or') %></span>
+<%= f.button :submit, :class => 'blue-btn' %><%
+if @with_create_and_return_button
+    %><span class="btn-sep"><%= t('rademade_admin.or') %></span><%
+    translate_name = f.object.new_record? ? 'helpers.submit.create' : 'helpers.submit.update'
+    submit_button_text = "#{t(translate_name, :model => f.object.class)} and return"
+    concat f.submit submit_button_text, :class => "#{SimpleForm.button_class} blue-btn", :name => 'create_and_return'
+end
+%><span class="btn-sep"><%= t('rademade_admin.or') %></span>
 <%= link_to t('rademade_admin.cancel'), admin_list_uri(@model) || '', :class => 'cancel-btn' %>

@@ -75,14 +75,18 @@ module RademadeAdmin
 
     def new
       authorize! :create, model_class
-      new_breadcrumbs
+      @with_create_and_return_button = true
 
       @item = model.new
+
+      new_breadcrumbs
       render_template
     end
 
     def edit
       authorize! :update, model_class
+      @with_create_and_return_button = true
+
       @item = model.find(params[:id])
 
       edit_breadcrumbs

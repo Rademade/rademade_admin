@@ -12,9 +12,12 @@ module RademadeAdmin
       respond_to do |format|
         format.html { redirect_to admin_edit_uri(item) }
         format.json {
-          success_message(item, 'was inserted!', {
-            :form_action => admin_update_uri(item)
-          })
+          if params.has_key?(:create_and_return)
+            data = { :redirect_to => admin_list_uri(item.class) }
+          else
+            data = { :form_action => admin_update_uri(item) }
+          end
+          success_message(item, 'was inserted!', data)
         }
       end
     end
@@ -23,7 +26,9 @@ module RademadeAdmin
       respond_to do |format|
         format.html { redirect_to admin_edit_uri(item) }
         format.json {
-          success_message(item, 'data was updated!')
+          data = {}
+          data[:redirect_to] = admin_list_uri(item.class) if params.has_key?(:create_and_return)
+          success_message(item, 'data was updated!', data)
         }
       end
     end
