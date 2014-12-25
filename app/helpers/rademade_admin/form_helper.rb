@@ -17,19 +17,19 @@ module RademadeAdmin::FormHelper
     )
   end
 
-  def admin_field(form, form_field, model_info)
-    name = form_field.name
+  def admin_field(form, data_item, model_info)
+    name = data_item.name
     attrs = admin_default_params(name, model_info)
-      .merge(field_params(form_field))
+      .merge(field_params(data_item))
       .merge(input_params(name))
     concat form.input(name, input_attr(attrs))
   end
 
-  def admin_localized_field(form, form_field, model_info, locale)
-    name = "#{form_field.getter}][#{locale}"
-    attrs = admin_default_params(form_field.name, model_info)
-      .merge(field_params(form_field))
-      .merge(localized_field_params(form_field, locale))
+  def admin_localized_field(form, data_item, model_info, locale)
+    name = "#{data_item.getter}][#{locale}"
+    attrs = admin_default_params(data_item.name, model_info)
+      .merge(field_params(data_item))
+      .merge(localized_field_params(data_item, locale))
     concat form.input(name, input_attr(attrs))
   end
 
@@ -39,9 +39,9 @@ module RademadeAdmin::FormHelper
     { :label => model_info.label_for(name) }
   end
 
-  def field_params(form_field)
-    field_params = form_field.form_params
-    field_params[:as] = default_field_type(form_field) unless field_params[:as].present?
+  def field_params(data_item)
+    field_params = data_item.form_params
+    field_params[:as] = default_field_type(data_item) unless field_params[:as].present?
     field_params
   end
 
@@ -53,21 +53,21 @@ module RademadeAdmin::FormHelper
     }
   end
 
-  def localized_field_params(form_field, locale)
+  def localized_field_params(data_item, locale)
     {
       :input_html => {
-        :id => "#{form_field.getter}_#{locale}_#{@item.id}",
-        :value => localized_value(form_field.getter, locale)
+        :id => "#{data_item.getter}_#{locale}_#{@item.id}",
+        :value => localized_value(data_item.getter, locale)
       }
     }
   end
 
-  def default_field_type(form_field)
-    if form_field.has_relation?
+  def default_field_type(data_item)
+    if data_item.has_relation?
        :'rademade_admin/related_select'
-    elsif form_field.has_uploader?
+    elsif data_item.has_uploader?
        :'rademade_admin/file'
-    elsif form_field.date_time?
+    elsif data_item.date_time?
        :'rademade_admin/date_time'
     else
        nil

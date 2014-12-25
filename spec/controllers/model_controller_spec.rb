@@ -56,7 +56,7 @@ describe RademadeAdmin::PostsController, :js => true do
     before(:each) do
       visit new_rademade_admin_post_path
       fill_in 'data[headline]', :with => 'test headline'
-      click_on 'Create'
+      click_on 'Create Post'
     end
 
     it 'should have status 200' do
