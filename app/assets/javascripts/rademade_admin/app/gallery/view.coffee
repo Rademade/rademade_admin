@@ -2,6 +2,7 @@ class @Gallery extends Backbone.View
 
   initUploadButton : () ->
     @$uploadButton = @$el.find('.gallery-image-upload')
+    @galleryId = @$el.find('[type="hidden"]').val()
     @galleryClassName = @$uploadButton.data('class-name')
 
   initCollectionView : () ->
@@ -12,7 +13,7 @@ class @Gallery extends Backbone.View
       dataType : 'json'
       url : @$uploadButton.data('url')
       formData :
-        gallery : @$el.find('[type="hidden"]').val()
+        gallery_id : @galleryId
         class_name : @galleryClassName
       add : (e, $form) =>
         $form.submit().done @_appendUploadResult

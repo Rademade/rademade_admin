@@ -6,8 +6,9 @@ RademadeAdmin::Engine.routes.draw do
   root 'dashboard#index'
 
   match 'file-upload' => 'file#upload', :via => [:post, :patch]
-  match 'gallery-upload' => 'file#gallery_upload', :via => [:post, :patch]
-  match 'gallery-remove/:id' => 'file#gallery_remove', :via => [:delete]
+  match 'gallery-upload' => 'gallery#upload', :via => [:post, :patch]
+  match 'gallery-sort' => 'gallery#sort', :via => [:post, :patch]
+  match 'gallery-remove/:id' => 'gallery#remove', :via => [:delete]
   match 'file-crop' => 'file#crop', :via => [:post, :patch]
 
   post 'sessions' => 'sessions#login'

@@ -3,7 +3,7 @@
 }
 
 .gallery .gallery-images-container {
-
+    overflow: auto;
 }
 
 .gallery .gallery-images-container .gallery-image {

@@ -20,22 +20,26 @@ module RademadeAdmin
         :type => 'file',
         :multiple => true,
         :data => {
-          :url => admin_url_for(:controller => 'file', :action => 'gallery_upload'),
+          :url => admin_url_for(:controller => 'gallery', :action => 'upload'),
           :class_name => gallery_class.to_s
         }
       })
     end
 
     def gallery_images_html
+      is_sortable = gallery_image_info.sortable_relation?
       template.content_tag(:div, HtmlBuffer.new([images_html]), {
-        :class => 'gallery-images-container'
+        :class => 'gallery-images-container',
+        :data => {
+          :sortable_url => is_sortable ? admin_url_for(:controller => 'gallery', :action => 'sort') : ''
+        }
       })
     end
 
     def gallery_hidden_html
       template.content_tag(:input, '', {
         :type => 'hidden',
-        :name => "data[#{gallery_relation.getter}]",
+        :name => "data[#{gallery_info.getter}]",
         :value => gallery.id.to_s
       })
     end
@@ -53,12 +57,20 @@ module RademadeAdmin
       @gallery ||= object.send(attribute_name) || gallery_class.create
     end
 
-    def gallery_relation
-      @gallery_relation ||= RademadeAdmin::Model::Graph.instance.model_info(object.class.to_s).data_items.data_item(attribute_name)
+    def gallery_info
+      @gallery_relation ||= model_info(object.class.to_s, attribute_name)
+    end
+
+    def gallery_image_info
+      @gallery_image_info ||= model_info(gallery_class, :images)
     end
 
     def gallery_class
-      @gallery_class ||= gallery_relation.relation.to
+      @gallery_class ||= gallery_info.relation.to
+    end
+
+    def model_info(class_name, data_item_name)
+      RademadeAdmin::Model::Graph.instance.model_info(class_name).data_items.data_item(data_item_name)
     end
 
   end

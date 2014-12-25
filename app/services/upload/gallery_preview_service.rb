@@ -12,7 +12,10 @@ module RademadeAdmin
           gallery_image_html(uploader),
           remove_ico_html(uploader)
         ]), {
-          :class => 'gallery-image'
+          :class => 'gallery-image',
+          :data => {
+            :id => uploader.model.id.to_s
+          }
         })
       end
 
@@ -31,8 +34,8 @@ module RademadeAdmin
           :class => 'remove-ico',
           :data => {
             :url => admin_url_for(
-              :controller => 'file',
-              :action => 'gallery_remove',
+              :controller => 'gallery',
+              :action => 'remove',
               :id => uploader.model.id.to_s
             )
           }

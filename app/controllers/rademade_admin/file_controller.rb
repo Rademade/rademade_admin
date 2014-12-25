@@ -12,24 +12,6 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
     show_error(e)
   end
 
-  def gallery_upload
-    gallery_service = RademadeAdmin::Gallery::Manager.new(params[:class_name])
-    gallery_service.upload_images(params[:gallery], params[:files])
-    render :json => {
-      :gallery_images_html => gallery_service.gallery_images_html
-    }
-  rescue CarrierWave::UploadError => e
-    show_error(e)
-  end
-
-  def gallery_remove
-    gallery_service = RademadeAdmin::Gallery::Manager.new(params[:class_name])
-    gallery_service.remove_image(params[:id])
-    render :json => { }
-  rescue Exception => e
-    show_error(e)
-  end
-
   def crop
     image = uploader.crop_image(params[:path], params[:crop])
     uploader.store!(image)
