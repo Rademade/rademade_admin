@@ -15,18 +15,6 @@
                     <div class="menu-item">
                         <span class="menu-link disabled"><%= @current_user %> <b class="caret"></b></span>
                     </div>
-                    <div class="menu-item js-box hide">
-                        <span class="menu-link js-link"><i class="glyphicon glyphicon-list"></i></span>
-                        <div class="menu-droplist js-droplist">
-                            <%# <div class="menu-droplist-header">Active links</div>
-                            <a class="menu-droplist-link" href="#">Link</a>
-                            <a class="menu-droplist-link" href="#">Link</a>
-                            <div class="menu-droplist-header">Disable links</div>
-                            <span class="menu-droplist-link disabled">Disable link</span>
-                            <span class="menu-droplist-link disabled">Disable link</span> %>
-                            <%= link_to t('rademade_admin.exit'), [:logout, :sessions], { :method => :delete, :class => 'menu-droplist-link last' } %>
-                        </div>
-                    </div>
                     <div class="menu-item">
                         <%= link_to t('rademade_admin.exit'), [:logout, :sessions], { :method => :delete, :class => 'menu-link last' } %>
                     </div>
