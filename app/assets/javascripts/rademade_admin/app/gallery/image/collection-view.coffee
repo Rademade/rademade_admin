@@ -1,33 +1,22 @@
 class @GalleryImageCollectionView extends Backbone.View
 
-  _views : []
-
-  setClassName : (className) ->
-    @className = className
-
-  initImages : () ->
+  initImages : (className) ->
+    @images = new GalleryImageCollection()
+    @images.setClassName(className)
     @$el.find('.gallery-image').each (index, image) =>
       @_initImage $(image)
 
   initSort : () ->
     sortUrl = @$el.data('sortable-url')
     if sortUrl
+      @images.setSortUrl sortUrl
       @$el.sortable
         stop : () =>
-          @_sort sortUrl
+          @images.sort @_getSortedImages()
 
   addImage : ($image) ->
     @_initImage $image
     @$el.append $image
-
-  _sort : (sortUrl) =>
-    $.ajax
-      type : 'patch'
-      url : sortUrl
-      data :
-        class_name : @className
-        images : @_getSortedImages()
-      dataType : 'json'
 
   _getSortedImages : () =>
     images = []
@@ -36,15 +25,11 @@ class @GalleryImageCollectionView extends Backbone.View
     images
 
   _initImage : ($image) ->
-    view = new GalleryImageView
-      el : $image
-    view.setClassName @className
-    @_views.push view
+    @images.add GalleryImageView.init($image)
 
   @init : ($el, className) ->
     collectionView = new this
       el : $el
-    collectionView.setClassName className
-    collectionView.initImages()
+    collectionView.initImages className
     collectionView.initSort()
     collectionView

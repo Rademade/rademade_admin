@@ -57,7 +57,8 @@ module RademadeAdmin
 
       def update_gallery_image_position(gallery_image)
         if @gallery_image_relation.sortable?
-          previous_position = @gallery.images.last.send(:"#{@gallery_image_relation.sortable_field}")
+          last_image = @gallery.images.last
+          previous_position = last_image.nil? ? 0 : last_image.send(:"#{@gallery_image_relation.sortable_field}")
           set_gallery_image_position(gallery_image, previous_position + 1)
         end
       end

@@ -3,21 +3,24 @@ class @GalleryImageView extends Backbone.View
   events :
     'click .remove-ico' : 'remove'
 
-  setClassName : (className) ->
-    @className = className
+  initialize : () ->
+    @model.on 'image-removed', @_onImageRemove
 
-  remove : (e) ->
-    if confirm I18n.t('rademade_admin.image_remove_confirm')
-      @_removeImage $(e.currentTarget).data('url')
+  remove : () ->
+    @model.remove() if confirm I18n.t('rademade_admin.image_remove_confirm')
 
-  _removeImage : (removeUrl) ->
-    $.ajax
-      type : 'delete'
-      url : removeUrl
-      data :
-        class_name : @className
-      dataType : 'json'
-      success : () =>
-        @$el.fadeOut 300 # todo destroy and remove from collection-view
-      error : (data) =>
-        window.notifier.notify data.error
+  _onImageRemove : () =>
+    fadeTime = 300
+    @$el.fadeOut fadeTime
+    setTimeout () =>
+      @$el.remove()
+    , fadeTime
+
+  @init : ($el) ->
+    model = new GalleryImageModel
+      imageId : $el.data('id')
+      removeUrl : $el.find('.remove-ico').data('url')
+    new GalleryImageView
+      model : model
+      el : $el
+    model
