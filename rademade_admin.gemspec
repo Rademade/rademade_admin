@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir['test/**/*']
 
   # Core dependencies
-  s.add_dependency 'rails', '~> 4.0'
+  s.add_dependency 'rails', '~> 4.0', '< 4.2'
   s.add_dependency 'kaminari', '~> 0.16'
   s.add_dependency 'carrierwave', '~> 0.10'
   s.add_dependency 'light_resizer', '~> 0.1', '>= 0.1.6'
@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'i18n-js'
   s.add_dependency 'ejs', '~> 1.1'
-  
+
   # Public JS assets
   s.add_dependency 'turbolinks', '~> 2.2'
 
