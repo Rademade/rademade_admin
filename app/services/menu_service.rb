@@ -16,7 +16,7 @@ module RademadeAdmin
     def collect_children(parent_model = nil)
       menu_items = []
       @model_infos.each do |model_info|
-        if model_info.parent_model == parent_model && model_info.display_in_menu?
+        if model_info.parent_model == parent_model
           menu_items << RademadeAdmin::MenuService::MenuItem.new(model_info, collect_children(model_info.model))
         end
       end

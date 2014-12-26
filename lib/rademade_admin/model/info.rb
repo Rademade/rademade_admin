@@ -45,10 +45,6 @@ module RademadeAdmin
         @model_configuration.parent_menu_item
       end
 
-      def display_in_menu?
-        @model_configuration.display_in_menu
-      end
-
       def data_items
         fields.data_items
       end

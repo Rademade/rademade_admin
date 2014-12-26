@@ -118,8 +118,7 @@ options do
   
   # Navigation menu settings
   parent_menu 'ModelName'
-  remove_from_menu 
-  
+
   # Setting for list data (index action)
   # list :attr, :attr_other
   list do

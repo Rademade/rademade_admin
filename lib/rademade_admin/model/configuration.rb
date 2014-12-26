@@ -3,11 +3,10 @@ module RademadeAdmin
   module Model
     class Configuration
 
-      attr_reader :controller, :parent_menu_item, :model_name, :display_in_menu
+      attr_reader :controller, :parent_menu_item, :model_name
 
       def initialize(controller)
         @controller = controller
-        @display_in_menu = true
       end
 
       def item_name
@@ -60,13 +59,8 @@ module RademadeAdmin
         @item_name = item_name
       end
 
-      def remove_from_menu
-        @display_in_menu = false
-      end
-
       def parent_menu(parent_model)
-        model = parent_model.is_a?(String) ? RademadeAdmin::LoaderService.const_get(parent_model) : parent_model
-        @parent_menu_item = model
+        @parent_menu_item = parent_model.is_a?(String) ? RademadeAdmin::LoaderService.const_get(parent_model) : parent_model
       end
 
       def labels(*field_options, &block)
