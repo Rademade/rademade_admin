@@ -25,8 +25,9 @@ Gem::Specification.new do |s|
   # Assets
   s.add_dependency 'bower-rails', '~> 0.8', '>= 0.8.2'
   s.add_dependency 'sprockets-sass', '~> 1.0'
+  s.add_dependency 'sprockets', '2.11.0'
   s.add_dependency 'sass-rails', '~> 4.0'
-  s.add_dependency 'compass-rails', '~> 1.0'
+  s.add_dependency 'compass-rails', '~> 2.0'
   s.add_dependency 'coffee-rails', '~> 4.0'
 
   s.add_dependency 'i18n-js'
@@ -37,7 +38,7 @@ Gem::Specification.new do |s|
 
   # Admin
   s.add_dependency 'mini_magick'
-  s.add_dependency 'slim', '~> 2.1'
+  s.add_dependency 'slim'
   s.add_dependency 'cells', '~> 3.11'
   s.add_dependency 'simple_form', '~> 3.1'
   s.add_dependency 'ckeditor', '~> 4.0'

@@ -41,9 +41,9 @@ group :test do
   gem 'light_resizer', :github => 'Rademade/light_resizer'
 
   # Testing utilities
-  gem 'rspec', '>= 3'
+  gem 'rspec', '~> 3.0'
   gem 'spork-rails'
-  gem 'rspec-rails', '3.0.0'
+  gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
