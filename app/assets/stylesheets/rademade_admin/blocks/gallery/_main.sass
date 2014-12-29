@@ -1,0 +1,63 @@
+.gallery
+  +clear
+  .gallery-images-container
+    overflow: auto
+    .gallery-image
+      display: inline-block
+      position: relative
+      padding: 5px
+  .gallery-image-upload
+    float: left
+    position: relative
+    width: 100%
+    height: 98px
+    padding: 5px
+    margin: 0 5px 5px 0
+    border: 1px dashed #BDC3C7
+    font-size: 300px
+    overflow: hidden
+    cursor: pointer
+    background-color: #ffffff
+    outline: none
+    +border-radius(3px)
+    +box-sizing(border-box)
+    &:hover
+      opacity: 0.6
+    &:after
+      position: absolute
+      top: 0
+      left: 0
+      padding-top: 45px
+      content: "Click or drop files here"
+      text-align: center
+      width: 100%
+      height: 100%
+      font-size: 15px
+      color: #555
+      +box-sizing(border-box)
+
+
+  .remove-ico
+    position: absolute
+    top: 2px
+    right: 5px
+    font-size: 13px
+    cursor: pointer
+    padding: 1px 5px
+    border-radius: 3px
+    background-color: #FFF
+    font-weight: bold
+
+  .gallery-images-container
+    float: left
+    margin: 0 -2px
+    .gallery-image
+      float: left
+      margin: 0 2px 4px 2px
+      width: 135px
+      height: 98px
+      border: 1px solid #BDC3C7
+      +border-radius(3px)
+      img
+        max-width: 100% !important
+        max-height: 100% !important
