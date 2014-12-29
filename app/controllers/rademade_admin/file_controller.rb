@@ -9,7 +9,7 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
       :file => uploader
     }
   rescue CarrierWave::UploadError => e
-    render :json => { :error => e.to_s }, :status => :unprocessable_entity
+    show_error(e)
   end
 
   def crop
@@ -21,10 +21,14 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
       :file => uploader
     }
   rescue CarrierWave::UploadError => e
-    render :json => { :error => e.to_s }, :status => :unprocessable_entity
+    show_error(e)
   end
 
   private
+
+  def show_error(error)
+    render :json => { :error => error.to_s }, :status => :unprocessable_entity
+  end
 
   def uploader
     @uploader ||= RademadeAdmin::LoaderService.const_get(params[:uploader]).new(model, params[:column])

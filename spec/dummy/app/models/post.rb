@@ -4,6 +4,7 @@ class Post
   include Sortable
 
   belongs_to :user
+  belongs_to :gallery
   belongs_to :main_post, :class_name => 'Post', :inverse_of => :other_posts
   has_many :other_posts, :class_name => 'Post', :inverse_of => :main_post, :sortable => true
   has_and_belongs_to_many :tags, :sortable => true

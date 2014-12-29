@@ -44,10 +44,16 @@ module RademadeAdmin
               name = name.to_sym
               type = relation_info.relation.macro
               is_sortable = relation_info.sortable?
-              relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
+              to_class = RademadeAdmin::LoaderService.const_get(relation_info.class_name) rescue nil
+              if !to_class.nil? && to_class.ancestors.include?(RademadeAdmin::Gallery)
+                relation_class_name = ::RademadeAdmin::Model::Info::Relation::Gallery
+              else
+                relation_class_name = ::RademadeAdmin::Model::Info::Relation
+              end
+              relations[name] = relation_class_name.new({
                 :name => name,
                 :from => @model,
-                :to => to_class(relation_info),
+                :to => to_class,
                 :getter => name.to_s,
                 :setter => relation_info.setter,
                 :type => type,
@@ -59,14 +65,6 @@ module RademadeAdmin
               })
             end
             relations
-          end
-
-          private
-
-          def to_class(relation_info)
-            RademadeAdmin::LoaderService.const_get(relation_info.class_name)
-          rescue
-            nil
           end
 
         end

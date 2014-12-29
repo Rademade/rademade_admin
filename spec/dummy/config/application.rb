@@ -24,6 +24,7 @@ module Dummy
 
     I18n.config.available_locales = [:en, :ru]
 
+    config.generators.orm :active_record
+
   end
 end
-

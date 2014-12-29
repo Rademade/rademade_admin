@@ -1,5 +1,6 @@
 class Article < ActiveRecord::Base
 
+  belongs_to :active_gallery
   belongs_to :author
 
   translates :name

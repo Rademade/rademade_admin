@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001155800) do
+ActiveRecord::Schema.define(version: 20141224161545) do
+
+  create_table "active_galleries", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "active_gallery_photos", force: true do |t|
+    t.integer  "active_gallery_id"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "active_gallery_photos", ["active_gallery_id"], name: "index_active_gallery_photos_on_active_gallery_id", using: :btree
 
   create_table "article_translations", force: true do |t|
     t.integer  "article_id", null: false
@@ -30,8 +44,10 @@ ActiveRecord::Schema.define(version: 20141001155800) do
     t.datetime "updated_at"
     t.integer  "author_position"
     t.datetime "publish_time"
+    t.integer  "active_gallery_id"
   end
 
+  add_index "articles", ["active_gallery_id"], name: "index_articles_on_active_gallery_id", using: :btree
   add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
 
   create_table "author_rubrics", force: true do |t|
