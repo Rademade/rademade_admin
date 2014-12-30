@@ -28,4 +28,8 @@ module RademadeAdmin
     RademadeAdmin::Configuration.user_class
   end
 
+  def self.ability_class
+    RademadeAdmin::Configuration.ability_class
+  end
+
 end

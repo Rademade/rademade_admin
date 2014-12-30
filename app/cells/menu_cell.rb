@@ -2,7 +2,7 @@ class MenuCell < Cell::Rails
   include ::RademadeAdmin::UriHelper
 
   class << self
-    attr_accessor :current_model
+    attr_accessor :current_model, :current_ability
   end
 
   def root_item
@@ -33,7 +33,7 @@ class MenuCell < Cell::Rails
 
   def item_data(item)
     @is_active = current?(item) || children_current?(item) #todo extract service for current
-    @uri = admin_list_uri(item.model)
+    @uri = can_read?(item) ? admin_list_uri(item.model) : nil
     @name = item.name
     @has_sub_items = item.has_sub_items?
     @sub_items = item.sub_items
@@ -41,6 +41,10 @@ class MenuCell < Cell::Rails
 
   def current?(item)
     self.class.current_model == item.model
+  end
+
+  def can_read?(item) # todo move authorize check to uri helper
+    self.class.current_ability.can?(:read, item.model)
   end
 
   def children_current?(item, status = false)
