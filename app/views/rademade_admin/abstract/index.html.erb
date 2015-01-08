@@ -34,13 +34,16 @@ end %>
                             concat render 'rademade_admin/_blocks/button/edit', {
                                 :item => item
                             }
-                            %><div class="glyphicon glyphicon-remove fl-l"><%
-                                concat button_to t('rademade_admin.destroy'), admin_delete_uri(item), {
-                                    :method => :delete,
-                                    :form => { :class => 'delete-item-form' }
-                                }
-                            %></div>
-                        </span>
+                            delete_uri = admin_delete_uri(item)
+                            if delete_uri
+                                %><div class="glyphicon glyphicon-remove fl-l"><%
+                                    concat button_to t('rademade_admin.destroy'), delete_uri, {
+                                        :method => :delete,
+                                        :form => { :class => 'delete-item-form' }
+                                    }
+                                %></div><%
+                            end
+                        %></span>
                     </td>
                 </tr><%
             end
