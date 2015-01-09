@@ -96,6 +96,10 @@ module RademadeAdmin
             super.merge(@model.translation_class.uploaders)
           end
 
+          def _model_fields
+            @model.column_types.keys.map(&:to_sym)
+          end
+
           private
 
           def extract_column_data(field_data)

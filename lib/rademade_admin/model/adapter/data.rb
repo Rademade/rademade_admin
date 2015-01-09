@@ -53,6 +53,10 @@ module RademadeAdmin
           @fields ||= _map_fields
         end
 
+        def columns
+          @columns ||= _model_fields
+        end
+
         #
         # @return [RademadeAdmin::Model::Info::Field]
         #
@@ -111,6 +115,10 @@ module RademadeAdmin
 
         def _model_uploaders
           @model.uploaders
+        end
+
+        def _model_fields
+          fields.keys
         end
 
       end

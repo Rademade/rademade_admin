@@ -58,7 +58,11 @@ module RademadeAdmin
 
         def init_data_item(field, relation)
           name = relation.nil? ? field.name : relation.name
-          data_item = RademadeAdmin::Model::Info::DataItem.new(name, field, relation, @uploaders.has_uploader?(name))
+          data_item = RademadeAdmin::Model::Info::DataItem.new(
+            name, field, relation,
+            @uploaders.has_uploader?(name),
+            @data_adapter.columns.include?(name)
+          )
           add_configuration_data(data_item, name)
           data_item
         end

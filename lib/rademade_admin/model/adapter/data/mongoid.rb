@@ -67,6 +67,10 @@ module RademadeAdmin
             relations
           end
 
+          def _model_fields
+            @model.fields.keys.map(&:to_sym)
+          end
+
         end
 
       end

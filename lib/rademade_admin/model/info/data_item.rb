@@ -10,7 +10,8 @@ module RademadeAdmin
                       :label,
                       :form_position,
                       :list_position,
-                      :has_uploader
+                      :has_uploader,
+                      :is_column
 
         attr_writer :in_form,
                     :form_params,
@@ -23,16 +24,16 @@ module RademadeAdmin
         # @param relation [RademadeAdmin::Model::Info::Relation]
         # @param has_uploader [Boolean]
         #
-        def initialize(name, field = nil, relation = nil, has_uploader = false)
+        def initialize(name, field = nil, relation = nil, has_uploader = false, is_column = false)
           @name = name
           @field = field
           @relation = relation
           @has_uploader = has_uploader
+          @is_column = is_column
           @in_list = false
           @in_form = false
           @form_params = nil
           @preview_accessor = nil
-          #rm_todo pry.binding if not has_relation? and @field.nil? create custom notification
         end
 
         def has_name?(name)
@@ -49,6 +50,10 @@ module RademadeAdmin
 
         def has_uploader?
           has_uploader
+        end
+
+        def column?
+          is_column
         end
 
         def sortable_relation?

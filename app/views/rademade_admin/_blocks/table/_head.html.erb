@@ -1,7 +1,11 @@
 <thead class="table-header">
     <tr class="table-line"><%
         list_fields.each do |field|
-            %><th class="table-item" data-column="<%= field.name %>">
+            %><th class="table-item"<%
+                if field.column?
+                    %> data-column="<%= field.getter %>"<%
+                end
+            %>>
                 <span><%= field.label + @sortable_service.sorting_sign(field) %></span>
             </th><%
         end

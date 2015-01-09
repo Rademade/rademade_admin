@@ -18,8 +18,7 @@ module RademadeAdmin
 
         def order
           order_conditions = super
-          field = @params[:sort] || default_order_field
-          order_conditions.unshift(field, @params[:direction])
+          order_conditions.unshift(order_field, @params[:direction])
           order_conditions
         end
 
@@ -33,8 +32,12 @@ module RademadeAdmin
 
         private
 
-        def default_order_field
-          @data_items.has_field?(:position) ? :position : :id
+        def order_field
+          if @params[:sort] && @data_items.data_item(@params[:sort]).column?
+            @params[:sort]
+          else
+            @data_items.has_field?(:position) ? :position : :id
+          end
         end
 
       end
