@@ -1,8 +1,8 @@
 <div class="crop">
     <img class="crop-image" src="<%= imagePath %>">
     <div class="crop-actions">
-        <button class="btn blue-btn" data-crop>Crop</button>
-        <button class="btn red-btn" data-close>Discard</button>
+        <button class="btn blue-btn" data-crop><%= I18n.t('rademade_admin.crop') %></button>
+        <button class="btn red-btn" data-close><%= I18n.t('rademade_admin.discard') %></button>
     </div>
     <input type="hidden" data-crop-attribute="x"/>
     <input type="hidden" data-crop-attribute="y"/>

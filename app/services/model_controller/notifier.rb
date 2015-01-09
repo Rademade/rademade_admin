@@ -4,7 +4,7 @@ module RademadeAdmin
 
     def success_action
       render :json => {
-        :message => 'ok'
+        :message => I18n.t('rademade_admin.success_message')
       }
     end
 
@@ -17,7 +17,7 @@ module RademadeAdmin
           else
             data = { :form_action => admin_update_uri(item) }
           end
-          success_message(item, 'was inserted!', data)
+          success_message(item, I18n.t('rademade_admin.success_insert_message'), data)
         }
       end
     end
@@ -28,7 +28,7 @@ module RademadeAdmin
         format.json {
           data = {}
           data[:redirect_to] = admin_list_uri(item.class) if params.has_key?(:create_and_return)
-          success_message(item, 'data was updated!', data)
+          success_message(item, I18n.t('rademade_admin.success_update_message'), data)
         }
       end
     end
@@ -37,27 +37,27 @@ module RademadeAdmin
       respond_to do |format|
         format.html { redirect_to admin_list_uri(item) }
         format.json {
-          success_message(item, 'was deleted!')
+          success_message(item, I18n.t('rademade_admin.success_delete_message'))
         }
       end
     end
 
     def success_unlink
       render :json => {
-        :message => 'Entity was unlinked!'
+        :message => I18n.t('rademade_admin.success_unlink_message')
       }
     end
 
     def success_link
       render :json => {
-        :message => 'Entity was linked!'
+        :message => I18n.t('rademade_admin.success_link_message')
       }
     end
 
-    def success_message(item, action_message, additional_data = {})
+    def success_message(item, message, additional_data = {})
       render :json => {
         :data => Autocomplete::BaseSerializer.new([item]).as_json.first,
-        :message => "#{model_info.singular_name.capitalize} #{action_message}"
+        :message => message
       }.merge(additional_data)
     end
 
