@@ -1,0 +1,5 @@
+<%
+if @sortable_service.can_reset?
+    %><a href="<%= admin_url_for(request.path_parameters, true) %>"><%= t('rademade_admin.reset_sort') %></a><%
+end
+%>

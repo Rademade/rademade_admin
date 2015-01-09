@@ -34,6 +34,10 @@ module RademadeAdmin
       block_path 'on_page_select'
     end
 
+    def sort_reset_block
+      block_path 'sort_reset'
+    end
+
     def header_block
       block_path 'header'
     end

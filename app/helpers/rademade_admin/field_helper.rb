@@ -29,10 +29,9 @@ module RademadeAdmin::FieldHelper
     hash_params.delete(:page)
     hash_params[name.to_sym] = number
 
-    options = '?' + hash_params.map { |k, v| "#{k.to_s}=#{v}" }.join('&')
     selected = number == request.query_parameters[name.to_sym].to_i
-
-    content_tag(:option, number.to_s, :selected => selected, :value => request.path + options)
+    url_params = request.path_parameters.merge(hash_params)
+    content_tag(:option, number.to_s, :selected => selected, :value => admin_url_for(url_params, true))
   end
 
   def input_attr(attrs = {})

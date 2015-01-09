@@ -1,8 +1,6 @@
 <% content_for :content do %><%
     concat render @template_service.on_page_select_block
-    if @sortable_service.can_reset?
-        %><a href="<%= request.path %>"><%= t('rademade_admin.reset_sort') %></a><%
-    end
+    concat render @template_service.sort_reset_block
     %><table class="table-box"><%
         concat render @template_service.table_head_block, {
             :list_fields => @list_fields

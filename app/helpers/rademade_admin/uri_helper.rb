@@ -79,20 +79,12 @@ module RademadeAdmin::UriHelper
     }))
   end
 
-  def admin_url_for(opts)
-    opts = opts.merge({
-      :controller => "rademade_admin/#{opts[:controller]}",
-      :only_path => true
-    })
-    begin
-      Rails.application.routes.url_helpers.url_for(opts)
-    rescue
-      begin
-        RademadeAdmin::Engine.routes.url_helpers.url_for(opts)
-      rescue
-        nil
-      end
-    end
+  def admin_url_for(opts, is_admin_controller = false)
+    opts[:only_path] = true
+    opts[:controller] = "rademade_admin/#{opts[:controller]}" unless is_admin_controller
+    Rails.application.routes.url_helpers.url_for(opts)
+  rescue
+    RademadeAdmin::Engine.routes.url_helpers.url_for(opts) rescue nil
   end
 
   private
