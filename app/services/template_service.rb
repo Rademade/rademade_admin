@@ -9,6 +9,10 @@ module RademadeAdmin
     def template_path(*directories)
       "#{@root_dir}/#{directories.join('/')}"
     end
+    
+    def index_template
+      abstract_template 'index'
+    end
 
     def inner_layout
       layout_path 'inner'
@@ -16,6 +20,10 @@ module RademadeAdmin
 
     def inner_form_layout
       layout_path 'inner/form'
+    end
+
+    def form_block
+      block_path 'form'
     end
 
     def form_control_block
@@ -59,6 +67,10 @@ module RademadeAdmin
     end
 
     private
+
+    def abstract_template(path)
+      template_path 'abstract', path
+    end
 
     def layout_path(layout)
       template_path '_layouts', layout

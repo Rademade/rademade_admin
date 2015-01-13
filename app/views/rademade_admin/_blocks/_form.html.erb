@@ -1,0 +1,10 @@
+<%
+show_buttons = show_buttons.nil? ? true : show_buttons
+buttons_template ||= @template_service.form_control_block
+%><%= admin_form(@item, @model_class) do |f| %><%
+    @form_fields_without_locale.each do |form_field|
+        admin_field(f, form_field, @model_info)
+    end
+    concat render @template_service.form_lang_panel, { :f => f }
+    concat render buttons_template, { :f => f } if show_buttons
+end %>
