@@ -1,0 +1,7 @@
+<%
+if breadcrumbs && breadcrumbs.items.length > 2
+  back_url = breadcrumbs.items[-2][1]
+else
+  back_url = admin_list_uri(@model)
+end
+concat link_to t('rademade_admin.cancel'), back_url || '', :class => 'cancel-btn' %>

@@ -30,8 +30,12 @@ module RademadeAdmin
       block_path 'form/control'
     end
 
-    def form_lang_panel
+    def form_lang_panel_block
       block_path 'form/lang_panel'
+    end
+
+    def form_separator_block
+      block_path 'form/separator'
     end
 
     def pagination_block
@@ -64,6 +68,10 @@ module RademadeAdmin
 
     def table_head_block
       block_path 'table/head'
+    end
+
+    def cancel_button
+      block_path 'button/cancel'
     end
 
     private
