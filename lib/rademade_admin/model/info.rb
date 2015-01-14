@@ -45,6 +45,10 @@ module RademadeAdmin
         @model_configuration.parent_menu_item
       end
 
+      def menu_count
+        @model_configuration.menu_count_block.try(:call)
+      end
+
       def data_items
         fields.data_items
       end

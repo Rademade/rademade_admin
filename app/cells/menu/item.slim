@@ -8,6 +8,8 @@
     a href="#{@uri}" class=('menu-link' + (@has_sub_items ? ' dropdown-toggle' : ''))
       i(class="#{@ico_class}")
       span #{@name}
+      - if @count && @count > 0
+        span()  (#{@count})
 
       - if @has_sub_items
         span.caret

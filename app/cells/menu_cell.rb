@@ -8,6 +8,7 @@ class MenuCell < Cell::Rails
   def root_item
     @uri = root_uri
     @name = t('rademade_admin.home')
+    @count = nil
     @ico_class = 'glyphicon glyphicon-home'
     @has_sub_items = false
     @is_active = self.class.current_model.nil?
@@ -35,6 +36,7 @@ class MenuCell < Cell::Rails
     @is_active = current?(item) || children_current?(item) #todo extract service for current
     @uri = can_read?(item) ? admin_list_uri(item.model) : nil
     @name = item.name
+    @count = item.count
     @has_sub_items = item.has_sub_items?
     @sub_items = item.sub_items
   end

@@ -9,6 +9,10 @@ module RademadeAdmin
         @model_info.item_name
       end
 
+      def count
+        @model_info.menu_count
+      end
+
       def model
         @model_info.model
       end

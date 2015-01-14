@@ -7,6 +7,7 @@ module RademadeAdmin
     #  - model
     #  - name
     #  - parent_menu (todo extract to menu method)
+    #  - menu_count
     #  - list
     #  - form
     #  - labels
