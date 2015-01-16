@@ -6,13 +6,14 @@ RademadeAdmin::Engine.routes.draw do
   root 'dashboard#index'
 
   match 'file-upload' => 'file#upload', :via => [:post, :patch]
+  match 'file-crop' => 'file#crop', :via => [:post, :patch]
   match 'gallery-upload' => 'gallery#upload', :via => [:post, :patch]
   match 'gallery-sort' => 'gallery#sort', :via => [:post, :patch]
   match 'gallery-remove/:id' => 'gallery#remove', :via => [:delete]
-  match 'file-crop' => 'file#crop', :via => [:post, :patch]
+  match 'status/:model/:id' => 'status#toggle', :via => [:post, :patch]
 
   post 'sessions' => 'sessions#login'
-  get 'login' => 'dashboard#login', :as => 'login'
+  get 'login' => 'dashboard#login', :as => :login
 
   resources :sessions do
     get 'logout', :on => :collection

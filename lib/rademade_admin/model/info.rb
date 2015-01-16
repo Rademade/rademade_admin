@@ -41,6 +41,10 @@ module RademadeAdmin
         @nested
       end
 
+      def hideable?
+        @is_hideable ||= model_reflection.hideable?
+      end
+
       def parent_model
         @model_configuration.parent_menu_item
       end

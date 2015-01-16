@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224161545) do
+ActiveRecord::Schema.define(version: 20150116105737) do
 
   create_table "active_galleries", force: true do |t|
     t.datetime "created_at"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20141224161545) do
     t.integer  "author_position"
     t.datetime "publish_time"
     t.integer  "active_gallery_id"
+    t.integer  "status"
   end
 
   add_index "articles", ["active_gallery_id"], name: "index_articles_on_active_gallery_id", using: :btree

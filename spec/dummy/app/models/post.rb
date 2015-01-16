@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Post
+  include RademadeAdmin::Hideable
   include Mongoid::Document
   include Sortable
 
@@ -17,6 +18,7 @@ class Post
   field :text, :type => String, :localize => true
   field :status, :type => Integer
   field :post_time, :type => DateTime
+  field :status, :type => Mongoid::Boolean, :default => RademadeAdmin::Hideable::STATUS_SHOWN
 
   validates_presence_of :headline
 

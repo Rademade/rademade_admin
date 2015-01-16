@@ -43,3 +43,4 @@ ru:
     success_delete_message: "Запись удалена!"
     success_unlink_message: "Запись отсоединена!"
     success_link_message: "Запись соединена!"
+    success_status_update_message: "Статус обновлен!"

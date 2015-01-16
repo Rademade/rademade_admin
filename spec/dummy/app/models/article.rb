@@ -1,5 +1,7 @@
 class Article < ActiveRecord::Base
 
+  include RademadeAdmin::Hideable
+
   belongs_to :active_gallery
   belongs_to :author
 

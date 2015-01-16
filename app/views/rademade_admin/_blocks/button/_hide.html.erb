@@ -1,0 +1,8 @@
+<%
+if @model_info.hideable?
+    %><input data-toggle-url="<%= admin_url_for(:controller => :status, :action => :toggle, :model => @model_info.model, :id => item.id) %>" type="checkbox"<%
+        if item.shown?
+            %> checked="checked"<%
+        end
+    %>/><%
+end %>

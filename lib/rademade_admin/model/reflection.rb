@@ -26,6 +26,10 @@ module RademadeAdmin
         @query_adapter ||= "RademadeAdmin::Model::Adapter::Query::#{orm_type}".constantize.new(@model)
       end
 
+      def hideable?
+        _model_ancestors.include? RademadeAdmin::Hideable.name
+      end
+
       protected
 
       def _model_ancestors

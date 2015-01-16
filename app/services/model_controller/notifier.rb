@@ -41,6 +41,15 @@ module RademadeAdmin
         }
       end
     end
+    
+    def success_status_change(item)
+      respond_to do |format|
+        format.html { redirect_to admin_list_uri(item) }
+        format.json {
+          success_message(item, t('rademade_admin.success_status_update_message'))
+        }
+      end
+    end
 
     def success_unlink
       render :json => {
