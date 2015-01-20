@@ -19,7 +19,7 @@ class @Location extends Backbone.View
 
   _initLayer : () ->
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      attribution : '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(@map)
 
   _initMarker : () ->
@@ -27,6 +27,10 @@ class @Location extends Backbone.View
       icon : L.icon
         iconUrl : '<%= asset_path('rademade_admin/leaflet/marker-icon.png') %>'
         shadowUrl : '<%= asset_path('rademade_admin/leaflet/marker-shadow.png') %>'
+        iconSize : [25, 41]
+        shadowSize : [41, 41]
+        iconAnchor : [12, 41]
+        shadowAnchor: [12, 41]
       draggable : true
     marker.on 'dragend', (event) =>
       @_updateLatLng event.target.getLatLng()
