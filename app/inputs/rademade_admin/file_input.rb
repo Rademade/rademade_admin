@@ -47,7 +47,8 @@ module RademadeAdmin
 
     def input_hidden_html
       @builder.hidden_field(attribute_name, {
-        :class => 'uploader-input-hidden hidden'
+        :class => 'uploader-input-hidden hidden',
+        :value => uploader.url
       }.merge(input_html_options))
     end
 
