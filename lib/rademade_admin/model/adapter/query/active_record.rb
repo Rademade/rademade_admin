@@ -32,7 +32,11 @@ module RademadeAdmin
               if part.is_a? RademadeAdmin::Search::Part::Where
                 condition += "(#{collect_where_conditions(part)})"
               else
-                if part[:value].is_a? Array
+                if part[:value].is_a? Regexp
+                  # hack temporary fix
+                  condition += "#{part[:field]} REGEXP ?"
+                  part[:value] = part[:value].source
+                elsif part[:value].is_a? Array
                   condition += "#{part[:field]} IN (?)"
                 else
                   condition += "#{part[:field]} = ?"

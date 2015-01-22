@@ -63,7 +63,7 @@ module RademadeAdmin
     def index
       authorize! :read, model_class
       list_breadcrumbs
-      init_index_items
+      @items = index_items
       respond_to do |format|
         format.html { render_template }
         format.json { render :json => @items }
@@ -149,9 +149,9 @@ module RademadeAdmin
 
     protected
 
-    def init_index_items
+    def index_items
       conditions = Search::Conditions::List.new(params, model_info.data_items)
-      @items = Search::Searcher.new(model_info).search(conditions)
+      Search::Searcher.new(model_info).search(conditions)
     end
 
     def model
