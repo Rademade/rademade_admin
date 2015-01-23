@@ -7,7 +7,7 @@ module RademadeAdmin
     def input(wrapper_options = {})
       template.content_tag(
         :div,
-        HtmlBuffer.new([file_html]),
+        HtmlBuffer.new([file_html, download_button_html]),
         { :class => 'uploader-block' }
       )
     end
@@ -35,13 +35,9 @@ module RademadeAdmin
         :class => 'btn yellow-btn uploader-input-file',
         :name => uploader.mounted_as,
         :data => {
-          :column => uploader.mounted_as,
-          :id => object.id.to_s,
           :saved => object.new_record? ? 0 : 1,
-          :model => object.class.to_s,
-          :uploader => uploader.class.to_s,
           :url => admin_url_for(:controller => 'file', :action => 'upload')
-        }
+        }.merge(uploader_params)
       })
     end
 
@@ -68,6 +64,16 @@ module RademadeAdmin
       })
     end
 
+    def download_button_html
+      template.content_tag(:a, I18n.t('rademade_admin.download_file'), {
+        :class => 'btn blue-btn download-btn',
+        :href => admin_url_for({
+          :controller => 'file',
+          :action => 'download'
+        }.merge(uploader_params))
+      })
+    end
+
     def crop_button_html
       template.content_tag(:span, I18n.t('rademade_admin.crop'), {
         :class => 'btn red-btn upload-btn',
@@ -88,6 +94,15 @@ module RademadeAdmin
 
     def photo_uploader?
       uploader.class.ancestors.include? RademadeAdmin::Uploader::Photo
+    end
+
+    def uploader_params
+      {
+        :id => object.id.to_s,
+        :model => object.class.to_s,
+        :uploader => uploader.class.to_s,
+        :column => uploader.mounted_as
+      }
     end
 
   end

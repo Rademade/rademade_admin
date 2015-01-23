@@ -23,6 +23,7 @@ ru:
     search: "Поиск"
     edit_record: "Редактировать"
     upload_file: "Загрузить файл"
+    download_file: "Скачать файл"
     enter_search: "Введите фразу для поиска"
     record_remove_confirm: "Вы действительно хотите удалить данную запись?"
     model_remove_confirm: "Вы действительно хотите удалить данную модель?"

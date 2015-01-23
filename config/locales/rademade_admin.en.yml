@@ -23,6 +23,7 @@ en:
     search: "Search"
     edit_record: "Edit"
     upload_file: "Upload file"
+    download_file: "Download file"
     enter_search: "Enter search phrase"
     record_remove_confirm: "Do you really want delete this record?"
     model_remove_confirm: "Do you really want delete this model?"

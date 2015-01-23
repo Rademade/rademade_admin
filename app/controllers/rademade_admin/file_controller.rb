@@ -12,6 +12,11 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
     show_error(e)
   end
 
+  def download
+    # todo filename
+    send_file(uploader.model.send(uploader.mounted_as).file.file)
+  end
+
   def crop
     image = uploader.crop_image(params[:path], params[:crop])
     uploader.store!(image)
@@ -36,7 +41,7 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
 
   def model
     model_class = RademadeAdmin::LoaderService.const_get(params[:model])
-    params[:saved].to_i.zero? ? model_class.new : model_class.find(params[:id])
+    params[:id].nil? ? model_class.new : model_class.find(params[:id])
   end
 
 end
