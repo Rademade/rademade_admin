@@ -1,7 +1,7 @@
 class RademadeAdmin::ArticlesController < RademadeAdmin::ModelController
 
   options do
-    list :name
+    list :name, :author
     menu_count { Article.count }
     form do
       name

@@ -1,7 +1,7 @@
 class RademadeAdmin::AuthorsController < RademadeAdmin::ModelController
 
   options do
-    list :name
+    list :name, :articles
     form do
       name
       photo

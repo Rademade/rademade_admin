@@ -11,7 +11,7 @@ module RademadeAdmin
                       :form_position,
                       :list_position,
                       :has_uploader,
-                      :is_column
+                      :order_column
 
         attr_writer :in_form,
                     :form_params,
@@ -24,12 +24,12 @@ module RademadeAdmin
         # @param relation [RademadeAdmin::Model::Info::Relation]
         # @param has_uploader [Boolean]
         #
-        def initialize(name, field = nil, relation = nil, has_uploader = false, is_column = false)
+        def initialize(name, field = nil, relation = nil, has_uploader = false, order_column = nil)
           @name = name
           @field = field
           @relation = relation
           @has_uploader = has_uploader
-          @is_column = is_column
+          @order_column = order_column
           @in_list = false
           @in_form = false
           @form_params = nil
@@ -50,10 +50,6 @@ module RademadeAdmin
 
         def has_uploader?
           has_uploader
-        end
-
-        def column?
-          is_column
         end
 
         def sortable_relation?

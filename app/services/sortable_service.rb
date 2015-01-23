@@ -19,11 +19,8 @@ module RademadeAdmin
       @params[:sort].present?
     end
 
-    #
-    # @return [RademadeAdmin::Model::Info::DataItem]
-    #
     def sorting_sign(field)
-      if field.name.to_s == @params[:sort]
+      if field.order_column.to_s == @params[:sort]
         return '⬇' if @params[:direction] == 'asc'
         return '⬆' if @params[:direction] == 'desc'
       end

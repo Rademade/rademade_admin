@@ -57,11 +57,17 @@ module RademadeAdmin
         end
 
         def init_data_item(field, relation)
-          name = relation.nil? ? field.name : relation.name
+          if relation.nil?
+            name = field.name
+            order_column = name
+          else
+            name = relation.name
+            order_column = relation.foreign_key
+          end
           data_item = RademadeAdmin::Model::Info::DataItem.new(
             name, field, relation,
             @uploaders.has_uploader?(name),
-            @data_adapter.columns.include?(name)
+            @data_adapter.columns.include?(order_column) ? order_column : nil
           )
           add_configuration_data(data_item, name)
           data_item

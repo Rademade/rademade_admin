@@ -33,7 +33,7 @@ module RademadeAdmin
         private
 
         def order_field
-          if @params[:sort] && @data_items.data_item(@params[:sort]).column?
+          if @params[:sort]
             @params[:sort]
           else
             @data_items.has_field?(:position) ? :position : :id
