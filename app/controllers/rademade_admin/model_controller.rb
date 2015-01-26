@@ -44,9 +44,7 @@ module RademadeAdmin
 
     def autocomplete
       authorize! :read, model_class
-      conditions = Search::Conditions::Autocomplete.new(params, model_info.data_items)
-      @items = Search::Searcher.new(model_info).search(conditions)
-      render :json => Autocomplete::BaseSerializer.new(@items)
+      render :json => Autocomplete::BaseSerializer.new(autocomplete_items)
     end
 
     def link_autocomplete
@@ -151,6 +149,11 @@ module RademadeAdmin
 
     def index_items
       conditions = Search::Conditions::List.new(params, model_info.data_items)
+      Search::Searcher.new(model_info).search(conditions)
+    end
+
+    def autocomplete_items
+      conditions = Search::Conditions::Autocomplete.new(params, model_info.data_items)
       Search::Searcher.new(model_info).search(conditions)
     end
 
