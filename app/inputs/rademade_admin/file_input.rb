@@ -71,7 +71,7 @@ module RademadeAdmin
           :controller => 'file',
           :action => 'download'
         }.merge(uploader_params))
-      })
+      }) unless uploader.file.nil?
     end
 
     def crop_button_html
