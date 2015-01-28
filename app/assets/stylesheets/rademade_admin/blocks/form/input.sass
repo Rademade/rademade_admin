@@ -1,29 +1,49 @@
+.view-option
+  position: relative
+  float: left
+  cursor: pointer
+  input
+    position: absolute
+    z-index: 10
+    top: 0
+    left: 0
+    +opacity(0)
+    &:checked + label
+      @extend .glyphicon-eye-close
+  label
+    cursor: pointer
+    @extend .glyphicon-eye-open
 .form-box
-    .input-holder
-        float: left
-        input[type="checkbox"]
-            margin-top: 10px
-            width: 20px
-            height: 20px
+  .input-holder
+    float: left
+    .location
+      position: relative
+      z-index: 990
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="tel"]
-            display: block
-            width: 100%
-            height: 34px
-            padding: 6px 12px
-            font-size: 14px
-            color: #555
-            background-color: #fff
-            background-image: none
-            border: 1px solid #ccc
-            +box-sizing(border-box)
-            +border-radius(4px)
-            +box-shadow(inset 0 1px 1px rgba(0,0,0,.075))
-            +transition(border-color ease-in-out .15s,box-shadow ease-in-out .15s)
-            &:focus
-                border-color: #66afe9
-                outline: 0
-                +box-shadow(inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6))
+    input[type="checkbox"]
+      margin-top: 11px
+      width: 20px
+      height: 20px
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="number"]
+      display: block
+      width: 100%
+      height: 34px
+      padding: 6px 12px
+      font-size: 14px
+      color: #555
+      background-color: #fff
+      background-image: none
+      border: 1px solid #ccc
+      +box-sizing(border-box)
+      +border-radius(4px)
+      +box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075))
+      +transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s)
+      &:focus
+        border-color: #66afe9
+        outline: 0
+        +box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6))

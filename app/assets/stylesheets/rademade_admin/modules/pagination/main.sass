@@ -9,8 +9,23 @@
     padding: 0 15px
   .last
     padding: 0 15px
-
-  span
+  .page
+    &.gap
+      display: inline-block
+      padding: 0 5px
+      min-width: 35px
+      height: 37px
+      line-height: 35px
+      font-size: 14px
+      color: #34495e
+      text-align: center
+      cursor: default
+      +box-sizing(border-box)
+      &:hover
+        border: 1px solid #dddddd
+  .page,
+  .next,
+  .last
     float: left
     margin: 0 -1px 0 0
     padding: 0

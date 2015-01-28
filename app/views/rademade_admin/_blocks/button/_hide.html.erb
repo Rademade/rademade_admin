@@ -1,8 +1,15 @@
 <%
 if @model_info.hideable?
-    %><input data-toggle-url="<%= admin_url_for(:controller => :status, :action => :toggle, :model => @model_info.model, :id => item.id) %>" type="checkbox"<%
-        if item.shown?
-            %> checked="checked"<%
-        end
-    %>/><%
+   element_id = "hide_#{item.id}"
+    %>
+    <div class="view-option">
+
+      <input id="<%=element_id%>" data-toggle-url="<%= admin_url_for(:controller => :status, :action => :toggle, :model => @model_info.model, :id => item.id) %>" type="checkbox"<%
+         if item.shown?
+      %> checked="checked"<%
+         end
+      %>/>
+
+      <label for="<%=element_id %>" class="glyphicon"></label>
+    </div><%
 end %>
