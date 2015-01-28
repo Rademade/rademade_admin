@@ -29,12 +29,9 @@ end %>
                     end
                     %><td class="table-item">
                         <span class="table-actions"><%
-                            concat render 'rademade_admin/_blocks/button/edit', {
-                                :item => item
-                            }
-                            concat render 'rademade_admin/_blocks/button/hide', {
-                                :item => item
-                            }
+                            concat render 'rademade_admin/_blocks/button/edit', { :item => item }
+                            concat render 'rademade_admin/_blocks/button/hide', { :item => item }
+                            concat render 'rademade_admin/_blocks/button/preview', { :item => item }
                             delete_uri = admin_delete_uri(item)
                             if delete_uri
                                 %><div class="glyphicon glyphicon-remove fl-l"><%

@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     class Configuration
 
-      attr_reader :controller, :parent_menu_item, :model_name, :menu_count_block
+      attr_reader :controller, :parent_menu_item, :model_name, :menu_count_block, :preview_url_block
 
       def initialize(controller)
         @controller = controller
@@ -55,6 +55,10 @@ module RademadeAdmin
 
       def menu_count(&block)
         @menu_count_block = block
+      end
+
+      def preview_url(&block)
+        @preview_url_block = block
       end
 
       private

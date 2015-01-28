@@ -53,6 +53,13 @@ module RademadeAdmin
         @model_configuration.menu_count_block.try(:call)
       end
 
+      def preview_url(item)
+        unless @model_configuration.preview_url_block.nil?
+          # calls within url helpers context
+          Rails.application.routes.url_helpers.instance_exec(item, &@model_configuration.preview_url_block)
+        end
+      end
+
       def data_items
         fields.data_items
       end
