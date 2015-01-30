@@ -18,7 +18,8 @@ module RademadeAdmin
 
         def order
           order_conditions = super
-          order_conditions.unshift(order_field, @params[:direction])
+          list_order_field = order_field
+          order_conditions.unshift(list_order_field, @params[:direction]) unless list_order_field.nil?
           order_conditions
         end
 
@@ -36,7 +37,7 @@ module RademadeAdmin
           if @params[:sort]
             @params[:sort]
           else
-            @data_items.has_field?(:position) ? :position : :id
+            @data_items.has_field?(:position) ? :position : nil
           end
         end
 
