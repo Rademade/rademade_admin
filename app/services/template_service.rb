@@ -50,6 +50,10 @@ module RademadeAdmin
       block_path 'sort_reset'
     end
 
+    def search_block
+      block_path 'search'
+    end
+
     def header_block
       block_path 'header'
     end

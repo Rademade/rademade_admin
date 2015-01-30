@@ -11,6 +11,7 @@ end %>
 
 <% content_for :content do %><%
     concat render @template_service.on_page_select_block
+    concat render @template_service.search_block
     concat render @template_service.sort_reset_block
     %><table class="table-box"><%
         concat render @template_service.table_head_block, {
