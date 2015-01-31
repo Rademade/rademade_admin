@@ -49,13 +49,9 @@ module RademadeAdmin
 
     def link_autocomplete
       authorize! :read, model_class
-
       relation_service = RademadeAdmin::RelationService.new
       @related_model_info = relation_service.related_model_info(model_info, params[:relation])
-
-      conditions = Search::Conditions::Autocomplete.new(params, @related_model_info.data_items)
-      @items = Search::Searcher.new(@related_model_info).search(conditions)
-      render :json => Autocomplete::LinkSerializer.new(@items, model.find(params[:id]), params[:relation])
+      render :json => Autocomplete::LinkSerializer.new(link_autocomplete_items, model.find(params[:id]), params[:relation])
     end
 
     def index
@@ -71,9 +67,7 @@ module RademadeAdmin
     def new
       authorize! :create, model_class
       @with_create_and_return_button = true
-
       @item = model.new
-
       new_breadcrumbs
       render_template
     end
@@ -81,27 +75,18 @@ module RademadeAdmin
     def edit
       authorize! :update, model_class
       @with_create_and_return_button = true
-
       @item = model.find(params[:id])
-
       edit_breadcrumbs
       render_template
     end
 
     def related
       authorize! :read, model_class
-
-      #rm_todo extract relation service
-      relation_service = RademadeAdmin::RelationService.new
-      @related_model_info = relation_service.related_model_info(model_info, params[:relation])
-
+      @related_model_info = RademadeAdmin::RelationService.new.related_model_info(model_info, params[:relation])
       @item = model.find(params[:id])
       search_params = params.except(:id)
-      conditions = Search::Conditions::RelatedList.new(@item, search_params, @related_model_info.data_items)
-      @items = Search::Searcher.new(@related_model_info).search(conditions)
-
+      @items = related_items(search_params)
       @sortable_service = RademadeAdmin::SortableService.new(@related_model_info, search_params)
-
       respond_to do |format|
         format.html {
           related_breadcrumbs
@@ -155,6 +140,16 @@ module RademadeAdmin
     def autocomplete_items
       conditions = Search::Conditions::Autocomplete.new(params, model_info.data_items)
       Search::Searcher.new(model_info).search(conditions)
+    end
+
+    def link_autocomplete_items
+      conditions = Search::Conditions::Autocomplete.new(params, @related_model_info.data_items)
+      Search::Searcher.new(@related_model_info).search(conditions)
+    end
+
+    def related_items(search_params)
+      conditions = Search::Conditions::RelatedList.new(@item, search_params, @related_model_info.data_items)
+      Search::Searcher.new(@related_model_info).search(conditions)
     end
 
     def model
