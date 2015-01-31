@@ -18,11 +18,13 @@ module RademadeAdmin::FormHelper
   end
 
   def admin_field(form, data_item, model_info)
-    name = data_item.name
-    attrs = admin_default_params(name, model_info)
-      .merge(field_params(data_item))
-      .merge(input_params(name))
-    concat form.input(name, input_attr(attrs))
+    if can_read_relation data_item
+      name = data_item.name
+      attrs = admin_default_params(name, model_info)
+        .merge(field_params(data_item))
+        .merge(input_params(name))
+      concat form.input(name, input_attr(attrs))
+    end
   end
 
   def admin_localized_field(form, data_item, model_info, locale)
@@ -86,6 +88,10 @@ module RademadeAdmin::FormHelper
     item_value = (@item.try(:translation) || @item).send(getter)
     I18n.locale = current_locale
     item_value
+  end
+
+  def can_read_relation(data_item)
+    !data_item.has_relation? || can?(:read, data_item.relation.to)
   end
 
 end

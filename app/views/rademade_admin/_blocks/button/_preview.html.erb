@@ -1,5 +1,3 @@
 <%
 preview_url = @model_info.preview_url(item)
-unless preview_url.nil?
-    %><a class="glyphicon glyphicon-new-window" href="<%= preview_url %>" target="_blank"></a><%
-end %>
+concat link_to '', preview_url, :class => 'glyphicon glyphicon-new-window', :target => :blank unless preview_url.nil? %>

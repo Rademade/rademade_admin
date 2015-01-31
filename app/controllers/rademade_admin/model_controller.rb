@@ -26,9 +26,9 @@ module RademadeAdmin
     end
 
     def update
-      authorize! :update, model_class
       saver = RademadeAdmin::Saver.new(model_info, params)
       saver.find_model
+      authorize! :update, saver.item
       saver.save_data
       success_update saver.item
     rescue Exception => e
@@ -36,8 +36,8 @@ module RademadeAdmin
     end
 
     def destroy
-      authorize! :destroy, model_class
       @item = model.find(params[:id])
+      authorize! :destroy, @item
       @item.delete if @item
       success_delete @item
     end
@@ -67,15 +67,15 @@ module RademadeAdmin
     def new
       authorize! :create, model_class
       @with_create_and_return_button = true
-      @item = model.new
+      @item = new_model
       new_breadcrumbs
       render_template
     end
 
     def edit
-      authorize! :update, model_class
-      @with_create_and_return_button = true
       @item = model.find(params[:id])
+      authorize! :update, @item
+      @with_create_and_return_button = true
       edit_breadcrumbs
       render_template
     end
@@ -111,8 +111,8 @@ module RademadeAdmin
     end
 
     def show
-      authorize! :read, model_class
       @item = model.find(params[:id])
+      authorize! :read, @item
       respond_to do |format|
         format.html { redirect_to :action => 'index' }
         format.json { render :json => @item }
@@ -121,7 +121,7 @@ module RademadeAdmin
 
     def form
       authorize! :read, model_class
-      @item = params[:id].blank? ? model.new : model.find(params[:id])
+      @item = params[:id].blank? ? new_model : model.find(params[:id])
       render form_template_path(true), :layout => false
     end
 
@@ -150,6 +150,10 @@ module RademadeAdmin
     def related_items(search_params)
       conditions = Search::Conditions::RelatedList.new(@item, search_params, @related_model_info.data_items)
       Search::Searcher.new(@related_model_info).search(conditions)
+    end
+
+    def new_model
+      model.new
     end
 
     def model
