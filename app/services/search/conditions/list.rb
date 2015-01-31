@@ -1,17 +1,20 @@
 # -*- encoding : utf-8 -*-
 require 'search/conditions/abstract'
+require 'search/where'
 
 module RademadeAdmin
   module Search
     module Conditions
       class List < Abstract
 
+        include RademadeAdmin::Search::Where
+
         protected
 
         def where
           @where_conditions = RademadeAdmin::Search::Part::Where.new(:and)
           search_by_fields
-          append_query_condition
+          regex_filter(@where_conditions, @params[:search])
           @where_conditions
         end
 
@@ -43,17 +46,6 @@ module RademadeAdmin
         def search_by_fields
           @params.slice(*@data_items.origin_fields).each do |field, value|
             @where_conditions.add(field, value)
-          end
-        end
-
-        # todo extract method
-        def append_query_condition
-          if @params[:search].present? and not @data_items.filter_fields.empty?
-            query_where = RademadeAdmin::Search::Part::Where.new(:or)
-            @data_items.filter_fields.each do |field|
-              query_where.add(field, /#{@params[:search]}/i)
-            end
-            @where_conditions.sub_add(query_where)
           end
         end
 

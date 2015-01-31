@@ -1,7 +1,7 @@
 <%
 unless @model_info.data_items.filter_fields.empty?
     %><form class="search" action="<%= admin_list_uri(@model) %>" data-turboform>
-        <input id="searchInput" type="text" name="search" value="<%= params[:search] %>"/>
+        <input type="text" name="search" value="<%= params[:search] %>"/>
         <button class="btn blue-btn"><%= t('rademade_admin.search') %></button>
     </form><%
 end %>

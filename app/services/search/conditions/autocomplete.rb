@@ -1,16 +1,19 @@
 # -*- encoding : utf-8 -*-
 require 'search/conditions/abstract'
+require 'search/where'
 
 module RademadeAdmin
   module Search
     module Conditions
       class Autocomplete < Abstract
 
+        include RademadeAdmin::Search::Where
+
         protected
 
         def where
           @where_conditions = RademadeAdmin::Search::Part::Where.new(:and)
-          append_query_condition
+          regex_filter(@where_conditions, @params[:q])
           append_search_params
           append_ids_params
           @where_conditions
@@ -21,16 +24,6 @@ module RademadeAdmin
         end
 
         private
-
-        def append_query_condition
-          if @params[:q].present? and not @data_items.filter_fields.empty?
-            query_where = RademadeAdmin::Search::Part::Where.new(:or)
-            @data_items.filter_fields.each do |field|
-              query_where.add(field, /#{@params[:q]}/i)
-            end
-            @where_conditions.sub_add(query_where)
-          end
-        end
 
         def append_search_params
           if @params[:search].present?
