@@ -41,7 +41,7 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
 
   def model
     model_class = RademadeAdmin::LoaderService.const_get(params[:model])
-    params[:id].nil? ? model_class.new : model_class.find(params[:id])
+    params[:id].present? ? model_class.find(params[:id]) : model_class.new
   end
 
 end
