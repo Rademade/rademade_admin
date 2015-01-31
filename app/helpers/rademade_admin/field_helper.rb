@@ -20,7 +20,7 @@ module RademadeAdmin::FieldHelper
     elsif data_item.has_uploader?
       RademadeAdmin::Upload::PreviewService.new(value).uploaded_file_html
     else
-      value.to_s
+      value.to_s.html_safe
     end
   end
 
