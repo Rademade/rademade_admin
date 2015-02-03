@@ -45,3 +45,4 @@ en:
     success_unlink_message: "Entity was unlinked!"
     success_link_message: "Entity was linked!"
     success_status_update_message: "Status was updated!"
+    clear_search: "Clear"

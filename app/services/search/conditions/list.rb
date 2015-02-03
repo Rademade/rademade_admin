@@ -14,7 +14,7 @@ module RademadeAdmin
         def where
           @where_conditions = RademadeAdmin::Search::Part::Where.new(:and)
           search_by_fields
-          regex_filter(@where_conditions, @params[:search])
+          regex_filter(@where_conditions, @params[:q])
           @where_conditions
         end
 
