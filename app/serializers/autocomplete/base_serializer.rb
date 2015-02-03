@@ -35,7 +35,7 @@ module Autocomplete
       {
         :id => item.id.to_s,
         :text => (item.respond_to?(:to_autocomplete) ? item.to_autocomplete : item.to_s),
-        :edit_url => admin_edit_form_uri(item)
+        :editurl => admin_edit_form_uri(item)
       }
     end
 

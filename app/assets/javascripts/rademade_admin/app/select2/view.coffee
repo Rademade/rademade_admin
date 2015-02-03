@@ -2,6 +2,7 @@ class @Select2Input.View extends Backbone.View
 
   events :
     'click [data-new]' : 'addRelation'
+    'click [data-edit-relation]' : 'editRelation'
 
   initItem : () ->
     @$item = @$el.find('.select-wrapper input[type="hidden"]')
@@ -33,7 +34,10 @@ class @Select2Input.View extends Backbone.View
         data : (term) -> { q : term }
         results : (data) -> { results : data }
     ).unbind('change').bind 'change', (e) =>
-      @model.get('related').update(e.added) if e.added
+      if e.added
+        @model.get('related').update(e.added)
+      else if e.removed
+        @model.get('related').clear()
     @_updateData()
     @model.get('related').on 'data-change', @_updateData
 
@@ -41,6 +45,11 @@ class @Select2Input.View extends Backbone.View
     e.preventDefault()
     relatedModel = @_createRelatedModel $(e.currentTarget).data('new')
     FormPopup.Initializer.getInstance().showPopup relatedModel
+
+  editRelation : (e) ->
+    e.preventDefault()
+    if @model.get('related').get('editurl')
+      FormPopup.Initializer.getInstance().showPopup @model.get('related')
 
   _createRelatedModel : (url) ->
     relatedModel = @_relatedModel url
@@ -59,7 +68,7 @@ class @Select2Input.View extends Backbone.View
       relatedModel = new Select2Input.RelatedModel
     else
       relatedModel = @model.get('related')
-    relatedModel.set 'edit_url', url
+    relatedModel.set 'editurl', url
     relatedModel
 
   @init : ($el) ->

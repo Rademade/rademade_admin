@@ -29,10 +29,10 @@ class @FormPopup.View extends Backbone.View
     @$el.load url, =>
       @delegateEvents()
       @_init()
-      @show();
+      @show()
 
   render : () ->
-    @renderFromUrl @model.get('edit_url')
+    @renderFromUrl @model.get('editurl')
 
   _init : () ->
     $form = @$el.find 'form'
@@ -50,7 +50,7 @@ class @FormPopup.View extends Backbone.View
 
   _bindButton : () ->
     @$el.find('button').click (e) =>
-      @model.set 'edit_url', $(e.currentTarget).data('new')
+      @model.set 'editurl', $(e.currentTarget).data('new')
       @render()
 
   _updatePosition : () ->

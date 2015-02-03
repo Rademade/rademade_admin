@@ -30,7 +30,7 @@ class @Select2Input.RelatedView extends Backbone.View
     model = new Select2Input.RelatedModel
       id : $el.data('id')
       text : $el.find('span').text()
-      edit_url : $el.find('[data-edit]').data('edit')
+      editurl : $el.find('[data-edit]').data('edit')
     new this
       el : $el
       model : model

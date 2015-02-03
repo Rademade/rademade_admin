@@ -36,10 +36,10 @@ module RademadeAdmin
         end
 
         def related_list_item_edit_html(serialized_value)
-          if serialized_value[:edit_url]
+          if serialized_value[:editurl]
             template.content_tag(
               :button, I18n.t('rademade_admin.edit_related_item'),
-              :'data-edit' => serialized_value[:edit_url]
+              :'data-edit' => serialized_value[:editurl]
             )
           else
             ''

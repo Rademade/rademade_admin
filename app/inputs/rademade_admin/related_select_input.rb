@@ -27,7 +27,7 @@ module RademadeAdmin
       if multiple?
         related_list_html
       else
-        related_item_html
+        RademadeAdmin::HtmlBuffer.new([related_item_html, edit_button_html])
       end
     end
 
@@ -72,6 +72,13 @@ module RademadeAdmin
           :data => serialized_data
         })
       end
+    end
+
+    def edit_button_html
+      template.content_tag(:button, 'Edit', {
+        :class => 'btn blue-btn',
+        :'data-edit-relation' => true
+      })
     end
 
   end
