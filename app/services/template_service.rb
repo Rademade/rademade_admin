@@ -18,6 +18,10 @@ module RademadeAdmin
       layout_path 'inner'
     end
 
+    def main_layout
+      layout_path 'main'
+    end
+
     def inner_form_layout
       layout_path 'inner/form'
     end
