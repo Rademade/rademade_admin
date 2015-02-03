@@ -75,7 +75,7 @@ module RademadeAdmin
     end
 
     def edit_button_html
-      template.content_tag(:button, 'Edit', {
+      template.content_tag(:button, I18n.t('rademade_admin.edit_related_item'), {
         :class => 'btn blue-btn',
         :'data-edit-relation' => true
       })
