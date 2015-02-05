@@ -36,6 +36,7 @@ PATH
       mongoid_sortable_relation (~> 0.0, >= 0.0.9)
       rails (~> 4.0, < 4.2)
       sass-rails (~> 4.0)
+      select2-rails
       simple_form (~> 3.1)
       slim
       sprockets (= 2.11.0)
@@ -340,7 +341,6 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   sass
   sass-rails
-  select2-rails
   simplecov
   spork-rails
   tzinfo-data

@@ -5,8 +5,6 @@ gemspec
 gem 'rake', :require => false
 gem 'tzinfo-data'
 
-gem 'select2-rails'
-
 # Assets
 gem 'coffee-script'
 gem 'sass'

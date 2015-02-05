@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
 
   # Assets
   s.add_dependency 'bower-rails', '~> 0.8', '>= 0.8.2'
+  s.add_dependency 'select2-rails'
   s.add_dependency 'sprockets-sass', '~> 1.0'
   s.add_dependency 'sprockets', '2.11.0'
   s.add_dependency 'sass-rails', '~> 4.0'
