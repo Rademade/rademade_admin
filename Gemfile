@@ -5,6 +5,8 @@ gemspec
 gem 'rake', :require => false
 gem 'tzinfo-data'
 
+gem 'select2-rails'
+
 # Assets
 gem 'coffee-script'
 gem 'sass'
@@ -13,9 +15,6 @@ gem 'compass'
 gem 'compass-rails'
 gem 'bower-rails'
 gem 'ejs'
-
-# File upload
-
 
 group :development, :test do
   gem 'pry'
