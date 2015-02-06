@@ -15,6 +15,15 @@ module RademadeAdmin
         @gallery.save
       end
 
+      def crop_image(image_id, crop_data)
+        gallery_image = @gallery_image_relation.to.find(image_id)
+        uploader = gallery_image.image
+        image = uploader.crop_image(crop_data)
+        uploader.store!(image)
+        gallery_image.save
+        uploader
+      end
+
       def remove_image(image_id)
         @gallery_image_relation.to.find(image_id).destroy
       end

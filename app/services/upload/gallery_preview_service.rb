@@ -10,7 +10,8 @@ module RademadeAdmin
       def preview_html(uploader)
         content_tag(:div, HtmlBuffer.new([
           gallery_image_html(uploader),
-          remove_ico_html(uploader)
+          remove_ico_html(uploader),
+          crop_button_html(uploader)
         ]), {
           :class => 'gallery-image',
           :data => {
@@ -19,11 +20,27 @@ module RademadeAdmin
         })
       end
 
+      def crop_button_html(uploader)
+        content_tag(:span, I18n.translate('rademade_admin.crop'), {
+          :class => 'btn red-btn crop-btn',
+          :data => {
+            :crop => true,
+            :url => admin_url_for(:controller => 'gallery', :action => 'crop'),
+            :full_url => uploader.url,
+            :original_dimensions => uploader.original_dimensions.join(',')
+          }
+        }) if uploader.class.ancestors.include? RademadeAdmin::Uploader::CropPhoto
+      end
+
+      def gallery_image_preview(uploader)
+        uploader.resize(150, 100)
+      end
+
       private
 
       def gallery_image_html(uploader)
         content_tag(:img, '', {
-          :src => uploader.resize(150, 100),
+          :src => gallery_image_preview(uploader),
           :width => 150,
           :height => 100
         })

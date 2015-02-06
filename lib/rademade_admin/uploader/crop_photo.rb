@@ -6,8 +6,9 @@ module RademadeAdmin
     module CropPhoto
       include ::RademadeAdmin::Uploader::Photo
 
-      def crop_image(image_path, params)
-        crop( full_image_path(image_path), params[:x], params[:y], params[:w], params[:h] )
+      def crop_image(params, image_path = nil)
+        crop_path = image_path ? full_image_path(image_path) : path
+        crop(crop_path, params[:x], params[:y], params[:w], params[:h])
       end
 
       def original_dimensions

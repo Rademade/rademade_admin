@@ -81,7 +81,7 @@ module RademadeAdmin
           :crop => true,
           :url => admin_url_for(:controller => 'file', :action => 'crop')
         }
-      }) if photo_uploader?
+      })
     end
 
     def upload_preview_service

@@ -1,10 +1,5 @@
 class @GalleryImageModel extends Backbone.Model
 
-  defaults :
-    imageId : 0
-    className : ''
-    removeUrl : ''
-
   remove : () ->
     $.ajax
       type : 'delete'
@@ -16,3 +11,15 @@ class @GalleryImageModel extends Backbone.Model
         @trigger 'image-removed'
       error : (data) =>
         window.notifier.notify data.error
+
+  crop : (url, cropData, cb) ->
+    data =
+      id : @get('imageId')
+      class_name : @collection.getClassName()
+    data.crop = cropData
+    $.ajax
+      type : 'post'
+      url : url
+      data : data
+      dataType : 'json'
+      success : cb
