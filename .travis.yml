@@ -18,4 +18,5 @@ before_install:
 
 script:
   - bundle exec rake app:rademade_admin:bower:install
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rspec spec/
