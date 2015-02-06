@@ -36,7 +36,7 @@ FactoryGirl.reload
 Capybara.javascript_driver = :webkit
 Capybara.automatic_reload = false
 
-Capybara::Screenshot.autosave_on_failure = false
+Capybara::Screenshot.autosave_on_failure = true
 Capybara::Screenshot.webkit_options = { :width => 1920, :height => 1080 }
 
 Coveralls.wear!
