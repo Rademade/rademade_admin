@@ -55,11 +55,13 @@ module RademadeAdmin
     end
 
     def reflection_data
-      {
+      search_url = admin_autocomplete_uri(related_to, :format => :json)
+      data = {
         :'rel-multiple' => multiple?,
-        :'rel-class' => related_to.to_s,
-        :'search-url' => admin_autocomplete_uri(related_to, :format => :json)
+        :'rel-class' => related_to.to_s
       }
+      data[:'search-url'] = search_url unless search_url.nil?
+      data
     end
 
     def related_item_html

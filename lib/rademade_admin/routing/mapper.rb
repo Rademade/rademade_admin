@@ -15,7 +15,7 @@ module RademadeAdmin
             parent_resource_actions = @scope[:scope_level_resource].actions
 
             collection do
-              get :autocomplete
+              get :autocomplete if parent_resource_actions.include? :autocomplete
               patch :sort
             end
 
