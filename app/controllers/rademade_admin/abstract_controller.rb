@@ -18,7 +18,7 @@ module RademadeAdmin
     protected
 
     def require_login
-      redirect_to :controller => 'dashboard', :action => 'login' unless admin_logged_in?
+      redirect_to login_url unless admin_logged_in?
     end
 
     def init_user
