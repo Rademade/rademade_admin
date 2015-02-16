@@ -4,15 +4,15 @@ module RademadeAdmin
     class Graph
       include Singleton
 
-      def add_pair(controller_name, inner)
+      def add_pair(module_name, controller_name, inner)
         # Controller includes configuration for mapping model
-        controller = LoaderService.const_get("rademade_admin/#{controller_name}_controller")
+        controller = LoaderService.const_get("#{module_name}/#{controller_name}_controller")
         controller.configuration.model(controller_name.classify) unless controller.model_name
 
         model = controller.model_class
 
         unless @model_infos[model.to_s]
-          model_reflection = RademadeAdmin::Model::Reflection.new(model, controller_name)
+          model_reflection = RademadeAdmin::Model::Reflection.new(model, controller_name, module_name)
           model_info = RademadeAdmin::Model::Info.new(model_reflection, controller.configuration, inner)
           @model_infos[model.to_s] = model_info
         end

@@ -25,7 +25,7 @@ module RademadeAdmin
           :class => 'btn red-btn crop-btn',
           :data => {
             :crop => true,
-            :url => admin_url_for(:controller => 'gallery', :action => 'crop'),
+            :url => gallery_crop_url,
             :full_url => uploader.url,
             :original_dimensions => uploader.original_dimensions.join(',')
           }
@@ -50,11 +50,7 @@ module RademadeAdmin
         content_tag(:span, 'x', {
           :class => 'remove-ico',
           :data => {
-            :url => admin_url_for(
-              :controller => 'gallery',
-              :action => 'remove',
-              :id => uploader.model.id.to_s
-            )
+            :url => gallery_remove_url(:id => uploader.model.id.to_s)
           }
         })
       end

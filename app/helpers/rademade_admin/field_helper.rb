@@ -31,7 +31,7 @@ module RademadeAdmin::FieldHelper
 
     selected = number == request.query_parameters[name.to_sym].to_i
     url_params = request.path_parameters.merge(hash_params)
-    content_tag(:option, number.to_s, :selected => selected, :value => admin_url_for(url_params, true))
+    content_tag(:option, number.to_s, :selected => selected, :value => admin_url_for(url_params))
   end
 
   def input_attr(attrs = {})

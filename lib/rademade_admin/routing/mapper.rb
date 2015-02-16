@@ -35,7 +35,7 @@ module RademadeAdmin
 
             end
 
-            Model::Graph.instance.add_pair(@scope[:controller], self.shallow?)
+            Model::Graph.instance.add_pair(@scope[:module], @scope[:controller], self.shallow?)
 
           end
         end

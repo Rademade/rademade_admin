@@ -37,6 +37,10 @@ module RademadeAdmin
         model_reflection.controller
       end
 
+      def module_name
+        model_reflection.module_name
+      end
+
       def nested?
         @nested
       end

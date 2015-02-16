@@ -3,14 +3,14 @@ module RademadeAdmin
   module Model
     class Reflection
 
-      attr_reader :model, :controller
-
-      def initialize(model, controller)
-        @model, @controller = model, controller
-      end
-
       ORM_TYPE_ACTIVERECORD = 'ActiveRecord'
       ORM_TYPE_MONGOID = 'Mongoid'
+
+      attr_reader :model, :controller, :module_name
+
+      def initialize(model, controller, module_name)
+        @model, @controller, @module_name = model, controller, module_name
+      end
 
       # Load data adapter for current model
       #

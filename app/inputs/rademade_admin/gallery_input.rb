@@ -20,7 +20,7 @@ module RademadeAdmin
         :type => 'file',
         :multiple => true,
         :data => {
-          :url => admin_url_for(:controller => 'gallery', :action => 'upload'),
+          :url => gallery_upload_uri,
           :class_name => gallery_class.to_s
         }
       })
@@ -31,7 +31,7 @@ module RademadeAdmin
       template.content_tag(:div, HtmlBuffer.new([images_html]), {
         :class => 'gallery-images-container',
         :data => {
-          :sortable_url => is_sortable ? admin_url_for(:controller => 'gallery', :action => 'sort') : ''
+          :sortable_url => is_sortable ? gallery_sort_url : ''
         }
       })
     end

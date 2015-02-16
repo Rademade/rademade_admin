@@ -50,7 +50,7 @@ module RademadeAdmin
       end
 
       def model(model_name)
-        @model_name = model_name
+        @model_name = model_name.to_s
       end
 
       def menu_count(&block)

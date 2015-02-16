@@ -36,7 +36,7 @@ module RademadeAdmin
         :name => uploader.mounted_as,
         :data => {
           :saved => object.new_record? ? 0 : 1,
-          :url => admin_url_for(:controller => 'file', :action => 'upload')
+          :url => file_upload_url
         }.merge(uploader_params)
       })
     end
@@ -67,10 +67,7 @@ module RademadeAdmin
     def download_button_html
       template.content_tag(:a, I18n.t('rademade_admin.download_file'), {
         :class => 'btn blue-btn download-btn',
-        :href => admin_url_for({
-          :controller => 'file',
-          :action => 'download'
-        }.merge(uploader_params))
+        :href => file_download_url(uploader_params)
       }) unless uploader.file.nil?
     end
 
@@ -79,7 +76,7 @@ module RademadeAdmin
         :class => 'btn red-btn upload-btn',
         :data => {
           :crop => true,
-          :url => admin_url_for(:controller => 'file', :action => 'crop')
+          :url => file_crop_url
         }
       })
     end

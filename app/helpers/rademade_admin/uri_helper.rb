@@ -2,7 +2,7 @@
 module RademadeAdmin::UriHelper
 
   def root_uri
-    admin_url_for(controller: 'dashboard')
+    RademadeAdmin::Engine.routes.url_helpers.root_url only_path: true
   end
 
   def admin_list_uri(model)
@@ -74,14 +74,14 @@ module RademadeAdmin::UriHelper
   end
 
   def admin_model_url_for(model, opts = {})
+    model_info = _real_model_info(model)
     admin_url_for(opts.merge({
-      :controller => _real_model_info(model).controller
+      :controller => "#{model_info.module_name}/#{model_info.controller}"
     }))
   end
 
-  def admin_url_for(opts, is_admin_controller = false)
+  def admin_url_for(opts)
     opts[:only_path] = true
-    opts[:controller] = "rademade_admin/#{opts[:controller]}" unless is_admin_controller
     Rails.application.routes.url_helpers.url_for(opts)
   rescue
     RademadeAdmin::Engine.routes.url_helpers.url_for(opts) rescue nil

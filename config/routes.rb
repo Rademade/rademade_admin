@@ -5,10 +5,12 @@ RademadeAdmin::Engine.routes.draw do
 
   root 'dashboard#index'
 
+  #todo via resources :file
   match 'file-upload' => 'file#upload', :via => [:post, :patch]
   match 'file-download/:model/:id/:uploader/:column' => 'file#download', :via => [:get]
   match 'file-crop' => 'file#crop', :via => [:post, :patch]
 
+  #todo via resources :gallery
   match 'gallery-upload' => 'gallery#upload', :via => [:post, :patch]
   match 'gallery-crop' => 'gallery#crop', :via => [:post, :patch]
   match 'gallery-sort' => 'gallery#sort', :via => [:post, :patch]
