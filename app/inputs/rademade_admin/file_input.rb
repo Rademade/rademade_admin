@@ -36,7 +36,7 @@ module RademadeAdmin
         :name => uploader.mounted_as,
         :data => {
           :saved => object.new_record? ? 0 : 1,
-          :url => file_upload_url
+          :url => rademade_admin_route(:file_upload_url)
         }.merge(uploader_params)
       })
     end
@@ -76,7 +76,7 @@ module RademadeAdmin
         :class => 'btn red-btn upload-btn',
         :data => {
           :crop => true,
-          :url => file_crop_url
+          :url => rademade_admin_route(:file_crop_url)
         }
       })
     end

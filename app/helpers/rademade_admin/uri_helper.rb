@@ -2,7 +2,12 @@
 module RademadeAdmin::UriHelper
 
   def root_uri
-    RademadeAdmin::Engine.routes.url_helpers.root_url only_path: true
+    rademade_admin_route(:root_url)
+  end
+
+  def rademade_admin_route(route_url, opts = {})
+    opts[:only_path] = true
+    RademadeAdmin::Engine.routes.url_helpers.send(route_url, opts)
   end
 
   def admin_list_uri(model)
