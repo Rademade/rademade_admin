@@ -67,7 +67,10 @@ module RademadeAdmin
     def download_button_html
       template.content_tag(:a, I18n.t('rademade_admin.download_file'), {
         :class => 'btn blue-btn download-btn',
-        :href => file_download_url(uploader_params)
+        :href => admin_url_for({
+          :controller => 'rademade_admin/file',
+          :action => 'download'
+        }.merge(uploader_params)) #todo use route name and resources
       }) unless uploader.file.nil?
     end
 

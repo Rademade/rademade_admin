@@ -41,16 +41,58 @@
     position: absolute
     top: 2px
     right: 5px
-    font-size: 13px
+    width: 16px
+    height: 16px
+    padding: 1px
     cursor: pointer
-    padding: 1px 5px
     border-radius: 3px
-    background-color: #FFF
+    color: #333
     font-weight: bold
+    overflow: hidden
+    font-size: 16px
+    text-indent: 100%
+    background-color: #fff
+    &:before
+      position: absolute
+      top: 2px
+      left: 1px
+      width: 16px
+      height: 16px
+      text-indent: 0
+      @extend .glyphicon
+    @extend .glyphicon-remove
+    &:hover
+      +opacity(0.9)
 
   .crop-btn
     position: absolute
-    bottom: 5px
+    top: 2px
+    right: 26px
+    width: 16px
+    height: 16px
+    padding: 1px
+    cursor: pointer
+    border-radius: 3px
+    color: #333
+    font-weight: bold
+    overflow: hidden
+    font-size: 14px
+    text-indent: 100%
+    background-color: #fff
+    border: 0
+    +box-sizing(content-box)
+    &:before
+      position: absolute
+      top: 2px
+      left: 1px
+      width: 16px
+      height: 16px
+      text-indent: 0
+      @extend .glyphicon
+    @extend .glyphicon-fullscreen
+    &:hover
+      +opacity(0.9)
+
 
   .gallery-images-container
     float: left
