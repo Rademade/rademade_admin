@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'select2-rails'
   s.add_dependency 'sprockets-sass', '~> 1.0'
   s.add_dependency 'sprockets', '2.11.0'
+  s.add_dependency 'sass', '~> 3.1'
   s.add_dependency 'sass-rails', '~> 4.0'
   s.add_dependency 'compass-rails', '~> 2.0'
   s.add_dependency 'coffee-rails', '~> 4.0'
