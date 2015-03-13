@@ -68,7 +68,12 @@ module RademadeAdmin
       unless image_path.blank?
         full_image_path = "#{CarrierWave.root}#{image_path}"
         begin
-          (item.try(:translation) || item).send(data_item.setter, File.open(full_image_path))
+          if item.try(:translation).respond_to? data_item.setter
+            entity = item.translation
+          else
+            entity = item
+          end
+          entity.send(data_item.setter, File.open(full_image_path))
         rescue
           # rm_todo clear image
         end
