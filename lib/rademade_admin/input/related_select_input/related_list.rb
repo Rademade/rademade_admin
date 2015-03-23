@@ -37,17 +37,20 @@ module RademadeAdmin
 
         def related_list_item_edit_html(serialized_value)
           if serialized_value[:editurl]
-            template.content_tag(
-              :button, I18n.t('rademade_admin.edit_related_item'),
-              :'data-edit' => serialized_value[:editurl]
-            )
+            template.content_tag(:button, I18n.t('rademade_admin.edit_related_item'), {
+              :'data-edit' => serialized_value[:editurl],
+              :class => 'select2-item-edit'
+            })
           else
             ''
           end
         end
 
         def related_list_item_remove_html
-          template.content_tag(:button, I18n.t('rademade_admin.destroy'), :'data-remove' => '')
+          template.content_tag(:button, I18n.t('rademade_admin.destroy'), {
+            :'data-remove' => '',
+            :class => 'select2-item-remove'
+          })
         end
 
         def related_list_link_html
