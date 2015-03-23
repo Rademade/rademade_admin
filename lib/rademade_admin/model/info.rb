@@ -62,6 +62,8 @@ module RademadeAdmin
           # calls within url helpers context
           Rails.application.routes.url_helpers.instance_exec(item, &@model_configuration.preview_url_block)
         end
+      rescue
+        nil
       end
 
       def data_items
