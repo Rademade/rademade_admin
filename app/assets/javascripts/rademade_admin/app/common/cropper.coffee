@@ -6,7 +6,6 @@ class @Cropper extends Backbone.View
   className : 'add_new_popup'
 
   events :
-    'click' : 'check'
     'click [data-crop]' : 'crop'
     'click [data-close]' : 'close'
 
@@ -30,9 +29,6 @@ class @Cropper extends Backbone.View
       @verticalRatio = originalHeight / $image.height()
       $image.Jcrop
         onSelect : @_updateCropAttributes
-
-  check : (e) ->
-    @closePopup() if $(e.target).closest('.crop').length is 0
 
   crop : (e) ->
     e.preventDefault()
