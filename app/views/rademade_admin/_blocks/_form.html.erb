@@ -5,7 +5,7 @@ buttons_template ||= @template_service.form_control_block
     @form_fields_without_locale.each do |form_field|
         admin_field(form, form_field, @model_info)
     end
-    concat yield(:additional_fields, form) if content_for?(:additional_fields)
+    concat yield(:additional_fields) if content_for?(:additional_fields)
     concat render @template_service.form_lang_panel_block, { :f => form }
     concat render buttons_template, { :f => form } if show_buttons
 end %>
