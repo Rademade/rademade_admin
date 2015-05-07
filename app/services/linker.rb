@@ -13,7 +13,9 @@ module RademadeAdmin
     end
 
     def unlink(id)
-      process_link { |old_data| old_data - [@related_data_item.relation.related_entities(id)] }
+      process_link { |old_data|
+        old_data.delete_if { |data_item| data_item.id.to_s == id.to_s }
+      }
     end
 
     private
