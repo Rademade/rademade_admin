@@ -10,10 +10,10 @@ module RademadeAdmin::UriHelper
     RademadeAdmin::Engine.routes.url_helpers.send(route_url, opts)
   end
 
-  def admin_list_uri(model)
-    admin_model_url_for(model, {
+  def admin_list_uri(model, opts = {})
+    admin_model_url_for(model, opts.merge({
       :action => :index
-    })
+    }))
   end
 
   def admin_autocomplete_uri(model, opts = {})
