@@ -2,7 +2,7 @@
 class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 
   options do
-    list :email, :first_name, :last_name
+    list :email, :first_name, :last_name, :avatar
     form do
       email :hint => 'Электронная почта'
       avatar
