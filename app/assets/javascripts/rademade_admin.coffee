@@ -21,6 +21,7 @@
 #= require jquery-validation/src/core
 #= require jquery-validation/src/ajax
 #= require jquery-validation/src/delegate
+#= require TableDnD/js/jquery.tablednd
 #= require leaflet/dist/leaflet-src
 #= require moment/moment
 #= require turbolinks

@@ -16,6 +16,7 @@ asset 'jquery-fileupload', :github => 'blueimp/jQuery-File-Upload'
 asset 'jquery-timepicker', :github => 'trentrichardson/jQuery-Timepicker-Addon'
 asset 'magnific-popup', :github => 'dimsemenov/Magnific-Popup'
 asset 'jcrop'
+asset 'TableDnD'
 
 asset 'moment'
 
