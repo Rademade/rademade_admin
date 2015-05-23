@@ -35,7 +35,7 @@ module RademadeAdmin
                 field = "`#{part[:field]}`"
                 if part[:value].is_a? Regexp
                   # hack temporary fix
-                  condition += "#{field} REGEXP ?"
+                  condition += "LOWER(#{field}) REGEXP ?"
                   part[:value] = part[:value].source
                 elsif part[:value].is_a? Array
                   condition += "#{field} IN (?)"
