@@ -73,7 +73,9 @@ module RademadeAdmin::FormHelper
       end
     elsif data_item.has_uploader?
       :'rademade_admin/file'
-    elsif data_item.date_time?
+    elsif data_item.boolean_field?
+      :boolean
+    elsif data_item.date_time_field?
       :'rademade_admin/date_time'
     else
       nil

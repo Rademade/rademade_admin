@@ -1,12 +1,12 @@
 class RademadeAdmin::AuthorsController < RademadeAdmin::ModelController
 
   options do
-    list :name, :articles
+    list :name, :articles, :verified
     form do
       name
       photo
       articles
-      verified :boolean
+      verified
       rubrics
     end
   end

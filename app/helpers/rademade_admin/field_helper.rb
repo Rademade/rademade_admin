@@ -19,6 +19,8 @@ module RademadeAdmin::FieldHelper
       end
     elsif data_item.has_uploader?
       RademadeAdmin::Upload::PreviewService.new(value).uploaded_file_html
+    elsif data_item.boolean_field?
+      value ? '✔' : '×'
     else
       value.to_s.html_safe
     end

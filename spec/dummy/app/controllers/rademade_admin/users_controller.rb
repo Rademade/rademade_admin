@@ -2,7 +2,7 @@
 class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 
   options do
-    list :email, :first_name, :last_name, :avatar
+    list :email, :first_name, :last_name, :avatar, :admin
     form do
       email :hint => 'Электронная почта'
       avatar
@@ -10,7 +10,7 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
       last_name
       address :'rademade_admin/location'
       posts
-      admin :boolean
+      admin
     end
   end
 
