@@ -47,8 +47,16 @@ class User
     self.address_zoom = location['zoom']
   end
 
-  def to_s
+  def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def admin_text
+    admin? ? 'Администратор' : 'Пользователь'
+  end
+
+  def to_s
+    full_name
   end
 
 end

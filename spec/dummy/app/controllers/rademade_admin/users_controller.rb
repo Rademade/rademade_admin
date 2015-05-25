@@ -3,6 +3,11 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 
   options do
     list :email, :first_name, :last_name, :avatar
+    csv do
+      full_name
+      email
+      admin :method => :admin_text
+    end
     form do
       email :hint => 'Электронная почта'
       avatar
@@ -11,6 +16,10 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
       address :'rademade_admin/location'
       posts
       admin :boolean
+    end
+    labels do
+      full_name 'Полное имя'
+      admin 'Права'
     end
   end
 

@@ -46,3 +46,4 @@ ru:
     success_link_message: "Запись соединена!"
     success_status_update_message: "Статус обновлен!"
     clear_search: "Очистить"
+    export_to_csv: "Экспортировать в csv"

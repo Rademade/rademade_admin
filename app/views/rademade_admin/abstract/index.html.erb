@@ -4,8 +4,10 @@
 
 <% content_for :nav_buttons do %><%
     new_uri = admin_new_uri(@model_info)
-    if new_uri
-        concat link_to t('rademade_admin.new_record') + '+', new_uri, :class => 'btn yellow-btn fl-l'
+    concat link_to(t('rademade_admin.new_record') + '+', new_uri, :class => 'btn yellow-btn fl-l') if new_uri
+    if @model_info.has_csv?
+        csv_uri = admin_list_uri(@model_info, :format => :csv)
+        concat link_to(t('rademade_admin.export_to_csv'), csv_uri, :class => 'btn green-btn fl-l l-margin') if csv_uri
     end
 end %>
 
