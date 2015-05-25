@@ -66,6 +66,7 @@ module RademadeAdmin
                 :getter => name,
                 :setter => :"#{name}=",
                 :is_string => type == :string,
+                :is_boolean => type == :boolean,
                 :is_date_time => type == :datetime,
                 :localizable => false,
                 :relation_name => name[/(.+)_id$/, 1]
@@ -84,6 +85,8 @@ module RademadeAdmin
                 :getter => getter,
                 :setter => :"#{getter}=",
                 :is_string => false,
+                :is_boolean => false,
+                :is_date_time => false,
                 :localizable => true,
                 :relation_name => nil
               })

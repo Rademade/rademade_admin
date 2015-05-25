@@ -105,8 +105,12 @@ module RademadeAdmin
           has_field? and @field.string?
         end
 
-        def date_time?
+        def date_time_field?
           has_field? and @field.date_time?
+        end
+        
+        def boolean_field?
+          has_field? and @field.boolean?
         end
 
         def simple_field?

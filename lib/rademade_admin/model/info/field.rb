@@ -28,6 +28,10 @@ module RademadeAdmin
           @is_string
         end
 
+        def boolean?
+          @is_boolean
+        end
+
         protected
 
         def initialize(opts = {})
@@ -36,6 +40,7 @@ module RademadeAdmin
           @setter = opts[:setter]
           @getter = opts[:getter]
           @is_string = opts[:is_string]
+          @is_boolean = opts[:is_boolean]
           @is_date_time = opts[:is_date_time]
           @localizable = opts[:localizable]
           @relation_name = opts[:relation_name]
