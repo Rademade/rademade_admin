@@ -10,13 +10,16 @@ module RademadeAdmin
                       :label,
                       :form_position,
                       :list_position,
+                      :csv_position,
                       :has_uploader,
                       :order_column
 
         attr_writer :in_form,
                     :form_params,
                     :in_list,
-                    :preview_accessor
+                    :in_csv,
+                    :list_preview_accessor,
+                    :csv_preview_accessor
 
         #
         # @param name [Symbol]
@@ -32,8 +35,10 @@ module RademadeAdmin
           @order_column = order_column
           @in_list = false
           @in_form = false
+          @in_csv = false
           @form_params = nil
-          @preview_accessor = nil
+          @list_preview_accessor = nil
+          @csv_preview_accessor = nil
         end
 
         def has_name?(name)
@@ -81,12 +86,20 @@ module RademadeAdmin
           @setter ||= :"#{getter}="
         end
 
-        def preview_accessor
-          @preview_accessor.nil? ? getter : @preview_accessor
+        def list_preview_accessor
+          @list_preview_accessor.nil? ? getter : @list_preview_accessor
+        end
+
+        def csv_preview_accessor
+          @csv_preview_accessor.nil? ? getter : @csv_preview_accessor
         end
 
         def in_list?
           @in_list
+        end
+
+        def in_csv?
+          @in_csv
         end
 
         def in_form?

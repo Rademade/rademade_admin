@@ -29,6 +29,14 @@ module RademadeAdmin
         @list_fields ||= RademadeAdmin::Model::Configuration::ListFields.new
       end
 
+      # Return configured csv info
+      #
+      # @return [RademadeAdmin::Model::Configuration::CsvFields]
+      #
+      def csv_fields
+        @csv_fields ||= RademadeAdmin::Model::Configuration::CsvFields.new
+      end
+
       # Return configured fields info
       #
       # @return [RademadeAdmin::Model::Configuration::FormFields]
@@ -46,7 +54,7 @@ module RademadeAdmin
       end
 
       def all_field_names
-        @all_field_names ||= Set.new(list_fields.all.map(&:name) + form_fields.all.map(&:name))
+        @all_field_names ||= Set.new(list_fields.all.map(&:name) + form_fields.all.map(&:name) + csv_fields.all.map(&:name))
       end
 
       def model(model_name)
@@ -77,6 +85,10 @@ module RademadeAdmin
 
       def list(*field_options, &block)
         list_fields.configure(*field_options, &block)
+      end
+
+      def csv(*field_options, &block)
+        csv_fields.configure(*field_options, &block)
       end
 
       def form(*field_options, &block)

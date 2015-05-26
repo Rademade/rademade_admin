@@ -9,7 +9,7 @@ module RademadeAdmin::FieldHelper
   # @return [String]
   #
   def display_item_value(item, data_item)
-    value = item.send(data_item.preview_accessor)
+    value = item.send(data_item.list_preview_accessor)
     if data_item.has_relation?
       # rm_todo extract method
       if data_item.relation.has_many?

@@ -70,6 +70,10 @@ module RademadeAdmin
         fields.data_items
       end
 
+      def has_csv?
+        not data_items.csv_fields.empty?
+      end
+
       # Fields data class
       #
       # @return [RademadeAdmin::Model::Info::Fields]

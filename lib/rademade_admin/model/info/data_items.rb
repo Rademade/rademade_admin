@@ -57,6 +57,10 @@ module RademadeAdmin
           @list_fields ||= collect_list_fields
         end
 
+        def csv_fields
+          @csv_fields ||= collect_csv_fields
+        end
+
         def filter_fields
           @autocomplete_fields ||= collect_field_names { |data_item| data_item.string_field? }
         end
@@ -93,6 +97,11 @@ module RademadeAdmin
         def collect_list_fields
           fields = items.select { |_, data_item| data_item.in_list? }
           fields.empty? ? _default_fields.values : fields.values.sort_by(&:list_position)
+        end
+
+        def collect_csv_fields
+          fields = items.select { |_, data_item| data_item.in_csv? }
+          fields.empty? ? [] : fields.values.sort_by(&:csv_position)
         end
 
         def collect_form_fields

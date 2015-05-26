@@ -86,8 +86,14 @@ module RademadeAdmin
 
           @model_configuration.list_fields.find_with_index(name) do |list_field_data, index|
             data_item.in_list = true
-            data_item.preview_accessor = list_field_data.preview_accessor
+            data_item.list_preview_accessor = list_field_data.preview_accessor
             data_item.list_position = index
+          end
+
+          @model_configuration.csv_fields.find_with_index(name) do |csv_field_data, index|
+            data_item.in_csv = true
+            data_item.csv_preview_accessor = csv_field_data.preview_accessor
+            data_item.csv_position = index
           end
         end
 
