@@ -17,13 +17,13 @@ Gem::Specification.new do |s|
   s.test_files = Dir['test/**/*']
 
   # Core dependencies
-  s.add_dependency 'rails', '~> 4.0', '< 4.2'
+  s.add_dependency 'rails', '~> 4.0', '< 4.3'
   s.add_dependency 'kaminari', '~> 0.16'
   s.add_dependency 'carrierwave', '~> 0.10'
   s.add_dependency 'light_resizer', '~> 0.1', '>= 0.1.6'
 
   # Assets
-  s.add_dependency 'bower-rails', '~> 0.8', '>= 0.8.2'
+  s.add_dependency 'bower-rails', '~> 0.8', '>= 0.9.2'
   s.add_dependency 'select2-rails'
   s.add_dependency 'sprockets-sass', '~> 1.0'
   s.add_dependency 'sprockets', '2.11.0'

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'rails', '4.2.0'
 gem 'rake', :require => false
 gem 'tzinfo-data'
 
@@ -31,7 +32,7 @@ group :test do
 
   # Active Record
   gem 'mysql2'
-  gem 'globalize', '~> 4.0.2'
+  gem 'globalize', '~> 5.0.1'
   gem 'activerecord_sortable'
 
   gem 'carrierwave'

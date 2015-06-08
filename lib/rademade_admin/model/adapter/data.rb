@@ -2,7 +2,7 @@
 module RademadeAdmin
   module Model
     module Adapter
-      class Data
+      class Data # TODO Add abstract class
 
         #
         # Initialization method
@@ -119,6 +119,15 @@ module RademadeAdmin
 
         def _model_fields
           fields.keys
+        end
+
+        def _relation_class(with_class)
+          # TODO need to refactoring gallery logic
+          if not with_class.nil? and with_class.ancestors.include?(RademadeAdmin::Gallery)
+            ::RademadeAdmin::Model::Info::Relation::Gallery
+          else
+            ::RademadeAdmin::Model::Info::Relation
+          end
         end
 
       end

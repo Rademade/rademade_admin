@@ -18,10 +18,6 @@ module RademadeAdmin
           @sortable
         end
 
-        def gallery?
-          @is_gallery
-        end
-
         def related_entities(ids)
           RademadeAdmin::Model::Graph.instance.model_info(to).query_adapter.find(ids)
         end
@@ -45,7 +41,6 @@ module RademadeAdmin
           @foreign_key = opt[:foreign_key]
           @sortable = opt[:sortable]
           @sortable_field = opt[:sortable_field]
-          @is_gallery = opt[:is_gallery]
         end
 
       end

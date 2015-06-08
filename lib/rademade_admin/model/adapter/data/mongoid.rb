@@ -4,9 +4,7 @@ module RademadeAdmin
     module Adapter
       class Data
 
-        #
         # Data adapter for Mongoid
-        #
         class Mongoid < RademadeAdmin::Model::Adapter::Data
 
           protected
@@ -44,13 +42,8 @@ module RademadeAdmin
               name = name.to_sym
               type = relation_info.relation.macro
               is_sortable = relation_info.sortable?
-              to_class = RademadeAdmin::LoaderService.const_get(relation_info.class_name) rescue nil
-              if !to_class.nil? && to_class.ancestors.include?(RademadeAdmin::Gallery)
-                relation_class_name = ::RademadeAdmin::Model::Info::Relation::Gallery
-              else
-                relation_class_name = ::RademadeAdmin::Model::Info::Relation
-              end
-              relations[name] = relation_class_name.new({
+              to_class = RademadeAdmin::LoaderService.const_get(relation_info.class_name)
+              relations[name] = _relation_class(to_class).new({
                 :name => name,
                 :from => @model,
                 :to => to_class,

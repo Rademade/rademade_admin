@@ -60,6 +60,7 @@ module RademadeAdmin
           @relation.is_a? RademadeAdmin::Model::Info::Relation::Gallery
         end
 
+        # TODO why we set param?
         def localizable?(localizable = true)
           if not @form_params.nil? and @form_params.has_key? :localize
             @form_params[:localize] == localizable

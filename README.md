@@ -22,14 +22,9 @@ How to use it
 
 1) Add `gem 'rademade_admin'` to Gemfile
 
-2) Update `config/initializers/assets.rb` with line:
-```ruby
-config.assets.precompile += %w( rademade_admin.css rademade_admin.js)
-```
+2) Mount rails engine at routing.rb `mount RademadeAdmin::Engine => '/rademade_admin`
 
-3) Mount rails engine at routing.rb `mount RademadeAdmin::Engine => '/rademade_admin`
-
-4) Create `User` model  and other needed models
+3) Create `User` model  and other needed models
 ```ruby
 # encoding: utf-8
 require 'digest/sha1'
@@ -69,14 +64,14 @@ end
 ```
 
 
-5) Add rademade_admin initializer `initializers/rademade_admin.rb`
+4) Add rademade_admin configuration `initializers/rademade_admin.rb`
 ```ruby
 RademadeAdmin::Configuration.configure do
   admin_model User
 end
 ```
 
-6) Create admin controller. Example `app/controllers/rademade_admin/users_controller.rb`
+5) Create admin controller. Example `app/controllers/rademade_admin/users_controller.rb`
 ```ruby
 class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 
@@ -96,16 +91,16 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 end
 ```
 
-7) Add `admin_resources` to `routers.rb`
+6) Add `admin_resources` to `routers.rb`
 ```ruby
 namespace :rademade_admin, :path => 'admin' do
   admin_resources :users
 end
 ```
 
-8) Install assets with bower `rake rademade_admin:bower:install`
+7) Install assets with bower `rake rademade_admin:bower:install`
 
-9) Start rails `rails s`
+8) Start rails `rails s`
 
 **Good luck :)**
 

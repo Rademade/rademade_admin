@@ -32,12 +32,7 @@ module RademadeAdmin
               if name != :translations
                 to_class = relation_info.polymorphic? ? nil : RademadeAdmin::LoaderService.const_get(relation_info.class_name)
                 is_sortable = relation_info.respond_to?(:sortable?) ? relation_info.sortable? : false
-                if !to_class.nil? && to_class.ancestors.include?(RademadeAdmin::Gallery)
-                  relation_class_name = ::RademadeAdmin::Model::Info::Relation::Gallery
-                else
-                  relation_class_name = ::RademadeAdmin::Model::Info::Relation
-                end
-                relations[name] = relation_class_name.new({
+                relations[name] = _relation_class(to_class).new({
                   :name => name,
                   :from => @model,
                   :to => to_class,
@@ -56,25 +51,28 @@ module RademadeAdmin
           end
 
           def _add_non_localizable_fields(fields)
-            @model.column_types.each do |name, field_data|
-              name = name.to_sym
-              column_data = extract_column_data(field_data)
-              type = column_data.type
+            binding.pry
+            @model.column_types.each do |_name, field_data|
+              name = _name.to_sym
+              type = field_data.type
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
-                :primary => column_data.primary,
+                :primary => @model.primary_key == _name,
                 :getter => name,
                 :setter => :"#{name}=",
                 :is_string => type == :string,
                 :is_date_time => type == :datetime,
                 :localizable => false,
-                :relation_name => name[/(.+)_id$/, 1]
+                :relation_name => name[/(.+)_id$/, 1] # todo very strange
               })
             end
             fields
           end
 
+          # Integrated with globalize
+          # @return info field
           def _add_localizable_fields(fields)
+            return fields unless @model.respond_to?(:translation_class)
             @model.try(:translated_attribute_names).each do |name|
               name = name.to_sym
               getter = name.to_s
@@ -87,7 +85,7 @@ module RademadeAdmin
                 :localizable => true,
                 :relation_name => nil
               })
-            end if @model.respond_to?(:translation_class)
+            end
             fields
           end
 
@@ -98,16 +96,6 @@ module RademadeAdmin
 
           def _model_fields
             @model.column_types.keys.map(&:to_sym)
-          end
-
-          private
-
-          def extract_column_data(field_data)
-            if field_data.is_a? ::ActiveRecord::AttributeMethods::TimeZoneConversion::Type # why another behaviour?
-              field_data.instance_values['column']
-            else
-              field_data
-            end
           end
 
         end

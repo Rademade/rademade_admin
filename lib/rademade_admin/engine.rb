@@ -7,6 +7,8 @@ module RademadeAdmin
   class Engine < ::Rails::Engine
     isolate_namespace RademadeAdmin
 
+    # TODO add boot validation -> If rails 4.2 use globalize > 5!
+
     config.assets.paths << "#{config.root}/vendor/assets/javascript/bower_components"
 
     initializer 'ckeditor.assets_precompile', :group => :all do |app|

@@ -81,6 +81,7 @@ module RademadeAdmin
     end
 
     def related
+      # TODO render like a simple list (index action)
       authorize! :read, model_class
       @related_model_info = RademadeAdmin::RelationService.new.related_model_info(model_info, params[:relation])
       @item = model.find(params[:id])
