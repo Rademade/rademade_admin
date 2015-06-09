@@ -13,14 +13,14 @@ module RademadeAdmin
     def success_insert(item)
       respond_to do |format|
         format.html { redirect_to admin_edit_uri(item) }
-        format.json { success_message(item, I18n.t('rademade_admin.success_insert_message'), success_data) }
+        format.json { success_message(item, I18n.t('rademade_admin.success_insert_message'), success_data(item)) }
       end
     end
 
     def success_update(item)
       respond_to do |format|
         format.html { redirect_to admin_edit_uri(item) }
-        format.json { success_message(item, I18n.t('rademade_admin.success_update_message'), success_data) }
+        format.json { success_message(item, I18n.t('rademade_admin.success_update_message'), success_data(item)) }
       end
     end
 
@@ -57,7 +57,7 @@ module RademadeAdmin
       }.merge(additional_data)
     end
 
-    def success_data
+    def success_data(item)
       data = {}
       if params.has_key?(:create_and_return)
         data[:redirect_to] = admin_list_uri(item.class)
