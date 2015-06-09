@@ -12,7 +12,7 @@ module RademadeAdmin
 
       def preview_html
         content_tag(:div, :class => ['preview-wrapper', preview_style_class].join(' ')) do
-          if @uploader.blank?
+          if @uploader.blank? || @uploader.size.zero?
             empty_file_html
           else
             uploaded_file_html
