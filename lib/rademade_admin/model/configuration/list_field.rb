@@ -12,7 +12,11 @@ module RademadeAdmin
         end
 
         def preview_accessor
-          @opts.has_key?(:method) ? @opts[:method] : nil
+          @opts[:method]
+        end
+
+        def preview_handle
+          @opts[:handle]
         end
 
       end

@@ -25,9 +25,14 @@ module RademadeAdmin
     def item_data(item)
       data = []
       @model_info.data_items.csv_fields.each do |field|
-        data << item.send(field.csv_preview_accessor).to_s
+        data << field_value(field, item)
       end
       data
+    end
+
+    def field_value(field, item)
+      return field.csv_preview_handler.call(item) unless field.csv_preview_handler.nil?
+      item.send(field.csv_preview_accessor).to_s
     end
 
   end

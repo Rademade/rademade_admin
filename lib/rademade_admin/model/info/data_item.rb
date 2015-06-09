@@ -4,41 +4,44 @@ module RademadeAdmin
     class Info
       class DataItem
 
+        # TODO extract sub classes
+
         attr_accessor :name,
                       :field,
                       :relation,
                       :label,
+                      :has_uploader,
+                      :order_column,
+                      :form_params,
+
                       :form_position,
                       :list_position,
                       :csv_position,
-                      :has_uploader,
-                      :order_column
 
-        attr_writer :in_form,
-                    :form_params,
-                    :in_list,
-                    :in_csv,
-                    :list_preview_accessor,
-                    :csv_preview_accessor
+                      :in_form,
+                      :in_list,
+                      :in_csv,
+
+                      :list_preview_accessor,
+                      :list_preview_handler,
+                      :csv_preview_accessor,
+                      :csv_preview_handler
 
         #
         # @param name [Symbol]
         # @param field [RademadeAdmin::Model::Info::Field]
         # @param relation [RademadeAdmin::Model::Info::Relation]
-        # @param has_uploader [Boolean]
+        # @param order_column [String]
         #
-        def initialize(name, field = nil, relation = nil, has_uploader = false, order_column = nil)
+        def initialize(name, field = nil, relation = nil, order_column = nil)
           @name = name
           @field = field
           @relation = relation
-          @has_uploader = has_uploader
           @order_column = order_column
+          @has_uploader = false
           @in_list = false
           @in_form = false
           @in_csv = false
-          @form_params = nil
-          @list_preview_accessor = nil
-          @csv_preview_accessor = nil
         end
 
         def has_name?(name)
@@ -87,11 +90,13 @@ module RademadeAdmin
         end
 
         def list_preview_accessor
-          @list_preview_accessor.nil? ? getter : @list_preview_accessor
+          return @list_preview_accessor if @list_preview_accessor
+          getter
         end
 
         def csv_preview_accessor
-          @csv_preview_accessor.nil? ? getter : @csv_preview_accessor
+          return @csv_preview_accessor if @csv_preview_accessor
+          getter
         end
 
         def in_list?

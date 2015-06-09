@@ -2,9 +2,14 @@
 module RademadeAdmin
   module InstanceOptions
 
-    attr_reader :model_info, :model_class, :model_name, :item_name,
+    attr_reader :model_info,
+                :model_class,
+                :model_name,
+                :item_name,
                 :list_fields,
-                :form_fields_without_locale, :form_fields_with_locale
+                # TODO form_fields refactor
+                :form_fields_without_locale,
+                :form_fields_with_locale
 
     def load_model_options
       @model_info = self.class.model_info

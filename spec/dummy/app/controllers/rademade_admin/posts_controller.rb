@@ -2,7 +2,10 @@
 class RademadeAdmin::PostsController < RademadeAdmin::ModelController
 
   options do
-    list :headline
+    list do
+      headline
+      status handle: Proc.new {|post| "Status #{post.status}"}
+    end
     form do
       headline
       avatar
@@ -23,6 +26,11 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
     end
     labels do
       headline 'Post name'
+      status 'Status'
+    end
+    csv do
+      headline
+      status handle: Proc.new {|post| 'Status'}
     end
   end
 
