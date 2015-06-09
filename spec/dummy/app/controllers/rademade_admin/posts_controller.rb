@@ -4,7 +4,7 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
   options do
     list do
       headline
-      status handle: Proc.new {|post| "Status #{post.status}"}
+      status handler: Proc.new {|post| "Status #{post.status}"}
     end
     form do
       headline
@@ -30,7 +30,7 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
     end
     csv do
       headline
-      status handle: Proc.new {|post| 'Status'}
+      status handler: Proc.new {|post| 'Status'}
     end
   end
 

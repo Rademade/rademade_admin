@@ -15,8 +15,8 @@ module RademadeAdmin
           @opts[:method]
         end
 
-        def preview_handle
-          @opts[:handle]
+        def preview_handler
+          @opts[:handler]
         end
 
       end

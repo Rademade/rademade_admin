@@ -66,6 +66,5 @@ module RademadeAdmin
       end
       data
     end
-
   end
 end

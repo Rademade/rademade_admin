@@ -24,7 +24,7 @@ module RademadeAdmin::FieldHelper
     end
   end
 
-  def display_upload_item(data_item, value)
+  def display_upload_item(_, value)
     RademadeAdmin::Upload::PreviewService.new(value).uploaded_file_html
   end
 
@@ -40,8 +40,8 @@ module RademadeAdmin::FieldHelper
 
   def input_attr(attrs = {})
     attrs.deep_merge(
-      wrapper_html: { :class => 'form-group' },
-      input_html: { :class => 'form-input' }
+      wrapper_html: { class: 'form-group' },
+      input_html: { class: 'form-input' }
     )
   end
 

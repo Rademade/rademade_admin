@@ -8,7 +8,7 @@ module RademadeAdmin
           def auto
             return from_relation if @relation
             return form_field if @field
-            raise 'No relation and field given for DateItem initialization' #TODO custom exception
+            raise 'No relation and field given for DateItem initialization' # TODO custom exception
           end
 
           def from_relation
@@ -21,7 +21,7 @@ module RademadeAdmin
           end
 
           def build(name, order_column)
-             RademadeAdmin::Model::Info::DataItem.new(name, @field, @relation, order_column)
+            RademadeAdmin::Model::Info::DataItem.new(name, @field, @relation, order_column)
           end
 
           protected

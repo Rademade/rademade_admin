@@ -34,6 +34,5 @@ module RademadeAdmin
       return field.csv_preview_handler.call(item) unless field.csv_preview_handler.nil?
       item.send(field.csv_preview_accessor).to_s
     end
-
   end
 end
