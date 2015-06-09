@@ -9,7 +9,7 @@ module RademadeAdmin::FieldHelper
   # @return [String]
   #
   def display_item_value(item, data_item)
-    return data_item.list_preview_handler.call(item) if data_item.list_preview_handler
+    return data_item.list_preview_handler.call(item) unless data_item.list_preview_handler.nil?
     value = item.send(data_item.list_preview_accessor)
     return display_upload_item(data_item, value) if data_item.has_uploader?
     return display_related_item(data_item, value) if data_item.has_relation?
