@@ -81,6 +81,7 @@ module RademadeAdmin
       render_template
     end
 
+    # TODO move related to other controller or remove
     def related
       authorize! :read, model_class
       @related_model_info = RademadeAdmin::RelationService.new.related_model_info(model_info, params[:relation])
@@ -132,6 +133,7 @@ module RademadeAdmin
     end
 
     protected
+    # TODO move to search module
 
     def index_items
       conditions = Search::Conditions::List.new(params, model_info.data_items)

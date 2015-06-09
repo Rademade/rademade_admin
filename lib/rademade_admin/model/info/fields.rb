@@ -24,56 +24,59 @@ module RademadeAdmin
         end
 
         def data_items
-          @data_items ||= init_data_items
+          @data_items ||= build_items
         end
 
-        private
+        protected
 
-        def init_data_items
+        def item_initializer
+          RademadeAdmin::Model::Info::DataItem::Initializer
+        end
+
+        def build_items
           data_items = RademadeAdmin::Model::Info::DataItems.new
           used_relations = []
 
+          # TODO extract sub - methods
           @data_adapter.fields.each do |_, field|
             relation = field.relation_name.nil? ? nil : @data_adapter.relation(field.relation_name)
             used_relations << field.relation_name if relation
-            data_items.add_data_item(init_data_item(field, relation))
+            data_item = item_initializer.new(field, relation).auto
+            data_items.add_data_item( data_item )
           end
 
           @data_adapter.relations.each do |_, relation|
             unless used_relations.include? relation.name
-              data_items.add_data_item(init_data_item(nil, relation))
+              data_items.add_data_item( item_initializer.new(nil, relation).from_relation )
             end
           end
 
           @model_configuration.all_field_names.each do |field_name|
             unless data_items.has_field?(field_name)
-              data_item = RademadeAdmin::Model::Info::DataItem.new(field_name)
-              add_configuration_data(data_item, field_name)
-              data_items.add_data_item(data_item)
+              data_items.add_data_item( item_initializer.new(nil, nil).build(field_name, nil) )
             end
           end
+
+          configure_items(data_items)
 
           data_items
         end
 
-        def init_data_item(field, relation)
-          if relation.nil?
-            name = field.name
-            order_column = name
-          else
-            name = relation.name
-            order_column = relation.foreign_key
-          end
-          data_item = RademadeAdmin::Model::Info::DataItem.new(
-            name, field, relation,
-            @uploaders.has_uploader?(name),
-            @data_adapter.columns.include?(order_column) ? order_column : nil
-          )
-          add_configuration_data(data_item, name)
-          data_item
+        def configure_items(data_items)
+          data_items.each { |item| configure_item(item) }
+
         end
 
-        def add_configuration_data(data_item, name)
+        # @param [RademadeAdmin::Model::Info::DataItem]
+        def configure_item(data_item)
+
+          # TODO extract sub methods
+
+          name = data_item.name
+
+          data_item.has_uploader = @uploaders.has_uploader?(name)
+          data_item.order_column = nil unless @data_adapter.columns.include?(data_item.order_column)
+
           @model_configuration.field_labels.find(name) do |label_data|
             data_item.label = label_data.label
           end
@@ -84,17 +87,21 @@ module RademadeAdmin
             data_item.form_position = index
           end
 
-          @model_configuration.list_fields.find_with_index(name) do |list_field_data, index|
+          @model_configuration.list_fields.find_with_index(name) do |data, index|
             data_item.in_list = true
-            data_item.list_preview_accessor = list_field_data.preview_accessor
+            data_item.list_preview_accessor = data.preview_accessor
+            data_item.list_preview_handler = data.preview_handler
             data_item.list_position = index
           end
 
-          @model_configuration.csv_fields.find_with_index(name) do |csv_field_data, index|
+          @model_configuration.csv_fields.find_with_index(name) do |data, index|
             data_item.in_csv = true
-            data_item.csv_preview_accessor = csv_field_data.preview_accessor
+            data_item.csv_preview_accessor = data.preview_accessor
+            data_item.csv_preview_handler = data.preview_handler
             data_item.csv_position = index
           end
+
+          data_item
         end
 
       end

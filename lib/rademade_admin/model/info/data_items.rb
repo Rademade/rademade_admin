@@ -4,6 +4,7 @@ module RademadeAdmin
     class Info
       class DataItems
         include ::Enumerable
+
         # rm_todo extract mixins
 
         UNINFORMATIVE_FIELDS = [:_id, :deleted_at, :position]
@@ -17,7 +18,7 @@ module RademadeAdmin
         end
 
         def each(&block)
-          items.each(&block)
+          items.values.each(&block)
         end
 
         # @param data_item [RademadeAdmin::Model::Info::DataItem]

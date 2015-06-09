@@ -57,6 +57,7 @@ module RademadeAdmin
         @model_configuration.menu_count_block.try(:call)
       end
 
+      # TODO it's not Model::Info logic. Move method
       def preview_url(item)
         unless @model_configuration.preview_url_block.nil?
           # calls within url helpers context
@@ -70,6 +71,7 @@ module RademadeAdmin
         fields.data_items
       end
 
+      # TODO it's not Model::Info logic. Move method
       def has_csv?
         not data_items.csv_fields.empty?
       end
@@ -101,6 +103,8 @@ module RademadeAdmin
         model_reflection.data_adapter
       end
 
+      # TODO add galleries component
+
       # @return [RademadeAdmin::Model::Info::Relations]
       def relations
         @model_relations ||= RademadeAdmin::Model::Info::Relations.new(_data_adapter)
@@ -110,7 +114,6 @@ module RademadeAdmin
       def uploaders
         @model_uploaders ||= RademadeAdmin::Model::Info::Uploaders.new(_data_adapter)
       end
-
     end
   end
 end

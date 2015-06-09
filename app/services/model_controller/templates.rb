@@ -14,6 +14,7 @@ module RademadeAdmin
     end
 
     def abstract_template(template)
+      # TODO make with rails native controller extending
       if template_exists?(template, @template_service.template_path(native_template_folder))
         folder = native_template_folder
       else

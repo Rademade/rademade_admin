@@ -54,7 +54,11 @@ module RademadeAdmin
       end
 
       def all_field_names
-        @all_field_names ||= Set.new(list_fields.all.map(&:name) + form_fields.all.map(&:name) + csv_fields.all.map(&:name))
+        @all_field_names ||= Set.new([
+          list_fields.all.map(&:name),
+          form_fields.all.map(&:name),
+          csv_fields.all.map(&:name)
+        ].flatten(1))
       end
 
       def model(model_name)
