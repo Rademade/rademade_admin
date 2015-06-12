@@ -47,11 +47,14 @@ class @Location extends Backbone.View
     location.initMap()
 
   @initAll : () ->
-    $('.location').each () ->
-      $location = $(this)
+    $('.location').each (index, el) =>
+      $location = $(el)
       unless $location.data('initialized')
-        Location.init $location
+        @init $location
         $location.data('initialized', true)
 
+  @initPlugin : () =>
+    @initAll()
+
 $ ->
-  $(document).on('page:load ready init-plugins', Location.initAll)
+  $(document).on 'page:load ready init-plugins', Location.initPlugin

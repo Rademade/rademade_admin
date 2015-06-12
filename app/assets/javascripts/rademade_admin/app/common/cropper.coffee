@@ -23,12 +23,15 @@ class @Cropper extends Backbone.View
   initCrop : () ->
     @$cropAttributes = @$el.find('[data-crop-attribute]')
     [originalWidth, originalHeight] = @originalDimensions
+    self = this
     $image = @$el.find('.crop-image')
     $image.on 'load', () =>
       @horizontalRatio = originalWidth / $image.width()
       @verticalRatio = originalHeight / $image.height()
       $image.Jcrop
         onSelect : @_updateCropAttributes
+      , () ->
+        self.jcropApi = this
 
   crop : (e) ->
     e.preventDefault()

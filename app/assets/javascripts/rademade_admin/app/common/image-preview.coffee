@@ -23,11 +23,14 @@ class @ImagePreview extends Backbone.View
     JST['rademade_admin/app/templates/image-preview-popup'](data)
 
   @init : () ->
-    imagePreview = new ImagePreview
+    imagePreview = new this
     $('#pad-wrapper').append imagePreview.$el
     $('tr .image-preview').click (e) ->
       fullUrl = $(e.currentTarget).attr('full-url')
       imagePreview.show(fullUrl) if fullUrl
 
+  @initPlugin : () =>
+    @init()
+
 $ ->
-  $(document).on 'page:load ready init-plugins', ImagePreview.init
+  $(document).on 'page:load ready init-plugins', ImagePreview.initPlugin

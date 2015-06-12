@@ -80,11 +80,14 @@ class @Uploader extends Backbone.View
     uploader
 
   @initAll : () ->
-    $('.uploader-input-file').each (index, el) ->
+    $('.uploader-input-file').each (index, el) =>
       $uploader = $(el)
       unless $uploader.data('initialized')
-        Uploader.init $uploader
+        @init $uploader
         $uploader.data('initialized', true)
 
+  @initPlugin : () =>
+    @initAll()
+
 $ ->
-  $(document).on 'page:load ready init-plugins', Uploader.initAll
+  $(document).on 'page:load ready init-plugins', Uploader.initPlugin

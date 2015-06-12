@@ -17,9 +17,12 @@ class @StatusToggler
         @sending = false
 
   @init : () ->
-    statusToggler = new StatusToggler
+    statusToggler = new this
     statusToggler.bindToggle()
     statusToggler
 
+  @initPlugin : () =>
+    @init()
+
 $ ->
-  $(document).on 'ready page:load init-plugins', StatusToggler.init
+  $(document).on 'ready page:load init-plugins', StatusToggler.initPlugin
