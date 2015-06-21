@@ -27,21 +27,19 @@ module RademadeAdmin
       end
 
       def hideable?
-        _model_ancestors.include? RademadeAdmin::Hideable.name
+        model_ancestors.include? RademadeAdmin::Hideable.name
       end
 
       protected
 
-      def _model_ancestors
-        @model_ancestors = @model.ancestors.map(&:to_s)
+      def model_ancestors
+        @model_ancestors ||= @model.ancestors.map(&:to_s)
       end
 
       def orm_type
-        return @orm_type unless @orm_type.nil?
-        orm_list.each do |orm_class, orm_type|
-          @orm_type = orm_type if _model_ancestors.include? orm_class
+        @orm_type ||= orm_list.each do |orm_class, orm_type|
+          break orm_type if model_ancestors.include? orm_class
         end
-        @orm_type
       end
 
       def orm_list

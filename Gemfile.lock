@@ -359,7 +359,7 @@ DEPENDENCIES
   mysql2
   pry
   rademade_admin!
-  rails (= 4.2.0)
+  rails (~> 4.0, < 4.3)
   rake
   rspec (~> 3.0)
   rspec-rails (~> 3.0)
