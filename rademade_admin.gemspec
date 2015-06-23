@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'turbolinks', '~> 2.2'
 
   # Admin
-  s.add_dependency 'mini_magick' # TODO remove. Need for ckeditor or lightresizer.
+  s.add_dependency 'mini_magick' # TODO remove. Need for ckeditor or light_resizer.
   s.add_dependency 'slim', '~> 2', '>= 2.1'
   s.add_dependency 'cells', '~> 3.9.0', '< 4.0.0' # In version 4.0 update API and render type
   s.add_dependency 'simple_form', '~> 3.1'
