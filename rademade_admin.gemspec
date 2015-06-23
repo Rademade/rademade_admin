@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails', '>= 4.0'
   s.add_dependency 'compass-rails', '~> 1.0'
   s.add_dependency 'coffee-rails', '~> 4.0'
+  s.add_dependency 'select2-rails', '>= 3.5.0'
 
   s.add_dependency 'i18n-js'
   s.add_dependency 'ejs'
@@ -36,7 +37,7 @@ Gem::Specification.new do |s|
 
   # Admin
   s.add_dependency 'slim'
-  s.add_dependency 'cells'
+  s.add_dependency 'cells', '>= 3.5.1', '< 4.0.0'
   s.add_dependency 'simple_form'
   s.add_dependency 'ckeditor', '~> 4.0'
   s.add_dependency 'cancan', '~> 1.6', '>= 1.6.8'
