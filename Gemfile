@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
+# Load gemspec
 gemspec
 
+# Development gems
 group :development, :test do
   gem 'pry'
 end
@@ -10,7 +12,7 @@ group :test do
   gem 'coveralls', :require => false
 
   # Mongoid
-  gem 'mongoid', '4.0.2'
+  gem 'mongoid', '~> 4.0.2'
   gem 'mongoid-paranoia'
   gem 'mongoid_rails_migrations'
   gem 'mongoid-grid_fs'
