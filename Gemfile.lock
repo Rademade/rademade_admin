@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rademade_admin (0.1.7)
+    rademade_admin (0.2.0)
       bower-rails (~> 0.8, >= 0.8.2)
       breadcrumbs (~> 0.1, >= 0.1.7)
       cancan (~> 1.6)
