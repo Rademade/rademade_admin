@@ -13,21 +13,21 @@ Gem::Specification.new do |s|
   s.description = 'Best rails admin panel. Great mechanism for customization and rapid development'
   s.licenses    = ['MIT']
 
-  s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
-  s.test_files = Dir['test/**/*']
+  s.files       = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'Bowerfile', 'README.rdoc']
+  s.test_files  = Dir['test/**/*']
 
   # Core dependencies
-  s.add_dependency 'rails', '~> 4.0', '< 4.2'
+  s.add_dependency 'rails', '~> 4.0', '< 4.2' # TODO need to update
   s.add_dependency 'kaminari', '~> 0.16'
 
   # Images
   s.add_dependency 'carrierwave', '~> 0.10'
-  s.add_dependency 'light_resizer', '~> 0.1'
+  s.add_dependency 'light_resizer', '~> 0.1', '>= 0.1.7'
 
   # Assets
   s.add_dependency 'bower-rails', '~> 0.8', '>= 0.8.2'
-  s.add_dependency 'sass-rails', '~> 4.0.3'
-  s.add_dependency 'compass-rails', '~> 2.0'
+  s.add_dependency 'sass-rails', '~> 4.0', '>= 4.0.3'
+  s.add_dependency 'compass-rails', '~> 1.0'
   s.add_dependency 'coffee-rails', '~> 4.0'
 
   s.add_dependency 'i18n-js'
@@ -37,13 +37,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'turbolinks', '~> 2.2'
 
   # Admin
-  s.add_dependency 'mini_magick'
-  s.add_dependency 'slim'
+  s.add_dependency 'mini_magick' # TODO remove. Need for ckeditor or lightresizer.
+  s.add_dependency 'slim', '~> 2', '>= 2.1'
   s.add_dependency 'cells', '~> 3.9.0', '< 4.0.0' # In version 4.0 update API and render type
   s.add_dependency 'simple_form', '~> 3.1'
   s.add_dependency 'ckeditor', '~> 4.0'
   s.add_dependency 'cancan', '~> 1.6'
   s.add_dependency 'breadcrumbs', '~> 0.1', '>= 0.1.7'
-  s.add_dependency 'mongoid_sortable_relation', '~> 0.0', '>= 0.0.9'
+  s.add_dependency 'mongoid_sortable_relation', '~> 0.0', '>= 0.0.9' # TODO move to public application
 
 end
