@@ -6,7 +6,7 @@ require 'carrierwave'
 require 'cancan'
 require 'bower-rails'
 require 'compass-rails'
-require 'select2-rails'
+require 'sass-rails'
 
 # js assets
 require 'turbolinks'

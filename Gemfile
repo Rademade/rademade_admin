@@ -2,18 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rake', :require => false
-gem 'tzinfo-data'
-
-# Assets
-gem 'coffee-script'
-gem 'sass'
-gem 'sass-rails'
-gem 'compass'
-gem 'compass-rails'
-gem 'bower-rails'
-gem 'ejs'
-
 group :development, :test do
   gem 'pry'
 end
@@ -22,7 +10,7 @@ group :test do
   gem 'coveralls', :require => false
 
   # Mongoid
-  gem 'mongoid', :github => 'mongoid/mongoid'
+  gem 'mongoid', '4.0.2'
   gem 'mongoid-paranoia'
   gem 'mongoid_rails_migrations'
   gem 'mongoid-grid_fs'
@@ -34,8 +22,8 @@ group :test do
   gem 'globalize', '~> 4.0.2'
   gem 'activerecord_sortable'
 
+  # Uploaders
   gem 'carrierwave'
-  gem 'light_resizer', :github => 'Rademade/light_resizer'
 
   # Testing utilities
   gem 'rspec', '~> 3.0'

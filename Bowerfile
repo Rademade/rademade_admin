@@ -6,21 +6,29 @@ asset 'backbone'
 asset 'wysihtml5', :github => 'xing/wysihtml5'
 asset 'leaflet'
 
+
 # jQuery
 asset 'data-tables', :github => 'DataTables/DataTables'
 asset 'flot', :github => 'flot/flot'
 asset 'knob', :github => 'aterrien/jQuery-Knob'
 asset 'uniform', :github => 'pixelmatrix/uniform'
 asset 'jquery-ui', :github => 'jquery/jquery-ui'
-asset 'jquery-fileupload', :github => 'blueimp/jQuery-File-Upload'
 asset 'jquery-timepicker', :github => 'trentrichardson/jQuery-Timepicker-Addon'
 asset 'magnific-popup', :github => 'dimsemenov/Magnific-Popup'
+
+
+# Images
 asset 'jcrop'
+asset 'jquery-fileupload', :github => 'blueimp/jQuery-File-Upload'
+
+
+# List
 asset 'TableDnD'
 
-asset 'moment'
 
 # Form
+asset 'moment'
+asset 'select2'
 asset 'jquery-form', :github => 'malsup/form'
 asset 'jquery-serialize', :github => 'macek/jquery-serialize-object'
 asset 'jquery-formrestrict', :github => 'treyhunner/jquery-formrestrict'
