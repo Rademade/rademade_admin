@@ -2,6 +2,7 @@
 require 'rademade_admin/routing/mapper'
 require 'simple_form'
 require 'breadcrumbs'
+require 'select2-rails'
 
 module RademadeAdmin
   class Engine < ::Rails::Engine

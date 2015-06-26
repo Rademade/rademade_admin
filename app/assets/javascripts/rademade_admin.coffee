@@ -25,7 +25,7 @@
 #= require leaflet/dist/leaflet-src
 #= require moment/moment
 #= require turbolinks
-#= require select2/dist/js/select2
+#= require select2
 #= require ckeditor/init
 #= require flot/jquery.flot
 #= require flot/jquery.flot.resize
