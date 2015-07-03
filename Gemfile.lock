@@ -9,7 +9,7 @@ PATH
       cells (~> 3.9.0, < 4.0.0)
       ckeditor (~> 4.0)
       coffee-rails (~> 4.0)
-      compass-rails (~> 1.0)
+      compass-rails
       ejs (~> 1.1)
       i18n-js
       kaminari (~> 0.16)
