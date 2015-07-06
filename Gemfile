@@ -14,7 +14,7 @@ group :test do
   # Mongoid
   gem 'mongoid', '~> 4.0.2'
   gem 'mongoid-paranoia'
-  gem 'mongoid_rails_migrations'
+  gem 'mongoid_rails_migrations', '1.0.0'
   gem 'mongoid-grid_fs'
   gem 'mongoid-tree'
   gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
