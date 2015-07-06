@@ -8,7 +8,7 @@ module DownloadCsv
       format.html { render_template }
       format.json { render json: @items }
       format.csv do
-        send_data csv_responder(data, collation)
+        send_data csv_responder(data)
       end
     end
   end
