@@ -29,15 +29,11 @@ class @Select2Input.View extends Backbone.View
       placeholder : I18n.t('rademade_admin.enter_search')
       allowClear : true
       ajax :
-        url : @model.get('searchUrl')
+        url : @_getUrl()
         dataType : 'json'
-        data : (term) -> { q : term }
-        results : (data) -> { results : data }
-    ).unbind('change').bind 'change', (e) =>
-      if e.added
-        @model.get('related').update(e.added)
-      else if e.removed
-        @model.get('related').clear()
+        data : @_getData
+        results : @_getResults
+    ).unbind('change').bind 'change', @_onChange
     @_updateData()
     @model.get('related').on 'data-change', @_updateData
 
@@ -50,6 +46,21 @@ class @Select2Input.View extends Backbone.View
     e.preventDefault()
     if @model.get('related').get('editurl')
       FormPopup.Initializer.getInstance().showPopup @model.get('related')
+
+  _getUrl : () ->
+    @model.get('searchUrl')
+
+  _getData : (term) ->
+    q : term
+
+  _getResults : (data) ->
+    results : data
+
+  _onChange : (e) =>
+    if e.added
+      @model.get('related').update(e.added)
+    else if e.removed
+      @model.get('related').clear()
 
   _createRelatedModel : (url) ->
     relatedModel = @_relatedModel url
@@ -82,8 +93,11 @@ class @Select2Input.View extends Backbone.View
     $('.input-holder:has(.select-wrapper)').each (index, select) =>
       $select = $(select)
       unless $select.data('initialized')
-        Select2Input.View.init $select
+        @init $select
         $select.data('initialized', true)
 
+  @initPlugin : () =>
+    @initAll()
+
 $ ->
-  $(document).on 'ready page:load init-plugins', Select2Input.View.initAll
+  $(document).on 'ready page:load init-plugins', Select2Input.View.initPlugin
