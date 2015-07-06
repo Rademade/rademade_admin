@@ -1,5 +1,5 @@
+# Allows quickly rewrite admin controller's index action for csv downloading
 module DownloadCsv
-
   def index_for_csv(data)
     authorize! :read, model_class
     list_breadcrumbs
