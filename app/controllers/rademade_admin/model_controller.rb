@@ -61,7 +61,7 @@ module RademadeAdmin
       respond_to do |format|
         format.html { render_template }
         format.json { render :json => @items }
-        format.csv { send_data RademadeAdmin::CsvService.new(model_info, @items).to_csv }
+        format.csv { render_csv }
       end
     end
 
@@ -181,6 +181,10 @@ module RademadeAdmin
       else
         render_errors e.message
       end
+    end
+
+    def render_csv
+      send_data RademadeAdmin::CsvService.new(model_info, @items).to_csv
     end
 
   end
