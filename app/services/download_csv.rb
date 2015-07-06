@@ -1,6 +1,6 @@
 module DownloadCsv
 
-  def index_for_csv(data, collation)
+  def index_for_csv(data)
     authorize! :read, model_class
     list_breadcrumbs
     @items = index_items
@@ -15,7 +15,7 @@ module DownloadCsv
 
   protected
 
-  def csv_responder(data, collation)
-    data.to_csv.encode(collation, undef: :replace)
+  def csv_responder(data)
+    data.to_csv
   end
 end
