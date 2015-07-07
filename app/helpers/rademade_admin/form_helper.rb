@@ -1,20 +1,10 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::FormHelper
 
-  def admin_form(record, model, &block)
-    simple_form_for(
-      record,
-      :wrapper => :rademade,
-      :url => record.new_record? ? admin_create_uri(model) : admin_update_uri(record),
-      :as => :data,
-      :html => {
-        :multipart => true,
-        :novalidate => true,
-        :autocomplete => 'off',
-        :class => (record.new_record? ? 'insert-item-form' : 'update-item-form') + ' form-horizontal',
-      },
-      &block
-    )
+  def admin_form(record, model, options = {}, &block)
+    @record = record
+    @model = model
+    simple_form_for(@record, default_options.deep_merge(options), &block)
   end
 
   def admin_field(form, data_item, model_info)
@@ -50,7 +40,7 @@ module RademadeAdmin::FormHelper
   def input_params(name)
     {
       :input_html => {
-        :id => "#{name}_#{@item.id}"
+        :id => "#{name}_#{@record.id}"
       }
     }
   end
@@ -58,7 +48,7 @@ module RademadeAdmin::FormHelper
   def localized_field_params(data_item, locale)
     {
       :input_html => {
-        :id => "#{data_item.getter}_#{locale}_#{@item.id}",
+        :id => "#{data_item.getter}_#{locale}_#{@record.id}",
         :value => localized_value(data_item.getter, locale)
       }
     }
@@ -83,13 +73,27 @@ module RademadeAdmin::FormHelper
   def localized_value(getter, locale)
     current_locale = I18n.locale
     I18n.locale = locale
-    item_value = (@item.try(:translation) || @item).send(getter)
+    item_value = (@record.try(:translation) || @record).send(getter)
     I18n.locale = current_locale
     item_value
   end
 
   def can_read_relation(data_item)
     !data_item.has_relation? || can?(:read, data_item.relation.to)
+  end
+
+  def default_options
+    {
+      :wrapper => :rademade,
+      :url => @record.new_record? ? admin_create_uri(@model) : admin_update_uri(@record),
+      :as => :data,
+      :html => {
+        :multipart => true,
+        :novalidate => true,
+        :autocomplete => 'off',
+        :class => (@record.new_record? ? 'insert-item-form' : 'update-item-form') + ' form-horizontal',
+      }
+    }
   end
 
 end

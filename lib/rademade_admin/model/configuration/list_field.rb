@@ -19,6 +19,10 @@ module RademadeAdmin
           @opts[:handler]
         end
 
+        def editable?
+          @opts[:editable]
+        end
+
       end
     end
   end

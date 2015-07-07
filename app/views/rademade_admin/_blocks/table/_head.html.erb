@@ -5,7 +5,7 @@
             %><th class="table-item"<%
                 unless field.order_column.nil?
                     sorting_sign = @sortable_service.sorting_sign(field)
-                    %> data-column="<%= field.order_column %>"<%
+                    %> data-sort-column="<%= field.order_column %>"<%
                 end
             %>>
                 <span><%= field.label + sorting_sign %></span>

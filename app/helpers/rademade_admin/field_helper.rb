@@ -16,9 +16,9 @@ module RademadeAdmin::FieldHelper
 
   def display_related_item(data_item, item, value)
     if data_item.relation.has_many?
-      link_to(data_item.label, admin_related_item(item, data_item.getter))
+      ActionController::Base.helpers.link_to(data_item.label, admin_related_item(item, data_item.getter))
     else
-      link_to(value.to_s, admin_edit_uri(value)) unless value.nil?
+      ActionController::Base.helpers.link_to(value.to_s, admin_edit_uri(value)) unless value.nil?
     end
   end
 

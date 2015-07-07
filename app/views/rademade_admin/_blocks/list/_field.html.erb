@@ -1,0 +1,22 @@
+<%
+with_edit = (field.list_editable? and !field.localizable?) # todo for localizable fields
+%><td class="table-item">
+    <span data-list-value>
+        <span data-list-display-value><%= display_item_value(item, field) %></span><%
+        if with_edit
+            %><span class="glyphicon glyphicon-pencil" data-list-edit></span><%
+        end
+    %></span><%
+    if with_edit
+        %><span class="hide" data-list-form><%
+            %><%= admin_form(item, @model_class,
+                :wrapper => :rademade_simple,
+                :url => admin_list_update_uri(item)
+            ) do |form| %><%
+                admin_field(form, field, @model_info)
+                concat form.button :submit
+                concat link_to t('rademade_admin.cancel'), '', :data => { :'list-cancel' => '' }
+            end
+        %></span><%
+    end
+%></td>

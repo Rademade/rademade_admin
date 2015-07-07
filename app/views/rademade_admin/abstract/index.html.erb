@@ -28,7 +28,10 @@ end %>
                     end
                 %>><%
                     @list_fields.each do |field|
-                        %><td class="table-item"><%= display_item_value(item, field) %></td><%
+                        concat render 'rademade_admin/_blocks/list/field', {
+                            :item => item,
+                            :field => field
+                        }
                     end
                     %><td class="table-item">
                         <span class="table-actions"><%

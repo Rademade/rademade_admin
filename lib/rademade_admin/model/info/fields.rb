@@ -82,8 +82,8 @@ module RademadeAdmin
           end
 
           @model_configuration.form_fields.find_with_index(name) do |form_field_data, index|
-            data_item.form_params = form_field_data.params
             data_item.in_form = true
+            data_item.form_params = form_field_data.params
             data_item.form_position = index
           end
 
@@ -91,6 +91,7 @@ module RademadeAdmin
             data_item.in_list = true
             data_item.list_preview_accessor = data.preview_accessor
             data_item.list_preview_handler = data.preview_handler
+            data_item.list_editable = data.editable?
             data_item.list_position = index
           end
 

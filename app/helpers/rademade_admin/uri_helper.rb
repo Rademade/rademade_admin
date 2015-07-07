@@ -56,6 +56,10 @@ module RademadeAdmin::UriHelper
     _entity_url(model, :update)
   end
 
+  def admin_list_update_uri(model)
+    _entity_url(model, :list_update)
+  end
+
   def admin_related_item(model, relation_getter, opts = {})
     admin_related_uri(model, :related, relation_getter, opts)
   end

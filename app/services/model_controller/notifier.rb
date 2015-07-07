@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
   module Notifier
+    include RademadeAdmin::FieldHelper
 
     # TODO use responder (respond with)
 
@@ -21,6 +22,18 @@ module RademadeAdmin
       respond_to do |format|
         format.html { redirect_to admin_edit_uri(item) }
         format.json { success_message(item, I18n.t('rademade_admin.success_update_message'), success_data(item)) }
+      end
+    end
+
+    def success_list_update(item, field_name)
+      respond_to do |format|
+        format.html { redirect_to admin_edit_uri(item) }
+        format.json do
+          field = RademadeAdmin::Model::Graph.instance.model_info(item.class).data_items.data_item(field_name)
+          success_message(item, 'Поле обновлено!', {
+            :display_value => display_item_value(item, field)
+          })
+        end
       end
     end
 
