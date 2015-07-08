@@ -24,6 +24,7 @@ module RademadeAdmin
 
                       :list_preview_accessor,
                       :list_preview_handler,
+                      :list_editable,
                       :csv_preview_accessor,
                       :csv_preview_handler
 
@@ -58,6 +59,10 @@ module RademadeAdmin
 
         def has_uploader?
           has_uploader
+        end
+
+        def list_editable?
+          list_editable
         end
 
         def sortable_relation?

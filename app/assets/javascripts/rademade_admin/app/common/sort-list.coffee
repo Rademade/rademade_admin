@@ -24,8 +24,8 @@ initSorting = ->
 
   params['direction'] ?= 'asc'
 
-  $('.table-box [data-column]').click ->
-    column = $(this).data('column')
+  $('.table-box [data-sort-column]').click ->
+    column = $(this).data('sort-column')
     params['direction'] = if column is params['sort']
       swapDirection(params['direction'])
     else

@@ -3,9 +3,12 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
 
   options do
     list do
-      headline
-      status handler: Proc.new {|post| "Status #{post.status}"}
-      bool_test handler: Proc.new {true}
+      headline :editable => true
+      avatar :editable => true
+      user :editable => true
+      tags :editable => true
+      status :editable => true, :handler => Proc.new { |post| "Status #{post.status}" }
+      bool_test :handler => Proc.new { true }
     end
     form do
       headline
@@ -32,7 +35,7 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
     end
     csv do
       headline
-      status handler: Proc.new {|post| 'Status'}
+      status :handler => Proc.new { 'Status' }
     end
   end
 

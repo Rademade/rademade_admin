@@ -15,6 +15,13 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :rademade_simple, :tag => 'div', :class => 'form-box' do |form_box|
+    form_box.use :html5
+    form_box.wrapper :tag => 'div', :class => 'input-holder' do |input_holder|
+      input_holder.use :input, :class => 'form-input'
+    end
+  end
+
   #config.wrappers :rademade_login, :tag => 'div', :class => 'form-box' do |form_box|
   #  form_box.use :html5
   #  form_box.use :input, :class => 'form-input'

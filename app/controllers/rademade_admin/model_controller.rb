@@ -26,11 +26,15 @@ module RademadeAdmin
     end
 
     def update
-      saver = RademadeAdmin::Saver.new(model_info, params)
-      saver.find_model
-      authorize! :update, saver.item
-      saver.save_data
-      success_update saver.item
+      item = update_item
+      success_update item
+    rescue Exception => e
+      render_record_errors e
+    end
+
+    def list_update
+      item = update_item
+      success_list_update item, params[:data].first.first
     rescue Exception => e
       render_record_errors e
     end
@@ -165,6 +169,14 @@ module RademadeAdmin
 
     def render_template(template = action_name)
       render abstract_template(template)
+    end
+
+    def update_item
+      saver = RademadeAdmin::Saver.new(model_info, params)
+      saver.find_model
+      authorize! :update, saver.item
+      saver.save_data
+      saver.item
     end
 
     def sortable_service
