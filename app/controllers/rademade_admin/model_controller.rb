@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# todo extract more modules
 module RademadeAdmin
   class ModelController < RademadeAdmin::AbstractController
 
@@ -19,7 +20,9 @@ module RademadeAdmin
       authorize! :create, model_class
       saver = RademadeAdmin::Saver.new(model_info, params)
       saver.create_model
-      saver.save_data
+      saver.set_data
+      before_create saver.item
+      saver.save_item
       success_insert saver.item
     rescue Exception => e
       render_record_errors e
@@ -29,7 +32,9 @@ module RademadeAdmin
       saver = RademadeAdmin::Saver.new(model_info, params)
       saver.find_model
       authorize! :update, saver.item
-      saver.save_data
+      saver.set_data
+      before_update saver.item
+      saver.save_item
       success_update saver.item
     rescue Exception => e
       render_record_errors e
@@ -38,6 +43,7 @@ module RademadeAdmin
     def destroy
       @item = model.find(params[:id])
       authorize! :destroy, @item
+      before_destroy @item
       @item.delete if @item
       success_delete @item
     end
@@ -157,6 +163,18 @@ module RademadeAdmin
 
     def new_model
       model.new
+    end
+
+    def before_create(item)
+
+    end
+
+    def before_update(item)
+
+    end
+
+    def before_destroy(item)
+
     end
 
     def model

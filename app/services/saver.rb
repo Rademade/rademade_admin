@@ -21,11 +21,14 @@ module RademadeAdmin
       @item = @model_info.model.find(@params[:id])
     end
 
-    def save_data
+    def set_data
       item.assign_attributes simple_field_params
       save_localizable_fields
       save_model_relations
       save_model_uploads
+    end
+
+    def save_item
       item.save!
     end
 
