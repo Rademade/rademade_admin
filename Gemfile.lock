@@ -9,18 +9,18 @@ PATH
       cells (~> 3.9.0, < 4.0.0)
       ckeditor (~> 4.0)
       coffee-rails (~> 4.0)
-      compass-rails
+      compass-rails (>= 1.0)
       ejs (~> 1.1)
-      i18n-js
+      i18n-js (>= 2.0)
       kaminari (~> 0.16)
       light_resizer (~> 0.1, >= 0.1.7)
       mini_magick
       mongoid_sortable_relation (~> 0.0, >= 0.0.9)
       rails (~> 4.0, < 4.2)
-      sass-rails
+      sass-rails (>= 4.0)
       select2-rails (~> 3.5)
       simple_form (~> 3.1)
-      slim
+      slim (>= 1.0)
       turbolinks (~> 2.2)
 
 GEM

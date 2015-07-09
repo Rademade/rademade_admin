@@ -26,11 +26,11 @@ Gem::Specification.new do |s|
 
   # Assets
   s.add_dependency 'bower-rails', '~> 0.8', '>= 0.8.2'
-  s.add_dependency 'sass-rails'
-  s.add_dependency 'compass-rails'
+  s.add_dependency 'sass-rails', '>= 4.0'
+  s.add_dependency 'compass-rails', '>= 1.0'
   s.add_dependency 'coffee-rails', '~> 4.0'
 
-  s.add_dependency 'i18n-js'
+  s.add_dependency 'i18n-js', '>= 2.0'
   s.add_dependency 'ejs', '~> 1.1'
 
   # Public JS assets
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
 
   # Admin
   s.add_dependency 'mini_magick' # TODO remove. Need for ckeditor or light_resizer.
-  s.add_dependency 'slim'
+  s.add_dependency 'slim', '>= 1.0'
   s.add_dependency 'cells', '~> 3.9.0', '< 4.0.0' # In version 4.0 update API and render type
   s.add_dependency 'simple_form', '~> 3.1'
   s.add_dependency 'ckeditor', '~> 4.0'
