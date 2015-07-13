@@ -5,7 +5,7 @@
     <div class="select-list-box fl-r">
         <form action="#" method="get">
             <select class="btn blue-btn select-btn fl-l" id="perPageSelect" name="paginate"><%
-                [20, 40, 60].each do |per_page|
+                @pagination_variants.each do |per_page|
                     concat pagination_option(per_page)
                 end
             %></select>
