@@ -13,7 +13,7 @@ module RademadeAdmin
     helper ::RademadeAdmin::FormHelper
     helper ::RademadeAdmin::UriHelper
 
-    before_filter :load_options, :additional_options
+    before_filter :load_options, :additional_options, :pagination_variants
     before_filter :sortable_service, :only => [:index]
 
     def create
@@ -203,6 +203,10 @@ module RademadeAdmin
 
     def render_csv
       send_data RademadeAdmin::CsvService.new(model_info, @items).to_csv
+    end
+
+    def pagination_variants
+      @pagination_variants ||= [20, 40, 60]
     end
   end
 end
