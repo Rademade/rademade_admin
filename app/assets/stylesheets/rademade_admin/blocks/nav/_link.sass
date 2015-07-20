@@ -1,0 +1,28 @@
+.nav-link
+  position: relative
+  display: inline-block
+  width: 100%
+  color: $nav-link-color
+  padding: em(15) em(22)
+  font-size: em(15)
+  line-height: em(18)
+  box-sizing: border-box
+  +helvetica-medium
+
+  span
+    margin-right: 5px
+
+  &:after
+    position: absolute
+    top: 0
+    left: 0
+    width: em(4)
+    height: 100%
+    background-color: $nav-link-active-border
+
+  &.is-active
+    background: $nav-link-active-bg
+    color: $nav-link-active-color
+    font-weight: bold
+    &:after
+      content: ''

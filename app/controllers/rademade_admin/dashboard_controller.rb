@@ -9,7 +9,11 @@ module RademadeAdmin
     end
 
     def login
-      redirect_to :action => 'index' if admin_logged_in?
+      if admin_logged_in?
+        redirect_to :action => 'index'
+      else
+        render :layout => 'login'
+      end
     end
 
   end

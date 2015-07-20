@@ -1,0 +1,11 @@
+.nav-item
+  position: relative
+  border-bottom: em(1) solid $nav-link-border
+  box-sizing: border-box
+  &.with-dd
+    &:after
+      position: absolute
+      content: ""
+      right: em(16)
+      top: em(19)
+      +sprite(dd-tile)

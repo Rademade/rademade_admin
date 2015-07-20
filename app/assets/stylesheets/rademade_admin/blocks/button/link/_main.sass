@@ -1,0 +1,19 @@
+.btn-link
+  display: inline-block
+  margin: em(10) em(20) 0 0
+  font-size: em(14)
+  &.is-blue
+    color: $btn-blue-color
+    &:hover
+      span
+        border-bottom: 1px solid $btn-blue-color
+  &.is-red
+    color: $btn-red-color
+    &:hover
+      span
+        border-bottom: 1px solid $btn-red-color
+
+
+  span
+    border-bottom: 1px solid transparent
+    transition: border 0.3s ease-in-out

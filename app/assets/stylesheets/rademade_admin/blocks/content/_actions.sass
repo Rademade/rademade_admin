@@ -1,0 +1,50 @@
+.content-actions-list
+  display: block
+  margin-bottom: em(-5)
+  +clear
+
+  .content-action
+    display: inline-block
+    vertical-align: top
+    position: relative
+    margin-right: em(20)
+    margin-bottom: em(10)
+    overflow: hidden
+    cursor: pointer
+    &:first-child
+      margin-left: 0
+    &:hover
+      overflow: inherit
+      +media-below($media-small-width)
+        overflow: hidden
+      &:after
+        opacity: 1
+
+      .tooltip-holder
+        opacity: 1
+        z-index: 990
+
+    &:after
+      display: block
+      content: ''
+      opacity: .4
+      transition: opacity 0.3s ease-in-out
+
+    &.edit
+      &:after
+        margin-top: em(1)
+        +sprite(pen)
+    &.photo
+      &:after
+        +sprite(image)
+    &.link
+      &:after
+        margin-top: em(1)
+        +sprite(link)
+    &.visibility
+      &:after
+        margin-top: em(4)
+        +sprite(eye)
+    &.trash
+      &:after
+        +sprite(trash)

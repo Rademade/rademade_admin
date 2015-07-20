@@ -1,0 +1,18 @@
+.tooltip-holder
+  position: absolute
+  opacity: 0
+  z-index: 0
+  left: 50%
+  margin-left: em(-250)
+  width: em(500)
+  bottom: 170%
+  text-align: center
+  transition: opacity 0.3s ease-in-out
+
+  .tooltip-text
+    padding: em(7) em(15)
+    background: $content-tooltip-bg
+    border-radius: em(4)
+    font-size: em(13)
+    line-height: em(15)
+    color: $content-tooltip-color

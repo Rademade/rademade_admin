@@ -1,0 +1,27 @@
+.nav-user
+  position: relative
+  padding: em(12) em(60)
+  background: $nav-user-bg
+  color: $nav-user-color
+  font-size: 15px
+  cursor: pointer
+  +to(block)
+  +helvetica-regular
+  +clear
+
+  .user-img
+    position: absolute
+    top: 50%
+    left: em(20)
+    margin-top: em(-13)
+    width: em(26)
+    height: em(26)
+    border-radius: 50%
+
+  .user-settings
+    position: absolute
+    top: 50%
+    margin-top: em(-9)
+    right: em(15)
+    opacity: .5
+    +sprite(settings)

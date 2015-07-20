@@ -1,20 +1,18 @@
-<div class="login-bg">
-    <img class="admin-logo" src="<%= image_path('rademade_admin/logos/logo.png') %>" alt="Rademade.com">
-    <div class="login-form">
-        <p class="login-form-title"><%= t('rademade_admin.login') %></p>
-        <%= simple_form_for(RademadeAdmin.user_class.new, :url => [:sessions], :as => :data, :html => { :id => 'login-form' }) do |f| %>
-            <%#= rm_todo wrapper %>
-            <div class="form-box"><%
-                concat f.input :email, :label => false, :input_html => { :class => 'form-input' }
-                %><label class="form-label login" for="data_email"><i class="glyphicon glyphicon-user"></i></label>
-            </div>
-            <div class="form-box"><%
-                concat f.input :password, :label => false, :input_html => { :class => 'form-input' }
-                %><label class="form-label password" for="data_password"><i class="glyphicon glyphicon-lock"></i></label>
-            </div>
-            <div class="form-box"><%
-                concat f.submit t('rademade_admin.login'), :class => 'btn blue-btn login-btn'
-            %></div><%
+<div class="login">
+    <div class="login-project">
+        <div class="login-project-box">
+            <a href="<%= root_path %>" target="_blank" class="login-project-title"><%= t('rademade_admin.project') %></a>
+        </div>
+    </div>
+    <div class="fix">
+        <%= login_form do |f| %>
+            <div class="login-form-title">
+                <span class="login-form-company">Rademade</span>
+                <span class="login-form-project">Admin</span>
+            </div><%
+            concat f.input :email, :label => t('rademade_admin.login.email'), :placeholder => t('rademade_admin.login.email')
+            concat f.input :password, :label => t('rademade_admin.login.password'), :placeholder => t('rademade_admin.login.password')
+            concat f.submit t('rademade_admin.login.submit'), :class => 'btn login-btn full-width'
         end
     %></div>
 </div>

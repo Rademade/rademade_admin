@@ -13,7 +13,6 @@ require 'turbolinks'
 
 require 'i18n-js'
 
-require 'slim'
 require 'cells'
 require 'simple_form'
 require 'ckeditor'

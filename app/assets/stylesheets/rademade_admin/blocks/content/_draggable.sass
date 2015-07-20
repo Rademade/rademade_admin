@@ -1,0 +1,37 @@
+.is-draggable
+  .draggable-btn
+    display: block
+
+  .content-table-cell
+    &:first-child
+      padding-left: em(30)
+
+.is-highlight
+  .draggable-btn
+    &:hover
+      background: $content-dragable-hover-highlight
+
+.draggable-btn
+  display: none
+  position: absolute
+  top: 0
+  left: 0
+  width: em(25)
+  height: 100%
+  cursor: pointer
+  transition: background $transitionVal ease-in-out
+  &:after
+    position: absolute
+    content: ""
+    top: 50%
+    left: 50%
+    margin-top: em(-14)
+    margin-left: em(-2)
+    +sprite(dragndrop)
+    opacity: .5
+    transition: opacity $transitionVal ease-in-out
+
+  &:hover
+    background: $content-dragable-hover
+    &:after
+      opacity: 1

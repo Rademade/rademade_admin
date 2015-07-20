@@ -1,0 +1,32 @@
+.login-form
+  .input-holder
+    &.in-error
+      .form-input
+        color: #F77070
+        border: .08em solid #F77070
+        background: $login-input-bg-focus
+        animation: input-error .6s ease-in-out alternate
+        +placeholder(#F77070, em(15))
+
+      .form-label
+        animation: input-error .6s ease-in-out alternate
+        &.email
+          background-image: asset-url('rademade_admin/ico/user_red.svg')
+          opacity: 1
+
+        &.password
+          background-image: asset-url('rademade_admin/ico/password_red.svg')
+          opacity: 1
+
+
+@keyframes input-error
+  8%, 41%
+    transform: translateX(-10px)
+  25%, 58%
+    transform: translateX(10px)
+  75%
+    transform: translateX(-5px)
+  92%
+    transform: translateX(5px)
+  0%, 100%
+    transform: translateX(0)

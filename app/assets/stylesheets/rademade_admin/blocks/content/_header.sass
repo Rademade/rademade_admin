@@ -1,0 +1,59 @@
+.content-header
+  position: relative
+  padding-left: 0
+  background-color: $content-header-bg
+  border-bottom: .08em solid $content-header-border
+  box-sizing: border-box
+  +clear
+  +media-below($media-large-width)
+    position: fixed
+    z-index: 988
+    width: 100%
+    padding-left: em(50)
+
+
+  .close-link
+    position: absolute
+    top: 50%
+    right: em(25)
+    margin-top: em(-10)
+    opacity: .4
+    cursor: pointer
+    transition: opacity $transitionVal ease-in-out
+    +sprite(close_gray)
+    &:hover
+      opacity: .8
+
+.content-header-link
+  position: relative
+  display: block
+  padding: 0 em(20) 0 em(15)
+  color: $content-header-link-color
+  font-weight: bold
+  font-size: em(20)
+  line-height: em(40)
+
+  &.is-highlight
+    background-color: #EBF6FF
+    font-weight: normal
+
+  &.is-active
+    &:after, &:before
+      top: 100%
+      left: em(25)
+      border: solid transparent
+      content: " "
+      height: 0
+      width: 0
+      position: absolute
+      pointer-events: none
+    &:after
+      border-color: rgba(255, 255, 255, 0)
+      border-top-color: $content-header-bg
+      border-width: 10px
+      margin-left: -10px
+    &:before
+      border-color: rgba(216, 223, 234, 0)
+      border-top-color: $content-header-border
+      border-width: 11px
+      margin-left: -11px

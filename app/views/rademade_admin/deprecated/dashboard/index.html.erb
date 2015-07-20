@@ -1,0 +1,8 @@
+<% content_for(:content) do %>
+    <div class="page-headline">
+        <h1><%= t('rademade_admin.hello') %>, <%= @current_user %></h1>
+        <span class="title-description"><%= t('rademade_admin.title_description') %></span>
+    </div>
+<% end %>
+
+<%= render :template => @template_service.inner_layout %>

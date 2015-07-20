@@ -1,0 +1,5 @@
+<ul class="nav-dd"><%
+    @sub_items.each do |item|
+        concat render_cell(:menu, :item, item)
+    end
+%></ul>

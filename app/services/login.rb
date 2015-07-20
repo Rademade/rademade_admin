@@ -6,9 +6,9 @@ module RademadeAdmin
       params.require(:data).permit([:email, :password])
       user = RademadeAdmin.user_class.get_by_email(params[:data][:email])
 
-      error(I18n.t('rademade_admin.login_email_not_found'), :email) unless user.is_a? RademadeAdmin.user_class
-      error(I18n.t('rademade_admin.login_incorrect_password'), :password) unless user.valid_password? params[:data][:password]
-      error(I18n.t('rademade_admin.login_access_denied'), :email) unless user.admin?
+      error(I18n.t('rademade_admin.login.validation.email_not_found'), :email) unless user.is_a? RademadeAdmin.user_class
+      error(I18n.t('rademade_admin.login.validation.incorrect_password'), :password) unless user.valid_password? params[:data][:password]
+      error(I18n.t('rademade_admin.login.validation.access_denied'), :email) unless user.admin?
 
       user
     end

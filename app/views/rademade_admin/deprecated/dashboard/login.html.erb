@@ -1,0 +1,20 @@
+<div class="login-bg">
+    <img class="admin-logo" src="<%= image_path('rademade_admin/logos/logo.png') %>" alt="Rademade.com">
+    <div class="login-form">
+        <p class="login-form-title"><%= t('rademade_admin.login') %></p>
+        <%= simple_form_for(RademadeAdmin.user_class.new, :url => [:sessions], :as => :data, :html => { :id => 'login-form' }) do |f| %>
+            <%#= rm_todo wrapper %>
+            <div class="form-box"><%
+                concat f.input :email, :label => false, :input_html => { :class => 'form-input' }
+                %><label class="form-label login" for="data_email"><i class="glyphicon glyphicon-user"></i></label>
+            </div>
+            <div class="form-box"><%
+                concat f.input :password, :label => false, :input_html => { :class => 'form-input' }
+                %><label class="form-label password" for="data_password"><i class="glyphicon glyphicon-lock"></i></label>
+            </div>
+            <div class="form-box"><%
+                concat f.submit t('rademade_admin.login'), :class => 'btn blue-btn login-btn'
+            %></div><%
+        end
+    %></div>
+</div>

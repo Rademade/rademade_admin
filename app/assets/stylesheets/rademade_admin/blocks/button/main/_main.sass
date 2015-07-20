@@ -1,0 +1,33 @@
+.btn
+  position: relative
+  display: inline-block
+  padding: 0 em(20)
+  font-size: em(16)
+  height: em(36)
+  line-height: em(34)
+  vertical-align: top
+  white-space: nowrap
+  border-radius: em(4)
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out
+  box-sizing: border-box
+  -webkit-appearance: none
+
+  &.with-ico
+    padding: 0 em(20) 0 em(40)
+
+  &.with-br
+    border-radius: em(40)
+
+  &.full-width
+    display: block
+    width: 100%
+    text-align: center
+
+  &.ico-add
+    &:after
+      position: absolute
+      content: ''
+      top: 50%
+      margin-top: em(-8)
+      left: em(12)
+      +sprite(add)

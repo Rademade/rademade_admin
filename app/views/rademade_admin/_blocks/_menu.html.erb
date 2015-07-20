@@ -1,8 +1,23 @@
-<div id="sidebar-nav" class="content-menu">
-    <ul id="dashboard-menu"><%
+<div class="nav">
+    <ul class="nav-list">
+        <li class="nav-item">
+            <a href="<%= root_path %>" class="nav-main-logo"><span><%= t('rademade_admin.project') %></span></a>
+        </li>
+    </ul>
+    <ul class="nav-list with-scroll"><%
         concat render_cell(:menu, :root_item)
         RademadeAdmin::MenuService.instance.main_menu.each do |menu_item|
             concat render_cell(:menu, :item, menu_item)
         end
     %></ul>
+    <div class="nav-box">
+        <div class="nav-user">
+            <img src="http://placehold.it/27x27" alt="<%= @current_user %>" class="user-img"/>
+            <span class="user-name"><%= @current_user %></span><%
+            concat link_to '', [:logout, :sessions], { :method => :delete, :class => 'user-settings' }
+        %></div>
+        <div class="nav-copyright">
+            <span><%= Date.today.year %> ©</span><a href="https://rademade.com"> Rademade</a> Admin
+        </div>
+    </div>
 </div>

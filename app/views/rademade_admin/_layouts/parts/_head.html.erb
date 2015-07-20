@@ -1,0 +1,8 @@
+<title>Rademade Admin</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
+<%= javascript_include_tag(:rademade_admin, 'data-turbolinks-track' => true) %>
+<%= yield(:head) if content_for?(:head) %>
+<%= stylesheet_link_tag(:rademade_admin, :media => 'all', 'data-turbolinks-track' => true) %>
+<%= csrf_meta_tags %>

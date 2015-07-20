@@ -8,99 +8,23 @@
  *= require jquery-timepicker/dist/jquery-ui-timepicker-addon
  *= require jcrop/css/Jcrop
  *= require leaflet/dist/leaflet
- *= require edit
  *= require select2
  */
 
-/******************/
-/** compass main **/
-/******************/
+/*=== Reset ===*/
+@import "rademade_admin/base/reset"
 
-@import compass
-@import compass/reset
+/*=== Variables ===*/
+@import "rademade_admin/var/import"
 
+/*==== Mixins ====*/
+@import "rademade_admin/mixins/import"
 
-/******************/
-/**    mixins    **/
-/******************/
+/*=== Base ===*/
+@import "rademade_admin/base/import"
 
-@import rademade_admin/mixins/clear
-@import rademade_admin/mixins/font_face
-@import rademade_admin/mixins/fonts
-/*@import rademade_admin/mixins/sprite*/
-@import rademade_admin/mixins/text-overflow
-@import rademade_admin/mixins/user-select
+/*=== Blocks ===*/
+@import "rademade_admin/blocks/import"
 
-/******************/
-/**   variables  **/
-/******************/
-
-@import rademade_admin/var/colors
-@import rademade_admin/var/width
-
-
-/******************/
-/**   libraries  **/
-/******************/
-
-@import rademade_admin/lib/glyphicon
-@import rademade_admin/lib/uploader
-@import rademade_admin/lib/datepicker
+/*=== libraries ===*/
 @import rademade_admin/lib/notifier
-@import rademade_admin/lib/jcrop
-
-/******************/
-/**     base     **/
-/******************/
-
-@import rademade_admin/base/main
-
-
-/******************/
-/**    blocks    **/
-/******************/
-
-@import rademade_admin/blocks/header/logo
-@import rademade_admin/blocks/header/search
-@import rademade_admin/blocks/header/menu
-
-@import rademade_admin/blocks/page/content/main
-@import rademade_admin/blocks/page/headline/main
-@import rademade_admin/blocks/page/menu/main
-
-@import rademade_admin/blocks/buttons/main
-
-@import rademade_admin/blocks/form/input
-@import rademade_admin/blocks/form/label
-@import rademade_admin/blocks/form/select
-@import rademade_admin/blocks/form/select2
-@import rademade_admin/blocks/form/table
-@import rademade_admin/blocks/form/texarea
-@import rademade_admin/blocks/form/checkbox
-@import rademade_admin/blocks/form/map
-@import rademade_admin/blocks/gallery/main
-
-@import rademade_admin/blocks/filter/main
-
-
-/******************/
-/**    modules   **/
-/******************/
-
-@import rademade_admin/modules/header/main
-
-@import rademade_admin/modules/main-menu/main
-
-@import rademade_admin/modules/page/main
-
-@import rademade_admin/modules/breadcrumbs/main
-
-@import rademade_admin/modules/login/main
-
-@import rademade_admin/modules/form/main
-
-@import rademade_admin/modules/popup/new
-
-@import rademade_admin/modules/errors/error
-
-@import rademade_admin/modules/pagination/main

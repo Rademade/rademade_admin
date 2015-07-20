@@ -17,6 +17,20 @@ module RademadeAdmin::FormHelper
     )
   end
 
+  def login_form(&block)
+    simple_form_for(
+      RademadeAdmin.user_class.new,
+      :wrapper => :rademade_login,
+      :url => [:sessions],
+      :as => :data,
+      :html => {
+        :id => 'login-form',
+        :class => 'login-form'
+      },
+      &block
+    )
+  end
+
   def admin_field(form, data_item, model_info)
     if can_read_relation data_item
       name = data_item.name

@@ -1,0 +1,81 @@
+$width: 100%
+
+.upload-photo-holder
+  display: inline-block
+  padding: 0 em(2)
+  width: $width / 4
+  box-sizing: border-box
+  +media-below($media-medium-width)
+    width: $width / 3
+
+.upload-photo-item
+  position: relative
+  display: block
+  width: 100%
+  vertical-align: top
+  border-radius: em(2)
+  cursor: pointer
+  overflow: hidden
+  box-sizing: border-box
+  
+  &:hover
+    .upload-photo-delete
+      opacity: 1
+
+  &.add
+    padding-bottom: 100%
+    background-color: #F9FBFE
+    font-size: em(13)
+    color: rgba(71, 80, 98, 0.4)
+    border: .08em solid #D1D8E6
+    border-radius: em(2)
+    &:after
+      position: absolute
+      content: ""
+      top: em(25)
+      left: 50%
+      margin-left: em(-16)
+      +sprite(photo)
+
+  .upload-photo-text
+    position: absolute
+    padding: 0 em(20)
+    width: 100%
+    top: 50%
+    text-align: center
+    box-sizing: border-box
+
+  input
+    position: absolute
+    top: 0
+    left: 0
+    font-size: em(500)
+    width: em(5000)
+    opacity: 0
+    cursor: pointer
+
+  img
+    display: inline-block
+    width: 100%
+    border-radius: em(2)
+    vertical-align: top
+
+  .upload-photo-delete
+    position: absolute
+    top: 0
+    right: 0
+    width: em(18)
+    height: em(18)
+    background-color: rgba(255,255,255,0.4)
+    border-radius: em(4)
+    opacity: 0
+    transition: opacity $transitionVal ease-in-out
+
+    &:after
+      position: absolute
+      content: ""
+      top: 50%
+      left: 50%
+      margin: em(-4) 0 0 em(-4)
+      opacity: .7
+      +sprite(delete-small)

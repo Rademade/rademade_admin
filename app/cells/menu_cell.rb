@@ -9,7 +9,6 @@ class MenuCell < Cell::Rails
     @uri = root_uri
     @name = t('rademade_admin.home')
     @count = nil
-    @ico_class = 'glyphicon glyphicon-home'
     @has_sub_items = false
     @is_active = self.class.current_model.nil?
     render view: :item
@@ -22,11 +21,6 @@ class MenuCell < Cell::Rails
 
   def sub_items(sub_items)
     @sub_items = sub_items
-    render
-  end
-
-  def sub_item(sub_item)
-    item_data(sub_item)
     render
   end
 

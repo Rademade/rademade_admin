@@ -1,0 +1,344 @@
+%svg-common {
+	background: asset-url('rademade_admin/sprite.svg') no-repeat;
+}
+
+.svg-add {
+	@extend %svg-common;
+	background-position: 69.6969696969697% 55.294117647058826%;
+}
+
+.svg-add-dims {
+	width: 18px;
+	height: 17px;
+}
+
+.svg-add_blue {
+	@extend %svg-common;
+	background-position: 17% 81.17647058823529%;
+}
+
+.svg-add_blue-dims {
+	width: 17px;
+	height: 17px;
+}
+
+.svg-checked {
+	@extend %svg-common;
+	background-position: 25.252525252525253% 48.31460674157304%;
+}
+
+.svg-checked-dims {
+	width: 18px;
+	height: 13px;
+}
+
+.svg-close_gray {
+	@extend %svg-common;
+	background-position: 43.75% 25.609756097560975%;
+}
+
+.svg-close_gray-dims {
+	width: 21px;
+	height: 20px;
+}
+
+.svg-close_white {
+	@extend %svg-common;
+	background-position: 69.6969696969697% 34.523809523809526%;
+}
+
+.svg-close_white-dims {
+	width: 18px;
+	height: 18px;
+}
+
+.svg-dd-tile {
+	@extend %svg-common;
+	background-position: 4.854368932038835% 64.8936170212766%;
+}
+
+.svg-dd-tile-dims {
+	width: 14px;
+	height: 8px;
+}
+
+.svg-delete-small {
+	@extend %svg-common;
+	background-position: 82.4074074074074% 82.97872340425532%;
+}
+
+.svg-delete-small-dims {
+	width: 9px;
+	height: 8px;
+}
+
+.svg-discard_red {
+	@extend %svg-common;
+	background-position: 0 100%;
+}
+
+.svg-discard_red-dims {
+	width: 16px;
+	height: 16px;
+}
+
+.svg-dragndrop {
+	@extend %svg-common;
+	background-position: 0 56.578947368421055%;
+}
+
+.svg-dragndrop-dims {
+	width: 5px;
+	height: 26px;
+}
+
+.svg-eye {
+	@extend %svg-common;
+	background-position: 70.40816326530613% 20.652173913043477%;
+}
+
+.svg-eye-dims {
+	width: 19px;
+	height: 10px;
+}
+
+.svg-image {
+	@extend %svg-common;
+	background-position: 5.154639175257732% 51.19047619047619%;
+}
+
+.svg-image-dims {
+	width: 20px;
+	height: 18px;
+}
+
+.svg-left-arrow {
+	@extend %svg-common;
+	background-position: 95.28301886792453% 55.81395348837209%;
+}
+
+.svg-left-arrow-dims {
+	width: 11px;
+	height: 16px;
+}
+
+.svg-left-arrow_blue {
+	@extend %svg-common;
+	background-position: 95.28301886792453% 74.4186046511628%;
+}
+
+.svg-left-arrow_blue-dims {
+	width: 11px;
+	height: 16px;
+}
+
+.svg-link {
+	@extend %svg-common;
+	background-position: 44.66019417475728% 97.72727272727273%;
+}
+
+.svg-link-dims {
+	width: 14px;
+	height: 14px;
+}
+
+.svg-next {
+	@extend %svg-common;
+	background-position: 0 0;
+}
+
+.svg-next-dims {
+	width: 21px;
+	height: 43px;
+}
+
+.svg-password {
+	@extend %svg-common;
+	background-position: 62.857142857142854% 80.23255813953489%;
+}
+
+.svg-password-dims {
+	width: 12px;
+	height: 16px;
+}
+
+.svg-password_red {
+	@extend %svg-common;
+	background-position: 84.76190476190476% 0;
+}
+
+.svg-password_red-dims {
+	width: 12px;
+	height: 16px;
+}
+
+.svg-pen {
+	@extend %svg-common;
+	background-position: 15.841584158415841% 100%;
+}
+
+.svg-pen-dims {
+	width: 16px;
+	height: 16px;
+}
+
+.svg-photo {
+	@extend %svg-common;
+	background-position: 46.666666666666664% 0;
+}
+
+.svg-photo-dims {
+	width: 27px;
+	height: 21px;
+}
+
+.svg-prev {
+	@extend %svg-common;
+	background-position: 21.875% 0;
+}
+
+.svg-prev-dims {
+	width: 21px;
+	height: 43px;
+}
+
+.svg-rejected {
+	@extend %svg-common;
+	background-position: 31.067961165048544% 97.72727272727273%;
+}
+
+.svg-rejected-dims {
+	width: 14px;
+	height: 14px;
+}
+
+.svg-resize {
+	@extend %svg-common;
+	background-position: 71.1340206185567% 0;
+}
+
+.svg-resize-dims {
+	width: 20px;
+	height: 19px;
+}
+
+.svg-right-arrow {
+	@extend %svg-common;
+	background-position: 83.9622641509434% 18.6046511627907%;
+}
+
+.svg-right-arrow-dims {
+	width: 11px;
+	height: 16px;
+}
+
+.svg-right-arrow_blue {
+	@extend %svg-common;
+	background-position: 83.9622641509434% 37.2093023255814%;
+}
+
+.svg-right-arrow_blue-dims {
+	width: 11px;
+	height: 16px;
+}
+
+.svg-search {
+	@extend %svg-common;
+	background-position: 33.663366336633665% 81.17647058823529%;
+}
+
+.svg-search-dims {
+	width: 16px;
+	height: 17px;
+}
+
+.svg-search_blue {
+	@extend %svg-common;
+	background-position: 49.504950495049506% 81.17647058823529%;
+}
+
+.svg-search_blue-dims {
+	width: 16px;
+	height: 17px;
+}
+
+.svg-select2 {
+	@extend %svg-common;
+	background-position: 41.74757281553398% 45.744680851063826%;
+}
+
+.svg-select2-dims {
+	width: 14px;
+	height: 8px;
+}
+
+.svg-settings {
+	@extend %svg-common;
+	background-position: 0 81.17647058823529%;
+}
+
+.svg-settings-dims {
+	width: 17px;
+	height: 17px;
+}
+
+.svg-sortable-down {
+	@extend %svg-common;
+	background-position: 83.17757009345794% 67.36842105263158%;
+}
+
+.svg-sortable-down-dims {
+	width: 10px;
+	height: 7px;
+}
+
+.svg-sortable-up {
+	@extend %svg-common;
+	background-position: 83.17757009345794% 74.73684210526316%;
+}
+
+.svg-sortable-up-dims {
+	width: 10px;
+	height: 7px;
+}
+
+.svg-trash {
+	@extend %svg-common;
+	background-position: 84.76190476190476% 55.81395348837209%;
+}
+
+.svg-trash-dims {
+	width: 12px;
+	height: 16px;
+}
+
+.svg-trash_white {
+	@extend %svg-common;
+	background-position: 97.11538461538461% 37.2093023255814%;
+}
+
+.svg-trash_white-dims {
+	width: 13px;
+	height: 16px;
+}
+
+.svg-user {
+	@extend %svg-common;
+	background-position: 100% 18.6046511627907%;
+}
+
+.svg-user-dims {
+	width: 16px;
+	height: 16px;
+}
+
+.svg-user_red {
+	@extend %svg-common;
+	background-position: 100% 0;
+}
+
+.svg-user_red-dims {
+	width: 16px;
+	height: 16px;
+}
+

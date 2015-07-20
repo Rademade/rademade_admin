@@ -1,0 +1,24 @@
+.login-form
+
+  .input-holder
+    float: none
+    width: 100%
+    position: relative
+    margin-bottom: em(15)
+
+  .form-input
+    display: block
+    width: 100%
+    font-size: em(15)
+    padding: em(14) em(25) em(14) em(50)
+    color: #fff
+    background: $login-input-bg
+    background: $login-input-bg-rgba
+    border-radius: 4px
+    border: .08em solid transparent
+    box-sizing: border-box
+    transition: background 0.3s ease-in-out
+    +placeholder(#a0929b, em(15))
+    +helvetica-regular
+    &:focus
+      background: $login-input-bg-focus

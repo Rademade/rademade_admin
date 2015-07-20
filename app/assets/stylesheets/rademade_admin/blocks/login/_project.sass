@@ -1,0 +1,28 @@
+.login-project
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  text-align: center
+  transform: translateY(0%)
+  animation: projectFade 1s alternate
+
+  .login-project-box
+    display: inline-block
+    padding: em(9) em(25)
+    min-width: em(330)
+    background: $login-project-bg
+    box-sizing: border-box
+    border-radius: 0 0 em(4) em(4)
+
+  .login-project-title
+    color: $login-project-title-color
+    font-size: em(18)
+    +helvetica-regular
+
+
+@keyframes projectFade
+  0%
+    transform: translateY(-100%)
+  100%
+    transform: translateY(0%)

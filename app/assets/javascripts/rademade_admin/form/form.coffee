@@ -17,12 +17,6 @@ class @Form extends Backbone.View
       .on('ajax-finish', @_onAjaxFinish)
 
   getValidationData : () ->
-    highlight : (element) ->
-      $(element).parent().removeClass('success').addClass 'error'
-
-    unhighlight : (element) ->
-      $(element).parent().removeClass('error').addClass 'success'
-
     submitHandler : () =>
       return if @sending
       lazySubmitHandler = () =>
@@ -40,6 +34,7 @@ class @Form extends Backbone.View
     @$el.triggerHandler.apply(@$el, arguments)
 
   _onAjaxStart : () =>
+    @formValidation.clearFieldErrors()
     @sending = true
 
   _onAjaxDone : (data) =>

@@ -1,31 +1,22 @@
 class Breadcrumbs::Render::Rademade < Breadcrumbs::Render::Base
 
   def render
-    html = []
     items = breadcrumbs.items
     size = items.size
 
-    items.each_with_index do |item, i|
-      html << render_item(item, i, size)
+    html = items.each_with_index.map do |item, index|
+      render_item(item, index == size - 1)
     end
 
-    separator = tag(:span, '', :class => 'breadcrumbs-sep')
-
-    tag(:div, html.join(" #{separator} "), :class => 'breadcrumbs')
+    tag(:div, RademadeAdmin::HtmlBuffer.new([html]), :class => 'breadcrumbs')
   end
 
-  def render_item(item, i, size)
+  def render_item(item, is_last)
     text, url, options = *item
-    options[:class] ||= 'breadcrumbs-link'
-
-    if i == size - 1
-      options[:class] += ' current'
-      options[:tag] = 'span'
-    end
-
-    options[:class].gsub!(/^ *(.*?)$/, '\\1')
-
-    wrap_item(url, CGI.escapeHTML(text), options)
+    link_class = is_last ? 'is-active' : 'is-highlight'
+    html = []
+    html << tag(:a, text, :href => url, :class => link_class)
+    tag(:div, '', :class => 'content-header')
   end
 
 end

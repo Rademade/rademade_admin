@@ -1,0 +1,29 @@
+.content
+  padding-bottom: em(70)
+  position: relative
+  transition: transform 0.3s ease-in-out
+
+.content-data
+  padding: 0 em(25)
+  +media-below($media-large-width)
+    padding: em(55) em(25)
+
+.content-box
+  margin-top: em(40)
+  padding: em(20)
+  width: 100%
+  background: $content-box-bg
+  border: .08em solid $content-box-border
+  border-radius: em(4)
+  box-sizing: border-box
+
+.content-btn-list
+  padding: em(35) em(20)
+  background: #EAEFF8
+  box-shadow: 0 1px 0 0 #CBD6E8
+  border-radius: 4px
+  .btn-link
+    margin-top: 0
+    line-height: em(42)
+  .btn
+    margin-right: em(20)
