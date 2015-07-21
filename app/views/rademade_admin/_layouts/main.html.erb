@@ -2,10 +2,10 @@
 <html>
     <head><%= render @template_service.layout_head %></head>
     <body>
-        <div class="wrapper"><%
+        <div id="wrapper" class="wrapper"><%
             concat render @template_service.menu_block
             %><div class="wrapper-data">
-                <span class="nav-btn">
+                <span id="menuToggler" class="nav-btn">
                     <i class="nav-btn-ico"></i>
                 </span>
                 <div class="content"><%= yield %></div>

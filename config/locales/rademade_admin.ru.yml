@@ -14,12 +14,15 @@ ru:
       name: "Главная"
       greeting: "Привет, %{user}"
     record:
-      new: "Добавить"
+      new: "Добавить запись"
       edit: "Редактировать"
+    search: "Поиск в рубрике"
+    show_on_page: "Показать"
+    export:
+      csv: "Экспортировать в csv"
 
 #    or: "или"
 #    toggle_nav: "Переключить навигацию"
-#    show_results: "Показать результаты на странице"
 #    reset_sort: "Сбросить сортировку"
 #    management: "Управление"
 #    edit: " "
@@ -30,7 +33,6 @@ ru:
 #    save: "Сохранить"
 #    cancel: "Отмена"
 #    submit: "Подтвердить"
-#    search: "Поиск"
 #    upload_file: "Загрузить файл"
 #    download_file: "Скачать файл"
 #    enter_search: "Введите фразу для поиска"
@@ -52,4 +54,3 @@ ru:
 #    success_link_message: "Запись соединена!"
 #    success_status_update_message: "Статус обновлен!"
 #    clear_search: "Очистить"
-#    export_to_csv: "Экспортировать в csv"

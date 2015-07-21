@@ -14,12 +14,15 @@ en:
       name: "Dashboard"
       greeting: "Hello, %{user}"
     record:
-      new: "Add"
+      new: "Add record"
       edit: "Edit"
+    search: "Search in rubric"
+    show_on_page: "Show"
+    export:
+      csv: "Export to csv"
 
 #    or: "OR"
 #    toggle_nav: "Toggle navigation"
-#    show_results: "Show results on page"
 #    reset_sort: "Reset sorting"
 #    management: "Management"
 #    edit: " "
@@ -30,7 +33,6 @@ en:
 #    save: "Save"
 #    cancel: "Cancel"
 #    submit: "Submit"
-#    search: "Search"
 #    upload_file: "Upload file"
 #    download_file: "Download file"
 #    enter_search: "Enter search phrase"
@@ -52,4 +54,3 @@ en:
 #    success_link_message: "Entity was linked!"
 #    success_status_update_message: "Status was updated!"
 #    clear_search: "Clear"
-#    export_to_csv: "Export to csv"

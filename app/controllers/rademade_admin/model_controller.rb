@@ -9,9 +9,10 @@ module RademadeAdmin
     include RademadeAdmin::Templates
     include RademadeAdmin::Notifier
     
-    helper ::RademadeAdmin::FieldHelper
-    helper ::RademadeAdmin::FormHelper
-    helper ::RademadeAdmin::UriHelper
+    helper RademadeAdmin::FieldHelper
+    helper RademadeAdmin::FormHelper
+    helper RademadeAdmin::UriHelper
+    helper RademadeAdmin::PaginationHelper
 
     before_filter :load_options, :additional_options, :pagination_variants
     before_filter :sortable_service, :only => [:index]

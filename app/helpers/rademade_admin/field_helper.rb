@@ -26,16 +26,6 @@ module RademadeAdmin::FieldHelper
     RademadeAdmin::Upload::PreviewService.new(value).uploaded_file_html
   end
 
-  def pagination_option(number, name = 'paginate')
-    hash_params = request.query_parameters.clone
-    hash_params.delete(:page)
-    hash_params[name.to_sym] = number
-
-    selected = number == request.query_parameters[name.to_sym].to_i
-    url_params = request.path_parameters.merge(hash_params)
-    content_tag(:option, number.to_s, :selected => selected, :value => admin_url_for(url_params))
-  end
-
   def input_attr(attrs = {})
     attrs.deep_merge(
       wrapper_html: { class: 'form-group' },

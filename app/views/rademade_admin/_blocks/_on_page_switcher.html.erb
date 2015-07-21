@@ -1,0 +1,8 @@
+<div class="btn-switch is-blue flr">
+    <p class="btn-switch-text"><%= t('rademade_admin.show_on_page') %></p>
+    <div class="btn-switch-list"><%
+        @pagination_variants.each_with_index do |per_page, index|
+            concat on_page_item(per_page, index)
+        end
+    %></div>
+</div>

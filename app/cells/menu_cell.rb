@@ -11,23 +11,28 @@ class MenuCell < Cell::Rails
     @count = nil
     @has_sub_items = false
     @is_active = self.class.current_model.nil?
+    @has_active = false
+    @hide = false
     render view: :item
   end
 
-  def item(item)
+  def item(item, hide_not_active = false)
     item_data(item)
+    @hide = hide_not_active || @uri.nil?
     render
   end
 
-  def sub_items(sub_items)
+  def sub_items(sub_items, hide_not_active)
     @sub_items = sub_items
+    @hide_not_active = hide_not_active
     render
   end
 
   private
 
   def item_data(item)
-    @is_active = current?(item) || children_current?(item) #todo extract service for current
+    @is_active = current?(item) #todo extract service for current
+    @has_active = children_current?(item)
     @uri = can_read?(item) ? admin_list_uri(item.model) : nil
     @name = item.name
     @count = item.count

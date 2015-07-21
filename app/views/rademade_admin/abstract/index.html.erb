@@ -1,17 +1,21 @@
-<!--<div class="content-header">-->
-    <!--<a href="#" class="content-header-link">Dashboard</a>-->
-<!--</div>-->
 <%= breadcrumbs.render(:format => :rademade) %>
+
+<% content_for :nav_buttons do %><%
+    new_uri = admin_new_uri(@model_info)
+    concat link_to(t('rademade_admin.record.new'), new_uri, :class => 'btn is-blue with-ico ico-add') if new_uri
+    if @model_info.has_csv?
+        csv_uri = admin_list_uri(@model_info, :format => :csv)
+        concat link_to(t('rademade_admin.export.csv'), csv_uri, :class => 'btn-link is-blue') if csv_uri
+    end
+end %>
+
 <div class="content-data">
     <div class="btn-list">
-        <div class="btn-box align-left fll">
-            <a href="#" class="btn is-blue with-ico ico-add">Добавить запись</a>
-            <a href="#" class="btn-link is-blue"><span>Скачать XLS</span></a>
-            <a href="#" class="btn-link is-blue"><span>Скачать CSV</span></a>
-            <a href="#" class="btn-link is-blue"><span>Скачать XLS</span></a>
-        </div>
-        <div class="content-search flr">
-            <input type="text" placeholder="Поиск в рубрике" class="content-search-input"/><i class="content-search-ico"></i>
-        </div>
-    </div>
+        <div class="btn-box align-left fll"><%= yield(:nav_buttons) %></div><%
+        concat render @template_service.search_block
+    %></div>
+    <div class="btn-list"><%
+        concat render @template_service.pagination_block
+        concat render @template_service.on_page_switcher_block
+    %></div>
 </div>

@@ -1,17 +1,20 @@
-<li class="nav-item<%
-    if @has_sub_items
-        %> with-dd<%
-    end
-%>">
-    <a href="<%= @uri %>" class="nav-link<%
-        if @is_active
-            %> is-active<%
+<%
+unless @hide
+    %><li class="nav-item<%
+        if @has_sub_items
+            %> with-dd<%
         end
     %>">
-        <span><%= @name %></span><%
-        if @count && @count > 0
-            %><span class="nav-counter"><%= @count %></span><%
-        end
-    %></a><%
-    concat render_cell(:menu, :sub_items, @sub_items) if @has_sub_items
-%></li>
+        <a href="<%= @uri %>" class="nav-link<%
+            if @is_active
+                %> is-active<%
+            end
+        %>">
+            <span><%= @name %></span><%
+            if @count && @count > 0
+                %><span class="nav-counter"><%= @count %></span><%
+            end
+        %></a><%
+        concat render_cell(:menu, :sub_items, @sub_items, !(@has_active || @is_active)) if @has_sub_items
+    %></li><%
+end %>
