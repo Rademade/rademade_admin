@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
 require 'kaminari'
-require 'light_resizer'
-require 'carrierwave'
-
 require 'cancan'
 require 'bower-rails'
 require 'compass-rails'
@@ -10,10 +7,7 @@ require 'sass-rails'
 
 # js assets
 require 'turbolinks'
-
 require 'i18n-js'
-
-require 'cells'
 require 'simple_form'
 require 'ckeditor'
 

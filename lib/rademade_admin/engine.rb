@@ -3,6 +3,9 @@ require 'rademade_admin/routing/mapper'
 require 'simple_form'
 require 'breadcrumbs'
 require 'select2-rails'
+require 'cells'
+require 'carrierwave'
+require 'light_resizer'
 
 module RademadeAdmin
   class Engine < ::Rails::Engine

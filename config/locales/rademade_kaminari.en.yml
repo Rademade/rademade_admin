@@ -1,0 +1,7 @@
+en:
+  views:
+    pagination:
+      rademade:
+        previous: "Previous"
+        next: "Next"
+        truncate: "&hellip;"

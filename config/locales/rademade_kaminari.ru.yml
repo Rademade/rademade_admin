@@ -1,0 +1,7 @@
+ru:
+  views:
+    pagination:
+      rademade:
+        previous: "Предыдущая"
+        next: "Следующая"
+        truncate: "&hellip;"

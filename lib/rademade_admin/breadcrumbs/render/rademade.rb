@@ -1,22 +1,33 @@
 class Breadcrumbs::Render::Rademade < Breadcrumbs::Render::Base
 
   def render
-    items = breadcrumbs.items
-    size = items.size
-
-    html = items.each_with_index.map do |item, index|
-      render_item(item, index == size - 1)
+    html = breadcrumbs.items.each_with_index.map do |item, index|
+      render_item(item, index)
     end
-
-    tag(:div, RademadeAdmin::HtmlBuffer.new([html]), :class => 'breadcrumbs')
+    RademadeAdmin::HtmlBuffer.new([html])
   end
 
-  def render_item(item, is_last)
+  def render_item(item, index)
     text, url, options = *item
-    link_class = is_last ? 'is-active' : 'is-highlight'
     html = []
-    html << tag(:a, text, :href => url, :class => link_class)
-    tag(:div, '', :class => 'content-header')
+    class_name = 'content-header-link'
+    if last?(index)
+      html << tag(:span, text, :class => "#{class_name} is-active")
+      html << ico_html(index) unless index.zero?
+    else
+      html << tag(:a, text, :href => url, :class => "#{class_name} is-highlight")
+    end
+    tag(:div, RademadeAdmin::HtmlBuffer.new([html]), :class => 'content-header')
+  end
+
+  private
+
+  def ico_html(index)
+    tag(:a, '', :class => 'close-link', :href => breadcrumbs.items[index - 1].last[:href])
+  end
+
+  def last?(index)
+    index == breadcrumbs.items.size - 1
   end
 
 end
