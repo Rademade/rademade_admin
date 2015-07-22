@@ -1,0 +1,9 @@
+<%
+preview_url = @model_info.preview_url(item)
+unless preview_url.nil?
+    %><a class="content-action link" href="<%= preview_url %>" target="_blank">
+        <span class="tooltip-holder">
+            <span class="tooltip-text"><%= t('rademade_admin.management.preview') %></span>
+        </span>
+    </a><%
+end %>

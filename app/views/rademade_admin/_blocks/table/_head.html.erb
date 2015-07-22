@@ -1,0 +1,31 @@
+<tr class="content-table-row"><%
+    @list_fields.each_with_index do |field, index|
+        %><th class="content-table-cell<%
+            if index == 0
+                %> show-sdisplay<%
+            end
+        %><%
+            unless field.order_column.nil?
+                sorting_direction = @sortable_service.sorting_direction(field)
+                if sorting_direction == :asc
+                    %> sortable-up<%
+                elsif sorting_direction == :desc
+                    %> sortable-down<%
+                end
+                %> is-clickable" data-column="<%= field.order_column %><%
+            end
+        %>">
+            <span class="text"><%= field.label %></span>
+        </th><%
+    end
+    %><th class="content-table-cell">
+        <span class="text"><%= t('rademade_admin.management.title') %></span><%
+        if @sortable_service.can_reset?
+            %><a class="discard" href="<%= admin_url_for(request.path_parameters) %>">
+                <span class="tooltip-holder">
+                    <span class="tooltip-text"><%= t('rademade_admin.reset_sort') %></span>
+                </span>
+            </a><%
+        end
+    %></th>
+</tr>

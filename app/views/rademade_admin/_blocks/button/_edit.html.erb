@@ -1,0 +1,11 @@
+<%
+if can? :edit, @model
+    edit_url = admin_edit_uri(item)
+    unless edit_url.nil?
+        %><a class="content-action edit" href="<%= edit_url %>">
+            <span class="tooltip-holder">
+                <span class="tooltip-text"><%= t('rademade_admin.management.edit') %></span>
+            </span>
+        </a><%
+    end
+end %>

@@ -1,0 +1,20 @@
+<%= breadcrumbs.render(:format => :rademade) %>
+
+<div class="content-data">
+    <div class="content-box"><%
+        show_buttons = show_buttons.nil? ? true : show_buttons
+        buttons_template ||= @template_service.form_control_block
+        %><%= admin_form(@item, @model_class) do |form| %><%
+            @form_fields_without_locale.each do |form_field|
+                admin_field(form, form_field, @model_info)
+            end
+            concat yield(:additional_fields) if content_for?(:additional_fields)
+            # concat render @template_service.form_lang_panel_block, { :f => form }
+            if show_buttons
+                %><div class="content-btn-list"><%
+                    concat render buttons_template, :f => form
+                %></div><%
+            end
+        end
+    %></div>
+</div>

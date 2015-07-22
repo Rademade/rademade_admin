@@ -14,6 +14,12 @@ end %>
         <div class="btn-box align-left fll"><%= yield(:nav_buttons) %></div><%
         concat render @template_service.search_block
     %></div>
+    <div class="content-table-holder">
+        <table class="content-table" cellspacing="0" cellpadding="0"><%
+            concat render @template_service.table_head_block
+            concat render @template_service.table_head_list
+        %></table>
+    </div>
     <div class="btn-list"><%
         concat render @template_service.pagination_block
         concat render @template_service.on_page_switcher_block

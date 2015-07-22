@@ -19,12 +19,12 @@ module RademadeAdmin
       @params[:sort].present?
     end
 
-    def sorting_sign(field)
+    def sorting_direction(field)
       if field.order_column.to_s == @params[:sort]
-        return '⬇' if @params[:direction] == 'asc'
-        return '⬆' if @params[:direction] == 'desc'
+        return :asc if @params[:direction] == 'asc'
+        return :desc if @params[:direction] == 'desc'
       end
-      ''
+      nil
     end
 
     def has_position?

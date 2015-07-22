@@ -16,7 +16,7 @@ class @Select2Input.RelatedView extends Backbone.View
 
   removeRelation : (e) ->
     e.preventDefault()
-    @model.relationRemove() if confirm I18n.t('rademade_admin.model_remove_confirm')
+    @model.relationRemove() if confirm I18n.t('rademade_admin.remove_confirm.model')
     false
 
   render : () ->

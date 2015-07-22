@@ -23,7 +23,7 @@ class Breadcrumbs::Render::Rademade < Breadcrumbs::Render::Base
   private
 
   def ico_html(index)
-    tag(:a, '', :class => 'close-link', :href => breadcrumbs.items[index - 1].last[:href])
+    tag(:a, '', :class => 'close-link', :href => breadcrumbs.items[index - 1][1])
   end
 
   def last?(index)

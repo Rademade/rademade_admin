@@ -6,47 +6,47 @@ module RademadeAdmin
 
     def success_action
       render :json => {
-        :message => I18n.t('rademade_admin.success_message')
+        :message => I18n.t('rademade_admin.success_message.simple')
       }
     end
 
     def success_insert(item)
       respond_to do |format|
         format.html { redirect_to admin_edit_uri(item) }
-        format.json { success_message(item, I18n.t('rademade_admin.success_insert_message'), success_data(item)) }
+        format.json { success_message(item, I18n.t('rademade_admin.success_message.insert'), success_data(item)) }
       end
     end
 
     def success_update(item)
       respond_to do |format|
         format.html { redirect_to admin_edit_uri(item) }
-        format.json { success_message(item, I18n.t('rademade_admin.success_update_message'), success_data(item)) }
+        format.json { success_message(item, I18n.t('rademade_admin.success_message.update'), success_data(item)) }
       end
     end
 
     def success_delete(item)
       respond_to do |format|
         format.html { redirect_to admin_list_uri(item) }
-        format.json { success_message(item, I18n.t('rademade_admin.success_delete_message')) }
+        format.json { success_message(item, I18n.t('rademade_admin.success_message.delete')) }
       end
     end
     
     def success_status_change(item)
       respond_to do |format|
         format.html { redirect_to admin_list_uri(item) }
-        format.json { success_message(item, t('rademade_admin.success_status_update_message')) }
+        format.json { success_message(item, t('rademade_admin.success_message.status_update')) }
       end
     end
 
     def success_unlink
       render :json => {
-        :message => I18n.t('rademade_admin.success_unlink_message')
+        :message => I18n.t('rademade_admin.success_message.unlink')
       }
     end
 
     def success_link
       render :json => {
-        :message => I18n.t('rademade_admin.success_link_message')
+        :message => I18n.t('rademade_admin.success_message.link')
       }
     end
 

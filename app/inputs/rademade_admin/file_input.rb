@@ -56,7 +56,7 @@ module RademadeAdmin
     end
 
     def upload_button_html
-      template.content_tag(:span, I18n.t('rademade_admin.upload_file'), {
+      template.content_tag(:span, I18n.t('rademade_admin.uploader.upload'), {
         :class => 'btn green-btn upload-btn',
         :data => {
           :upload => true
@@ -65,7 +65,7 @@ module RademadeAdmin
     end
 
     def download_button_html
-      template.content_tag(:a, I18n.t('rademade_admin.download_file'), {
+      template.content_tag(:a, I18n.t('rademade_admin.uploader.download'), {
         :class => 'btn blue-btn download-btn',
         :href => admin_url_for({
           :controller => 'rademade_admin/file',
@@ -75,7 +75,7 @@ module RademadeAdmin
     end
 
     def crop_button_html
-      template.content_tag(:span, I18n.t('rademade_admin.crop'), {
+      template.content_tag(:span, I18n.t('rademade_admin.uploader.crop'), {
         :class => 'btn red-btn upload-btn',
         :data => {
           :crop => true,

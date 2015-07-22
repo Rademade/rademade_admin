@@ -9,7 +9,7 @@ class @GalleryImageView extends Backbone.View
     @_initCrop()
 
   remove : () ->
-    @model.remove() if confirm I18n.t('rademade_admin.image_remove_confirm')
+    @model.remove() if confirm I18n.t('rademade_admin.remove_confirm.image')
 
   crop : () ->
     @cropper.setOriginalDimensions @model.get('originalDimensions')

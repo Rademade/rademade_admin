@@ -24,7 +24,7 @@ initSorting = ->
 
   params['direction'] ?= 'asc'
 
-  $('.table-box [data-column]').click ->
+  $('[data-column]').click ->
     column = $(this).data('column')
     params['direction'] = if column is params['sort']
       swapDirection(params['direction'])
@@ -39,5 +39,4 @@ initSorting = ->
     Turbolinks.visit("#{window.location.pathname}?#{query_string}")
 
 $ ->
-
   $(document).on('ready page:load', initSorting)
