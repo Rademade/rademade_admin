@@ -8,16 +8,19 @@
   border: .08em solid $content-table-border
   +media-below($media-medium-width)
 
+  tbody
+    .content-table-row
+      &:last-child
+        .content-table-cell
+          border-bottom: 0
+
 .content-table-row
+
   &:hover
     background-color: $content-table-item-hover
 
   &.is-highlight
     background: $content-table-item-highlight
-
-  &:last-child
-    .content-table-cell
-      border-bottom: 0
   th
     font-weight: bold
     +helvetica-medium
