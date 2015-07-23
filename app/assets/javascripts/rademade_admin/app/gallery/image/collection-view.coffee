@@ -3,7 +3,7 @@ class @GalleryImageCollectionView extends Backbone.View
   initImages : (className) ->
     @images = new GalleryImageCollection()
     @images.setClassName(className)
-    @$el.find('.gallery-image').each (index, image) =>
+    @$el.find('[data-id]').each (index, image) =>
       @_initImage $(image)
 
   initSort : () ->
@@ -20,7 +20,7 @@ class @GalleryImageCollectionView extends Backbone.View
 
   _getSortedImages : () =>
     images = []
-    @$el.find('.gallery-image').each (index, el) ->
+    @$el.find('[data-id]').each (index, el) ->
       images.push $(el).data('id')
     images
 

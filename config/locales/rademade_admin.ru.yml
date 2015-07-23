@@ -44,6 +44,8 @@ ru:
       upload: "Загрузить файл"
       download: "Скачать файл"
       crop: "Обрезать"
+      gallery:
+        add: "Добавить фото"
     button:
       save: "Сохранить"
       cancel: "Отмена"

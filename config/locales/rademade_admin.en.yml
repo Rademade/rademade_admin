@@ -44,6 +44,8 @@ en:
       upload: "Upload file"
       download: "Download file"
       crop: "Crop"
+      gallery:
+        add: "Add new  photo"
     button:
       save: "Save"
       cancel: "Cancel"

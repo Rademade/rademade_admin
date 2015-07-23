@@ -1,12 +1,12 @@
 class @Gallery extends Backbone.View
 
   initUploadButton : () ->
-    @$uploadButton = @$el.find('.gallery-image-upload')
+    @$uploadButton = @$el.find('[type="file"]')
     @galleryId = @$el.find('[type="hidden"]').val()
     @galleryClassName = @$uploadButton.data('class-name')
 
   initCollectionView : () ->
-    @collectionView = GalleryImageCollectionView.init @$el.find('.gallery-images-container'), @galleryClassName
+    @collectionView = GalleryImageCollectionView.init @$el.find('[data-sortable-url]'), @galleryClassName
 
   bindUpload : () ->
     @$uploadButton.fileupload
@@ -30,7 +30,7 @@ class @Gallery extends Backbone.View
     gallery.bindUpload()
 
   @initAll : () ->
-    $('.gallery').each () ->
+    $('[data-gallery]').each () ->
       $gallery = $(this)
       unless $gallery.data('initialized')
         Gallery.init $gallery
