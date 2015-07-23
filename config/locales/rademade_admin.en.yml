@@ -54,8 +54,8 @@ en:
     locale:
       en: "English"
       ru: "Russian"
-
-#    unlink: "Unlink"
-#    add_new: "Add new"
-#    edit_related_item: "Edit"
-#    discard: "Discard"
+    relation:
+      add: "Add new"
+      edit: "Edit"
+      destroy: "Destroy"
+      search: "Enter search phrase"

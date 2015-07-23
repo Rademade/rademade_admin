@@ -1,6 +1,6 @@
 class @FormPopup.View extends Backbone.View
 
-  className : 'add_new_popup soft-hide'
+  className : 'popup-wrapper soft-hide'
 
   events :
     'click' : 'onClick'

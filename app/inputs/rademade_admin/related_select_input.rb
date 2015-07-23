@@ -47,7 +47,7 @@ module RademadeAdmin
 
     def add_button_html
       url = admin_new_form_uri(related_to)
-      template.content_tag(:button, I18n.t('rademade_admin.add_new'), {
+      template.content_tag(:button, I18n.t('rademade_admin.relation.add'), {
         :class => 'btn green-btn relation-add-button r-margin fl-l',
         :'data-new' => url,
         :'data-class' => related_to.to_s
@@ -77,7 +77,7 @@ module RademadeAdmin
     end
 
     def edit_button_html
-      template.content_tag(:button, I18n.t('rademade_admin.edit_related_item'), {
+      template.content_tag(:button, I18n.t('rademade_admin.relation.edit'), {
         :class => 'btn blue-btn',
         :'data-edit-relation' => true
       })

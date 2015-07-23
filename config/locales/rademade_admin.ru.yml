@@ -54,8 +54,8 @@ ru:
     locale:
       en: "Английский"
       ru: "Русский"
-
-#    unlink: "Убрать связь"
-#    new_record: "Новая запись"
-#    edit_related_item: "Редактировать"
-#    discard: "Отменить"
+    relation:
+      add: "Добавить"
+      edit: "Редактировать"
+      destroy: "Удалить"
+      search: "Введите фразу для поиска"

@@ -4,7 +4,7 @@ initSelect = ->
 
   $item.select2(
     multiple : false
-    placeholder : I18n.t('rademade_admin.enter_search')
+    placeholder : I18n.t('rademade_admin.relation.search')
 
     initSelection : (element, callback) ->
       ids = element.val().replace(/\s*/g, '').split(',')

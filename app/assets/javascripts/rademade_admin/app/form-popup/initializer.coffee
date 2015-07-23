@@ -27,4 +27,4 @@ class @FormPopup.Initializer extends Backbone.View
     instance = null
     do () ->
       instance ||= new @FormPopup.Initializer
-        el : document.getElementById 'pad-wrapper'
+        el : document.querySelector 'body'

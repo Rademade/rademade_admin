@@ -26,7 +26,7 @@ class @Select2Input.View extends Backbone.View
   initSelect2 : () ->
     @$item.select2(
       multiple : @model.isMultiple()
-      placeholder : I18n.t('rademade_admin.enter_search')
+      placeholder : I18n.t('rademade_admin.relation.search')
       allowClear : true
       ajax :
         url : @_getUrl()
