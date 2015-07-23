@@ -1,0 +1,20 @@
+<%
+if @form_fields_with_locale.length > 0
+    %><label class="form-box" data-lang-panel>
+        <ul class="form-lang-switch"><%
+            I18n.available_locales.each do |locale|
+                %><li class="form-lang-item">
+                    <a href="#locale-<%= locale %>"><%= t("rademade_admin.locale.#{locale}", :default => locale) %></a>
+                </li><%
+            end
+        %></ul><%
+        I18n.available_locales.each do |locale|
+            %><div id="locale-<%= locale %>"><%
+                @form_fields_with_locale.each do |form_field|
+                    admin_localized_field(f, form_field, @model_info, locale)
+                end
+            %></div><%
+        end
+    %></label><%
+end
+%>

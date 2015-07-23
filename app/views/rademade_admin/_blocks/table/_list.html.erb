@@ -14,7 +14,7 @@ is_sortable = @sortable_service.has_position?
                         %> show-sdisplay<%
                     end
                 %>">
-                    <%# is-highlight <span class="checked"></span> %>
+                    <%# is-highlight <span class="checked || rejected"></span> %>
                     <span class="text"><%= display_item_value(item, field)%></span><%
                     if is_first && is_sortable
                         %><i class="draggable-btn"></i><%
@@ -23,10 +23,10 @@ is_sortable = @sortable_service.has_position?
             end
             %><td class="content-table-cell">
                 <span class="content-actions-list"><%
-                    concat render @template_service.button_edit_block, :item => item
-                    concat render @template_service.button_hide_block, :item => item
-                    concat render @template_service.button_preview_block, :item => item
-                    concat render @template_service.button_destroy_block, :item => item
+                    concat render @template_service.edit_button, :item => item
+                    concat render @template_service.hide_button, :item => item
+                    concat render @template_service.preview_button, :item => item
+                    concat render @template_service.destroy_button, :item => item
                 %></span>
             </td>
         </tr><%

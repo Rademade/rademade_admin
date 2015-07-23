@@ -59,7 +59,7 @@ module RademadeAdmin
 
     def success_data(item)
       data = {}
-      if params.has_key?(:create_and_return)
+      if params.has_key?(:save_and_return)
         data[:redirect_to] = admin_list_uri(item.class)
       else
         data[:form_action] = admin_update_uri(item) # TODO check JS. Rename for update

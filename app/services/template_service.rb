@@ -4,9 +4,9 @@ module RademadeAdmin
 
     attr_writer :main_layout, :login_layout, :layout_head, :menu_block, :search_block,
                 :pagination_block, :on_page_switcher_block, :table_head_block, :table_head_list,
-                :form_block, :form_control_block,
-                :button_destroy_block, :button_edit_block, :button_hide_block, :button_preview_block,
-                :button_gallery_block, :button_cancel_block
+                :form_block, :form_control_block, :form_lang_panel_block,
+                :destroy_button, :edit_button, :hide_button, :preview_button, :gallery_button,
+                :cancel_button, :save_and_return_button, :save_button
 
     def initialize(root_dir)
       @root_dir = root_dir
@@ -60,28 +60,40 @@ module RademadeAdmin
       @form_control_block ||= block_path 'form/control'
     end
 
-    def button_destroy_block
-      @button_destroy_block ||= block_path 'button/destroy'
+    def form_lang_panel_block
+      @form_lang_panel_block ||= block_path 'form/lang_panel'
     end
 
-    def button_edit_block
-      @button_edit_block ||= block_path 'button/edit'
+    def destroy_button
+      @destroy_button ||= block_path 'button/destroy'
     end
 
-    def button_hide_block
-      @button_hide_block ||= block_path 'button/hide'
+    def edit_button
+      @edit_button ||= block_path 'button/edit'
     end
 
-    def button_preview_block
-      @button_preview_block ||= block_path 'button/preview'
+    def hide_button
+      @hide_button ||= block_path 'button/hide'
     end
 
-    def button_gallery_block
-      @button_gallery_block ||= block_path 'button/gallery'
+    def preview_button
+      @preview_button ||= block_path 'button/preview'
     end
 
-    def button_cancel_block
-      @button_cancel_block ||= block_path 'button/cancel'
+    def gallery_button
+      @gallery_button ||= block_path 'button/gallery'
+    end
+
+    def cancel_button
+      @cancel_button ||= block_path 'button/cancel'
+    end
+
+    def save_and_return_button
+      @save_and_return_button ||= block_path 'button/save_and_return'
+    end
+
+    def save_button
+      @save_button ||= block_path 'button/save'
     end
 
     private
