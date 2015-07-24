@@ -6,7 +6,13 @@ if @model_info.hideable? && can?(:edit, @model)
         :model => @model,
         :id => item.id
     ) #todo via native method. Add route resource
-    %><span class="content-action visibility" data-toggle-url="<%= toggle_url %>">
+    %><span class="content-action <%
+        if item.shown?
+            %>visibility<%
+        else
+            %>invisibility<%
+        end
+    %>" data-toggle-url="<%= toggle_url %>">
         <span class="tooltip-holder">
             <span class="tooltip-text"><%= t('rademade_admin.management.show_status') %></span>
         </span>

@@ -44,17 +44,21 @@ module RademadeAdmin
         )
       end
 
-      # def crop_button_html(uploader)
-      #   content_tag(:span, I18n.translate('rademade_admin.uploader.crop'), {
-      #     :class => 'btn red-btn crop-btn',
-      #     :data => {
-      #       :crop => true,
-      #       :url => rademade_admin_route(:gallery_crop_url),
-      #       :full_url => uploader.url,
-      #       :original_dimensions => uploader.original_dimensions.join(',')
-      #     }
-      #   }) if uploader.class.ancestors.include? RademadeAdmin::Uploader::CropPhoto
-      # end
+      def crop_button_html(uploader)
+        content_tag(:span, I18n.translate('rademade_admin.uploader.crop'), {
+          :class => 'btn red-btn crop-btn',
+          :data => {
+            :crop => true,
+            :url => rademade_admin_route(:gallery_crop_url),
+            :full_url => uploader.url,
+            :original_dimensions => uploader.original_dimensions.join(',')
+          }
+        }) if uploader.class.ancestors.include? RademadeAdmin::Uploader::CropPhoto
+      end
+      
+      def image_data(uploader)
+
+      end
 
     end
   end

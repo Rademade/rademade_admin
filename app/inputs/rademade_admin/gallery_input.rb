@@ -18,6 +18,7 @@ module RademadeAdmin
     def gallery_block_html
       is_sortable = gallery_image_info.sortable_relation?
       template.content_tag(:div, images_html,
+        :class => 'upload-photo-box',
         :data => {
           :sortable_url => is_sortable ? rademade_admin_route(:gallery_sort_url) : ''
         }

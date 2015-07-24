@@ -2,19 +2,30 @@ class @StatusToggler
 
   bindToggle : () ->
     $('[data-toggle-url]').click (e) =>
-      @_toggleStatus $(e.currentTarget)
+      $element = $(e.currentTarget)
+      @_toggleClass $element
+      @_toggleStatus $element.data('toggleUrl')
 
-  _toggleStatus : ($button) ->
+  _toggleStatus : (statusUrl) ->
     unless @sending
       @sending = true
       $.ajax
         type : 'post'
-        url : $button.data('toggleUrl')
+        url : statusUrl
         dataType : 'json'
         success : (data) =>
           notifier.notify data.message
       .always () =>
         @sending = false
+
+  _toggleClass : ($element) ->
+    if $element.hasClass('visibility')
+      removeClass = 'visibility'
+      addClass = 'invisibility'
+    else
+      removeClass = 'invisibility'
+      addClass = 'visibility'
+    $element.removeClass(removeClass).addClass(addClass)
 
   @init : () ->
     statusToggler = new this

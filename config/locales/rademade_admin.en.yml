@@ -52,8 +52,8 @@ en:
       submit: "Submit"
       save_and_return: "%{save} and return"
     locale:
-      en: "English"
-      ru: "Russian"
+      en: "EN"
+      ru: "RU"
     relation:
       add: "Add new"
       edit: "Edit"

@@ -1,6 +1,6 @@
 <%
 if @form_fields_with_locale.length > 0
-    %><label class="form-box" data-lang-panel>
+    %><div class="form-box" data-lang-panel>
         <ul class="form-lang-switch"><%
             I18n.available_locales.each do |locale|
                 %><li class="form-lang-item">
@@ -15,6 +15,6 @@ if @form_fields_with_locale.length > 0
                 end
             %></div><%
         end
-    %></label><%
+    %></div><%
 end
 %>

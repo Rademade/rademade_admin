@@ -3,7 +3,7 @@ class @Cropper extends Backbone.View
   horizontalAttributes : ['x', 'w']
   verticalAttributes : ['y', 'h']
 
-  className : 'add_new_popup'
+  className : 'popup-wrapper'
 
   events :
     'click [data-crop]' : 'crop'

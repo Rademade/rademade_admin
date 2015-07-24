@@ -52,8 +52,8 @@ ru:
       submit: "Подтвердить"
       save_and_return: "%{save} и вернуться"
     locale:
-      en: "Английский"
-      ru: "Русский"
+      en: "EN"
+      ru: "RU"
     relation:
       add: "Добавить"
       edit: "Редактировать"
