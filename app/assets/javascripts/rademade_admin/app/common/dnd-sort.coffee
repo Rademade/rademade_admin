@@ -12,6 +12,7 @@ initDnDSorting = ->
   if isDnDSorting($table, $tableRows)
     minimum = $tableRows.first().data('position')
     $table.tableDnD
+      dragHandle : '.draggable-btn'
       onDrop : ->
         resortedList = []
         $table.children('tr').each (index, item) ->

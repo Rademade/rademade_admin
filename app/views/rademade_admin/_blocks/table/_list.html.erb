@@ -2,7 +2,7 @@
 is_sortable = @sortable_service.has_position?
 %><tbody data-sortable="<%= is_sortable %>"><%
     @items.each do |item|
-        %><tr class="content-table-row<%
+        %><tr id="item_<%= item.id %>" class="content-table-row<%
             if is_sortable
                 %> is-draggable" data-position="<%= item.position %><%
             end
