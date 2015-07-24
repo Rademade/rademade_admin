@@ -18,12 +18,23 @@ $nav-width: em(270)
   position: absolute
   width: 100%
   bottom: 0
+
 .nav-list
   &.with-scroll
+    position: relative
     height: 70%
     height: calc(100% - 200px)
     overflow-y: auto
     -webkit-overflow-scrolling: touch
+    &::-webkit-scrollbar
+      width: em(6)
+      background: none
+      
+    &::-webkit-scrollbar-track
+
+    &::-webkit-scrollbar-thumb
+      background: rgba(216,216,216,0.2)
+      border-radius: em(3)
 
     +media-below-height(420)
       height: 50%

@@ -4,7 +4,7 @@ if @form_fields_with_locale.length > 0
         <ul class="form-lang-switch"><%
             I18n.available_locales.each do |locale|
                 %><li class="form-lang-item">
-                    <a href="#locale-<%= locale %>"><%= t("rademade_admin.locale.#{locale}", :default => locale) %></a>
+                    <a class="form-lang-link" href="#locale-<%= locale %>"><%= t("rademade_admin.locale.#{locale}", :default => locale) %></a>
                 </li><%
             end
         %></ul><%

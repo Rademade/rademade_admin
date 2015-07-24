@@ -3,6 +3,13 @@
   margin-bottom: em(-5)
   +clear
 
+  button,
+  a,
+  span
+    &.content-action
+      font-size: inherit
+
+
   .content-action
     display: inline-block
     vertical-align: top
@@ -36,17 +43,25 @@
       &:after
         margin-top: em(1)
         +sprite(pen)
+
     &.photo
       &:after
         +sprite(image)
+
     &.link
       &:after
         margin-top: em(1)
         +sprite(link)
+
     &.visibility
       &:after
         margin-top: em(4)
         +sprite(eye)
+
+    &.invisibility
+      &:after
+        +sprite(invisible)
+
     &.trash
       &:after
         +sprite(trash)

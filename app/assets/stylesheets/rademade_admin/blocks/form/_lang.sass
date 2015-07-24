@@ -12,6 +12,19 @@
     display: inline-block
     margin-right: em(20)
     vertical-align: top
+
+    &.ui-state-active
+      .form-lang-link
+        cursor: default
+        color: $form-lang-active-color
+
+    &.ui-state-disabled
+      .form-lang-link
+        cursor: default
+        color: $form-lang-disabled-color
+
+  .form-lang-link
+    display: inline-block
     cursor: pointer
     text-transform: uppercase
     font-size: em(14)
@@ -20,9 +33,3 @@
     +media-below($media-small-width)
       margin: 0 0 0 em(5)
       font-size: em(11)
-
-    &.is-active
-      color: $form-lang-active-color
-    &.is-disabled
-      cursor: default
-      color: $form-lang-disabled-color

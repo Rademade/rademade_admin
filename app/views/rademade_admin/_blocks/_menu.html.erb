@@ -12,7 +12,7 @@
     %></ul>
     <div class="nav-box">
         <div class="nav-user">
-            <img src="http://placehold.it/27x27" alt="<%= @current_user %>" class="user-img"/>
+            <i class="user-img"></i>
             <span class="user-name"><%= @current_user %></span><%
             concat link_to '', [:logout, :sessions], { :method => :delete, :class => 'user-settings' }
         %></div>
