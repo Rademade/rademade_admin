@@ -10,10 +10,20 @@ module RademadeAdmin
       def preview_html(uploader)
         content_tag(:div, image_item_html(uploader),
           :class => 'upload-photo-holder',
-          :data => {
-            :id => uploader.model.id.to_s
-          }
+          :data => image_data(uploader)
         )
+      end
+      
+      def gallery_image_preview(uploader)
+        uploader.resize_with_crop(300, 300)
+      end
+
+      def crop_data(uploader)
+        {
+          :url => rademade_admin_route(:gallery_crop_url),
+          :full_url => uploader.url,
+          :original_dimensions => uploader.original_dimensions.join(',')
+        }
       end
 
       private
@@ -27,7 +37,7 @@ module RademadeAdmin
       end
 
       def image_html(uploader)
-        content_tag(:img, '', :src => uploader.resize_with_crop(300, 300))
+        content_tag(:img, '', :src => gallery_image_preview(uploader))
       end
 
       def remove_ico_html(uploader)
@@ -44,20 +54,10 @@ module RademadeAdmin
         )
       end
 
-      def crop_button_html(uploader)
-        content_tag(:span, I18n.translate('rademade_admin.uploader.crop'), {
-          :class => 'btn red-btn crop-btn',
-          :data => {
-            :crop => true,
-            :url => rademade_admin_route(:gallery_crop_url),
-            :full_url => uploader.url,
-            :original_dimensions => uploader.original_dimensions.join(',')
-          }
-        }) if uploader.class.ancestors.include? RademadeAdmin::Uploader::CropPhoto
-      end
-      
       def image_data(uploader)
-
+        data = { :id => uploader.model.id.to_s }
+        data[:crop] = crop_data(uploader) if uploader.class.ancestors.include? RademadeAdmin::Uploader::CropPhoto
+        data
       end
 
     end
