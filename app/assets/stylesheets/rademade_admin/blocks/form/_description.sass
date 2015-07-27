@@ -1,0 +1,41 @@
+.form-description
+  position: absolute
+  right: em(24)
+  top: em(14)
+  opacity: .6
+  overflow: hidden
+  transition: opacity $transitionVal ease-in-out
+  +sprite(info)
+  &:hover
+    opacity: 1
+    overflow: inherit
+
+    .form-description-text
+      opacity: 1
+
+  .form-description-text
+    position: absolute
+    opacity: 0
+    top: em(-12)
+    left: calc(100% + 15px)
+    padding: em(7) em(10)
+    width: em(200)
+    color: #fff
+    background: rgba(71,80,98,0.6)
+    border-radius: em(4)
+    box-sizing: border-box
+    transition: opacity $transitionVal ease-in-out
+    &:after
+      position: absolute
+      right: 100%
+      top: 50%
+      border: solid transparent
+      content: " "
+      height: 0
+      width: 0
+      pointer-events: none
+      border-color: rgba(108, 115, 130, 0)
+      border-right-color: #6C7382
+      border-width: em(5)
+      margin-top: em(-5)
+      opacity: .75
