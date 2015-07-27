@@ -5,6 +5,10 @@
     float: none
     width: 100%
 
+  &.in-error
+    .form-input
+      border: .08em solid $form-input-border-error
+
 .form-input
   display: block
   width: 100%
@@ -14,3 +18,6 @@
   border: .08em solid $form-input-border
   border-radius: em(4)
   box-sizing: border-box
+  transition: border $transitionVal ease-in-out
+  &:focus
+    border: .08em solid $form-input-border-focus
