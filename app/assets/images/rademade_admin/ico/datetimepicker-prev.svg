@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="8px" height="14px" viewBox="0 0 8 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12002) - http://www.bohemiancoding.com/sketch -->
+    <title>datetimepicker-prev</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="calendar" sketch:type="MSArtboardGroup" transform="translate(-312.000000, -482.000000)" fill="#8AB8D9">
+            <g id="datetimepicker-prev" sketch:type="MSLayerGroup" transform="translate(315.611111, 488.952257) rotate(-180.000000) translate(-315.611111, -488.952257) translate(311.611111, 482.452257)">
+                <path d="M0.283449702,12.5993497 C-0.00551190476,12.3109031 -0.00551190476,11.8441205 0.283449702,11.5556739 L5.40621399,6.44238503 L0.283449702,1.32875223 C-0.00551190476,1.0403057 -0.00551190476,0.573110368 0.283449702,0.2850765 C0.57241131,-0.00337002377 1.04044092,-0.00337002377 1.32933363,0.2850765 L6.97448869,5.92016889 C7.2634503,6.20861542 7.2634503,6.67581075 6.97448869,6.96384462 L1.32933363,12.5992809 C1.18512842,12.7437105 0.995863393,12.8159253 0.806598363,12.8159253 C0.617746726,12.8159253 0.428137202,12.7441231 0.283449702,12.5993497 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>
