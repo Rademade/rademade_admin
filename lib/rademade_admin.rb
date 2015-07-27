@@ -2,7 +2,7 @@
 require 'kaminari'
 require 'cancan'
 require 'bower-rails'
-require 'compass-rails'
+require 'autoprefixer-rails'
 require 'sass-rails'
 
 # js assets

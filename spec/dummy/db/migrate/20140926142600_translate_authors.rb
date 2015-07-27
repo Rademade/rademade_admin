@@ -2,16 +2,16 @@ class TranslateAuthors < ActiveRecord::Migration
 
   def self.up
     Author.create_translation_table!({
-      :photo => :string
+      :file => :string
     }, {
       :migrate_data => true
     })
-    remove_column :authors, :photo
+    remove_column :authors, :file
   end
 
   def self.down
     Author.drop_translation_table! :migrate_data => true
-    add_column :authors, :photo, :string
+    add_column :authors, :file, :string
   end
 
 end

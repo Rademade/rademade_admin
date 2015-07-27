@@ -26,9 +26,9 @@ Gem::Specification.new do |s|
 
   # Assets
   s.add_dependency 'bower-rails', '~> 0.8', '>= 0.8.2'
-  s.add_dependency 'sass-rails', '>= 4.0'
-  s.add_dependency 'compass-rails', '>= 1.0'
+  s.add_dependency 'sass-rails', '>= 5.0'
   s.add_dependency 'coffee-rails', '~> 4.0'
+  s.add_dependency 'autoprefixer-rails', '>= 5.2.0'
 
   s.add_dependency 'i18n-js', '>= 2.0'
   s.add_dependency 'ejs', '~> 1.1'

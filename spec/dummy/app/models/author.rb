@@ -4,11 +4,11 @@ class Author < ActiveRecord::Base
   has_many :author_rubrics, :dependent => :destroy
   has_many :rubrics, :through => :author_rubrics, :sortable => true
 
-  translates :photo
+  translates :file
 
   accepts_nested_attributes_for :translations
 
-  Translation.mount_uploader :photo, PosterUploader
+  Translation.mount_uploader :file, PosterUploader
 
   def to_s
     name

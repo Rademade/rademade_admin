@@ -1,6 +1,6 @@
 $width: 100%
 
-.upload-photo-holder
+.upload-holder
   display: inline-block
   padding: 0 em(2)
   width: 24%
@@ -8,7 +8,7 @@ $width: 100%
   +media-below($media-medium-width)
     width: $width / 3
 
-.upload-photo-item
+.upload-item
   position: relative
   display: block
   width: 100%
@@ -17,13 +17,13 @@ $width: 100%
   cursor: pointer
   overflow: hidden
   box-sizing: border-box
-  
+
   &:hover
-    .upload-photo-delete
+    .upload-delete
       opacity: 1
 
   &.add
-    padding-bottom: 100%
+    padding-bottom: 98%
     background-color: #F9FBFE
     font-size: em(13)
     color: rgba(71, 80, 98, 0.4)
@@ -37,7 +37,7 @@ $width: 100%
       margin-left: em(-16)
       +sprite(photo)
 
-  .upload-photo-text
+  .upload-text
     position: absolute
     padding: 0 em(20)
     width: 100%
@@ -60,7 +60,7 @@ $width: 100%
     border-radius: em(2)
     vertical-align: top
 
-  .upload-photo-delete
+  .upload-delete
     position: absolute
     top: 0
     right: 0
