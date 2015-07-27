@@ -8,7 +8,7 @@ module RademadeAdmin
       template.content_tag(
         :div,
         HtmlBuffer.new([gallery_block_html, upload_block_html, gallery_hidden_html]),
-        :class => 'upload-photo-list',
+        :class => 'upload-list',
         :data => { :gallery => '' }
       )
     end
@@ -18,7 +18,7 @@ module RademadeAdmin
     def gallery_block_html
       is_sortable = gallery_image_info.sortable_relation?
       template.content_tag(:div, images_html,
-        :class => 'upload-photo-box',
+        :class => 'upload-box',
         :data => {
           :sortable_url => is_sortable ? rademade_admin_route(:gallery_sort_url) : ''
         }
@@ -39,9 +39,9 @@ module RademadeAdmin
         :div,
         template.content_tag(:div, HtmlBuffer.new([
           upload_button_html,
-          template.content_tag(:span, t('rademade_admin.uploader.gallery.add'), :class => 'upload-photo-text')
-        ]), :class => 'upload-photo-item add'),
-        :class => 'upload-photo-holder'
+          template.content_tag(:span, t('rademade_admin.uploader.gallery.add'), :class => 'upload-text')
+        ]), :class => 'upload-item add'),
+        :class => 'upload-holder'
       )
     end
 

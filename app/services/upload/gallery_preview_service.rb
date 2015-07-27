@@ -9,7 +9,7 @@ module RademadeAdmin
 
       def preview_html(uploader)
         content_tag(:div, image_item_html(uploader),
-          :class => 'upload-photo-holder',
+          :class => 'upload-holder',
           :data => image_data(uploader)
         )
       end
@@ -32,7 +32,7 @@ module RademadeAdmin
         content_tag(
           :div,
           HtmlBuffer.new([image_html(uploader), remove_ico_html(uploader)]),
-          :class => 'upload-photo-item'
+          :class => 'upload-item'
         )
       end
 
@@ -42,7 +42,7 @@ module RademadeAdmin
 
       def remove_ico_html(uploader)
         content_tag(:i, '',
-          :class => 'upload-photo-delete',
+          :class => 'upload-delete',
           :data => {
             #todo use route name and resources
             :'remove-url' => admin_url_for({

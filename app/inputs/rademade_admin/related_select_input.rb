@@ -10,24 +10,24 @@ module RademadeAdmin
     include ::RademadeAdmin::Input::RelatedSelectInput::RelatedList
 
     def input(wrapper_options = {})
-      template.content_tag(
-        :div,
-        RademadeAdmin::HtmlBuffer.new([select_ui_html, add_button_html]),
-        html_attributes
-      ) + related_html
+      RademadeAdmin::HtmlBuffer.new([select_ui_html, related_html])
     end
 
     private
 
     def select_ui_html
-      template.text_field_tag(input_html_options_name, '', html_attributes)
+      template.content_tag(
+        :div,
+        template.text_field_tag(input_html_options_name, '', html_attributes),
+        html_attributes
+      )
     end
 
     def related_html
       if multiple?
-        related_list_html
+        RademadeAdmin::HtmlBuffer.new([buttons_html(add_button_html), related_list_html])
       else
-        RademadeAdmin::HtmlBuffer.new([related_item_html, edit_button_html])
+        RademadeAdmin::HtmlBuffer.new([related_item_html, buttons_html(add_button_html, edit_button_html)])
       end
     end
 
@@ -45,10 +45,22 @@ module RademadeAdmin
       }
     end
 
+    def buttons_html(*buttons)
+      template.content_tag(
+        :div,
+        template.content_tag(
+          :div,
+          RademadeAdmin::HtmlBuffer.new(buttons),
+          :class => 'btn-box align-left'
+        ),
+        :class => 'btn-list'
+      )
+    end
+
     def add_button_html
       url = admin_new_form_uri(related_to)
       template.content_tag(:button, I18n.t('rademade_admin.relation.add'), {
-        :class => 'btn green-btn relation-add-button r-margin fl-l',
+        :class => 'btn is-green relation-add-button r-margin fl-l',
         :'data-new' => url,
         :'data-class' => related_to.to_s
       }) if url
@@ -78,7 +90,7 @@ module RademadeAdmin
 
     def edit_button_html
       template.content_tag(:button, I18n.t('rademade_admin.relation.edit'), {
-        :class => 'btn blue-btn',
+        :class => 'btn is-yellow',
         :'data-edit-relation' => true
       })
     end

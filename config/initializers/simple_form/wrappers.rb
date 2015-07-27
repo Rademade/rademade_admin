@@ -6,6 +6,9 @@ SimpleForm.setup do |config|
     form_box.wrapper :tag => 'span', :class => 'input-holder' do |input_holder|
       input_holder.use :input
     end
+    form_box.wrapper :tag => 'div', :class => 'form-description', :unless_blank => true do |hint|
+      hint.use :hint, :wrap_with => { :tag => :span, :class => :'form-description-text' }
+    end
   end
 
   config.wrappers :rademade_login, :tag => 'div', :class => 'input-holder' do |input_holder|
