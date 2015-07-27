@@ -44,7 +44,7 @@ module RademadeAdmin
       @item = model.find(params[:id])
       authorize! :destroy, @item
       before_destroy @item
-      @item.delete if @item
+      @item.destroy if @item
       success_delete @item
     end
 
