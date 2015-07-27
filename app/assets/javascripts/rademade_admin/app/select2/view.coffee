@@ -1,7 +1,6 @@
 class @Select2Input.View extends Backbone.View
 
   events :
-    'click [data-new]' : 'addRelation'
     'click [data-edit-relation]' : 'editRelation'
 
   initItem : () ->
@@ -28,6 +27,7 @@ class @Select2Input.View extends Backbone.View
       multiple : @model.isMultiple()
       placeholder : I18n.t('rademade_admin.relation.search')
       allowClear : true
+      formatResult : @_formatResult
       ajax :
         url : @_getUrl()
         dataType : 'json'
@@ -37,9 +37,8 @@ class @Select2Input.View extends Backbone.View
     @_updateData()
     @model.get('related').on 'data-change', @_updateData
 
-  addRelation : (e) ->
-    e.preventDefault()
-    relatedModel = @_createRelatedModel $(e.currentTarget).data('new')
+  addRelation : (url) ->
+    relatedModel = @_createRelatedModel url
     FormPopup.Initializer.getInstance().showPopup relatedModel
 
   editRelation : (e) ->
@@ -53,12 +52,26 @@ class @Select2Input.View extends Backbone.View
   _getData : (term) ->
     q : term
 
+  _formatResult : (data) =>
+    if data.is_placeholder
+      @_placeholderForAdd()
+    else
+      data.text
+
   _getResults : (data) ->
+    data.push
+      id : -1
+      url : '/' # todo
+      is_placeholder : yes
     results : data
 
   _onChange : (e) =>
-    if e.added
-      @model.get('related').update(e.added)
+    addedElement = e.added
+    if addedElement
+      if addedElement.is_placeholder
+        @addRelation(addedElement.url)
+      else
+        @model.get('related').update(addedElement)
     else if e.removed
       @model.get('related').clear()
 
@@ -81,6 +94,9 @@ class @Select2Input.View extends Backbone.View
       relatedModel = @model.get('related')
     relatedModel.set 'editurl', url
     relatedModel
+
+  _placeholderForAdd : () ->
+    JST['rademade_admin/app/templates/select2-add']
 
   @init : ($el) ->
     view = new this
