@@ -1,0 +1,56 @@
+.select2-items-list
+  span
+    display: none
+
+  .ui-sortable-handle
+    position: relative
+    display: inline-block
+    margin: em(10) em(10) 0 0
+    padding: em(7) em(55) em(7) em(20)
+    border: 0.08em solid #E1E6EF
+    border-radius: 4px
+    background-color: #fff
+
+  .select2-item-edit
+    background: none
+    padding: 0
+    margin: 0
+    border: 0
+    outline: none
+    cursor: pointer
+    color: $form-input-color
+    font-size: em(13)
+    border-bottom: .08em dashed rgba(0,0,0,0.3)
+    transition: border $transitionVal ease-in-out
+    &:hover
+      border-bottom: .08em dashed transparent
+
+  .select2-item-remove
+    position: absolute
+    top: 0
+    right: 0
+    padding: 0
+    margin: 0
+    border: 0
+    width: em(50)
+    height: 100%
+    outline: none
+    cursor: pointer
+    background-color: #F9FBFE
+    border-left: .09em solid #E1E6EF
+    overflow: hidden
+    text-indent: 200%
+    border-radius: 0 4px 4px 0
+    &:after
+      position: absolute
+      content: ""
+      top: 50%
+      left: 50%
+      margin: em(-9) 0 0 em(-8)
+      opacity: 0.4
+      transition: opacity $transitionVal ease-in-out
+      +sprite(trash)
+
+    &:hover
+      &:after
+        opacity: 1

@@ -29,13 +29,14 @@ $width: 100%
     color: rgba(71, 80, 98, 0.4)
     border: .08em solid #D1D8E6
     border-radius: em(2)
+
     &:after
       position: absolute
       content: ""
       top: em(25)
       left: 50%
       margin-left: em(-16)
-      +sprite(photo)
+      +sprite(file)
 
   .upload-text
     position: absolute
@@ -79,3 +80,12 @@ $width: 100%
       margin: em(-4) 0 0 em(-4)
       opacity: .7
       +sprite(delete-small)
+
+  .upload-item-data
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: #fff
+    border-radius: em(4)
