@@ -6,13 +6,21 @@ gulp = require('gulp');
 svgSprite = require('gulp-svg-sprite');
 
 config = {
+    shape: {
+        spacing: {
+            padding: 0,
+            box: 'content'
+        },
+        dimension           : {                         // Dimension related options
+            maxWidth        : 2000,                     // Max. shape width
+            maxHeight       : 2000,                     // Max. shape height
+            precision       : 2,                        // Floating point precision
+            attributes      : false
+        }
+    },
     mode: {
         css: {
             dest: '../assets',
-            spacing: {
-                padding: 20,
-                box: 'content'
-            },
             sprite: 'images/rademade_admin/sprite.svg',
             bust: false,
             render: {

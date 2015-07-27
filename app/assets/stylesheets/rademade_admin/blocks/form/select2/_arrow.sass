@@ -1,6 +1,9 @@
 .input-holder
   .select2-choice,
   .select2-choices
+    position: relative
+    background-image: none !important
+
     .select2-arrow
       width: em(30)
       height: 100%
@@ -20,3 +23,26 @@
 
       b
         display: none
+
+.select2-search-field
+  width: 100%
+
+  &:before
+    position: absolute
+    content: ''
+    top: 0
+    right: 0
+    width: em(30)
+    height: 100%
+    box-sizing: border-box
+    border-color: #E1E6EF
+    border-radius: 0
+    background-image: linear-gradient(-179deg, #F6FAFE 0%, #D4E6F8 100%)
+
+  &:after
+    position: absolute
+    content: ''
+    top: 50%
+    right: em(7)
+    margin-top: em(-4)
+    +sprite(select2)

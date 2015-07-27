@@ -1,5 +1,8 @@
+$form-description-large-width: 1260
+
 .form-description
   position: absolute
+  z-index: 990
   right: em(24)
   top: em(14)
   opacity: .6
@@ -25,6 +28,12 @@
     border-radius: em(4)
     box-sizing: border-box
     transition: opacity $transitionVal ease-in-out
+
+    +media-below($form-description-large-width)
+      top: em(25)
+      right: em(-12)
+      left: auto
+
     &:after
       position: absolute
       right: 100%
@@ -39,3 +48,11 @@
       border-width: em(5)
       margin-top: em(-5)
       opacity: .75
+
+      +media-below($form-description-large-width)
+        right: em(15)
+        left: auto
+        top: auto
+        bottom: 100%
+        border-right-color: inherit
+        border-bottom-color: #6C7382
