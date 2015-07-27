@@ -2,6 +2,8 @@ class @Select2Input.RelatedView extends Backbone.View
 
   tagName : 'li'
 
+  className : 'select2-item'
+
   events :
     'click [data-edit]' : 'editRelation'
     'click [data-remove]' : 'removeRelation'
@@ -27,10 +29,11 @@ class @Select2Input.RelatedView extends Backbone.View
     JST['rademade_admin/app/templates/related-item'](data)
 
   @init : ($el) ->
+    $edit = $el.find('[data-edit]')
     model = new Select2Input.RelatedModel
       id : $el.data('id')
-      text : $el.find('span').text()
-      editurl : $el.find('[data-edit]').data('edit')
+      text : $edit.text()
+      editurl : $edit.data('edit')
     new this
       el : $el
       model : model

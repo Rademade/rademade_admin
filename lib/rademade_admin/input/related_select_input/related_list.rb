@@ -18,32 +18,23 @@ module RademadeAdmin
         def related_list_items_html
           serialized_values = Autocomplete::BaseSerializer.new(related_value).as_json
           html = serialized_values.map do |serialized_value|
-            template.content_tag(:li, related_list_item_html(serialized_value), :'data-id' => serialized_value[:id])
+            template.content_tag(:li, related_list_item_html(serialized_value), {
+              :'data-id' => serialized_value[:id],
+              :class => 'select2-item'
+            })
           end
           RademadeAdmin::HtmlBuffer.new(html)
         end
 
         def related_list_item_html(serialized_value)
-          RademadeAdmin::HtmlBuffer.new([
-            related_list_item_title_html(serialized_value),
-            related_list_item_edit_html(serialized_value),
-            related_list_item_remove_html
-          ])
+          RademadeAdmin::HtmlBuffer.new([related_list_item_title_html(serialized_value), related_list_item_remove_html])
         end
 
         def related_list_item_title_html(serialized_value)
-          template.content_tag(:span, serialized_value[:text])
-        end
-
-        def related_list_item_edit_html(serialized_value)
-          if serialized_value[:editurl]
-            template.content_tag(:button, I18n.t('rademade_admin.relation.edit'), {
-              :'data-edit' => serialized_value[:editurl],
-              :class => 'select2-item-edit'
-            })
-          else
-            ''
-          end
+          template.content_tag(:button, serialized_value[:text], {
+            :'data-edit' => serialized_value[:editurl],
+            :class => 'select2-item-edit'
+          })
         end
 
         def related_list_item_remove_html
