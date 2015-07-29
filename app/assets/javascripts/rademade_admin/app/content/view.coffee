@@ -3,14 +3,22 @@ instance = null
 class @Content extends Backbone.View
 
   renderItemFromUrl : (url) ->
-    console.log url
+    $.get url, () ->
+      console.log arguments
+
+  bindUrlClick : () ->
+    $('[data-content-url]').click (e) =>
+      @renderItemFromUrl $(e.currentTarget).data('contentUrl')
 
   @init : () ->
-    instance = new Content
+    new Content
       el : $('[data-content]')
 
   @getInstance : () ->
-    instance
+    do () ->
+      instance ||= Content.init()
 
 $ ->
   $(document).on('page:load ready', Content.init)
+  $(document).on 'page:load ready init-plugins', () ->
+    Content.getInstance().bindUrlClick()
