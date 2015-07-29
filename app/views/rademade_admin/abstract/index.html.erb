@@ -1,5 +1,3 @@
-<%= breadcrumbs.render(:format => :rademade) %>
-
 <% content_for :nav_buttons do %><%
     new_uri = admin_new_uri(@model_info)
     concat link_to(t('rademade_admin.record.new'), new_uri, :class => 'btn is-blue with-ico ico-add') if new_uri
@@ -9,19 +7,24 @@
     end
 end %>
 
-<div class="content-data">
-    <div class="btn-list">
-        <div class="btn-box align-left fll"><%= yield(:nav_buttons) %></div><%
-        concat render @template_service.search_block
-    %></div>
-    <div class="content-table-holder">
-        <table class="content-table" cellspacing="0" cellpadding="0"><%
-            concat render @template_service.table_head_block
-            concat render @template_service.table_head_list
-        %></table>
+<div class="content-item">
+    <div class="content-header">
+        <a href="<%= admin_list_uri(@model_info) %>" class="content-header-link"><%= @model_info.item_name %></a>
     </div>
-    <div class="btn-list"><%
-        concat render @template_service.pagination_block
-        concat render @template_service.on_page_switcher_block
-    %></div>
+    <div class="content-data">
+        <div class="btn-list">
+            <div class="btn-box align-left fll"><%= yield(:nav_buttons) %></div><%
+            concat render @template_service.search_block
+        %></div>
+        <div class="content-table-holder">
+            <table class="content-table" cellspacing="0" cellpadding="0"><%
+                concat render @template_service.table_head_block
+                concat render @template_service.table_head_list
+            %></table>
+        </div>
+        <div class="btn-list"><%
+            concat render @template_service.pagination_block
+            concat render @template_service.on_page_switcher_block
+        %></div>
+    </div>
 </div>

@@ -3,11 +3,10 @@ module RademadeAdmin
   class AbstractController < ApplicationController
 
     include ::RademadeAdmin::UriHelper
-    include ::RademadeAdmin::Breadcrumbs
 
     layout 'rademade_admin'
 
-    before_action :init_user, :init_template_service, :require_login, :root_breadcrumbs, :menu
+    before_action :init_user, :init_template_service, :require_login, :menu
     
     attr_reader :current_user
 

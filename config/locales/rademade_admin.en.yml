@@ -21,7 +21,6 @@ en:
         incorrect_password: "Incorrect password"
         access_denied: "Access denied"
     dashboard:
-      name: "Dashboard"
       greeting: "Hello, %{user}"
     record:
       new: "Add record"

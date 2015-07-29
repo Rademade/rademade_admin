@@ -63,7 +63,6 @@ module RademadeAdmin
 
     def index
       authorize! :read, model_class
-      list_breadcrumbs
       @items = index_items
       respond_to do |format|
         format.html { render_template }
@@ -76,7 +75,6 @@ module RademadeAdmin
       authorize! :create, model_class
       @with_save_and_return_button = true
       @item = new_model
-      new_breadcrumbs
       render_template
     end
 
@@ -84,7 +82,6 @@ module RademadeAdmin
       @item = model.find(params[:id])
       authorize! :update, @item
       @with_save_and_return_button = true
-      edit_breadcrumbs
       render_template
     end
 
@@ -97,10 +94,7 @@ module RademadeAdmin
       @items = related_items(search_params)
       @sortable_service = RademadeAdmin::SortableService.new(@related_model_info, search_params)
       respond_to do |format|
-        format.html {
-          related_breadcrumbs
-          render_template
-        }
+        format.html { render_template }
         format.json { render :json => Autocomplete::BaseSerializer.new(@items) }
       end
     end

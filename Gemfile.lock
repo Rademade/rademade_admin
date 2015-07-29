@@ -4,7 +4,6 @@ PATH
     rademade_admin (0.2.2)
       autoprefixer-rails (>= 5.2.0)
       bower-rails (~> 0.8, >= 0.8.2)
-      breadcrumbs (~> 0.1, >= 0.1.7)
       cancan (~> 1.6)
       carrierwave (~> 0.10)
       cells (~> 3.9.0, < 4.0.0)
@@ -59,8 +58,6 @@ GEM
       execjs
       json
     bower-rails (0.10.0)
-    breadcrumbs (0.1.7)
-      i18n
     bson (3.1.0)
     builder (3.2.2)
     cancan (1.6.10)

@@ -21,7 +21,6 @@ ru:
         incorrect_password: "Неверный пароль"
         access_denied: "Отказано в доступе"
     dashboard:
-      name: "Главная"
       greeting: "Привет, %{user}"
     record:
       new: "Добавить запись"

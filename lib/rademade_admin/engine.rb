@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'rademade_admin/routing/mapper'
 require 'simple_form'
-require 'breadcrumbs'
 require 'select2-rails'
 require 'cells'
 require 'carrierwave'

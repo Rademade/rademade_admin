@@ -43,7 +43,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form', '~> 3.1'
   s.add_dependency 'ckeditor', '~> 4.0'
   s.add_dependency 'cancan', '~> 1.6'
-  s.add_dependency 'breadcrumbs', '~> 0.1', '>= 0.1.7'
   s.add_dependency 'mongoid_sortable_relation', '~> 0.0', '>= 0.0.9' # TODO move to public application
 
 end
