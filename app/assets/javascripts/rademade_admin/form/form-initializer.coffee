@@ -4,4 +4,4 @@ initForms = () ->
     Form.init $(form)
 
 $ ->
-  $(document).on 'ready page:load', initForms
+  $(document).on 'ready page:load init-plugins', initForms

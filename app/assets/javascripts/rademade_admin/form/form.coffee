@@ -38,8 +38,8 @@ class @Form extends Backbone.View
     @sending = true
 
   _onAjaxDone : (data) =>
-    if data.redirect_to
-      window.location.href = data.redirect_to
+    if data.with_return
+      Content.getInstance().moveToPreviousContentItem()
     else
       @trigger 'ajax-submit-done', [data]
 

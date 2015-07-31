@@ -65,7 +65,7 @@ module RademadeAdmin
       authorize! :read, model_class
       @items = index_items
       respond_to do |format|
-        format.html { render_template(true) }
+        format.html { render_template }
         format.json { render :json => @items }
         format.csv { render_csv }
       end
@@ -176,8 +176,9 @@ module RademadeAdmin
       @model ||= model_info.model
     end
 
-    def render_template(with_layout = false, template = action_name)
-      render abstract_template(template), :layout => with_layout
+    def render_template(template = action_name)
+      @with_layout = params[:layout] != 'false'
+      render abstract_template(template), :layout => @with_layout
     end
 
     def sortable_service

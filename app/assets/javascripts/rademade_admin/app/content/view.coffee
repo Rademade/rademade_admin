@@ -2,23 +2,41 @@ instance = null
 
 class @Content extends Backbone.View
 
-  renderItemFromUrl : (url) ->
-    $.get url, () ->
-      console.log arguments
+  renderItemFromUrl : (url, cb) ->
+    $.get url, layout : false, (html) =>
+      $contentItem = $(html)
+      $('[data-content]').append $contentItem
+      $(document).trigger 'init-plugins'
+      @bindClick $contentItem
+      cb($contentItem) if cb
 
-  bindUrlClick : () ->
-    $('[data-content-url]').click (e) =>
+  renderModel : (model) ->
+    @renderItemFromUrl model.get('editurl'), ($contentItem) =>
+      $contentItem.find('form').on 'ajax-submit-done', (e, response) =>
+        model.update response.data
+        $contentItem.remove()
+
+  moveToPreviousContentItem : () ->
+    @moveToContentItem $('[data-content-item]:nth-last-child(2)')
+
+  moveToContentItem : ($contentItem) ->
+    $contentItem.nextAll('[data-content-item]').remove()
+    if $contentItem.is(':first-child')
+      @renderItemFromUrl $contentItem.data('contentItem'), () ->
+        $contentItem.remove()
+
+  bindClick : ($el) ->
+    $el.find('[data-content-header]').bind 'click', (e) =>
+      @moveToContentItem $(e.currentTarget).closest('[data-content-item]')
+    $el.find('[data-content-url]').bind 'click', (e) =>
       @renderItemFromUrl $(e.currentTarget).data('contentUrl')
-
-  @init : () ->
-    new Content
-      el : $('[data-content]')
+    $el.find('[data-content-close]').bind 'click', () ->
+      $(this).closest('[data-content-item]').remove()
 
   @getInstance : () ->
     do () ->
-      instance ||= Content.init()
+      instance ||= new Content()
 
 $ ->
-  $(document).on('page:load ready', Content.init)
-  $(document).on 'page:load ready init-plugins', () ->
-    Content.getInstance().bindUrlClick()
+  $(document).on 'page:load ready', () ->
+    Content.getInstance().bindClick $(document)

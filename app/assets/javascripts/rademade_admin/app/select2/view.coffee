@@ -1,6 +1,7 @@
 class @Select2Input.View extends Backbone.View
 
   events :
+    'click [data-new]' : 'addRelation'
     'click [data-edit-relation]' : 'editRelation'
 
   initItem : () ->
@@ -37,14 +38,16 @@ class @Select2Input.View extends Backbone.View
     @_updateData()
     @model.get('related').on 'data-change', @_updateData
 
-  addRelation : (url) ->
+  addRelation : (e) ->
+    e.preventDefault()
+    url = $(e.currentTarget).data('new')
     relatedModel = @_createRelatedModel url
-    FormPopup.Initializer.getInstance().showPopup relatedModel
+    Content.getInstance().renderModel relatedModel
 
   editRelation : (e) ->
     e.preventDefault()
     if @model.get('related').get('editurl')
-      FormPopup.Initializer.getInstance().showPopup @model.get('related')
+      Content.getInstance().renderModel @model.get('related')
 
   _getUrl : () ->
     @model.get('searchUrl')

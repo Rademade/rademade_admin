@@ -2,9 +2,9 @@
 module RademadeAdmin
   class TemplateService
 
-    attr_writer :main_layout, :login_layout, :layout_head, :menu_block, :search_block,
+    attr_writer :main_layout, :login_layout, :content_item_layout, :layout_head, :menu_block, :search_block,
                 :pagination_block, :on_page_switcher_block, :table_head_block, :table_head_list,
-                :form_block, :form_control_block, :form_lang_panel_block,
+                :list_block, :form_block, :form_control_block, :form_lang_panel_block,
                 :destroy_button, :edit_button, :hide_button, :preview_button, :gallery_button,
                 :cancel_button, :save_and_return_button, :save_button
 
@@ -22,6 +22,10 @@ module RademadeAdmin
 
     def login_layout
       @login_layout ||= layout_path 'login'
+    end
+
+    def content_item_layout
+      @content_item_layout ||= layout_path 'content_item'
     end
 
     def layout_head
@@ -50,6 +54,10 @@ module RademadeAdmin
 
     def table_head_list
       @table_head_list ||= block_path 'table/list'
+    end
+
+    def list_block
+      @list_block ||= block_path 'list'
     end
 
     def form_block

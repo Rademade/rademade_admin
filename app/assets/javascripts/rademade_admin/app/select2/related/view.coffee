@@ -14,7 +14,7 @@ class @Select2Input.RelatedView extends Backbone.View
 
   editRelation : (e) ->
     e.preventDefault()
-    FormPopup.Initializer.getInstance().showPopup @model
+    Content.getInstance().renderModel @model
 
   removeRelation : (e) ->
     e.preventDefault()
