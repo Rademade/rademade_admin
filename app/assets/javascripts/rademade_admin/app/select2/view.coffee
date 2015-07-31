@@ -1,7 +1,6 @@
 class @Select2Input.View extends Backbone.View
 
   events :
-    'click [data-new]' : 'addRelation'
     'click [data-edit-relation]' : 'editRelation'
 
   initItem : () ->
@@ -13,6 +12,7 @@ class @Select2Input.View extends Backbone.View
   initModel : () ->
     @model.set
       searchUrl : @$item.data('searchUrl')
+      newUrl : @$item.data('newUrl')
       multiple : @$item.data('relMultiple')
 
   initRelated : () ->
@@ -38,12 +38,6 @@ class @Select2Input.View extends Backbone.View
     @_updateData()
     @model.get('related').on 'data-change', @_updateData
 
-  addRelation : (e) ->
-    e.preventDefault()
-    url = $(e.currentTarget).data('new')
-    relatedModel = @_createRelatedModel url
-    Content.getInstance().renderModel relatedModel
-
   editRelation : (e) ->
     e.preventDefault()
     if @model.get('related').get('editurl')
@@ -56,7 +50,7 @@ class @Select2Input.View extends Backbone.View
     q : term
 
   _formatResult : (data) =>
-    if data.is_placeholder
+    if data.isPlaceholder
       @_placeholderForAdd()
     else
       data.text
@@ -64,15 +58,15 @@ class @Select2Input.View extends Backbone.View
   _getResults : (data) ->
     data.push
       id : -1
-      url : '/' # todo
-      is_placeholder : yes
+      isPlaceholder : yes
     results : data
 
   _onChange : (e) =>
     addedElement = e.added
     if addedElement
-      if addedElement.is_placeholder
-        @addRelation(addedElement.url)
+      if addedElement.isPlaceholder
+        @$item.select2('data', null)
+        Content.getInstance().renderModel @_createRelatedModel(@model.get('newUrl'))
       else
         @model.get('related').update(addedElement)
     else if e.removed

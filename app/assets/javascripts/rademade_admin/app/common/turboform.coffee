@@ -5,4 +5,4 @@ initTurboform = () ->
     return false
 
 $ ->
-  $(document).on 'ready page:load', initTurboform
+  $(document).on 'ready page:load init-plugins', initTurboform

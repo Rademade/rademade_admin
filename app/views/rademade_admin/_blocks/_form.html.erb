@@ -25,5 +25,5 @@ concat render :template => @template_service.content_item_layout, :locals => {
 end
 
 concat render :template => @template_service.content_item_layout, :locals => {
-    :content_header => @item.to_s || t('rademade_admin.record.edit')
+    :content_header => @item.to_s || t('rademade_admin.record.new')
 } %>

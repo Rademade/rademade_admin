@@ -25,9 +25,9 @@ module RademadeAdmin
 
     def related_html
       if multiple?
-        RademadeAdmin::HtmlBuffer.new([buttons_html(add_button_html), related_list_html])
+        related_list_html
       else
-        RademadeAdmin::HtmlBuffer.new([related_item_html, buttons_html(add_button_html, edit_button_html)])
+        RademadeAdmin::HtmlBuffer.new([related_item_html, buttons_html(edit_button_html)])
       end
     end
 
@@ -57,22 +57,15 @@ module RademadeAdmin
       )
     end
 
-    def add_button_html
-      url = admin_new_form_uri(related_to)
-      template.content_tag(:button, I18n.t('rademade_admin.relation.add'), {
-        :class => 'btn is-green relation-add-button r-margin fl-l',
-        :'data-new' => url,
-        :'data-class' => related_to.to_s
-      }) if url
-    end
-
     def reflection_data
       search_url = admin_autocomplete_uri(related_to, :format => :json)
+      new_url = admin_new_form_uri(related_to)
       data = {
         :'rel-multiple' => multiple?,
         :'rel-class' => related_to.to_s
       }
       data[:'search-url'] = search_url unless search_url.nil?
+      data[:'new-url'] = new_url unless new_url.nil?
       data
     end
 
@@ -80,10 +73,9 @@ module RademadeAdmin
       if related_value.nil?
         nil
       else
-        serialized_data = Autocomplete::BaseSerializer.new([related_value]).as_json.first
         template.content_tag(:input, '', {
           :type => 'hidden',
-          :data => serialized_data
+          :data => Autocomplete::BaseSerializer.new([related_value]).as_json.first
         })
       end
     end

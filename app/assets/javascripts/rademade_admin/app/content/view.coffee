@@ -1,5 +1,3 @@
-instance = null
-
 class @Content extends Backbone.View
 
   renderItemFromUrl : (url, cb) ->
@@ -20,6 +18,7 @@ class @Content extends Backbone.View
     @moveToContentItem $('[data-content-item]:nth-last-child(2)')
 
   moveToContentItem : ($contentItem) ->
+    return if $contentItem.is(':last-child')
     $contentItem.nextAll('[data-content-item]').remove()
     if $contentItem.is(':first-child')
       @renderItemFromUrl $contentItem.data('contentItem'), () ->
@@ -34,6 +33,7 @@ class @Content extends Backbone.View
       $(this).closest('[data-content-item]').remove()
 
   @getInstance : () ->
+    instance = null
     do () ->
       instance ||= new Content()
 
