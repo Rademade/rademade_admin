@@ -39,7 +39,7 @@ module RademadeAdmin
         :div,
         template.content_tag(:div, HtmlBuffer.new([
           upload_button_html,
-          template.content_tag(:span, t('rademade_admin.uploader.gallery.add'), :class => 'upload-text')
+          template.content_tag(:span, t('rademade_admin.uploader.add.gallery'), :class => 'upload-text')
         ]), :class => 'upload-item add'),
         :class => 'upload-holder'
       )

@@ -43,8 +43,11 @@ en:
       upload: "Upload file"
       download: "Download file"
       crop: "Crop"
-      gallery:
-        add: "Add new  photo"
+      add:
+        photo: "Add new  photo"
+        video: "Add new  video"
+        file: "Add new  file"
+        gallery: "Add new  photo"
     button:
       save: "Save"
       cancel: "Cancel"

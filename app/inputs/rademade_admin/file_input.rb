@@ -7,7 +7,14 @@ module RademadeAdmin
     def input(wrapper_options = {})
       template.content_tag(
         :div,
-        template.content_tag(:div, holder_html, :class => 'upload-box'),
+        template.content_tag(
+          :div,
+          RademadeAdmin::HtmlBuffer.new([
+            holder_html(file_preview_html),
+            holder_html(upload_button_html)
+          ]),
+          :class => 'upload-box'
+        ),
         :class => 'upload-list'
       )
       # HtmlBuffer.new([file_html, download_button_html]),
@@ -15,34 +22,27 @@ module RademadeAdmin
 
     private
 
-    def holder_html
-      template.content_tag(
-        :div,
-        template.content_tag(
-          :div,
-          RademadeAdmin::HtmlBuffer.new([
-            input_file_html,
-          ]),
-          :class => 'upload-item add'
-        ),
-        :class => 'upload-holder'
-      )
+    def holder_html(inner_html)
+      template.content_tag(:div, inner_html, :class => 'upload-holder')
     end
 
-    # def file_html
-    #   template.content_tag(
-    #     :div,
-    #     HtmlBuffer.new([
-    #       upload_preview_service.preview_html,
-    #       input_file_html,
-    #       upload_progress_html,
-    #       upload_button_html,
-    #       upload_preview_service.is_crop? ? crop_button_html : '',
-    #       input_hidden_html
-    #     ]),
-    #     { :class => 'uploader-wrapper' }
-    #   )
-    # end
+    def file_preview_html
+      template.content_tag(:div, upload_preview_service.preview_html, :class => 'upload-item')
+    end
+    
+    def upload_button_html
+      template.content_tag(
+        :div,
+        RademadeAdmin::HtmlBuffer.new([
+          input_file_html,
+          upload_text_html
+        ]),
+        :class => 'upload-item add',
+        :data => {
+          :upload => true
+        }
+      )
+    end
 
     def input_file_html
       @builder.file_field(uploader.mounted_as, {
@@ -55,6 +55,10 @@ module RademadeAdmin
       })
     end
 
+    def upload_text_html
+      template.content_tag(:span, upload_text, :class => 'upload-text')
+    end
+
     def input_hidden_html
       @builder.hidden_field(attribute_name, {
         :class => 'uploader-input-hidden hidden',
@@ -62,22 +66,6 @@ module RademadeAdmin
       }.merge(input_html_options))
     end
 
-    # def upload_progress_html
-    #   progress_slider = template.content_tag(:div, '', { :class => 'upload-progress' })
-    #   template.content_tag(:div, progress_slider, {
-    #     :class => 'upload-progress-wrapper'
-    #   })
-    # end
-    #
-    # def upload_button_html
-    #   template.content_tag(:span, I18n.t('rademade_admin.uploader.upload'), {
-    #     :class => 'btn green-btn upload-btn',
-    #     :data => {
-    #       :upload => true
-    #     }
-    #   })
-    # end
-    #
     # def download_button_html
     #   template.content_tag(:a, I18n.t('rademade_admin.uploader.download'), {
     #     :class => 'btn blue-btn download-btn',
@@ -108,6 +96,21 @@ module RademadeAdmin
 
     def photo_uploader?
       uploader.class.ancestors.include? RademadeAdmin::Uploader::Photo
+    end
+
+    def video_uploader?
+      uploader.class.ancestors.include? RademadeAdmin::Uploader::Video
+    end
+
+    def upload_text
+      if photo_uploader?
+        translation = 'photo'
+      elsif video_uploader?
+        translation = 'video'
+      else
+        translation = 'file'
+      end
+      t("rademade_admin.uploader.add.#{translation}")
     end
 
     def uploader_params

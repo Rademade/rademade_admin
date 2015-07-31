@@ -62,11 +62,9 @@ module RademadeAdmin
 
       def uploaded_image_preview
         content_tag(:img, '', {
-          :src => @uploader.resize(230, 130),
+          :src => @uploader.resize(300, 300),
           :'full-url' => @uploader.url,
           :class => 'image-preview',
-          :width => 230,
-          :height => 130,
           :data => preview_data
         })
       end
@@ -74,8 +72,7 @@ module RademadeAdmin
       def uploaded_video_preview
         content_tag(:img, '', {
           :src => @uploader.thumb_path,
-          :class => 'video-preview',
-          :width => 300
+          :class => 'video-preview'
         })
       end
 
