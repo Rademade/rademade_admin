@@ -28,8 +28,8 @@ module RademadeAdmin::FieldHelper
 
   def input_attr(attrs = {})
     attrs.deep_merge(
-      wrapper_html: { class: 'form-group' },
-      input_html: { class: 'form-input' }
+      :wrapper_html => { :class => 'form-group' },
+      :input_html => { :class => 'form-input' }
     )
   end
 
