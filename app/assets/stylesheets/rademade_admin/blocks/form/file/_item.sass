@@ -1,8 +1,8 @@
 $width: 100%
 
 .upload-holder
-  display: inline-block
-  padding: 0 em(2)
+  float: left
+  padding: em(2)
   width: 24%
   box-sizing: border-box
   +media-below($media-medium-width)
@@ -48,6 +48,7 @@ $width: 100%
 
   input
     position: absolute
+    z-index: 2
     top: 0
     left: 0
     font-size: em(500)

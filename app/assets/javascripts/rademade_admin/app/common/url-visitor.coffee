@@ -1,6 +1,6 @@
 initUrlVisit = () ->
-  $('[data-url]').click () ->
-    Turbolinks.visit $(this).data('url')
+  $('[data-link-url]').click () ->
+    Turbolinks.visit $(this).data('linkUrl')
 
 $ ->
   $(document).on 'ready page:load', initUrlVisit

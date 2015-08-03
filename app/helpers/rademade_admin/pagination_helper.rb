@@ -8,7 +8,7 @@ module RademadeAdmin::PaginationHelper
 
     content_tag(:span, on_page.to_s,
       :class => on_page_item_class(on_page, request.query_parameters[name], index),
-      :'data-url' => admin_url_for(request.path_parameters.merge(hash_params))
+      :'data-link-url' => admin_url_for(request.path_parameters.merge(hash_params))
     )
   end
 

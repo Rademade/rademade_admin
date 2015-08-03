@@ -62,7 +62,7 @@ module RademadeAdmin
 
       def uploaded_image_preview
         content_tag(:img, '', {
-          :src => @uploader.resize(300, 300),
+          :src => @uploader.resize_with_crop(300, 300),
           :'full-url' => @uploader.url,
           :class => 'image-preview',
           :data => preview_data

@@ -5,22 +5,28 @@ module RademadeAdmin
     include UriHelper
 
     def input(wrapper_options = {})
-      template.content_tag(
-        :div,
-        template.content_tag(
-          :div,
-          RademadeAdmin::HtmlBuffer.new([
-            holder_html(file_preview_html),
-            holder_html(upload_button_html)
-          ]),
-          :class => 'upload-box'
-        ),
-        :class => 'upload-list'
+      template.content_tag(:div, upload_box,
+        :class => 'upload-list',
+        :data => {
+          :upload => true
+        }
       )
       # HtmlBuffer.new([file_html, download_button_html]),
     end
 
     private
+
+    def upload_box
+      template.content_tag(
+        :div,
+        RademadeAdmin::HtmlBuffer.new([
+          holder_html(file_preview_html),
+          holder_html(upload_button_html),
+          input_hidden_html
+        ]),
+        :class => 'upload-box'
+      )
+    end
 
     def holder_html(inner_html)
       template.content_tag(:div, inner_html, :class => 'upload-holder')
@@ -37,10 +43,7 @@ module RademadeAdmin
           input_file_html,
           upload_text_html
         ]),
-        :class => 'upload-item add',
-        :data => {
-          :upload => true
-        }
+        :class => 'upload-item add'
       )
     end
 
@@ -61,7 +64,6 @@ module RademadeAdmin
 
     def input_hidden_html
       @builder.hidden_field(attribute_name, {
-        :class => 'uploader-input-hidden hidden',
         :value => uploader.url
       }.merge(input_html_options))
     end

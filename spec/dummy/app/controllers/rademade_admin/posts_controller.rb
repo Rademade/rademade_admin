@@ -10,20 +10,20 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
     form do
       headline
       avatar
-      # gallery
-      # video
-      # post_time
-      # text :ckeditor
-      # user
-      # other_posts
-      # tags
-      # document
-      # status :as => :select,
-      #        :collection => {
-      #          'Новый' => '1',
-      #          'Отклонен' => '2'
-      #        },
-      #        :include_blank => false
+      gallery
+      video
+      post_time
+      text :ckeditor
+      user
+      other_posts
+      tags
+      document
+      status as: :select,
+        collection: {
+          'Новый' => '1',
+          'Отклонен' => '2'
+        },
+        include_blank: false
     end
     labels do
       headline 'Post name'

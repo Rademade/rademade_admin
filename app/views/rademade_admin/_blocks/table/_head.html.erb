@@ -13,7 +13,7 @@
                     elsif sorting_direction == :desc
                         %> sortable-down<%
                     end
-                    %> is-clickable" data-column="<%= field.order_column %><%
+                    %> is-clickable" data-sort-column="<%= field.order_column %><%
                 end
             %>">
                 <span class="text"><%= field.label %></span>
