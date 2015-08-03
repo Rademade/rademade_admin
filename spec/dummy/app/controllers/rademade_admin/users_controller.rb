@@ -2,7 +2,7 @@
 class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 
   options do
-    list :email, :first_name, :last_name, :avatar
+    list :email, :first_name, :last_name, :avatar, :admin
     csv do
       full_name
       email

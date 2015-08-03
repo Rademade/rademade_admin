@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::FieldHelper
 
+  include ActionView::Helpers::TagHelper
+
   # Display the field of given item
   #
   # @param item [Object]
@@ -9,9 +11,19 @@ module RademadeAdmin::FieldHelper
   # @return [String]
   #
   def display_item_value(item, data_item)
-    value = raw_item_value(item, data_item)
-    return (value ? '✔' : '×') if value.is_a?(::Boolean)
-    value
+    if data_item.list_preview_handler.nil?
+      value = item.send(data_item.list_preview_accessor)
+      return display_upload_item(value) if data_item.has_uploader?
+      return display_related_item(data_item, item, value) if data_item.has_relation?
+    else
+      value = data_item.list_preview_handler.call(item)
+    end
+    return display_boolean_item(value) if value.is_a?(::Boolean)
+    value.to_s.html_safe
+  end
+
+  def display_boolean_item(value)
+    content_tag(:span, '', :class => value ? 'checked' : 'rejected')
   end
 
   def display_related_item(data_item, item, value)
@@ -22,7 +34,7 @@ module RademadeAdmin::FieldHelper
     end
   end
 
-  def display_upload_item(_, value)
+  def display_upload_item(value)
     RademadeAdmin::Upload::PreviewService.new(value).uploaded_file_html
   end
 
@@ -31,14 +43,6 @@ module RademadeAdmin::FieldHelper
       :wrapper_html => { :class => 'form-group' },
       :input_html => { :class => 'form-input' }
     )
-  end
-
-  def raw_item_value(item, data_item)
-    return data_item.list_preview_handler.call(item) unless data_item.list_preview_handler.nil?
-    value = item.send(data_item.list_preview_accessor)
-    return display_upload_item(data_item, value) if data_item.has_uploader?
-    return display_related_item(data_item, item, value) if data_item.has_relation?
-    value.to_s.html_safe
   end
 
 end

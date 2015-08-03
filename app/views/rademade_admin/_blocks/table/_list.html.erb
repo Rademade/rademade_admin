@@ -14,7 +14,7 @@ is_sortable = @sortable_service.has_position?
                         %> show-sdisplay<%
                     end
                 %>">
-                    <%# is-highlight <span class="checked || rejected"></span> %>
+                    <%# is-highlight %>
                     <span class="text"><%= display_item_value(item, field)%></span><%
                     if is_first && is_sortable
                         %><i class="draggable-btn"></i><%
