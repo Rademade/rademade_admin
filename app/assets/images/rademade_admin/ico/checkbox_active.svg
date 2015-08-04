@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12002) - http://www.bohemiancoding.com/sketch -->
+    <title>checkbox_active</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Form-tasks" sketch:type="MSArtboardGroup" transform="translate(-292.000000, -306.000000)">
+            <g id="checkbox_active" sketch:type="MSLayerGroup" transform="translate(292.000000, 306.000000)">
+                <rect id="Rectangle-347-Copy-4" stroke="#01C05F" opacity="0.8" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0.777777778" y="0" width="22.2222222" height="22.2222222" rx="4"></rect>
+                <g id="check52-(2)-copy-2" transform="translate(5.000000, 6.000000)" fill="#01C05F" sketch:type="MSShapeGroup">
+                    <g id="check">
+                        <path d="M4.45256125,8.6861516 L1.11314031,5.25145773 L0,6.39635569 L4.45256125,10.9759475 L13.9937639,1.16253644 L12.8806236,0.017638484 L4.45256125,8.6861516 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

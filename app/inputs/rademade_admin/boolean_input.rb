@@ -4,7 +4,10 @@ module RademadeAdmin
 
     def input(wrapper_options = {})
       merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
-      template.content_tag(:span, checkbox_html(merged_input_options), :class => 'form-checkbox')
+      template.content_tag(:span, RademadeAdmin::HtmlBuffer.new([
+        checkbox_html(merged_input_options),
+        template.content_tag(:i, '', :class => 'form-checkbox-ico')
+      ]), :class => 'form-checkbox')
     end
 
     private

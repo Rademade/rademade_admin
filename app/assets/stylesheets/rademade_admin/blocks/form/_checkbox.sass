@@ -1,0 +1,27 @@
+.form-checkbox
+  position: relative
+  display: block
+  margin-top: em(10)
+  width: em(25)
+  height: em(25)
+  overflow: hidden
+
+  input
+    position: absolute
+    opacity: 0
+    top: 0
+    left: 0
+    width: 500em
+    height: 500em
+    cursor: pointer
+
+  input:checked + .form-checkbox-ico
+    @extend .svg-checkbox_active
+
+  .form-checkbox-ico
+    display: block
+    top: 0
+    left: 0
+    width: em(23)
+    height: em(23)
+    @extend .svg-checkbox_empty
