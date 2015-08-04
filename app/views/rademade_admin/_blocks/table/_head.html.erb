@@ -5,15 +5,16 @@
                 if index == 0
                     %> show-sdisplay<%
                 end
-            %><%
                 unless field.order_column.nil?
+                    url_sort_params = { :sort => field.order_column, :direction => :asc }
                     sorting_direction = @sortable_service.sorting_direction(field)
                     if sorting_direction == :asc
+                        url_sort_params[:direction] = :desc
                         %> sortable-up<%
                     elsif sorting_direction == :desc
                         %> sortable-down<%
                     end
-                    %> is-clickable" data-sort-column="<%= field.order_column %><%
+                    %> is-clickable" data-link-url="<%= admin_url_for(url_sort_params.merge(request.path_parameters)) %><%
                 end
             %>">
                 <span class="text"><%= field.label %></span>
@@ -22,11 +23,11 @@
         %><th class="content-table-cell">
             <span class="text"><%= t('rademade_admin.management.title') %></span><%
             if @sortable_service.can_reset?
-                %><a class="discard" href="<%= admin_url_for(request.path_parameters) %>">
+                %><span class="discard" data-link-url="<%= admin_url_for(request.path_parameters) %>">
                     <span class="tooltip-holder">
                         <span class="tooltip-text"><%= t('rademade_admin.reset_sort') %></span>
                     </span>
-                </a><%
+                </span><%
             end
         %></th>
     </tr>
