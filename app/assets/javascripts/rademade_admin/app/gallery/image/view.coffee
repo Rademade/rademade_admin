@@ -6,14 +6,14 @@ class @GalleryImageView extends Backbone.View
 
   initialize : () ->
     @model.on 'image-removed', @_onImageRemove
+    @model.on 'change:resizedUrl', @_updateImageUrl
 
   remove : () ->
     @model.remove() if confirm I18n.t('rademade_admin.remove_confirm.image')
     false
 
   showPopup : () ->
-#    @galleryPopup.show()
-#    @$el.closest('.input-holder').append @imagePopup.$el
+    GalleryPopup.getInstance().show @model
 
   _onImageRemove : () =>
     fadeTime = 300
@@ -22,11 +22,12 @@ class @GalleryImageView extends Backbone.View
       @$el.remove()
     , fadeTime
 
+  _updateImageUrl : () =>
+    @$el.find('img').attr 'src', @model.get('resizedUrl')
+
   @init : ($el) ->
-    model = new GalleryImageModel
-      imageId : $el.data('id')
-      removeUrl : $el.find('[data-remove-url]').data('remove-url')
-      cropData : $el.data('crop')
+    model = new GalleryImageModel $el.data()
+    model.set 'removeUrl', $el.find('[data-remove-url]').data('removeUrl')
     new GalleryImageView
       model : model
       el : $el

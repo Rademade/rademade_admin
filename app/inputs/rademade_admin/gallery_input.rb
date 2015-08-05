@@ -27,7 +27,7 @@ module RademadeAdmin
 
     def images_html
       html = []
-      preview_service = RademadeAdmin::Upload::GalleryPreviewService.new
+      preview_service = RademadeAdmin::Upload::Preview::Gallery.new
       gallery.images.each do |gallery_image|
         html << preview_service.preview_html(gallery_image.image)
       end
@@ -35,17 +35,17 @@ module RademadeAdmin
     end
 
     def upload_block_html
-      template.content_tag(
-        :div,
-        template.content_tag(:div, HtmlBuffer.new([
-          upload_button_html,
-          template.content_tag(:span, t('rademade_admin.uploader.add.gallery'), :class => 'upload-text')
-        ]), :class => 'upload-item add'),
-        :class => 'upload-holder'
-      )
+      template.content_tag(:div, upload_button_html, :class => 'upload-holder')
     end
 
     def upload_button_html
+      template.content_tag(:div, HtmlBuffer.new([
+        input_file_html,
+        template.content_tag(:span, t('rademade_admin.uploader.add.gallery'), :class => 'upload-text')
+      ]), :class => 'upload-item add')
+    end
+
+    def input_file_html
       template.content_tag(:input, '',
         :type => 'file',
         :multiple => true,

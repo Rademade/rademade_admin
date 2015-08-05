@@ -45,7 +45,7 @@ module RademadeAdmin
       end
 
       def upload_gallery_images(images)
-        preview_service = RademadeAdmin::Upload::GalleryPreviewService.new
+        preview_service = RademadeAdmin::Upload::Preview::Gallery.new
         @gallery_images_html = []
         images.each do |image|
           gallery_image = @gallery_image_relation.to.create

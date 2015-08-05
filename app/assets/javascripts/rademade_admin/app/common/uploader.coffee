@@ -15,7 +15,8 @@ class @Uploader extends Backbone.View
     $form.submit().done @updateUploader
 
   updateUploader : (result) =>
-    @$el.find('.preview-wrapper').replaceWith(result.html)
+    @$el.find('[data-preview-item]').replaceWith(result.html)
+    @$el.find('.upload-holder.hide').removeClass('hide')
     @$hidden.val(result.file[@$uploader.data('column')].url)
 
   _getUploaderData : () ->

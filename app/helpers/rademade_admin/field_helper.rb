@@ -35,7 +35,7 @@ module RademadeAdmin::FieldHelper
   end
 
   def display_upload_item(value)
-    RademadeAdmin::Upload::PreviewService.new(value).uploaded_file_html
+    RademadeAdmin::Upload::Preview::File.new(value).uploaded_file_html
   end
 
   def input_attr(attrs = {})

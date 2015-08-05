@@ -5,7 +5,7 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
     param_key = params[:column].to_sym
     uploader.store!(params[param_key])
     render :json => {
-      :html => RademadeAdmin::Upload::PreviewService.new(uploader).preview_html,
+      :html => RademadeAdmin::Upload::Preview::File.new(uploader).preview_html,
       :file => uploader
     }
   rescue CarrierWave::UploadError => e
@@ -20,7 +20,7 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
   def crop
     image = uploader.crop_image(params[:crop], params[:path])
     uploader.store!(image)
-    upload_preview_service = RademadeAdmin::Upload::PreviewService.new(uploader)
+    upload_preview_service = RademadeAdmin::Upload::Preview::File.new(uploader)
     render :json => {
       :html => upload_preview_service.preview_html,
       :file => uploader

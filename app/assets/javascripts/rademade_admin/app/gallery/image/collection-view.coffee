@@ -3,11 +3,11 @@ class @GalleryImageCollectionView extends Backbone.View
   initImages : (className) ->
     @images = new GalleryImageCollection()
     @images.setClassName(className)
-    @$el.find('[data-id]').each (index, image) =>
+    @$el.find('[data-image-id]').each (index, image) =>
       @_initImage $(image)
 
   initSort : () ->
-    sortUrl = @$el.data('sortable-url')
+    sortUrl = @$el.data('sortableUrl')
     if sortUrl
       @images.setSortUrl sortUrl
       @$el.sortable
@@ -20,8 +20,8 @@ class @GalleryImageCollectionView extends Backbone.View
 
   _getSortedImages : () =>
     images = []
-    @$el.find('[data-id]').each (index, el) ->
-      images.push $(el).data('id')
+    @$el.find('[data-image-id]').each (index, el) ->
+      images.push $(el).data('imageId')
     images
 
   _initImage : ($image) ->

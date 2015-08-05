@@ -12,10 +12,10 @@ class RademadeAdmin::GalleryController < RademadeAdmin::AbstractController
 
   def crop
     uploader = gallery_service.crop_image(params[:id], params[:crop])
-    preview_service = RademadeAdmin::Upload::GalleryPreviewService.new
+    preview_service = RademadeAdmin::Upload::Preview::Gallery.new
     render :json => {
-      :crop_data => preview_service.crop_data(uploader),
-      :gallery_image_url => preview_service.gallery_image_preview(uploader)
+      :image_data => preview_service.image_data(uploader),
+      :resized_url => preview_service.gallery_image_preview(uploader)
     }
   rescue Exception => e
     show_error(e)

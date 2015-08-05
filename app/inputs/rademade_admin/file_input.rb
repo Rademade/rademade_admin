@@ -5,22 +5,22 @@ module RademadeAdmin
     include UriHelper
 
     def input(wrapper_options = {})
-      template.content_tag(:div, upload_box,
+      template.content_tag(:div, upload_box_html,
         :class => 'upload-list',
         :data => {
           :upload => true
         }
       )
-      # HtmlBuffer.new([file_html, download_button_html]),
+      # todo add download button
     end
 
     private
 
-    def upload_box
+    def upload_box_html
       template.content_tag(
         :div,
         RademadeAdmin::HtmlBuffer.new([
-          holder_html(file_preview_html),
+          holder_html(file_preview_html, uploader.blank? || uploader.size.zero?),
           holder_html(upload_button_html),
           input_hidden_html
         ]),
@@ -28,8 +28,10 @@ module RademadeAdmin
       )
     end
 
-    def holder_html(inner_html)
-      template.content_tag(:div, inner_html, :class => 'upload-holder')
+    def holder_html(inner_html, hidden = false)
+      class_name = 'upload-holder'
+      class_name += ' hide' if hidden
+      template.content_tag(:div, inner_html, :class => class_name)
     end
 
     def file_preview_html
@@ -68,28 +70,8 @@ module RademadeAdmin
       }.merge(input_html_options))
     end
 
-    # def download_button_html
-    #   template.content_tag(:a, I18n.t('rademade_admin.uploader.download'), {
-    #     :class => 'btn blue-btn download-btn',
-    #     :href => admin_url_for({
-    #       :controller => 'rademade_admin/file',
-    #       :action => 'download'
-    #     }.merge(uploader_params)) #todo use route name and resources
-    #   }) unless uploader.file.nil?
-    # end
-    #
-    # def crop_button_html
-    #   template.content_tag(:span, I18n.t('rademade_admin.uploader.crop'), {
-    #     :class => 'btn red-btn upload-btn',
-    #     :data => {
-    #       :crop => true,
-    #       :url => rademade_admin_route(:file_crop_url)
-    #     }
-    #   })
-    # end
-
     def upload_preview_service
-      @upload_preview_service ||= RademadeAdmin::Upload::PreviewService.new(uploader)
+      @upload_preview_service ||= RademadeAdmin::Upload::Preview::File.new(uploader)
     end
 
     def uploader

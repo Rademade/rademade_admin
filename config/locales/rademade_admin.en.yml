@@ -5,7 +5,6 @@ en:
     search: "Search in rubric"
     show_on_page: "Show"
     reset_sort: "Reset sorting"
-    file_not_chosen: "No file chosen"
     management:
       title: "Management"
       destroy: "Destroy"
@@ -40,9 +39,9 @@ en:
       model: "Do you really want delete this model?"
       image: "Do you really want delete this image?"
     uploader:
-      upload: "Upload file"
       download: "Download file"
       crop: "Crop"
+      remove: "Remove"
       add:
         photo: "Add new  photo"
         video: "Add new  video"
