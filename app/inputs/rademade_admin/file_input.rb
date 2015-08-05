@@ -54,7 +54,6 @@ module RademadeAdmin
         :id => nil,
         :name => uploader.mounted_as,
         :data => {
-          :saved => object.new_record? ? 0 : 1,
           :url => rademade_admin_route(:file_upload_url)
         }.merge(uploader_params)
       })

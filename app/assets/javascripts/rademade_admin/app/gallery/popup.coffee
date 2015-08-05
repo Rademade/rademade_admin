@@ -7,11 +7,20 @@ class @GalleryPopup extends Backbone.View
     'click [data-gallery-crop]' : 'cropPhoto'
     'click [data-popup-close]' : 'close'
 
-  show : (model) ->
-    @currentPhoto = model
+  showForGallery : (model) ->
+    @_setCurrentPhoto model
     @currentGallery = model.collection
-    @hasPhotos = @currentGallery and @currentGallery.length > 1
+    @hasPhotos = @currentGallery.length > 1
     @hasCrop = model.get('crop') isnt undefined
+    @render()
+
+  showForPreview : (model) ->
+    @_setCurrentPhoto model
+    @hasPhotos = false
+    @hasCrop = model.get('crop') and model.get('uploadParams')
+    @render()
+
+  render : () ->
     @$popup = $ @_getHTML()
     @_initCrop()
     @$el.append @$popup
@@ -39,7 +48,7 @@ class @GalleryPopup extends Backbone.View
 
   cropPhoto : () ->
     cropAttributes = @cropper.getCropAttributes()
-    @currentPhoto.crop(cropAttributes, @_updateHTML) if cropAttributes isnt undefined
+    @currentPhoto.crop(cropAttributes) if cropAttributes isnt undefined
 
   close : (e) ->
     e.preventDefault()
@@ -47,6 +56,7 @@ class @GalleryPopup extends Backbone.View
 
   closePopup : () ->
     @$popup.remove()
+    @_unbindEvents()
     @undelegateEvents()
 
   _onImageRemove : () =>
@@ -60,8 +70,16 @@ class @GalleryPopup extends Backbone.View
     @cropper = Cropper.init(@$popup.find('img'), @currentPhoto) if @hasCrop
 
   _changePhoto : (photoIndex) ->
-    @currentPhoto = @currentGallery.at photoIndex
+    @_setCurrentPhoto @currentGallery.at(photoIndex)
     @_updateHTML()
+
+  _setCurrentPhoto : (photo) ->
+    @_unbindEvents()
+    @currentPhoto = photo
+    @currentPhoto.on 'crop', @_updateHTML
+
+  _unbindEvents : () ->
+    @currentPhoto.off('crop') if @currentPhoto
 
   _updateHTML : () =>
     @$popup.html @_getHTML()

@@ -5,6 +5,7 @@ module RademadeAdmin
 
       include ActionView::Helpers::TagHelper
       include ActionView::Context
+      include UriHelper
 
       def image_data(uploader)
         data = {
@@ -26,7 +27,7 @@ module RademadeAdmin
       protected
 
       def crop_url
-        ''
+        nil
       end
 
     end

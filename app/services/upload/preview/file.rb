@@ -11,16 +11,18 @@ module RademadeAdmin
         end
 
         def preview_html
-          content_tag(:div, uploaded_file_html)
+          content_tag(:div, uploaded_file_html, :data => { :preview_item => '' })
         end
 
         def uploaded_file_html
-          if is_image?
-            uploaded_image_preview
+          if @uploader.blank? || @uploader.size.zero?
+            ''
+          elsif is_image?
+            image_preview_html
           elsif is_video?
-            uploaded_video_preview
+            video_preview_html
           else
-            uploaded_file_default_preview
+            file_preview_html
           end
         end
 
@@ -36,26 +38,34 @@ module RademadeAdmin
           @uploader.class.ancestors.include? RademadeAdmin::Uploader::Video
         end
 
+        def image_preview
+          @uploader.resize_with_crop(300, 300)
+        end
+
         private
 
-        def uploaded_image_preview
+        def image_preview_html
           content_tag(:img, '', {
-            :src => @uploader.resize_with_crop(300, 300),
+            :src => image_preview,
             :data => image_data(@uploader).merge(
               :image_preview => ''
             )
           })
         end
 
-        def uploaded_video_preview
+        def video_preview_html
           content_tag(:img, '', {
             :src => @uploader.thumb_path,
           })
         end
 
-        def uploaded_file_default_preview
+        def file_preview_html
           file_path = @uploader.file.file
           content_tag(:span, "#{::File.basename(file_path)}, #{number_to_human_size(::File.size(file_path))}")
+        end
+
+        def crop_url
+          rademade_admin_route(:file_crop_url)
         end
 
       end

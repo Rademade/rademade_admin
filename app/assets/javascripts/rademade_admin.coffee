@@ -39,5 +39,6 @@
 #= require_tree ./rademade_admin/library
 #= require_tree ./rademade_admin/settings
 #= require_tree ./rademade_admin/form
+#= require ./rademade_admin/app/image/model
 #= require_tree ./rademade_admin/app
 #= require_tree ./rademade_admin

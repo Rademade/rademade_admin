@@ -3,11 +3,15 @@
         <h2 class="popup-title"><%= photo.name %></h2>
         <div class="popup-actions"><%
             if (hasCrop) {
-                %><span class="popup-btn popup-resize-btn" data-gallery-crop><%= I18n.t('rademade_admin.uploader.crop') %></span>
-                <span class="popup-btn-sep"></span><%
+                %><span class="popup-btn popup-resize-btn" data-gallery-crop><%= I18n.t('rademade_admin.uploader.crop') %></span><%
             }
-            %><span class="popup-btn popup-delete-btn" data-gallery-remove><%= I18n.t('rademade_admin.uploader.remove') %></span>
-        </div>
+            if (hasCrop && photo.removeUrl) {
+                %><span class="popup-btn-sep"></span><%
+            }
+            if (photo.removeUrl) {
+                %><span class="popup-btn popup-delete-btn" data-gallery-remove><%= I18n.t('rademade_admin.uploader.remove') %></span><%
+            }
+        %></div>
         <i class="popup-close-btn" data-popup-close></i>
     </div>
     <div class="popup-data">

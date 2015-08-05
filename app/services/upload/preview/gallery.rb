@@ -4,8 +4,6 @@ module RademadeAdmin
     class Preview
       class Gallery < RademadeAdmin::Upload::Preview
 
-        include UriHelper
-
         def preview_html(uploader)
           content_tag(:div, image_item_html(uploader),
             :class => 'upload-holder',

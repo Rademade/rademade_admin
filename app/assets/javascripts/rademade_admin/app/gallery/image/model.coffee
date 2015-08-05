@@ -1,4 +1,4 @@
-class @GalleryImageModel extends Backbone.Model
+class @GalleryImageModel extends ImageModel
 
   remove : () ->
     $.ajax
@@ -13,19 +13,7 @@ class @GalleryImageModel extends Backbone.Model
       error : (data) =>
         window.notifier.notify data.error
 
-  crop : (cropAttributes, cb) ->
-    data =
-      id : @get('imageId')
-      crop : cropAttributes
-      class_name : @collection.getClassName()
-    $.ajax
-      type : 'post'
-      url : @get('crop').url
-      data : data
-      dataType : 'json'
-      success : (result) =>
-        @set
-          fullUrl : result.image_data.full_url
-          crop : result.image_data.crop
-          resizedUrl : result.resized_url
-        cb()
+  _getData : () ->
+    data = super
+    data.class_name = @collection.getClassName()
+    data

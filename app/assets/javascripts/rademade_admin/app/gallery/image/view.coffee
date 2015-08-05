@@ -13,7 +13,7 @@ class @GalleryImageView extends Backbone.View
     false
 
   showPopup : () ->
-    GalleryPopup.getInstance().show @model
+    GalleryPopup.getInstance().showForGallery @model
 
   _onImageRemove : () =>
     fadeTime = 300
