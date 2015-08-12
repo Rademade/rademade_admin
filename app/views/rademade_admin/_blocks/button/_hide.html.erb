@@ -1,19 +1,19 @@
 <%
-if @model_info.hideable? && can?(:edit, @model)
+if @model_info.hideable? && can?(:toggle, item)
     element_id = "hide_#{item.id}"
     toggle_url = admin_url_for(
-        :controller => :"rademade_admin/status",
+        :controller => :'rademade_admin/status',
         :action => :toggle,
         :model => @model,
         :id => item.id
     ) #todo via native method. Add route resource
 
     %><div class="view-option">
-        <input id="<%=element_id%>" data-toggle-url="<%= toggle_url %>" type="checkbox"<%
+        <input id="<%= element_id %>" data-toggle-url="<%= toggle_url %>" type="checkbox"<%
             if item.shown?
                 %> checked="checked"<%
             end
         %>/>
-        <label for="<%=element_id %>" class="glyphicon"></label>
+        <label for="<%= element_id %>" class="glyphicon"></label>
     </div><%
 end %>
