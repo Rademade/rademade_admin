@@ -4,19 +4,19 @@ module RademadeAdmin
     class RelatedSelectInput
       module RelatedList
 
-        private
+        protected
 
         def related_list_html
           template.content_tag(:ul, related_list_items_html, {
             :class => 'select2-items-list',
             :data => {
-              :sortable => related_data_item.relation.sortable?
+              :sortable => sortable_relation?
             }
           }) + related_list_link_html
         end
 
         def related_list_items_html
-          serialized_values = Autocomplete::BaseSerializer.new(related_value).as_json
+          serialized_values = serializer.new(related_value).as_json
           html = serialized_values.map do |serialized_value|
             template.content_tag(:li, related_list_item_html(serialized_value), :'data-id' => serialized_value[:id])
           end
@@ -60,6 +60,10 @@ module RademadeAdmin
             :href => url,
             :class => 'related-link'
           }) if url
+        end
+
+        def sortable_relation?
+          related_data_item.relation.sortable?
         end
 
       end

@@ -10,7 +10,7 @@ module RademadeAdmin
       )
     end
 
-    private
+    protected
 
     def map_html
       template.content_tag(:div, '', {

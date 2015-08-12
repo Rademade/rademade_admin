@@ -4,7 +4,7 @@ module RademadeAdmin
     class RelatedSelectInput
       module ModelData
 
-        private
+        protected
 
         def model
           @model ||= @builder.object

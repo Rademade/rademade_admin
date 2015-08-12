@@ -12,7 +12,7 @@ module RademadeAdmin
       )
     end
 
-    private
+    protected
 
     def file_html
       template.content_tag(

@@ -34,9 +34,17 @@ module Autocomplete
     def item_to_json(item)
       {
         :id => item.id.to_s,
-        :text => (item.respond_to?(:to_autocomplete) ? item.to_autocomplete : item.to_s),
-        :editurl => admin_edit_form_uri(item)
+        :text => json_text(item),
+        :editurl => json_edit_url(item)
       }
+    end
+
+    def json_text(item)
+      item.respond_to?(:to_autocomplete) ? item.to_autocomplete : item.to_s
+    end
+
+    def json_edit_url(item)
+      admin_edit_form_uri(item)
     end
 
     private

@@ -17,7 +17,7 @@ module RademadeAdmin
       ) + related_html
     end
 
-    private
+    protected
 
     def select_ui_html
       template.text_field_tag(input_html_options_name, '', html_attributes)
@@ -68,7 +68,7 @@ module RademadeAdmin
       if related_value.nil?
         nil
       else
-        serialized_data = Autocomplete::BaseSerializer.new([related_value]).as_json.first
+        serialized_data = serializer.new([related_value]).as_json.first
         template.content_tag(:input, '', {
           :type => 'hidden',
           :data => serialized_data
@@ -81,6 +81,10 @@ module RademadeAdmin
         :class => 'btn blue-btn',
         :'data-edit-relation' => true
       })
+    end
+
+    def serializer
+      Autocomplete::BaseSerializer
     end
 
   end

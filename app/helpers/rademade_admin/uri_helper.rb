@@ -79,6 +79,7 @@ module RademadeAdmin::UriHelper
   end
 
   def admin_model_url_for(model, opts = {})
+    return nil if model.nil?
     model_info = _real_model_info(model)
     admin_url_for(opts.merge({
       :controller => "#{model_info.module_name}/#{model_info.controller}"

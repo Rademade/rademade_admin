@@ -52,19 +52,22 @@ module RademadeAdmin
 
     def success_message(item, message, additional_data = {})
       render :json => {
-        :data => Autocomplete::BaseSerializer.new([item]).as_json.first,
+        :data => notifier_serializer.new([item]).as_json.first,
         :message => message
       }.merge(additional_data)
     end
 
     def success_data(item)
-      data = {}
       if params.has_key?(:create_and_return)
-        data[:redirect_to] = admin_list_uri(item.class)
+        { :redirect_to => admin_list_uri(item.class) }
       else
-        data[:form_action] = admin_update_uri(item) # TODO check JS. Rename for update
+        { :form_action => admin_update_uri(item) } # TODO check JS. Rename for update
       end
-      data
     end
+
+    def notifier_serializer
+      Autocomplete::BaseSerializer
+    end
+
   end
 end

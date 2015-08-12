@@ -12,7 +12,7 @@ module RademadeAdmin
       )
     end
 
-    private
+    protected
 
     def upload_button_html
       template.content_tag(:input, '', {

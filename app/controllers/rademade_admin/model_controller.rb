@@ -50,7 +50,7 @@ module RademadeAdmin
 
     def autocomplete
       authorize! :read, model_class
-      render :json => Autocomplete::BaseSerializer.new(autocomplete_items)
+      render :json => autocomplete_serializer.new(autocomplete_items)
     end
 
     def link_autocomplete
@@ -208,5 +208,10 @@ module RademadeAdmin
     def pagination_variants
       @pagination_variants ||= [20, 40, 60]
     end
+
+    def autocomplete_serializer
+      Autocomplete::BaseSerializer
+    end
+
   end
 end
