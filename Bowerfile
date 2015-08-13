@@ -18,7 +18,7 @@ asset 'magnific-popup', :github => 'dimsemenov/Magnific-Popup'
 
 
 # Images
-asset 'jcrop'
+asset 'jcrop', :github => 'tapmodo/Jcrop#v0.9.12'
 asset 'jquery-fileupload', :github => 'blueimp/jQuery-File-Upload'
 
 

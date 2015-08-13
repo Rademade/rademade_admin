@@ -10,7 +10,7 @@
 #= require jquery-ui/ui/slider
 #= require jquery-ui/ui/tabs
 #= require jquery-ui/ui/datepicker
-#= require jcrop/js/Jcrop
+#= require jcrop/js/jquery.Jcrop
 #= require jquery-timepicker/dist/jquery-ui-timepicker-addon
 #= require jquery-timepicker/dist/jquery-ui-sliderAccess
 #= require jquery-fileupload/js/jquery.fileupload
