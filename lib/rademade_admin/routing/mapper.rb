@@ -24,7 +24,7 @@ module RademadeAdmin
             end if parent_resource_actions.include? :new
 
             member do
-              get :form if parent_resource_actions.include? :edit
+              get :form if parent_resource_actions.include? :show
 
               scope 'related/:relation' do
                 get '/' => :related, :as => :related

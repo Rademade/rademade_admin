@@ -81,7 +81,7 @@ module RademadeAdmin
 
     def edit
       @item = model.find(params[:id])
-      authorize! :update, @item
+      authorize! :read, @item
       @with_create_and_return_button = true
       edit_breadcrumbs
       render_template
