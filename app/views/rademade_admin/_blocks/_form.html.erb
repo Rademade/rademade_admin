@@ -17,9 +17,11 @@ concat render :template => @template_service.content_item_layout, :locals => {
             %></div>
         </div><%
         if !defined?(show_buttons) || show_buttons
-            %><div class="content-btn-list"><%
-                concat render buttons_template, :f => form
-            %></div><%
+            %><div class="content-btn-list">
+              <div class="content-btn-box"><%
+                 concat render buttons_template, :f => form
+              %></div>
+            </div><%
         end
     end
 end

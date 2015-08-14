@@ -21,9 +21,10 @@
     color: $form-input-color
     font-size: em(13)
     border-bottom: .08em dashed rgba(0,0,0,0.3)
-    transition: border $transitionVal ease-in-out
+    transition: color $transitionVal ease-in-out, border $transitionVal ease-in-out
     &:hover
-      border-bottom: .08em dashed transparent
+      color: #5AACEE
+      border-bottom: .08em dashed #5AACEE
 
   .select2-item-remove
     position: absolute
