@@ -2,5 +2,5 @@
 if @with_save_and_return_button
     translate_name = f.object.new_record? ? 'helpers.submit.create' : 'helpers.submit.update'
     submit_button_text = t('rademade_admin.button.save_and_return', :save => t(translate_name, :model => f.object.class))
-    concat f.submit submit_button_text, :class => "#{SimpleForm.button_class} btn is-blue is-clickable", :name => 'save_and_return'
+    concat f.submit submit_button_text, :class => 'btn-link is-blue', :name => 'save_and_return'
 end %>
