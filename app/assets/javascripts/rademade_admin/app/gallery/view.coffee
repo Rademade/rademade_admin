@@ -11,6 +11,7 @@ class @Gallery extends Backbone.View
   bindUpload : () ->
     @$uploadButton.fileupload
       dataType : 'json'
+      dropZone : @$el
       url : @$uploadButton.data('url')
       formData :
         gallery_id : @galleryId

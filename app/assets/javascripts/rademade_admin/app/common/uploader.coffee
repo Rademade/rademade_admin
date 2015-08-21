@@ -7,6 +7,7 @@ class @Uploader extends Backbone.View
   initFileUpload : () ->
     @$uploader.fileupload
       dataType : 'json'
+      dropZone : @$el
       url : @$uploader.data('url')
       formData : @_getUploaderData()
       add : @submitFile
