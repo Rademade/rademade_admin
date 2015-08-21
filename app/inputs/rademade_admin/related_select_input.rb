@@ -13,7 +13,7 @@ module RademadeAdmin
       template.content_tag(
         :div,
         RademadeAdmin::HtmlBuffer.new([select_ui_html, add_button_html]),
-        html_attributes
+        :class => 'select-wrapper'
       ) + related_html
     end
 
@@ -39,8 +39,7 @@ module RademadeAdmin
 
     def html_attributes
       {
-        :class => 'select-wrapper',
-        :data => reflection_data.merge(:'owner-class' => model.class.to_s),
+        :data => reflection_data,
         :type => 'hidden'
       }
     end
@@ -49,16 +48,17 @@ module RademadeAdmin
       url = admin_new_form_uri(related_to)
       template.content_tag(:button, I18n.t('rademade_admin.add_new'), {
         :class => 'btn green-btn relation-add-button r-margin fl-l',
-        :'data-new' => url,
-        :'data-class' => related_to.to_s
+        :data => {
+          :new => url,
+          :class => related_to.to_s
+        }
       }) if url
     end
 
     def reflection_data
       search_url = admin_autocomplete_uri(related_to, :format => :json)
       data = {
-        :'rel-multiple' => multiple?,
-        :'rel-class' => related_to.to_s
+        :'rel-multiple' => multiple?
       }
       data[:'search-url'] = search_url unless search_url.nil?
       data
@@ -68,10 +68,9 @@ module RademadeAdmin
       if related_value.nil?
         nil
       else
-        serialized_data = serializer.new([related_value]).as_json.first
         template.content_tag(:input, '', {
           :type => 'hidden',
-          :data => serialized_data
+          :data => serializer.new([related_value]).as_json.first
         })
       end
     end
@@ -79,7 +78,9 @@ module RademadeAdmin
     def edit_button_html
       template.content_tag(:button, I18n.t('rademade_admin.edit_related_item'), {
         :class => 'btn blue-btn',
-        :'data-edit-relation' => true
+        :data => {
+          :'edit-relation' => true
+        }
       })
     end
 

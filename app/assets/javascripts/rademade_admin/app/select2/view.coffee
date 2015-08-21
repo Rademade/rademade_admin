@@ -5,7 +5,7 @@ class @Select2Input.View extends Backbone.View
     'click [data-edit-relation]' : 'editRelation'
 
   initItem : () ->
-    @$item = @$el.find('.select-wrapper input[type="hidden"]')
+    @$item = @$el.find('[data-rel-multiple]')
     @initModel()
     @initRelated()
     @initSelect2()
@@ -71,7 +71,7 @@ class @Select2Input.View extends Backbone.View
 
   _updateData : () =>
     relatedData = @model.getRelatedData()
-    if @model.isMultiple() or not _.isEmpty(relatedData)
+    if @model.isMultiple() or relatedData.id
       @$item.select2('data', relatedData)
 
   _relatedModel : (url) ->
