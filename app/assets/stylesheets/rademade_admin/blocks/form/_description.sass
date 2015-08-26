@@ -7,6 +7,7 @@ $form-description-large-width: 1260
   top: em(14)
   opacity: .6
   overflow: hidden
+  cursor: pointer
   transition: opacity $transitionVal ease-in-out
   +sprite(info)
   &:hover
@@ -18,13 +19,15 @@ $form-description-large-width: 1260
 
   .form-description-text
     position: absolute
+    cursor: default
     opacity: 0
     top: em(-12)
     left: calc(100% + 15px)
     padding: em(7) em(10)
     width: em(200)
+    font-size: em(13)
     color: #fff
-    background: rgba(71,80,98,0.6)
+    background: $form-description-bg
     border-radius: em(4)
     box-sizing: border-box
     transition: opacity $transitionVal ease-in-out
@@ -47,7 +50,6 @@ $form-description-large-width: 1260
       border-right-color: #6C7382
       border-width: em(5)
       margin-top: em(-5)
-      opacity: .75
 
       +media-below($form-description-large-width)
         right: em(15)

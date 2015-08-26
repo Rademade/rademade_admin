@@ -15,8 +15,9 @@
     vertical-align: top
     position: relative
     padding: 0
+    outline: none
+    font-size: em(16)
     margin: 0 em(20) em(10) 0
-    overflow: hidden
     cursor: pointer
     border: 0
     background: none
@@ -28,6 +29,10 @@
         overflow: hidden
       &:after
         opacity: 1
+
+      &.trash
+        &:after
+          +sprite(trash_r)
 
       .tooltip-holder
         opacity: 1

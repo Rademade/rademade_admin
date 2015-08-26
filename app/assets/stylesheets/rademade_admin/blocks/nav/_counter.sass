@@ -1,9 +1,10 @@
 .nav-counter
   position: relative
   display: inline-block
-  margin-right: 0
+  margin: em(3) 0 em(-5) 0
   padding: 0 em(5)
   font-size: em(11)
+  vertical-align: top
   color: $nav-counter-color
   +helvetica-medium
   &:after
@@ -12,6 +13,6 @@
     left: em(-1)
     content: ''
     width: 100%
-    height: em(23)
+    height: em(22)
     border-radius: em(4)
     border: 1px solid $nav-counter-border

@@ -13,7 +13,7 @@ $width: 100%
   display: block
   width: 100%
   vertical-align: top
-  border-radius: em(2)
+  border-radius: em(4)
   cursor: pointer
   overflow: hidden
   box-sizing: border-box
@@ -28,14 +28,14 @@ $width: 100%
     font-size: em(13)
     color: rgba(71, 80, 98, 0.4)
     border: .08em solid #D1D8E6
-    border-radius: em(2)
+    border-radius: em(6)
 
     &:after
       position: absolute
       content: ""
-      top: em(20)
+      top: em(23)
       left: 50%
-      margin-left: em(-13)
+      margin-left: em(-15)
       +sprite(file)
 
   .upload-text
@@ -69,7 +69,7 @@ $width: 100%
     width: em(18)
     height: em(18)
     background-color: rgba(255,255,255,0.4)
-    border-radius: em(4)
+    border-radius: 0 em(4)
     opacity: 0
     transition: opacity $transitionVal ease-in-out
 

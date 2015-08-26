@@ -18,12 +18,15 @@
 
   &:hover
     background-color: $content-table-item-hover
+    &:first-child
+      background-color: $content-table-bg
 
   &.is-highlight
     background: $content-table-item-highlight
-    
+
   th
     text-align: left
+    color: $content-table-th-color
     font-weight: bold
     +helvetica-medium
 
@@ -56,8 +59,9 @@
       height: auto
       border-radius: em(4)
 
+  &.sortable,
   &.sortable-up,
-  &.sortable-down
+  &.sortable-down,
     .text
       &:after
         position: absolute
@@ -65,17 +69,23 @@
         top: 50%
         right: em(-20)
 
+  &.sortable
+    .text
+      &:after
+        margin-top: em(-3)
+        +sprite(sortable-down)
+
   &.sortable-up
     .text
       &:after
         margin-top: em(-4)
-        +sprite(sortable-up)
+        +sprite(sortable-up_active)
 
   &.sortable-down
     .text
       &:after
         margin-top: em(-3)
-        +sprite(sortable-down)
+        +sprite(sortable-down_active)
   a
     font-size: em(15)
     color: $content-table-color
@@ -86,6 +96,7 @@
   right: em(25)
   margin-top: em(-7)
   cursor: pointer
+  opacity: .7
   +sprite(discard_red)
   &:hover
     .tooltip-holder
@@ -95,4 +106,3 @@
     width: auto
     right: 0
     text-align: right
-
