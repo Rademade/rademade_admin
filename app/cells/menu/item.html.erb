@@ -15,6 +15,6 @@ unless @hide
                 %><span class="nav-counter"><%= @count %></span><%
             end
         %></a><%
-        concat render_cell(:menu, :sub_items, @sub_items, !(@has_active || @is_active)) if @has_sub_items
+        concat render_cell(:menu, :sub_items, @sub_items, !@is_active) if @has_sub_items
     %></li><%
 end %>
