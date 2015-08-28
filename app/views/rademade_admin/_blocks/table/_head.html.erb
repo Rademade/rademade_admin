@@ -14,7 +14,7 @@
                     elsif sorting_direction == :desc
                         %> sortable-down<%
                     end
-                    %> is-clickable" data-link-url="<%= admin_url_for(url_sort_params.merge(request.path_parameters)) %><%
+                    %> is-clickable sortable" data-link-url="<%= admin_url_for(url_sort_params.merge(request.path_parameters)) %><%
                 end
             %>">
                 <span class="text"><%= field.label %></span>

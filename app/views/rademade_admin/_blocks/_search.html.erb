@@ -4,6 +4,6 @@ unless @model_info.data_items.filter_fields.empty?
     %><form class="content-search flr" action="<%= list_uri %>" data-turboform>
         <input class="content-search-input" type="text" name="q"
             value="<%= params[:q] %>" placeholder="<%= t('rademade_admin.search') %>"/>
-        <i class="content-search-ico"></i>
+        <button class="content-search-ico"></button>
     </form><%
 end %>
