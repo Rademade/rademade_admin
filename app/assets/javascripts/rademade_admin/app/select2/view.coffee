@@ -30,6 +30,9 @@ class @Select2Input.View extends Backbone.View
       allowClear : true
       formatNoMatches : () ->
         I18n.t('select2.no_results')
+      formatSelection : (data, $container) =>
+        @_appendEditButton($container) unless @model.isMultiple()
+        data.text
       ajax :
         url : @_getUrl()
         dataType : 'json'
@@ -44,6 +47,9 @@ class @Select2Input.View extends Backbone.View
     e.preventDefault()
     if @model.get('related').get('editurl')
       Content.getInstance().renderModel @model.get('related')
+
+  _appendEditButton : ($container) ->
+    $container.after '<span class="select2-edit"></span>'
 
   _appendAddButton : () ->
     $addPlaceholder = $ @_placeholderForAdd()
