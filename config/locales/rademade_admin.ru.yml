@@ -24,6 +24,8 @@ ru:
     record:
       new: "Добавить запись"
       edit: "Редактировать"
+    title:
+      new_record: "Новая запись"
     export:
       csv: "Экспортировать в csv"
     success_message:

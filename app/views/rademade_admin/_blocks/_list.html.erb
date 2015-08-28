@@ -1,9 +1,9 @@
 <% content_for :nav_buttons do %><%
     new_uri = admin_new_uri(@model_info)
     if new_uri
-        %><span class="btn is-blue with-ico ico-add" data-content-url="<%= new_uri %>"><%
+        %><a class="btn is-blue with-ico ico-add" href="<%= new_uri %>" data-content-url="<%= new_uri %>"><%
             concat t('rademade_admin.record.new')
-        %></span><%
+        %></a><%
     end
     if @model_info.has_csv?
         csv_uri = admin_list_uri(@model_info, :format => :csv)
