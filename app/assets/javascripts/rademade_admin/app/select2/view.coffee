@@ -28,7 +28,8 @@ class @Select2Input.View extends Backbone.View
       multiple : @model.isMultiple()
       placeholder : I18n.t('rademade_admin.relation.search')
       allowClear : true
-      formatResult : @_formatResult
+      formatNoMatches : () ->
+        I18n.t('select2.no_results')
       ajax :
         url : @_getUrl()
         dataType : 'json'
@@ -37,11 +38,19 @@ class @Select2Input.View extends Backbone.View
     ).unbind('change').bind 'change', @_onChange
     @_updateData()
     @model.get('related').on 'data-change', @_updateData
+    @_appendAddButton()
 
   editRelation : (e) ->
     e.preventDefault()
     if @model.get('related').get('editurl')
       Content.getInstance().renderModel @model.get('related')
+
+  _appendAddButton : () ->
+    $addPlaceholder = $ @_placeholderForAdd()
+    $addPlaceholder.click () =>
+      @$item.select2('close')
+      Content.getInstance().renderModel @_createRelatedModel(@model.get('newUrl'))
+    @$item.select2('container').find('.select2-drop').append $addPlaceholder
 
   _getUrl : () ->
     @model.get('searchUrl')
@@ -49,26 +58,13 @@ class @Select2Input.View extends Backbone.View
   _getData : (term) ->
     q : term
 
-  _formatResult : (data) =>
-    if data.isPlaceholder
-      @_placeholderForAdd()
-    else
-      data.text
-
   _getResults : (data) ->
-    data.push
-      id : -1
-      isPlaceholder : yes
     results : data
 
   _onChange : (e) =>
     addedElement = e.added
     if addedElement
-      if addedElement.isPlaceholder
-        @$item.select2('data', null)
-        Content.getInstance().renderModel @_createRelatedModel(@model.get('newUrl'))
-      else
-        @model.get('related').update(addedElement)
+      @model.get('related').update(addedElement)
     else if e.removed
       @model.get('related').clear()
 
@@ -93,7 +89,7 @@ class @Select2Input.View extends Backbone.View
     relatedModel
 
   _placeholderForAdd : () ->
-    JST['rademade_admin/app/templates/select2-add']
+    JST['rademade_admin/app/templates/select2-add']()
 
   @init : ($el) ->
     view = new this
