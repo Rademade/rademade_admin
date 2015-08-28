@@ -23,6 +23,7 @@ class @GalleryPopup extends Backbone.View
   render : () ->
     @$popup = $ @_getHTML()
     @_initCrop()
+    $('html').addClass('opened-popup')
     @$el.append @$popup
 
   previousPhoto : () ->
@@ -56,6 +57,7 @@ class @GalleryPopup extends Backbone.View
 
   closePopup : () ->
     @$popup.remove()
+    $('html').removeClass('opened-popup')
     @_unbindEvents()
     @undelegateEvents()
 
