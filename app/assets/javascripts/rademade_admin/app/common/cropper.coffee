@@ -11,14 +11,26 @@ class @Cropper extends Backbone.View
       @verticalRatio = (originalHeight - 0) / @$el.height()
       @$el.Jcrop
         onSelect : @_updateCropAttributes
+        onChange : @_showAttributes
       , () ->
         self.jcropApi = this
+        self.$jcropSize = $('<div style="left: 100%; position: relative;" data-jcrop-size></div>')
+        self.$el.siblings('.jcrop-holder').children('div:first').append(self.$jcropSize)
 
   getCropAttributes : () ->
     @cropAttributes
 
   _updateCropAttributes : (attributes) =>
     @cropAttributes = @_scaleAttributes(attributes)
+
+  _showAttributes : (attributes) =>
+    @$jcropSize.html @_attributesHTML(attributes)
+
+  _attributesHTML : (attributes) ->
+    """
+      <div>#{attributes.w}</div>
+      <div>#{attributes.h}</div>
+    """
 
   _scaleAttributes : (attributes) ->
     _.each @horizontalAttributes, (attribute) =>

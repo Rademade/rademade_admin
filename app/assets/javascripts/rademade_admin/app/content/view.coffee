@@ -4,6 +4,7 @@ class @Content extends Backbone.View
     $.get url, layout : false, (html) =>
       $contentItem = $(html)
       $('[data-content]').append $contentItem
+      $(window).scrollTop(0)
       $(document).trigger 'init-plugins'
       @bindClick $contentItem
       cb($contentItem) if cb
@@ -29,6 +30,7 @@ class @Content extends Backbone.View
       @moveToContentItem $(e.currentTarget).closest('[data-content-item]')
     $el.find('[data-content-url]').bind 'click', (e) =>
       @renderItemFromUrl $(e.currentTarget).data('contentUrl')
+      false
     $el.find('[data-content-close]').bind 'click', () ->
       $(this).closest('[data-content-item]').remove()
 
