@@ -8,6 +8,12 @@
   border: .08em solid $content-table-border
   +media-below($media-medium-width)
 
+  thead
+    .content-table-row
+      &:first-child
+        cursor: default
+        background-color: $content-table-bg
+
   tbody
     .content-table-row
       &:last-child
@@ -18,9 +24,6 @@
 
   &:hover
     background-color: $content-table-item-hover
-    &:first-child
-      background-color: $content-table-bg
-
   &.is-highlight
     background: $content-table-item-highlight
 
@@ -61,7 +64,7 @@
 
   &.sortable,
   &.sortable-up,
-  &.sortable-down,
+  &.sortable-down
     .text
       &:after
         position: absolute
