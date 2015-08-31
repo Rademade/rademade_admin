@@ -2,6 +2,7 @@
   .select2-choice,
   .select2-choices
     position: relative
+    padding-right: em(105)
     background-image: none !important
 
     .select2-arrow
@@ -23,6 +24,15 @@
 
       b
         display: none
+
+    .select2-edit
+      position: absolute
+      top: 50%
+      right: em(80)
+      margin-top: em(-9)
+      opacity: 0.4
+      +sprite(select-edit)
+
 
 .select2-search-field
   width: 100%
