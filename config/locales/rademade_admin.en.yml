@@ -26,6 +26,7 @@ en:
       edit: "Edit"
     title:
       new_record: "New record"
+      edit_record: "Edit record"
     export:
       csv: "Export to csv"
     success_message:
