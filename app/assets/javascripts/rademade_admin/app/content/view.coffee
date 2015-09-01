@@ -26,12 +26,12 @@ class @Content extends Backbone.View
         $contentItem.remove()
 
   bindClick : ($el) ->
-    $el.find('[data-content-header]').one 'click', (e) =>
+    $el.find('[data-content-header]').bind 'click', (e) =>
       @moveToContentItem $(e.currentTarget).closest('[data-content-item]')
     $el.find('[data-content-url]').one 'click', (e) =>
       @renderItemFromUrl $(e.currentTarget).data('contentUrl')
       false
-    $el.find('[data-content-close]').one 'click', () ->
+    $el.find('[data-content-close]').bind 'click', () ->
       $(this).closest('[data-content-item]').remove()
 
   @getInstance : () ->

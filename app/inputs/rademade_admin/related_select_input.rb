@@ -24,11 +24,7 @@ module RademadeAdmin
     end
 
     def related_html
-      if multiple?
-        related_list_html
-      else
-        RademadeAdmin::HtmlBuffer.new([related_item_html, buttons_html(edit_button_html)])
-      end
+      multiple? ? related_list_html : related_item_html
     end
 
     def input_html_options_name
@@ -78,13 +74,6 @@ module RademadeAdmin
           :data => Autocomplete::BaseSerializer.new([related_value]).as_json.first
         })
       end
-    end
-
-    def edit_button_html
-      template.content_tag(:button, I18n.t('rademade_admin.relation.edit'), {
-        :class => 'btn is-yellow',
-        :'data-edit-relation' => true
-      })
     end
 
   end

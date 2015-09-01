@@ -1,8 +1,5 @@
 class @Select2Input.View extends Backbone.View
 
-  events :
-    'click [data-edit-relation]' : 'editRelation'
-
   initItem : () ->
     @$item = @$el.find('.select-wrapper input[type="hidden"]')
     @initModel()
@@ -31,7 +28,7 @@ class @Select2Input.View extends Backbone.View
       formatNoMatches : () ->
         I18n.t('select2.no_results')
       formatSelection : (data, $container) =>
-        @_appendEditButton($container) unless @model.isMultiple()
+        @_appendEditButton($container)
         data.text
       ajax :
         url : @_getUrl()
@@ -43,13 +40,18 @@ class @Select2Input.View extends Backbone.View
     @model.get('related').on 'data-change', @_updateData
     @_appendAddButton()
 
-  editRelation : (e) ->
-    e.preventDefault()
+  editRelation : () ->
     if @model.get('related').get('editurl')
       Content.getInstance().renderModel @model.get('related')
 
   _appendEditButton : ($container) ->
-    $container.after '<span class="select2-edit"></span>'
+    unless @model.isMultiple() or @initalized
+      @initalized = yes
+      @$edit = $ @_editButton()
+      @$edit.on 'mousedown', () =>
+        @editRelation()
+        false
+      $container.after @$edit
 
   _appendAddButton : () ->
     $addPlaceholder = $ @_placeholderForAdd()
@@ -71,8 +73,10 @@ class @Select2Input.View extends Backbone.View
     addedElement = e.added
     if addedElement
       @model.get('related').update(addedElement)
+      @$edit.show() if @$edit
     else if e.removed
       @model.get('related').clear()
+      @$edit.hide() if @$edit
 
   _createRelatedModel : (url) ->
     relatedModel = @_relatedModel url
@@ -95,7 +99,10 @@ class @Select2Input.View extends Backbone.View
     relatedModel
 
   _placeholderForAdd : () ->
-    JST['rademade_admin/app/templates/select2-add']()
+    JST['rademade_admin/app/templates/select2/add']()
+
+  _editButton : () ->
+    JST['rademade_admin/app/templates/select2/edit']()
 
   @init : ($el) ->
     view = new this
