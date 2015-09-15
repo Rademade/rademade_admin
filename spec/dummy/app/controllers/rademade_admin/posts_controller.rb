@@ -5,6 +5,7 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
     list do
       headline
       status handler: Proc.new { |post| "Status #{post.status}" }
+      tags
       bool_test handler: Proc.new { true }
     end
     form do

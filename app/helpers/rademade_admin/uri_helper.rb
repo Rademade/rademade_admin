@@ -56,28 +56,6 @@ module RademadeAdmin::UriHelper
     _entity_url(model, :update)
   end
 
-  def admin_related_item(model, relation_getter, opts = {})
-    admin_related_uri(model, :related, relation_getter, opts)
-  end
-
-  def admin_link_autocomplete_uri(model, relation_getter, opts = {})
-    admin_related_uri(model, :link_autocomplete, relation_getter, opts)
-  end
-
-  def admin_link_uri(model, relation_getter, opts = {})
-    admin_related_uri(model, :related_add, relation_getter, opts)
-  end
-
-  def admin_unlink_uri(model, relation_getter, opts = {})
-    admin_related_uri(model, :related_destroy, relation_getter, opts)
-  end
-
-  def admin_related_uri(model, action, relation_getter, opts = {})
-    _entity_url(model, action, opts.merge({
-      :relation => relation_getter
-    }))
-  end
-
   def admin_model_url_for(model, opts = {})
     model_info = _real_model_info(model)
     admin_url_for(opts.merge({

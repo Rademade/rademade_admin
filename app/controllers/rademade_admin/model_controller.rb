@@ -54,13 +54,6 @@ module RademadeAdmin
       render :json => Autocomplete::BaseSerializer.new(autocomplete_items)
     end
 
-    def link_autocomplete
-      authorize! :read, model_class
-      relation_service = RademadeAdmin::RelationService.new
-      @related_model_info = relation_service.related_model_info(model_info, params[:relation])
-      render :json => Autocomplete::LinkSerializer.new(link_autocomplete_items, model.find(params[:id]), params[:relation])
-    end
-
     def index
       authorize! :read, model_class
       @items = index_items
@@ -85,34 +78,6 @@ module RademadeAdmin
       @with_save_and_return_button = true
       @is_edit = true
       render_template
-    end
-
-    # TODO move related to other controller or remove
-    def related
-      authorize! :read, model_class
-      @related_model_info = RademadeAdmin::RelationService.new.related_model_info(model_info, params[:relation])
-      @item = model.find(params[:id])
-      search_params = params.except(:id)
-      @items = related_items(search_params)
-      @sortable_service = RademadeAdmin::SortableService.new(@related_model_info, search_params)
-      respond_to do |format|
-        format.html { render_template }
-        format.json { render :json => Autocomplete::BaseSerializer.new(@items) }
-      end
-    end
-
-    def related_add
-      @item = model.find(params[:id])
-      linker = Linker.new(model_info, @item, params[:relation])
-      linker.link(params[:related_id])
-      success_link
-    end
-
-    def related_destroy
-      @item = model.find(params[:id])
-      linker = Linker.new(model_info, @item, params[:relation])
-      linker.unlink(params[:related_id])
-      success_unlink
     end
 
     def show
@@ -140,22 +105,16 @@ module RademadeAdmin
 
     def index_items
       conditions = Search::Conditions::List.new(params, model_info.data_items)
+      if params[:rel_class] && params[:rel_id] && params[:rel_getter]
+        @related_model = LoaderService.const_get(params[:rel_class]).find(params[:rel_id])
+        conditions.base_items = @related_model.send(params[:rel_getter])
+      end
       Search::Searcher.new(model_info).search(conditions)
     end
 
     def autocomplete_items
       conditions = Search::Conditions::Autocomplete.new(params, model_info.data_items)
       Search::Searcher.new(model_info).search(conditions)
-    end
-
-    def link_autocomplete_items
-      conditions = Search::Conditions::Autocomplete.new(params, @related_model_info.data_items)
-      Search::Searcher.new(@related_model_info).search(conditions)
-    end
-
-    def related_items(search_params)
-      conditions = Search::Conditions::RelatedList.new(@item, search_params, @related_model_info.data_items)
-      Search::Searcher.new(@related_model_info).search(conditions)
     end
 
     def new_model
