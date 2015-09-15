@@ -2,8 +2,7 @@
 module RademadeAdmin::PaginationHelper
 
   def on_page_item(on_page, index, name = :paginate)
-    hash_params = request.query_parameters.clone
-    hash_params.delete(:page)
+    hash_params = request.query_parameters.clone.except(:page, :layout)
     hash_params[name] = on_page
 
     content_tag(:span, on_page.to_s,

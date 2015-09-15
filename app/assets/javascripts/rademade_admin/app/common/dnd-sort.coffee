@@ -32,4 +32,4 @@ isDnDSorting = ($table, $tableRows) ->
   first and second and third
 
 $ ->
-  $(document).on 'ready page:load', initDnDSorting
+  $(document).on 'ready page:load init-plugins', initDnDSorting
