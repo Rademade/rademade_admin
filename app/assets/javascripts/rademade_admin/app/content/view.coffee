@@ -31,8 +31,8 @@ class @Content extends Backbone.View
     $el.find('[data-content-url]').one 'click', (e) =>
       @renderItemFromUrl $(e.currentTarget).data('contentUrl')
       false
-    $el.find('[data-content-close]').bind 'click', () ->
-      $(this).closest('[data-content-item]').remove()
+    $el.find('[data-content-close]').bind 'click', (e) =>
+      @moveToContentItem $(e.currentTarget).closest('[data-content-item]').prev()
 
   @getInstance : () ->
     instance = null
