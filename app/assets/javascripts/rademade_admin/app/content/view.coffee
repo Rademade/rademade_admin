@@ -1,6 +1,7 @@
 class @Content extends Backbone.View
 
   renderItemFromUrl : (url, cb) ->
+    @_updateHistory(url)
     $.get url, layout : false, (html) =>
       $contentItem = $(html)
       $('[data-content]').append $contentItem
@@ -34,10 +35,24 @@ class @Content extends Backbone.View
     $el.find('[data-content-close]').bind 'click', (e) =>
       @moveToContentItem $(e.currentTarget).closest('[data-content-item]').prev()
 
+  bindHistoryBack : () ->
+    $(window).bind 'popstate', (e) ->
+      state = e.originalEvent.state
+      window.location.href = state.url if state.url
+
+  _updateHistory : (url) ->
+    if history.pushState isnt undefined and $('[data-content-header]').length < 2
+      history.pushState url : url, document.title, url
+
+  @init : () ->
+    content = new Content()
+    content.bindHistoryBack()
+    content
+
   @getInstance : () ->
     instance = null
     do () ->
-      instance ||= new Content()
+      instance ||= Content.init()
 
 $ ->
   $(document).on 'page:load ready', () ->
