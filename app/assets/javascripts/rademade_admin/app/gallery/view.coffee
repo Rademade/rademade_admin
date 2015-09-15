@@ -31,11 +31,14 @@ class @Gallery extends Backbone.View
     gallery.bindUpload()
 
   @initAll : () ->
-    $('[data-gallery]').each () ->
-      $gallery = $(this)
+    $('[data-gallery]').each (index, gallery) =>
+      $gallery = $(gallery)
       unless $gallery.data('initialized')
-        Gallery.init $gallery
+        @init $gallery
         $gallery.data('initialized', true)
 
+  @initPlugin : () =>
+    @initAll()
+
 $ ->
-  $(document).on('page:load ready init-plugins', Gallery.initAll)
+  $(document).on 'page:load ready init-plugins', Gallery.initPlugin

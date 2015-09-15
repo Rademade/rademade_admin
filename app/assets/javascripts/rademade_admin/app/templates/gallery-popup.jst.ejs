@@ -1,6 +1,6 @@
 <div class="popup-wrapper">
     <div class="popup-headline">
-        <h2 class="popup-title"><%= photo.name %></h2>
+        <a class="popup-title" href="<%= photo.fullUrl %>" download><%= photo.name %></a>
         <div class="popup-actions"><%
             if (hasCrop) {
                 %><span class="popup-btn popup-resize-btn" data-gallery-crop><%= I18n.t('rademade_admin.uploader.crop') %></span><%

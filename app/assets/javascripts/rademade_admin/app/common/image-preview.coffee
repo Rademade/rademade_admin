@@ -1,11 +1,16 @@
 class @ImagePreview extends Backbone.View
 
-  bindReview : ($imagePreview) ->
-    @model = new ImagePreviewModel $imagePreview.data()
-    $imagePreview.click () =>
-      GalleryPopup.getInstance().showForPreview(@model)
+  events :
+    'click' : 'showPopup'
 
-  bindUploadChange : ($holder) ->
+  initialize : () ->
+    @model = new ImagePreviewModel @$el.data()
+
+  showPopup : () ->
+    GalleryPopup.getInstance().showForPreview(@model)
+
+  bindUploadChange : () ->
+    $holder = @$el.closest('.input-holder')
     $uploader = $holder.find('[data-uploader]') # todo another way
     return if $uploader.length is 0
     @model.set 'uploadParams', _.pick $uploader.data(), 'model', 'column', 'uploader'
@@ -15,8 +20,8 @@ class @ImagePreview extends Backbone.View
 
   @init : ($imagePreview) ->
     imagePreview = new this
-    imagePreview.bindReview $imagePreview
-    imagePreview.bindUploadChange $imagePreview.closest('.input-holder')
+      el : $imagePreview
+    imagePreview.bindUploadChange()
     imagePreview
 
   @initAll : () ->

@@ -14,7 +14,7 @@ class @Cropper extends Backbone.View
         onChange : @_showAttributes
       , () ->
         self.jcropApi = this
-        self.$jcropSize = $('<div style="left: 100%; position: relative;" data-jcrop-size></div>')
+        self.$jcropSize = $('<div style="left: 100%; position: relative; display: none" data-jcrop-size></div>')
         self.$el.siblings('.jcrop-holder').children('div:first').append(self.$jcropSize)
 
   getCropAttributes : () ->
@@ -24,6 +24,7 @@ class @Cropper extends Backbone.View
     @cropAttributes = @_scaleAttributes(attributes)
 
   _showAttributes : (attributes) =>
+    @$jcropSize.show()
     @$jcropSize.html @_attributesHTML(attributes)
 
   _attributesHTML : (attributes) ->
