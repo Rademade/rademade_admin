@@ -88,7 +88,7 @@ class @GalleryPopup extends Backbone.View
     @_initCrop()
 
   _getHTML : () ->
-    JST['rademade_admin/app/templates/gallery-popup']
+    JST['app/templates/gallery-popup']
       photo : @currentPhoto.toJSON()
       hasPhotos : @hasPhotos
       hasCrop : @hasCrop

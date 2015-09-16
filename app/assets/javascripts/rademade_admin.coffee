@@ -36,9 +36,10 @@
 #= require wysihtml5/dist/wysihtml5-0.3.0
 #= require underscore/underscore
 #= require backbone/backbone
-#= require_tree ./rademade_admin/library
-#= require_tree ./rademade_admin/settings
-#= require_tree ./rademade_admin/form
-#= require ./rademade_admin/app/image/model
-#= require_tree ./rademade_admin/app
-#= require_tree ./rademade_admin
+#= require_tree ./library
+#= require_tree ./ckeditor
+#= require_tree ./settings
+#= require_tree ./form
+#= require ./app/image/model
+#= require_tree ./app
+#= require_tree .

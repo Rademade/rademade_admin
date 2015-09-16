@@ -99,10 +99,10 @@ class @Select2Input.View extends Backbone.View
     relatedModel
 
   _placeholderForAdd : () ->
-    JST['rademade_admin/app/templates/select2/add']()
+    JST['app/templates/select2/add']()
 
   _editButton : () ->
-    JST['rademade_admin/app/templates/select2/edit']()
+    JST['app/templates/select2/edit']()
 
   @init : ($el) ->
     view = new this

@@ -26,7 +26,7 @@ class @Select2Input.RelatedView extends Backbone.View
     return this
 
   _getHtml : (data) ->
-    JST['rademade_admin/app/templates/related-item'](data)
+    JST['app/templates/related-item'](data)
 
   @init : ($el) ->
     $edit = $el.find('[data-edit]')
