@@ -19,7 +19,7 @@ module RademadeAdmin::FormHelper
 
   def login_form(&block)
     simple_form_for(
-      RademadeAdmin.user_class.new,
+      RademadeAdmin.configuration.admin_class.new,
       :wrapper => :rademade_login,
       :url => [:sessions],
       :as => :data,
