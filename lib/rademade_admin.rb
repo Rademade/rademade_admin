@@ -4,6 +4,7 @@ require 'cancan'
 require 'bower-rails'
 require 'autoprefixer-rails'
 require 'sass-rails'
+require 'configurations'
 
 # js assets
 require 'turbolinks'
@@ -18,12 +19,12 @@ require 'mongoid_sortable_relation'
 
 module RademadeAdmin
 
-  def self.user_class
-    RademadeAdmin::Configuration.user_class
-  end
+  include Configurations
 
-  def self.ability_class
-    RademadeAdmin::Configuration.ability_class
+  configurable :admin_class, :ability_class
+
+  configuration_defaults do |default_config|
+    default_config.ability_class = ::RademadeAdmin::Ability
   end
 
 end
