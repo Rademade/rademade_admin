@@ -1,7 +1,7 @@
 <div class="nav">
     <ul class="nav-list">
         <li class="nav-item">
-            <a href="<%= root_path %>" class="nav-main-logo"><span><%= t('rademade_admin.project') %></span></a>
+            <a href="<%= root_uri %>" class="nav-main-logo"><span><%= t('rademade_admin.project') %></span></a>
         </li>
     </ul>
     <ul class="nav-list with-scroll"><%= render @template_service.navigation_menu_block %></ul>
@@ -9,7 +9,10 @@
         <div class="nav-user">
             <i class="user-img"></i>
             <span class="user-name"><%= @current_user %></span><%
-            concat link_to '', [:logout, :sessions], { :method => :delete, :class => 'user-settings' }
+            concat link_to '', rademade_admin_route(:logout_sessions_url), {
+                :method => :delete,
+                :class => 'user-settings'
+            }
         %></div>
         <div class="nav-copyright">
             <span><%= Date.today.year %> ©</span>

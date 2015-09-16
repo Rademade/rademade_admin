@@ -2,6 +2,8 @@ ru:
   views:
     pagination:
       rademade:
+        first: "Первая"
+        last: "Последняя"
         previous: "Предыдущая"
         next: "Следующая"
         truncate: "&hellip;"

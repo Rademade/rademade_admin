@@ -1,6 +1,9 @@
 <%= paginator.render do -%>
     <div class="pagination fll"><%
-        concat prev_page_tag unless current_page.first?
+        unless current_page.first?
+            concat first_page_tag
+            concat prev_page_tag
+        end
         each_page do |page|
             if page.left_outer? || page.right_outer? || page.inside_window?
                 concat page_tag page
@@ -8,6 +11,9 @@
                 concat gap_tag
             end
         end
-        concat next_page_tag unless current_page.last?
+        unless current_page.last?
+            concat next_page_tag
+            concat last_page_tag
+        end
     %></div>
 <% end -%>

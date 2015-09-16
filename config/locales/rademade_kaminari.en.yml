@@ -2,6 +2,8 @@ en:
   views:
     pagination:
       rademade:
+        first: "First"
+        last: "Last"
         previous: "Previous"
         next: "Next"
         truncate: "&hellip;"

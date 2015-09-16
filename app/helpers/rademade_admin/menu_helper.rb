@@ -21,10 +21,11 @@ module RademadeAdmin::MenuHelper
   private
 
   def unshift_root_url(menu)
+    uri = root_uri
     menu.unshift({
-      :uri => root_url,
+      :uri => uri,
       :name => t('rademade_admin.home'),
-      :is_current => current_page?(root_url),
+      :is_current => current_page?(uri),
       :sub => []
     })
   end
