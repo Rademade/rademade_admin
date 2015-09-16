@@ -1,0 +1,31 @@
+<%
+has_sub_items = (menu_item[:sub].is_a? Array and menu_item[:sub].size > 0)
+uri = menu_item[:uri]
+if has_sub_items || uri
+    is_active = active?(menu_item)
+    %><li class="nav-item<%
+        if has_sub_items
+            %> with-dd<%
+        end
+    %>">
+        <a href="<%= uri %>" class="nav-link<%
+            if is_active
+                %> is-active<%
+            end
+        %>">
+            <span><%= menu_item[:name] %></span><%
+            if menu_item[:count] && menu_item[:count] > 0
+                %><span class="nav-counter"><%= menu_item[:count] %></span><%
+            end
+        %></a><%
+        if has_sub_items && is_active
+            %><ul class="nav-dd"><%
+                menu_item[:sub].each do |sub_item|
+                    concat render @template_service.navigation_menu_item_block, {
+                        :menu_item => sub_item
+                    }
+                end
+            %></ul><%
+        end
+    %></li><%
+end %>

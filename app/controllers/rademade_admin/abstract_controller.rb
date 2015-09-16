@@ -6,7 +6,7 @@ module RademadeAdmin
 
     layout 'rademade_admin'
 
-    before_action :init_user, :init_template_service, :require_login, :menu
+    before_action :init_user, :init_template_service, :require_login
     
     attr_reader :current_user
 
@@ -41,10 +41,6 @@ module RademadeAdmin
 
     def current_ability
       @current_ability ||= (RademadeAdmin.ability_class || ::RademadeAdmin::Ability).new(@current_user)
-    end
-
-    def menu
-      MenuCell.current_ability = current_ability
     end
 
   end

@@ -14,7 +14,7 @@ module RademadeAdmin
     helper RademadeAdmin::UriHelper
     helper RademadeAdmin::PaginationHelper
 
-    before_filter :load_options, :additional_options, :pagination_variants
+    before_filter :load_options, :model, :pagination_variants
     before_filter :sortable_service, :only => [:index]
 
     def create
@@ -144,10 +144,6 @@ module RademadeAdmin
 
     def sortable_service
       @sortable_service ||= RademadeAdmin::SortableService.new(model_info, params)
-    end
-
-    def additional_options
-      MenuCell.current_model = model
     end
 
     def render_record_errors(e)
