@@ -10,10 +10,12 @@
     border: 1px solid $pagination-active-border
 
   &.is-prev,
-  &.is-next
+  &.is-next,
+  &.is-first,
+  &.is-last
     text-align: left
     width: auto
-    +media-below($media-medium-width)
+    +media-below(1100)
       display: inline-block
     &:hover
       border: 1px solid transparent
@@ -33,7 +35,8 @@
   &:before
     opacity: 0
 
-  &.is-prev
+  &.is-prev,
+  &.is-first
     margin-right: em(30)
     padding: 0 0 0 em(20)
     +media-below($media-medium-width)
@@ -47,11 +50,10 @@
       left: 0
       +sprite(left-arrow_blue)
 
-  &.is-next
+  &.is-next,
+  &.is-last
     margin-left: em(30)
     padding: 0 em(20) 0 0
-    +media-below($media-medium-width)
-      float: right
 
     &:after
       right: 0
@@ -60,3 +62,8 @@
     &:before
       right: 0
       +sprite(right-arrow_blue)
+
+  &.is-first,
+  &.is-last,
+    +media-below($media-small-width)
+      display: none

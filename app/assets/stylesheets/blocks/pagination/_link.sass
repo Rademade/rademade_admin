@@ -12,5 +12,9 @@
   border: 0.08em solid transparent
   transition: color $transitionVal ease-in-out, border $transitionVal ease-in-out
   +helvetica-light
-  +media-below($media-medium-width)
+  +media-below(1100)
     display: none
+
+  &.is-active
+    +media-below(1100)
+      display: inline-block
