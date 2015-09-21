@@ -38,6 +38,24 @@ $width: 100%
       margin-left: em(-15)
       +sprite(file)
 
+  &.is-loading
+    padding-bottom: 98%
+    background-color: #F9FBFE
+    font-size: em(13)
+    color: #34CD7F
+    border: .08em solid #D1D8E6
+    border-radius: em(6)
+
+    &:after
+      position: absolute
+      content: ""
+      top: em(23)
+      left: 50%
+      margin-left: em(-15)
+      width: 25px
+      height: 25px
+      background: asset-url('rademade_admin/loader.GIF') center no-repeat
+
   .upload-text
     position: absolute
     padding: 0 em(20)
