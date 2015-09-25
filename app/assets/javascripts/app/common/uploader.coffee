@@ -3,6 +3,7 @@ class @Uploader extends Backbone.View
   initElements : () ->
     @$uploader = @$el.find('[data-uploader]')
     @$hidden = @$el.find('input[type="hidden"]')
+    @$loaderHolder = @$el.find('.upload-item.add')
 
   initFileUpload : () ->
     @$uploader.fileupload
@@ -10,16 +11,22 @@ class @Uploader extends Backbone.View
       dropZone : @$el
       url : @$uploader.data('url')
       formData : @_getUploaderData()
-      add : @submitFile
-
-  submitFile : (e, $form) =>
-    $form.submit().done @updateUploader
+      add : (e, $form) =>
+        @showLoader()
+        $form.submit().done @updateUploader
+      done : @hideLoader
 
   updateUploader : (result) =>
     @$el.find('[data-preview-item]').replaceWith(result.html)
     @$el.find('.upload-holder.hide').removeClass('hide')
     @$hidden.val(result.file[@$uploader.data('column')].url)
     ImagePreview.initPlugin()
+
+  showLoader : () ->
+    @$loaderHolder.addClass('is-loading')
+
+  hideLoader : () =>
+    @$loaderHolder.removeClass('is-loading')
 
   _getUploaderData : () ->
     uploaderData = _.pick @$uploader.data(), 'id', 'model', 'column', 'uploader'

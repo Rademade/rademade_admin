@@ -4,6 +4,7 @@ class @Gallery extends Backbone.View
     @$uploadButton = @$el.find('[type="file"]')
     @galleryId = @$el.find('[type="hidden"]').val()
     @galleryClassName = @$uploadButton.data('class-name')
+    @$loaderHolder = @$el.find('.upload-item.add')
 
   initCollectionView : () ->
     @collectionView = GalleryImageCollectionView.init @$el.find('[data-sortable-url]'), @galleryClassName
@@ -17,7 +18,15 @@ class @Gallery extends Backbone.View
         gallery_id : @galleryId
         class_name : @galleryClassName
       add : (e, $form) =>
+        @showLoader()
         $form.submit().done @_appendUploadResult
+      stop : @hideLoader
+
+  showLoader : () ->
+    @$loaderHolder.addClass('is-loading')
+
+  hideLoader : () =>
+    @$loaderHolder.removeClass('is-loading')
 
   _appendUploadResult : (result) =>
     $.each result.gallery_images_html, (index, image_html) =>
