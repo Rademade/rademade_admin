@@ -1,0 +1,22 @@
+class Favicon
+
+  initDocumentHead : () ->
+    @documentHead = document.head || document.getElementsByTagName('head')[0]
+
+  changeTo : (src) ->
+    link = document.createElement('link')
+    oldLink = document.getElementById('dynamic-favicon')
+    link.id = 'dynamic-favicon'
+    link.rel = 'shortcut icon'
+    link.href = src
+    @documentHead.removeChild(oldLink) if oldLink
+    @documentHead.appendChild(link)
+
+  @init : () ->
+    favicon = new Favicon
+    favicon.initDocumentHead()
+    favicon.changeTo '<%= asset_path('rademade_admin/fav1.ico') %>'
+    favicon
+
+$ ->
+  $(document).on 'ready page:load', Favicon.init
