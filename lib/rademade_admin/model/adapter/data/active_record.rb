@@ -56,13 +56,12 @@ module RademadeAdmin
           end
 
           def _add_non_localizable_fields(fields)
-            @model.column_types.each do |name, field_data|
-              name = name.to_sym
-              column_data = extract_column_data(field_data)
-              type = column_data.type
+            @model.column_types.each do |field_name, field_data|
+              name = field_name.to_sym
+              type = extract_column_data(field_data).type
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
-                :primary => column_data.primary,
+                :primary => @model.primary_key == field_name,
                 :getter => name,
                 :setter => :"#{name}=",
                 :is_string => type == :string,
@@ -78,12 +77,11 @@ module RademadeAdmin
           def _add_localizable_fields(fields)
             @model.try(:translated_attribute_names).each do |name|
               name = name.to_sym
-              getter = name.to_s
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
                 :primary => false,
-                :getter => getter,
-                :setter => :"#{getter}=",
+                :getter => name,
+                :setter => :"#{name}=",
                 :is_string => false,
                 :localizable => true,
                 :relation_name => nil
@@ -104,11 +102,16 @@ module RademadeAdmin
           private
 
           def extract_column_data(field_data)
-            if field_data.is_a? ::ActiveRecord::AttributeMethods::TimeZoneConversion::Type # why another behaviour?
+            if is_datetime_type?(field_data)
               field_data.instance_values['column']
             else
               field_data
             end
+          end
+
+          def is_datetime_type?(field_data)
+            defined?(::ActiveRecord::AttributeMethods::TimeZoneConversion::Type) &&
+              field_data.is_a?(::ActiveRecord::AttributeMethods::TimeZoneConversion::Type)
           end
 
         end
