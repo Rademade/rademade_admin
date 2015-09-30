@@ -42,10 +42,10 @@ module RademadeAdmin
     end
 
     def destroy
-      @item = model.find(params[:id])
+      @item = @model_info.query_adapter.find(params[:id])
       authorize! :destroy, @item
       before_destroy @item
-      @item.delete if @item
+      @model_info.persistence_adapter.destroy(@item) if @item
       success_delete @item
     end
 
@@ -73,7 +73,7 @@ module RademadeAdmin
     end
 
     def edit
-      @item = model.find(params[:id])
+      @item = @model_info.query_adapter.find(params[:id])
       authorize! :update, @item
       @with_save_and_return_button = true
       @is_edit = true
@@ -81,7 +81,7 @@ module RademadeAdmin
     end
 
     def show
-      @item = model.find(params[:id])
+      @item = @model_info.query_adapter.find(params[:id])
       authorize! :read, @item
       respond_to do |format|
         format.html { redirect_to :action => 'index' }
@@ -91,7 +91,7 @@ module RademadeAdmin
 
     def form
       authorize! :read, model_class
-      @item = params[:id].blank? ? new_model : model.find(params[:id])
+      @item = params[:id].blank? ? new_model : @model_info.query_adapter.find(params[:id])
       render form_template_path(true), :layout => false
     end
 
@@ -118,7 +118,7 @@ module RademadeAdmin
     end
 
     def new_model
-      model.new
+      @model_info.persistence_adapter.new_record
     end
 
     def before_create(item)

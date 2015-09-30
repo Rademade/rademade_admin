@@ -19,10 +19,15 @@ group :test do
   gem 'mongoid-tree'
   gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
-  # Active Record
+  # Sql
   gem 'mysql2', '~> 0.3', '< 0.4'
+
+  # Active Record
   gem 'globalize'
   gem 'activerecord_sortable'
+
+  # Sequel
+  gem 'sequel'
 
   # Uploaders
   gem 'carrierwave'

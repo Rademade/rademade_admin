@@ -5,14 +5,14 @@ module RademadeAdmin
   module Model
     module Adapter
       class Query
-        class ActiveRecord < RademadeAdmin::Model::Adapter::Query::Sql
+        class Sequel < RademadeAdmin::Model::Adapter::Query::Sql
 
           def find(ids)
-            @model.find(ids)
+            @model[ids]
           end
 
           def initial
-            @model.unscoped
+            @model.dataset
           end
 
           protected
@@ -22,14 +22,14 @@ module RademadeAdmin
               if part.is_a? RademadeAdmin::Search::Part::Order
                 # todo
               else
-                @result = @result.order(part[:field] => part[:value])
+                @result = @result.order_append(::Sequel.send(part[:value], part[:field].to_sym))
               end
             end
             @result
           end
 
           def paginate(page_condition, per_page_condition)
-            @result.page(page_condition).per(per_page_condition)
+            @result.paginate(page_condition, per_page_condition)
           end
 
         end

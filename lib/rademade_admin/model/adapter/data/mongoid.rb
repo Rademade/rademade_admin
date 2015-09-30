@@ -3,10 +3,6 @@ module RademadeAdmin
   module Model
     module Adapter
       class Data
-
-        #
-        # Data adapter for Mongoid
-        #
         class Mongoid < RademadeAdmin::Model::Adapter::Data
 
           protected
@@ -73,7 +69,6 @@ module RademadeAdmin
           end
 
         end
-
       end
     end
   end

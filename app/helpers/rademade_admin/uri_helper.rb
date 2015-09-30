@@ -76,7 +76,7 @@ module RademadeAdmin::UriHelper
     admin_model_url_for(model.class, opts.merge({
       :action => action,
       :id => model.id
-    })) if model.persisted? # rm_todo: check for AR
+    }))
   end
 
   def _real_model_info(model)

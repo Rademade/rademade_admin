@@ -14,25 +14,31 @@ module RademadeAdmin
     end
 
     def create_model
-      @item = @model_info.model.new
+      @item = @model_info.persistence_adapter.new_record
     end
 
     def find_model
-      @item = @model_info.model.find(@params[:id])
+      @item = @model_info.query_adapter.find(@params[:id])
     end
 
     def set_data
-      item.assign_attributes simple_field_params
+      save_simple_fields
       save_localizable_fields
       save_model_relations
       save_model_uploads
     end
 
     def save_item
-      item.save!
+      @model_info.persistence_adapter.save(item)
     end
 
     private
+
+    def save_simple_fields
+      simple_field_params.each do |field, value|
+        item.send(:"#{field}=", value)
+      end
+    end
 
     def save_localizable_fields
       current_locale = I18n.locale

@@ -93,6 +93,10 @@ module RademadeAdmin
         model_reflection.query_adapter
       end
 
+      def persistence_adapter
+        model_reflection.persistence_adapter
+      end
+
       def label_for(name)
         @model_configuration.field_labels.label_for(name)
       end
@@ -114,6 +118,7 @@ module RademadeAdmin
       def uploaders
         @model_uploaders ||= RademadeAdmin::Model::Info::Uploaders.new(_data_adapter)
       end
+
     end
   end
 end
