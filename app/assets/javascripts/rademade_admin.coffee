@@ -36,7 +36,7 @@
 #= require wysihtml5/dist/wysihtml5-0.3.0
 #= require underscore/underscore
 #= require backbone/backbone
-#= require_tree ./library
+#= require backbone-notifier/js/backbone.notifier
 #= require_tree ./ckeditor
 #= require_tree ./settings
 #= require_tree ./form

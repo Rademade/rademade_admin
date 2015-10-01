@@ -10,13 +10,15 @@ class @ImagePreview extends Backbone.View
     GalleryPopup.getInstance().showForPreview(@model)
 
   bindUploadChange : () ->
-    $holder = @$el.closest('.input-holder')
-    $uploader = $holder.find('[data-uploader]') # todo another way
+    @$holder = @$el.closest('.input-holder')
+    $uploader = @$holder.find('[data-uploader]') # todo another way
     return if $uploader.length is 0
     @model.set 'uploadParams', _.pick $uploader.data(), 'model', 'column', 'uploader'
-    @model.on 'crop', () =>
-      $holder.find('img').attr 'src', @model.get('resizedUrl')
-      $holder.find('input[type="hidden"]').val @model.get('fullUrl')
+    @model.on 'crop', @_onCrop
+
+  _onCrop : () =>
+    @$holder.find('img').attr 'src', @model.get('resizedUrl')
+    @$holder.find('input[type="hidden"]').val @model.get('fullUrl')
 
   @init : ($imagePreview) ->
     imagePreview = new this
