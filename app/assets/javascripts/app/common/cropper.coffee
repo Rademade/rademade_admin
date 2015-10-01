@@ -4,21 +4,24 @@ class @Cropper extends Backbone.View
   verticalAttributes : ['y', 'h']
 
   initCrop : () ->
-    [originalWidth, originalHeight] = @model.get('crop').original_dimensions.split(',')
     self = this
     @$el.on 'load', () =>
-      @horizontalRatio = (originalWidth - 0) / @$el.width()
-      @verticalRatio = (originalHeight - 0) / @$el.height()
-      @$el.Jcrop
-        onSelect : @_updateCropAttributes
-        onChange : @_showAttributes
-      , () ->
+      @_onLoad () ->
         self.jcropApi = this
-        self.$jcropSize = $('<div style="left: 100%; position: relative; display: none" data-jcrop-size></div>')
-        self.$el.siblings('.jcrop-holder').children('div:first').append(self.$jcropSize)
+        self.$jcropSize = $ self._jcropSizeHTML()
+        self.$el.siblings('.jcrop-holder').find('> :first > :first').after(self.$jcropSize)
 
   getCropAttributes : () ->
     @cropAttributes
+
+  _onLoad : (onInitializeCb) =>
+    [originalWidth, originalHeight] = @model.get('crop').original_dimensions.split(',')
+    @horizontalRatio = (originalWidth - 0) / @$el.width()
+    @verticalRatio = (originalHeight - 0) / @$el.height()
+    @$el.Jcrop
+      onSelect : @_updateCropAttributes
+      onChange : @_showAttributes
+    , onInitializeCb
 
   _updateCropAttributes : (attributes) =>
     @cropAttributes = @_scaleAttributes(attributes)
@@ -27,11 +30,13 @@ class @Cropper extends Backbone.View
     @$jcropSize.show()
     @$jcropSize.html @_attributesHTML(attributes)
 
+  _jcropSizeHTML : () ->
+    JST['app/templates/crop/size']()
+
   _attributesHTML : (attributes) ->
-    """
-      <div>#{attributes.w}</div>
-      <div>#{attributes.h}</div>
-    """
+    JST['app/templates/crop/attributes']
+      width : attributes.w
+      height : attributes.h
 
   _scaleAttributes : (attributes) ->
     _.each @horizontalAttributes, (attribute) =>
