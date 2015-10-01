@@ -57,11 +57,7 @@ module RademadeAdmin::FormHelper
 
   def field_params(data_item)
     field_params = data_item.form_params
-    if field_params[:as].present?
-      field_params[:as] = rademade_admin_type(field_params[:as])
-    else
-      field_params[:as] = default_field_type(data_item)
-    end
+    field_params[:as] = field_type(data_item, field_params[:as])
     field_params
   end
 
@@ -80,30 +76,6 @@ module RademadeAdmin::FormHelper
         :value => localized_value(data_item.getter, locale)
       }
     }
-  end
-
-  def default_field_type(data_item)
-    if data_item.gallery_relation?
-      :'rademade_admin/gallery'
-    elsif data_item.has_relation?
-      :'rademade_admin/related_select'
-    elsif data_item.has_uploader?
-      :'rademade_admin/file'
-    elsif data_item.date_time_field?
-      :'rademade_admin/date_time'
-    elsif data_item.boolean_field?
-      :'rademade_admin/boolean'
-    else
-      nil
-    end
-  end
-
-  def rademade_admin_type(type)
-    if type == :boolean
-      :'rademade_admin/boolean'
-    else
-      type
-    end
   end
 
   private

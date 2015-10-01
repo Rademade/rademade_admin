@@ -10,6 +10,7 @@ module RademadeAdmin
     include RademadeAdmin::Notifier
     
     helper RademadeAdmin::FieldHelper
+    helper RademadeAdmin::FieldTypeHelper
     helper RademadeAdmin::FormHelper
     helper RademadeAdmin::UriHelper
     helper RademadeAdmin::PaginationHelper
