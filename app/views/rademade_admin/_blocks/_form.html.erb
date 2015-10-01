@@ -1,11 +1,39 @@
 <%
-show_buttons = show_buttons.nil? ? true : show_buttons
-buttons_template ||= @template_service.form_control_block
-%><%= admin_form(@item, @model_class) do |form| %><%
-    @form_fields_without_locale.each do |form_field|
-        admin_field(form, form_field, @model_info)
+concat render :template => @template_service.content_item_layout, :locals => {
+    :content_header => @model_info.item_name,
+    :content_url => admin_list_uri(@model_info)
+} if @with_layout %>
+
+<% content_for :content do %><%
+    buttons_template ||= @template_service.form_control_block
+    %><%= admin_form(@item, @model_class) do |form| %>
+        <div class="content-box">
+            <div class="form"><%
+                @form_fields_without_locale.each do |form_field|
+                    admin_field(form, form_field, @model_info)
+                end
+                concat yield(:additional_fields) if content_for?(:additional_fields)
+                concat render @template_service.form_lang_panel_block, :f => form
+            %></div>
+        </div><%
+        if !defined?(show_buttons) || show_buttons
+            %><div class="content-btn-list">
+                <div class="content-btn-box"><%
+                    concat render buttons_template, :f => form
+                %></div>
+            </div><%
+        end
     end
-    concat yield(:additional_fields) if content_for?(:additional_fields)
-    concat render @template_service.form_lang_panel_block, { :f => form }
-    concat render buttons_template, { :f => form } if show_buttons
-end %>
+end
+
+content_header = @item.to_s
+if content_header.blank?
+    if @is_edit
+        content_header = t('rademade_admin.title.edit_record')
+    else
+        content_header = t('rademade_admin.title.new_record')
+    end
+end
+concat render :template => @template_service.content_item_layout, :locals => {
+    :content_header => content_header
+} %>

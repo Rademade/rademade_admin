@@ -10,25 +10,21 @@ module RademadeAdmin
     include ::RademadeAdmin::Input::RelatedSelectInput::RelatedList
 
     def input(wrapper_options = {})
-      template.content_tag(
-        :div,
-        RademadeAdmin::HtmlBuffer.new([select_ui_html, add_button_html]),
-        :class => 'select-wrapper'
-      ) + related_html
+      RademadeAdmin::HtmlBuffer.new([select_ui_html, related_html])
     end
 
     protected
 
     def select_ui_html
-      template.text_field_tag(input_html_options_name, '', html_attributes)
+      template.content_tag(
+        :div,
+        template.text_field_tag(input_html_options_name, '', html_attributes),
+        html_attributes
+      )
     end
 
     def related_html
-      if multiple?
-        related_list_html
-      else
-        RademadeAdmin::HtmlBuffer.new([related_item_html, edit_button_html])
-      end
+      multiple? ? related_list_html : related_item_html
     end
 
     def input_html_options_name
@@ -39,28 +35,33 @@ module RademadeAdmin
 
     def html_attributes
       {
-        :data => reflection_data,
+        :class => 'select-wrapper',
+        :data => reflection_data.merge(:'owner-class' => model.class.to_s),
         :type => 'hidden'
       }
     end
 
-    def add_button_html
-      url = admin_new_form_uri(related_to)
-      template.content_tag(:button, I18n.t('rademade_admin.add_new'), {
-        :class => 'btn green-btn relation-add-button r-margin fl-l',
-        :data => {
-          :new => url,
-          :class => related_to.to_s
-        }
-      }) if url
+    def buttons_html(*buttons)
+      template.content_tag(
+        :div,
+        template.content_tag(
+          :div,
+          RademadeAdmin::HtmlBuffer.new(buttons),
+          :class => 'btn-box align-left'
+        ),
+        :class => 'btn-list'
+      )
     end
 
     def reflection_data
       search_url = admin_autocomplete_uri(related_to, :format => :json)
+      new_url = admin_new_form_uri(related_to)
       data = {
-        :'rel-multiple' => multiple?
+        :'rel-multiple' => multiple?,
+        :'rel-class' => related_to.to_s
       }
       data[:'search-url'] = search_url unless search_url.nil?
+      data[:'new-url'] = new_url unless new_url.nil?
       data
     end
 
@@ -73,15 +74,6 @@ module RademadeAdmin
           :data => serializer.new([related_value]).as_json.first
         })
       end
-    end
-
-    def edit_button_html
-      template.content_tag(:button, I18n.t('rademade_admin.edit_related_item'), {
-        :class => 'btn blue-btn',
-        :data => {
-          :'edit-relation' => true
-        }
-      })
     end
 
     def serializer

@@ -11,7 +11,21 @@ module RademadeAdmin::FormHelper
         :multipart => true,
         :novalidate => true,
         :autocomplete => 'off',
-        :class => (record.new_record? ? 'insert-item-form' : 'update-item-form') + ' form-horizontal',
+        :class => (record.new_record? ? 'insert-item-form' : 'update-item-form')
+      },
+      &block
+    )
+  end
+
+  def login_form(&block)
+    simple_form_for(
+      RademadeAdmin.configuration.admin_class.new,
+      :wrapper => :rademade_login,
+      :url => [:sessions],
+      :as => :data,
+      :html => {
+        :id => 'login-form',
+        :class => 'login-form'
       },
       &block
     )
@@ -43,7 +57,11 @@ module RademadeAdmin::FormHelper
 
   def field_params(data_item)
     field_params = data_item.form_params
-    field_params[:as] = default_field_type(data_item) unless field_params[:as].present?
+    if field_params[:as].present?
+      field_params[:as] = rademade_admin_type(field_params[:as])
+    else
+      field_params[:as] = default_field_type(data_item)
+    end
     field_params
   end
 
@@ -71,10 +89,20 @@ module RademadeAdmin::FormHelper
       :'rademade_admin/related_select'
     elsif data_item.has_uploader?
       :'rademade_admin/file'
-    elsif data_item.date_time?
+    elsif data_item.date_time_field?
       :'rademade_admin/date_time'
+    elsif data_item.boolean_field?
+      :'rademade_admin/boolean'
     else
       nil
+    end
+  end
+
+  def rademade_admin_type(type)
+    if type == :boolean
+      :'rademade_admin/boolean'
+    else
+      type
     end
   end
 

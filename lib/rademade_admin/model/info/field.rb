@@ -8,8 +8,8 @@ module RademadeAdmin
 
         attr_reader :name, :setter, :getter, :localizable, :relation_name
 
-        def key=(status)
-          @is_key = status
+        def key=(is_key)
+          @is_key = is_key
         end
 
         def primary?
@@ -28,6 +28,10 @@ module RademadeAdmin
           @is_string
         end
 
+        def boolean?
+          @is_boolean
+        end
+
         protected
 
         def initialize(opts = {})
@@ -37,6 +41,7 @@ module RademadeAdmin
           @getter = opts[:getter]
           @is_string = opts[:is_string]
           @is_date_time = opts[:is_date_time]
+          @is_boolean = opts[:is_boolean]
           @localizable = opts[:localizable]
           @relation_name = opts[:relation_name]
         end

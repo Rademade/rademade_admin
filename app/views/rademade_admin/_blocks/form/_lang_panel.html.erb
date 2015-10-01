@@ -1,13 +1,10 @@
 <%
 if @form_fields_with_locale.length > 0
-    %><div data-lang-panel>
-        <ul class="form-box">
-          <li class="form-label">
-            <span class="text"><%= t('rademade_admin.language') %></span>
-          </li><%
+    %><div class="form-box" data-lang-panel>
+        <ul class="form-lang-switch"><%
             I18n.available_locales.each do |locale|
-                %><li class="lang-btn" style="margin-right: 10px; padding: 0px">
-                    <a href="#locale-<%= locale %>" style="color: #ffffff; display: block; width: 37px; line-height: 30px"><%= t("rademade_admin.locale_#{locale}", :default => locale) %></a>
+                %><li class="form-lang-item">
+                    <a class="form-lang-link" href="#locale-<%= locale %>"><%= t("rademade_admin.locale.#{locale}", :default => locale) %></a>
                 </li><%
             end
         %></ul><%

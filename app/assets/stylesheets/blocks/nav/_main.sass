@@ -1,0 +1,41 @@
+//variables
+$nav-width: em(270)
+.nav
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 990
+  width: $nav-width
+  height: 100%
+  background: $nav-bg
+  background: $nav-bg-gradient
+  transition: transform 0.3s ease-in-out
+
+  +media-below($media-large-width)
+    transform: translateX(-$nav-width)
+
+.nav-box
+  position: absolute
+  width: 100%
+  bottom: 0
+
+.nav-list
+  &.with-scroll
+    position: relative
+    height: 70%
+    height: calc(100% - 200px)
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+    &::-webkit-scrollbar
+      width: em(4)
+      background: none
+
+    &::-webkit-scrollbar-track
+
+    &::-webkit-scrollbar-thumb
+      background: rgba(216,216,216,0.2)
+      border-radius: em(3)
+
+    +media-below-height(420)
+      height: 50%
+      height: calc(100% - 132px)

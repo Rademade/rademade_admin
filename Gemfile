@@ -12,7 +12,7 @@ group :test do
   gem 'coveralls', :require => false
 
   # Mongoid
-  gem 'mongoid', '~> 4.0.2'
+  gem 'mongoid'
   gem 'mongoid-paranoia'
   gem 'mongoid_rails_migrations', '1.0.0'
   gem 'mongoid-grid_fs'
@@ -20,8 +20,8 @@ group :test do
   gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
   # Active Record
-  gem 'mysql2'
-  gem 'globalize', '~> 4.0.2'
+  gem 'mysql2', '~> 0.3', '< 0.4'
+  gem 'globalize'
   gem 'activerecord_sortable'
 
   # Uploaders

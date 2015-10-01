@@ -1,0 +1,19 @@
+<%= paginator.render do -%>
+    <div class="pagination fll"><%
+        unless current_page.first?
+            concat first_page_tag
+            concat prev_page_tag
+        end
+        each_page do |page|
+            if page.left_outer? || page.right_outer? || page.inside_window?
+                concat page_tag page
+            elsif !page.was_truncated?
+                concat gap_tag
+            end
+        end
+        unless current_page.last?
+            concat next_page_tag
+            concat last_page_tag
+        end
+    %></div>
+<% end -%>

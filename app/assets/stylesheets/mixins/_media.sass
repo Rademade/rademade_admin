@@ -1,0 +1,28 @@
+=media($width)
+  @media all and (max-width: $width/16 + em)
+    @content
+
+=media-below($width)
+  @media all and (max-width: $width/16 + em)
+    @content
+
+=media-above($width)
+  @media all and (min-width: $width/16 + em)
+    @content
+
+=media-below-height($height)
+  @media all and (max-height: $height/16 + em)
+    @content
+
+=retina()
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi)
+    @content
+
++media-below(400)
+  @-ms-viewport
+    width: 320px
+
+$browser-context: 16
+
+@function em($pixels, $context: $browser-context)
+  @return #{$pixels/$context}em

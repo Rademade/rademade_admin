@@ -7,33 +7,53 @@ module RademadeAdmin
     def input(wrapper_options = {})
       template.content_tag(
         :div,
-        HtmlBuffer.new([upload_button_html, gallery_images_html, gallery_hidden_html]),
-        { :class => 'gallery' }
+        HtmlBuffer.new([gallery_block_html, upload_block_html, gallery_hidden_html]),
+        :class => 'upload-list',
+        :data => { :gallery => '' }
+      )
+    end
+    
+    protected
+    
+    def gallery_block_html
+      is_sortable = gallery_image_info.sortable_relation?
+      template.content_tag(:div, images_html,
+        :class => 'upload-box',
+        :data => {
+          :sortable_url => is_sortable ? rademade_admin_route(:gallery_sort_url) : ''
+        }
       )
     end
 
-    protected
+    def images_html
+      html = []
+      preview_service = RademadeAdmin::Upload::Preview::Gallery.new
+      gallery.images.each do |gallery_image|
+        html << preview_service.preview_html(gallery_image.image)
+      end
+      HtmlBuffer.new(html)
+    end
+
+    def upload_block_html
+      template.content_tag(:div, upload_button_html, :class => 'upload-holder')
+    end
 
     def upload_button_html
-      template.content_tag(:input, '', {
-        :class => 'btn gallery-image-upload',
+      template.content_tag(:div, HtmlBuffer.new([
+        input_file_html,
+        template.content_tag(:span, t('rademade_admin.uploader.add.gallery'), :class => 'upload-text')
+      ]), :class => 'upload-item add')
+    end
+
+    def input_file_html
+      template.content_tag(:input, '',
         :type => 'file',
         :multiple => true,
         :data => {
           :url => rademade_admin_route(:gallery_upload_url),
           :class_name => gallery_class.to_s
         }
-      })
-    end
-
-    def gallery_images_html
-      is_sortable = gallery_image_info.sortable_relation?
-      template.content_tag(:div, HtmlBuffer.new([images_html]), {
-        :class => 'gallery-images-container',
-        :data => {
-          :sortable_url => is_sortable ? rademade_admin_route(:gallery_sort_url) : ''
-        }
-      })
+      )
     end
 
     def gallery_hidden_html
@@ -42,15 +62,6 @@ module RademadeAdmin
         :name => "data[#{gallery_info.getter}]",
         :value => gallery.id.to_s
       })
-    end
-
-    def images_html
-      html = ''
-      preview_service = RademadeAdmin::Upload::GalleryPreviewService.new
-      gallery.images.each do |gallery_image|
-        html += preview_service.preview_html(gallery_image.image)
-      end
-      html
     end
 
     def gallery

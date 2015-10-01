@@ -1,0 +1,35 @@
+.form-lang-switch
+  margin-bottom: em(5)
+  padding-left: 40%
+
+  +media-below($media-small-width)
+    position: absolute
+    padding-left: 0
+    top: em(13)
+    right: 0
+
+  .form-lang-item
+    display: inline-block
+    margin-right: em(20)
+    vertical-align: top
+
+    &.ui-state-active
+      .form-lang-link
+        cursor: default
+        color: $form-lang-active-color
+
+    &.ui-state-disabled
+      .form-lang-link
+        cursor: default
+        color: $form-lang-disabled-color
+
+  .form-lang-link
+    display: inline-block
+    cursor: pointer
+    text-transform: uppercase
+    font-size: em(14)
+    color: $form-lang-color
+
+    +media-below($media-small-width)
+      margin: 0 0 0 em(5)
+      font-size: em(11)

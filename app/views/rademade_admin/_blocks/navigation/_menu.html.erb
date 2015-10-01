@@ -1,0 +1,7 @@
+<%
+main_menu.each do |menu_item|
+    concat render @template_service.navigation_menu_item_block, {
+        :menu_item => menu_item
+    }
+end
+%>

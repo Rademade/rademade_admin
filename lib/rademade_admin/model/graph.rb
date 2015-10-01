@@ -6,7 +6,7 @@ module RademadeAdmin
 
       def add_pair(module_name, controller_name, inner)
         # Controller includes configuration for mapping model
-        controller = LoaderService.const_get("#{module_name}/#{controller_name}_controller")
+        controller = controller_class(module_name, "#{controller_name}_controller")
         controller.configuration.model(controller_name.classify) unless controller.model_name
 
         model = controller.model_class
@@ -30,6 +30,13 @@ module RademadeAdmin
 
       def initialize
         @model_infos = {}
+      end
+
+      def controller_class(module_name, full_controller_name)
+        LoaderService.const_get("#{module_name}/#{full_controller_name}")
+      rescue
+        dynamic_controller = Class.new(RademadeAdmin::ModelController)
+        LoaderService.const_get(module_name).const_set "#{full_controller_name}".classify, dynamic_controller
       end
 
     end

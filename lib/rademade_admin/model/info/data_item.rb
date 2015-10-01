@@ -45,7 +45,7 @@ module RademadeAdmin
         end
 
         def has_name?(name)
-          (has_relation? and @relation.name == name) or (has_field? and @field.name == name)
+          (has_relation? && @relation.name == name) || (has_field? && @field.name == name)
         end
 
         def has_relation?
@@ -69,7 +69,7 @@ module RademadeAdmin
         end
 
         def localizable?(localizable = true)
-          if not @form_params.nil? and @form_params.has_key? :localize
+          if !@form_params.nil? && @form_params.has_key?(:localize)
             @form_params[:localize] == localizable
           else
             return !localizable unless has_field?
@@ -116,19 +116,23 @@ module RademadeAdmin
         end
 
         def primary_field?
-          has_field? and @field.primary?
+          has_field? && @field.primary?
         end
 
         def string_field?
-          has_field? and @field.string?
+          has_field? && @field.string?
         end
 
-        def date_time?
-          has_field? and @field.date_time?
+        def date_time_field?
+          has_field? && @field.date_time?
+        end
+
+        def boolean_field?
+          has_field? && @field.boolean?
         end
 
         def simple_field?
-          not(has_uploader? or has_relation?)
+          !(has_uploader? || has_relation?)
         end
 
         private

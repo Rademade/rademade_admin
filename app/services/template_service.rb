@@ -2,24 +2,12 @@
 module RademadeAdmin
   class TemplateService
 
-    attr_accessor :index_template,
-                  :inner_layout,
-                  :main_layout,
-                  :inner_form_layout,
-                  :form_block,
-                  :form_control_block,
-                  :form_lang_panel_block,
-                  :form_separator_block,
-                  :pagination_block ,
-                  :on_page_select_block,
-                  :sort_reset_block,
-                  :search_block,
-                  :header_block,
-                  :menu_block,
-                  :sub_menu_block,
-                  :sub_menu_link_block,
-                  :table_head_block,
-                  :cancel_button
+    attr_writer :main_layout, :login_layout, :content_item_layout, :layout_head, :search_block,
+                :navigation_block, :navigation_menu_block, :navigation_menu_item_block,
+                :pagination_block, :on_page_switcher_block, :table_head_block, :table_head_list,
+                :list_block, :form_block, :form_control_block, :form_lang_panel_block,
+                :destroy_button, :edit_button, :hide_button, :preview_button, :gallery_button,
+                :cancel_button, :save_and_return_button, :save_button
 
     def initialize(root_dir)
       @root_dir = root_dir
@@ -28,21 +16,57 @@ module RademadeAdmin
     def template_path(*directories)
       "#{@root_dir}/#{directories.join('/')}"
     end
-    
-    def index_template
-      @index_template ||= abstract_template 'index'
-    end
-
-    def inner_layout
-      @inner_layout ||= layout_path 'inner'
-    end
 
     def main_layout
       @main_layout ||= layout_path 'main'
     end
 
-    def inner_form_layout
-      @inner_form_layout ||= layout_path 'inner/form'
+    def login_layout
+      @login_layout ||= layout_path 'login'
+    end
+
+    def content_item_layout
+      @content_item_layout ||= layout_path 'content_item'
+    end
+
+    def layout_head
+      @layout_head ||= layout_path 'parts/head'
+    end
+
+    def navigation_block
+      @navigation_block ||= block_path 'navigation'
+    end
+
+    def navigation_menu_block
+      @navigation_menu_block ||= block_path 'navigation/menu'
+    end
+
+    def navigation_menu_item_block
+      @navigation_menu_item_block ||= block_path 'navigation/menu/item'
+    end
+
+    def search_block
+      @search_block ||= block_path 'search'
+    end
+
+    def pagination_block
+      @pagination_block ||= block_path 'pagination'
+    end
+
+    def on_page_switcher_block
+      @on_page_switcher_block ||= block_path 'on_page_switcher'
+    end
+
+    def table_head_block
+      @table_head_block ||= block_path 'table/head'
+    end
+
+    def table_head_list
+      @table_head_list ||= block_path 'table/list'
+    end
+
+    def list_block
+      @list_block ||= block_path 'list'
     end
 
     def form_block
@@ -57,48 +81,36 @@ module RademadeAdmin
       @form_lang_panel_block ||= block_path 'form/lang_panel'
     end
 
-    def form_separator_block
-      @form_separator_block ||= block_path 'form/separator'
+    def destroy_button
+      @destroy_button ||= block_path 'button/destroy'
     end
 
-    def pagination_block
-      @pagination_block ||= block_path 'pagination'
+    def edit_button
+      @edit_button ||= block_path 'button/edit'
     end
 
-    def on_page_select_block
-      @on_page_select_block ||= block_path 'on_page_select'
+    def hide_button
+      @hide_button ||= block_path 'button/hide'
     end
 
-    def sort_reset_block
-      @sort_reset_block ||= block_path 'sort_reset'
+    def preview_button
+      @preview_button ||= block_path 'button/preview'
     end
 
-    def search_block
-      @search_block ||= block_path 'search'
-    end
-
-    def header_block
-      @header_block ||= block_path 'header'
-    end
-
-    def menu_block
-      @menu_block ||= block_path 'menu'
-    end
-
-    def sub_menu_block
-      @sub_menu_block ||= block_path 'sub_menu'
-    end
-
-    def sub_menu_link_block
-      @sub_menu_link_block ||= block_path 'sub_menu/link'
-    end
-
-    def table_head_block
-      @table_head_block ||= block_path 'table/head'
+    def gallery_button
+      @gallery_button ||= block_path 'button/gallery'
     end
 
     def cancel_button
       @cancel_button ||= block_path 'button/cancel'
+    end
+
+    def save_and_return_button
+      @save_and_return_button ||= block_path 'button/save_and_return'
+    end
+
+    def save_button
+      @save_button ||= block_path 'button/save'
     end
 
     private

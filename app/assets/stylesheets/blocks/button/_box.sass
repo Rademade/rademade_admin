@@ -1,0 +1,44 @@
+.input-holder
+  .btn-list
+    padding: em(10) 0 0 0
+
+.btn-list
+  padding: em(20) 0 em(10) 0
+  +clear
+
+.btn-box
+  display: inline-block
+  vertical-align: top
+  +clear
+
+  &.fll
+    width: 70%
+    +media-below($media-medium-width)
+      float: none
+      width: 100%
+
+  &.align-left
+    text-align: left
+
+    .btn
+      margin: 0 em(20) em(10) 0
+
+    .btn-link
+      margin: em(8) em(20) em(10) 0
+
+  &.align-center
+    text-align: center
+
+    .btn
+      margin: 0 em(10) 0 em(10)
+
+    .btn-link
+      margin: em(8) em(10) 0 em(10)
+
+  &.align-right
+    text-align: right
+
+    .btn
+      margin: 0 0 em(20) em(10)
+    .btn-link
+      margin: em(8) 0 em(20) em(10)

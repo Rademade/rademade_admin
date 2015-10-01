@@ -7,7 +7,7 @@ class RademadeAdmin::VideoService
 
   def take_random_screenshot(thumb_path)
     duration = duration_in_seconds
-    screenshot_time = 1 + (duration.nil? ? 0 : Random.rand(duration - 1))
+    screenshot_time = duration.nil? ? 0 : Random.rand(duration)
     `ffmpeg -ss #{screenshot_time} -i #{@file_path} -f image2 -vframes 1 #{thumb_path}`
   end
 

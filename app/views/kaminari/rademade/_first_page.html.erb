@@ -1,0 +1,4 @@
+<%= link_to_unless current_page.first?, t('views.pagination.rademade.first').html_safe, url,
+    :remote => remote,
+    :class => 'pagination-link is-first'
+%>

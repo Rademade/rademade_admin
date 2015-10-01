@@ -1,0 +1,46 @@
+.content-item
+  .content-header
+    .content-header-link
+      background-color: #EBF6FF
+      font-weight: normal
+
+  .content-data
+    display: none
+
+  &:last-child
+
+    .close-link
+      display: block
+
+    .content-header
+      .content-header-link
+        color: $content-header-link-color
+        font-weight: bold
+        background-color: #fff
+        &:after, &:before
+          top: 100%
+          left: em(25)
+          border: solid transparent
+          content: " "
+          height: 0
+          width: 0
+          position: absolute
+          pointer-events: none
+        &:after
+          border-color: rgba(255, 255, 255, 0)
+          border-top-color: $content-header-bg
+          border-width: 10px
+          margin-left: -10px
+        &:before
+          border-color: rgba(216, 223, 234, 0)
+          border-top-color: $content-header-border
+          border-width: 11px
+          margin-left: -11px
+    &:nth-child(1)
+      .close-link
+        display: none
+      .content-header-link
+        &:after, &:before
+          display: none
+    .content-data
+      display: block

@@ -24,7 +24,7 @@ How to use it
 
 2) Update `config/initializers/assets.rb` with line:
 ```ruby
-config.assets.precompile += %w( rademade_admin.css rademade_admin.js)
+config.assets.precompile += %w(rademade_admin.css rademade_admin.js)
 ```
 
 3) Mount rails engine at routing.rb `mount RademadeAdmin::Engine => '/rademade_admin`
@@ -71,9 +71,10 @@ end
 
 5) Add rademade_admin initializer `initializers/rademade_admin.rb`
 ```ruby
-RademadeAdmin::Configuration.configure do
-  admin_model User
+RademadeAdmin.configure do |config|
+  config.admin_class = User
 end
+
 ```
 
 6) Create admin controller. Example `app/controllers/rademade_admin/users_controller.rb`

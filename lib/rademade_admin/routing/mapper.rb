@@ -24,16 +24,8 @@ module RademadeAdmin
             end if parent_resource_actions.include? :new
 
             member do
-              get :form if parent_resource_actions.include? :show
-
-              scope 'related/:relation' do
-                get '/' => :related, :as => :related
-                get :autocomplete, :link_autocomplete
-                post ':related_id' => :related_add, :as => :related_add
-                delete ':related_id' => :related_destroy, :as => :related_destroy
-              end
-
-            end
+              get :form
+            end if parent_resource_actions.include? :show
 
             Model::Graph.instance.add_pair(@scope[:module], @scope[:controller], self.shallow?)
 

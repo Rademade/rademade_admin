@@ -1,0 +1,28 @@
+=btn($btn-class,$btn-color)
+  .btn
+    &.#{$btn-class}
+      background-color: $btn-color
+      border: .08em solid $btn-color
+
+      &:hover
+        color: $btn-color
+        background: none
+        border: .08em solid $btn-color
+
+      &.is-stroke
+        color: $btn-color
+        background: none
+        border: .08em solid $btn-color
+
+        &:hover
+          color: $white
+          background: $btn-color
+          border: .08em solid $btn-color
+
++btn(is-blue,$btn-blue-color)
++btn(is-dark-red,$btn-dred-color)
++btn(is-purple,$btn-purple-color)
++btn(is-red,$btn-red-color)
++btn(is-white,$btn-white-color)
++btn(is-green,$btn-green-color)
++btn(is-yellow,$btn-yellow-color)

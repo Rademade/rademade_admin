@@ -1,0 +1,51 @@
+html
+  .jcrop-holder
+    background: rgba(158,182,204,0.37) !important
+  .jcrop-handle
+    display: none !important
+
+  .jcrop-vline
+    background: none !important
+    opacity: 1 !important
+    &:after
+      position: absolute
+      content: ''
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background-color: #fff
+
+  .jcrop-hline
+    background: none !important
+    opacity: 1 !important
+    &:after
+      position: absolute
+      content: ''
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background-color: #fff
+
+
+  div[data-jcrop-size]
+    right: calc(-100% - 5px) !important
+    bottom: -7px !important
+    width: em(40)
+    padding: 0
+    background: rgba(0,0,0,0.2)
+    border-radius: em(5)
+    box-sizing: border-box
+    div
+      font-size: em(12)
+      color: #fff
+      text-align: center
+      +arial
+
+    &:after
+      position: absolute
+      content: ''
+      top: em(-10)
+      left: em(-9)
+      +sprite(jcrop)

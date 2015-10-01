@@ -1,0 +1,5 @@
+<%= link_to_unless current_page.first?, t('views.pagination.rademade.previous').html_safe, url,
+    :rel => 'prev',
+    :remote => remote,
+    :class => 'pagination-link is-prev'
+%>

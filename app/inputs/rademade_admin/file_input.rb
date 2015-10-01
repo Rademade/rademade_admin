@@ -5,87 +5,72 @@ module RademadeAdmin
     include UriHelper
 
     def input(wrapper_options = {})
-      template.content_tag(
-        :div,
-        HtmlBuffer.new([file_html, download_button_html]),
-        { :class => 'uploader-block' }
+      template.content_tag(:div, upload_box_html,
+        :class => 'upload-list',
+        :data => {
+          :upload => true
+        }
       )
+      # todo add download button
     end
 
     protected
 
-    def file_html
+    def upload_box_html
       template.content_tag(
         :div,
-        HtmlBuffer.new([
-          upload_preview_service.preview_html,
-          input_file_html,
-          upload_progress_html,
-          upload_button_html,
-          upload_preview_service.is_crop? ? crop_button_html : '',
+        RademadeAdmin::HtmlBuffer.new([
+          holder_html(file_preview_html, uploader.blank? || uploader.size.zero?),
+          holder_html(upload_button_html),
           input_hidden_html
         ]),
-        { :class => 'uploader-wrapper' }
+        :class => 'upload-box'
+      )
+    end
+
+    def holder_html(inner_html, hidden = false)
+      class_name = 'upload-holder'
+      class_name += ' hide' if hidden
+      template.content_tag(:div, inner_html, :class => class_name)
+    end
+
+    def file_preview_html
+      template.content_tag(:div, upload_preview_service.preview_html, :class => 'upload-item')
+    end
+    
+    def upload_button_html
+      template.content_tag(
+        :div,
+        RademadeAdmin::HtmlBuffer.new([
+          input_file_html,
+          upload_text_html
+        ]),
+        :class => 'upload-item add'
       )
     end
 
     def input_file_html
       @builder.file_field(uploader.mounted_as, {
         :id => nil,
-        :class => 'btn yellow-btn uploader-input-file',
         :name => uploader.mounted_as,
         :data => {
-          :saved => object.new_record? ? 0 : 1,
           :url => rademade_admin_route(:file_upload_url)
         }.merge(uploader_params)
       })
     end
 
+    def upload_text_html
+      template.content_tag(:span, upload_text, :class => 'upload-text')
+    end
+
     def input_hidden_html
       @builder.hidden_field(attribute_name, {
-        :class => 'uploader-input-hidden hidden',
         :value => uploader.url
       }.merge(input_html_options))
     end
 
-    def upload_progress_html
-      progress_slider = template.content_tag(:div, '', { :class => 'upload-progress' })
-      template.content_tag(:div, progress_slider, {
-        :class => 'upload-progress-wrapper'
-      })
-    end
-
-    def upload_button_html
-      template.content_tag(:span, I18n.t('rademade_admin.upload_file'), {
-        :class => 'btn green-btn upload-btn',
-        :data => {
-          :upload => true
-        }
-      })
-    end
-
-    def download_button_html
-      template.content_tag(:a, I18n.t('rademade_admin.download_file'), {
-        :class => 'btn blue-btn download-btn',
-        :href => admin_url_for({
-          :controller => 'rademade_admin/file',
-          :action => 'download'
-        }.merge(uploader_params)) #todo use route name and resources
-      }) unless uploader.file.nil?
-    end
-
-    def crop_button_html
-      template.content_tag(:span, I18n.t('rademade_admin.crop'), {
-        :class => 'btn red-btn upload-btn',
-        :data => {
-          :crop => true,
-          :url => rademade_admin_route(:file_crop_url)
-        }
-      })
-    end
-
     def upload_preview_service
-      @upload_preview_service ||= RademadeAdmin::Upload::PreviewService.new(uploader)
+      @upload_preview_service ||= RademadeAdmin::Upload::Preview::File.new(uploader)
     end
 
     def uploader
@@ -94,6 +79,21 @@ module RademadeAdmin
 
     def photo_uploader?
       uploader.class.ancestors.include? RademadeAdmin::Uploader::Photo
+    end
+
+    def video_uploader?
+      uploader.class.ancestors.include? RademadeAdmin::Uploader::Video
+    end
+
+    def upload_text
+      if photo_uploader?
+        translation = 'photo'
+      elsif video_uploader?
+        translation = 'video'
+      else
+        translation = 'file'
+      end
+      t("rademade_admin.uploader.add.#{translation}")
     end
 
     def uploader_params

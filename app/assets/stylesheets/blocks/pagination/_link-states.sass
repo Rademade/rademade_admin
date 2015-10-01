@@ -1,0 +1,69 @@
+.pagination-link
+
+  &:hover
+    color: $pagination-hover-color
+    border: 1px solid $pagination-hover-border
+
+  &.is-active
+    color: $pagination-active-color
+    font-weight: bold
+    border: 1px solid $pagination-active-border
+
+  &.is-prev,
+  &.is-next,
+  &.is-first,
+  &.is-last
+    text-align: left
+    width: auto
+    +media-below(1100)
+      display: inline-block
+    &:hover
+      border: 1px solid transparent
+      &:after
+        opacity: 0
+      &:before
+        opacity: 1
+
+  &:after,
+  &:before
+    position: absolute
+    content: ''
+    top: 50%
+    margin-top: em(-9)
+    transition: opacity $transitionVal ease-in-out
+
+  &:before
+    opacity: 0
+
+  &.is-prev,
+  &.is-first
+    margin-right: em(30)
+    padding: 0 0 0 em(20)
+    +media-below($media-medium-width)
+      float: left
+
+    &:after
+      left: 0
+      +sprite(left-arrow)
+
+    &:before
+      left: 0
+      +sprite(left-arrow_blue)
+
+  &.is-next,
+  &.is-last
+    margin-left: em(30)
+    padding: 0 em(20) 0 0
+
+    &:after
+      right: 0
+      +sprite(right-arrow)
+
+    &:before
+      right: 0
+      +sprite(right-arrow_blue)
+
+  &.is-first,
+  &.is-last,
+    +media-below($media-small-width)
+      display: none
