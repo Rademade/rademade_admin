@@ -2,7 +2,7 @@ class Item < Sequel::Model
   include RademadeAdmin::Hideable
   
   many_to_one :category
-  many_to_many :items
+  many_to_many :colors
 
   def to_s
     name

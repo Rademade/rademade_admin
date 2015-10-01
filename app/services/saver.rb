@@ -60,7 +60,12 @@ module RademadeAdmin
       data = @params[:data]
       @model_info.data_items.related_fields.each do |_, data_item|
         if data.has_key? data_item.getter
-          item.send(data_item.setter, find_entities(data_item, data[data_item.getter]))
+          entities = find_entities(data_item, data[data_item.getter])
+          if data_item.setter.is_a? Proc
+            item.instance_exec(entities, &data_item.setter)
+          else
+            item.send(data_item.setter, entities)
+          end
         end
       end
     end
