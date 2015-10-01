@@ -12,13 +12,12 @@ module RademadeAdmin
           end
 
           def has_one_relations
-            [:many_to_one]
+            [:one_to_one, :many_to_one, :one_through_one]
           end
 
           def _map_fields
             fields = {}
             @model.db_schema.each do |name, field_data|
-              binding.pry
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
                 :primary => field_data[:primary_key],
@@ -37,20 +36,20 @@ module RademadeAdmin
           def _map_relations
             relations = {}
             @model.association_reflections.each do |name, relation_info|
-              type = relation_info.type
-              to_class = RademadeAdmin::LoaderService.const_get(relation_info.class_name) rescue nil
+              binding.pry
+              to_class = RademadeAdmin::LoaderService.const_get(relation_info[:class_name]) rescue nil
               relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
                 :name => name,
                 :from => @model,
                 :to => to_class,
                 :getter => name,
                 :setter => :"#{name}=",
-                :type => type,
-                :many => type == :one_to_many,
-                :has_many => has_many_relations.include?(type),
+                :type => relation_info[:type],
+                :many => relation_info[:type] == :one_to_many,
+                :has_many => has_many_relations.include?(relation_info[:type]),
                 :sortable => false,
                 :sortable_field => nil,
-                :foreign_key => relation_info.key
+                :foreign_key => relation_info[:key]
               })
             end
             relations

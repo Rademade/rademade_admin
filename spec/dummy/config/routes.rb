@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 Rails.application.routes.draw do
 
-  mount RademadeAdmin::Engine => '/rademade_admin'
-  namespace :rademade_admin do
+  mount RademadeAdmin::Engine => '/'
+  namespace :rademade_admin, path: '/' do
 
     # Mongoid
     admin_resources :users, :posts, :tags
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     admin_resources :active_galleries, :only => []
 
     # Sequel
-    admin_resources :categories, :items
+    admin_resources :categories, :items, :colors
 
   end
 

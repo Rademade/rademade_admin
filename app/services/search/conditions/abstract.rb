@@ -41,7 +41,11 @@ module RademadeAdmin
         end
 
         def paginate
-          [page, per_page]
+          if page.nil? || per_page.nil?
+            nil
+          else
+            [page, per_page]
+          end
         end
 
         def page
