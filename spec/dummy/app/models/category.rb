@@ -4,8 +4,15 @@ class Category < Sequel::Model
 
   mount_uploader :image, PosterUploader
 
+  plugin :validation_helpers
+
   def to_s
     name
+  end
+
+  def validate
+    super
+    validates_unique :name
   end
 
 end

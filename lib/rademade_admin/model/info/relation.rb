@@ -4,7 +4,7 @@ module RademadeAdmin
     class Info
       class Relation
 
-        attr_reader :name, :from, :to, :getter, :setter, :type, :foreign_key, :sortable_field
+        attr_reader :name, :from, :to, :getter, :query_getter, :setter, :type, :foreign_key, :sortable_field
 
         def has_many?
           @has_many
@@ -38,6 +38,7 @@ module RademadeAdmin
           @from = opt[:from]
           @to = opt[:to]
           @getter = opt[:getter]
+          @query_getter = opt[:query_getter] || @getter
           @setter = opt[:setter]
           @type = opt[:type]
           @has_many = opt[:has_many]

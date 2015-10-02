@@ -106,7 +106,8 @@ module RademadeAdmin
     def index_items
       conditions = Search::Conditions::List.new(params, model_info.data_items)
       if params[:rel_class] && params[:rel_id] && params[:rel_getter]
-        @related_model = LoaderService.const_get(params[:rel_class]).find(params[:rel_id])
+        related_info = RademadeAdmin::Model::Graph.instance.model_info(params[:rel_class])
+        @related_model = related_info.query_adapter.find(params[:rel_id])
         conditions.base_items = @related_model.send(params[:rel_getter])
       end
       Search::Searcher.new(model_info).search(conditions)
@@ -147,11 +148,16 @@ module RademadeAdmin
     end
 
     def render_record_errors(e)
-      if e.respond_to? :record
-        render_errors e.record.errors
-      else
-        render_errors e.message
+      # todo place into adapters
+      errors = case e
+        when ActiveRecord::RecordInvalid, Mongoid::Errors::Validations
+          e.record.errors
+        when Sequel::ValidationFailed
+          e.errors
+        else
+          e.message
       end
+      render_errors errors
     end
 
     def render_csv

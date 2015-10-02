@@ -43,13 +43,13 @@ module RademadeAdmin
                 :name => name,
                 :from => @model,
                 :to => to_class,
-                :getter => name,
+                :getter => getter,
+                :query_getter => :"#{getter}_dataset",
                 :setter => has_many ? _to_many_setter(relation_info, getter) : :"#{name}=",
                 :type => relation_info[:type],
                 :many => relation_info[:type] == :one_to_many,
                 :has_many => has_many,
                 :sortable => false,
-                :sortable_field => nil,
                 :foreign_key => relation_info[:key]
               })
             end
