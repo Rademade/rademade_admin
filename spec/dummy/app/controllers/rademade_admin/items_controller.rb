@@ -6,6 +6,7 @@ class RademadeAdmin::ItemsController < RademadeAdmin::ModelController
       name
       price
       category
+      sequel_gallery
     end
   end
 

@@ -89,6 +89,14 @@ module RademadeAdmin
           @setter ||= has_relation? ? relation.setter : :"#{getter}="
         end
 
+        def set_data(item, *data)
+          if setter.is_a? Proc
+            item.instance_exec(*data, &setter)
+          else
+            item.send(setter, *data)
+          end
+        end
+
         def list_preview_accessor
           @list_preview_accessor || getter
         end

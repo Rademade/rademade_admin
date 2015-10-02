@@ -37,20 +37,17 @@ module RademadeAdmin
             relations = {}
             @model.association_reflections.each do |name, relation_info|
               to_class = RademadeAdmin::LoaderService.const_get(relation_info[:class_name]) rescue nil
-              if relation_info[:type] == :many_to_many
-                setter = _many_to_many_setter(relation_info)
-              else
-                setter = :"#{name}="
-              end
-              relations[name] = ::RademadeAdmin::Model::Info::Relation.new({
+              has_many = has_many_relations.include?(relation_info[:type])
+              getter = name
+              relations[name] = _relation_class_name(to_class).new({
                 :name => name,
                 :from => @model,
                 :to => to_class,
                 :getter => name,
-                :setter => setter,
+                :setter => has_many ? _to_many_setter(relation_info, getter) : :"#{name}=",
                 :type => relation_info[:type],
                 :many => relation_info[:type] == :one_to_many,
-                :has_many => has_many_relations.include?(relation_info[:type]),
+                :has_many => has_many,
                 :sortable => false,
                 :sortable_field => nil,
                 :foreign_key => relation_info[:key]
@@ -59,9 +56,9 @@ module RademadeAdmin
             relations
           end
 
-          def _many_to_many_setter(relation_info)
+          def _to_many_setter(relation_info, getter)
             Proc.new do |new_items|
-              old_items = self.send(name)
+              old_items = self.send(getter)
               (old_items - new_items).each do |related_item|
                 self.instance_exec(related_item, &relation_info[:remover])
               end

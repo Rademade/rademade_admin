@@ -43,13 +43,13 @@ module RademadeAdmin
     def save_localizable_fields
       current_locale = I18n.locale
       @model_info.data_items.localizable_fields.each do |_, data_item|
-        values = @params[:data].try(:[], data_item.getter)
+        values = @params[:data].try(:[], data_item.name)
         values.each do |locale, value|
           I18n.locale = locale
           if data_item.has_uploader?
             save_model_upload(data_item, value)
           else
-            item.send(data_item.setter, value)
+            data_item.set_data(item, value)
           end
         end if values
       end
@@ -59,13 +59,8 @@ module RademadeAdmin
 	  def save_model_relations
       data = @params[:data]
       @model_info.data_items.related_fields.each do |_, data_item|
-        if data.has_key? data_item.getter
-          entities = find_entities(data_item, data[data_item.getter])
-          if data_item.setter.is_a? Proc
-            item.instance_exec(entities, &data_item.setter)
-          else
-            item.send(data_item.setter, entities)
-          end
+        if data.has_key? data_item.name
+          data_item.set_data(item, find_entities(data_item, data[data_item.name]))
         end
       end
     end
@@ -87,7 +82,7 @@ module RademadeAdmin
           else
             entity = item
           end
-          entity.send(data_item.setter, File.open(full_image_path))
+          data_item.set_data(entity, File.open(full_image_path))
         rescue
           # rm_todo clear image
         end

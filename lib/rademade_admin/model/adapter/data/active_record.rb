@@ -29,12 +29,7 @@ module RademadeAdmin
               if name != :translations
                 to_class = relation_info.polymorphic? ? nil : RademadeAdmin::LoaderService.const_get(relation_info.class_name)
                 is_sortable = relation_info.respond_to?(:sortable?) ? relation_info.sortable? : false
-                if !to_class.nil? && to_class.ancestors.include?(RademadeAdmin::Gallery)
-                  relation_class_name = ::RademadeAdmin::Model::Info::Relation::Gallery
-                else
-                  relation_class_name = ::RademadeAdmin::Model::Info::Relation
-                end
-                relations[name] = relation_class_name.new({
+                relations[name] = _relation_class_name(to_class).new({
                   :name => name,
                   :from => @model,
                   :to => to_class,
@@ -99,14 +94,14 @@ module RademadeAdmin
           private
 
           def extract_column_data(field_data)
-            if is_datetime_type?(field_data)
+            if datetime_type?(field_data)
               field_data.instance_values['column']
             else
               field_data
             end
           end
 
-          def is_datetime_type?(field_data)
+          def datetime_type?(field_data)
             defined?(::ActiveRecord::AttributeMethods::TimeZoneConversion::Type) &&
               field_data.is_a?(::ActiveRecord::AttributeMethods::TimeZoneConversion::Type)
           end

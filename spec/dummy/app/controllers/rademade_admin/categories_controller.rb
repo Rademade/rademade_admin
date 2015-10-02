@@ -4,6 +4,7 @@ class RademadeAdmin::CategoriesController < RademadeAdmin::ModelController
     list :name
     form do
       name
+      image
     end
   end
 

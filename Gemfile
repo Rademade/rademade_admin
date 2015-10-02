@@ -11,6 +11,9 @@ end
 group :test do
   gem 'coveralls', :require => false
 
+  # Uploaders
+  gem 'carrierwave'
+
   # Mongoid
   gem 'mongoid'
   gem 'mongoid-paranoia'
@@ -28,9 +31,7 @@ group :test do
 
   # Sequel
   gem 'sequel'
-
-  # Uploaders
-  gem 'carrierwave'
+  gem 'carrierwave-sequel', :require => 'carrierwave/sequel'
 
   # Testing utilities
   gem 'rspec', '~> 3.0'
