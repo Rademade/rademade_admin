@@ -33,7 +33,7 @@ group :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 1.3.0'
   gem 'capybara-webkit'
   gem 'factory_girl_rails', :require => false
   gem 'simplecov'
