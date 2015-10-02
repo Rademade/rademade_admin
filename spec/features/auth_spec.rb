@@ -15,7 +15,7 @@ describe 'Auth', :type => :feature, :js => true do
 
     it 'should redirect to login page' do
       visit rademade_admin_path
-      expect(page).to have_content 'Log in'
+      expect(page).to have_selector(:link_or_button, 'Log in')
     end
 
     it 'should login with admin user' do
@@ -25,8 +25,8 @@ describe 'Auth', :type => :feature, :js => true do
       fill_in 'data_password', :with => '12345678'
 
       click_on 'Log in'
-      find('#sidebar-nav')
-      expect(page).to have_content 'Dashboard'
+      find('#wrapper')
+      expect(page).to have_content 'Hello'
     end
 
     it 'should not login with non admin user' do
@@ -63,9 +63,9 @@ describe 'Auth', :type => :feature, :js => true do
     end
 
     it 'should sign out' do
-      click_on 'Exit'
+      find('.user-settings').click
 
-      expect(page).to have_content 'Log in'
+      expect(page).to have_selector(:link_or_button, 'Log in')
     end
 
   end

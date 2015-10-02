@@ -28,9 +28,10 @@ module RademadeAdmin
                 :name => name,
                 :primary => name == :_id,
                 :getter => getter,
-                :setter => getter + '=',
+                :setter => "#{getter}=",
                 :is_string => field_data.type == String,
                 :is_date_time => field_data.type == DateTime,
+                :is_boolean => field_data.type == ::Mongoid::Boolean,
                 :localizable => field_data.localized?,
                 :relation_name => field_data.options[:metadata].try(:name)
               })

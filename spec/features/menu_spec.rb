@@ -15,7 +15,7 @@ describe 'Menu', :type => :feature, :js => true do
     fill_in 'data_password', :with => '12345678'
 
     click_on 'Log in'
-    find('#sidebar-nav')
+    find('#wrapper')
   end
 
   it 'should have "dashboard" item' do

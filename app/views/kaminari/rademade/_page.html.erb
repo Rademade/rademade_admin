@@ -1,0 +1,8 @@
+<%
+class_name = 'pagination-link'
+class_name += ' is-active' if page.current?
+concat link_to page, url,
+    :remote => remote,
+    :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil,
+    :class => class_name
+%>

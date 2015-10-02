@@ -55,9 +55,6 @@ SimpleForm.setup do |config|
   #   nested: label > input
   config.boolean_style = :inline
 
-  # Default class for buttons
-  config.button_class = 'btn'
-
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
   # Use :to_sentence to list all errors for each field.
@@ -65,9 +62,6 @@ SimpleForm.setup do |config|
 
   # Default tag used for error notification helper.
   config.error_notification_tag = :div
-
-  # CSS class to add for error notification helper.
-  config.error_notification_class = 'alert alert-error'
 
   # ID to add for error notification helper.
   # config.error_notification_id = nil
@@ -94,9 +88,6 @@ SimpleForm.setup do |config|
 
   # How the label text should be generated altogether with the required text.
   # config.label_text = lambda { |label, required| "#{required} #{label}" }
-
-  # You can define the class to use on all labels. Default is nil.
-  config.label_class = 'control-label'
 
   # You can define the class to use on all forms. Default is simple_form.
   # config.form_class = :simple_form
@@ -143,5 +134,7 @@ SimpleForm.setup do |config|
 
   # Default class for inputs
   # config.input_class = nil
+
+  config.button_class = nil
 
 end

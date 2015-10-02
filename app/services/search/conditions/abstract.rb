@@ -5,6 +5,7 @@ module RademadeAdmin
       class Abstract
 
         attr_reader :params
+        attr_writer :base_items
 
         # @param params [Hash]
         # @param data_items [RademadeAdmin::Model::Info::DataItems]
@@ -27,7 +28,7 @@ module RademadeAdmin
         def base_condition(model)
           # todo. deleted at?
           # We can't use default scope. It can be patched
-          model.unscoped
+          @base_items || model.unscoped
         end
 
         protected

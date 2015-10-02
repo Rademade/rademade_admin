@@ -1,0 +1,110 @@
+$width: 100%
+
+.upload-holder
+  float: left
+  padding: em(2)
+  width: 24%
+  box-sizing: border-box
+  +media-below($media-medium-width)
+    width: $width / 3
+
+.upload-item
+  position: relative
+  display: block
+  width: 100%
+  vertical-align: top
+  border-radius: em(4)
+  cursor: pointer
+  overflow: hidden
+  box-sizing: border-box
+
+  &:hover
+    .upload-delete
+      opacity: 1
+
+  &.add
+    padding-bottom: 98%
+    background-color: #F9FBFE
+    font-size: em(13)
+    color: rgba(71, 80, 98, 0.4)
+    border: .08em solid #D1D8E6
+    border-radius: em(6)
+
+    &:after
+      position: absolute
+      content: ""
+      top: em(23)
+      left: 50%
+      margin-left: em(-15)
+      +sprite(file)
+
+  &.is-loading
+    padding-bottom: 98%
+    background-color: #F9FBFE
+    font-size: em(13)
+    color: #34CD7F
+    border: .08em solid #34CD7F
+    border-radius: em(6)
+
+    &:after
+      position: absolute
+      content: ""
+      top: em(23)
+      left: 50%
+      margin-left: em(-15)
+      width: 25px
+      height: 25px
+      background: asset-url('rademade_admin/loader.GIF') center no-repeat
+
+  .upload-text
+    position: absolute
+    padding: 0 em(20)
+    width: 100%
+    top: 50%
+    text-align: center
+    box-sizing: border-box
+
+  input
+    position: absolute
+    z-index: 2
+    top: 0
+    left: 0
+    font-size: em(500)
+    width: em(5000)
+    opacity: 0
+    cursor: pointer
+
+  img
+    display: inline-block
+    width: 100%
+    border-radius: em(2)
+    vertical-align: top
+
+  .upload-delete
+    position: absolute
+    top: 0
+    right: 0
+    width: em(18)
+    height: em(18)
+    background-color: rgba(255,255,255,0.4)
+    border-radius: 0 em(4)
+    opacity: 0
+    transition: opacity $transitionVal ease-in-out
+
+    &:after
+      position: absolute
+      content: ""
+      top: 50%
+      left: 50%
+      margin: em(-4) 0 0 em(-4)
+      opacity: .7
+      +sprite(delete-small)
+
+  .upload-item-data
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: #fff
+    border-radius: em(4)

@@ -1,8 +1,0 @@
-<div id="sidebar-nav" class="content-menu">
-    <ul id="dashboard-menu"><%
-        concat render_cell(:menu, :root_item)
-        RademadeAdmin::MenuService.instance.main_menu.each do |menu_item|
-            concat render_cell(:menu, :item, menu_item)
-        end
-    %></ul>
-</div>

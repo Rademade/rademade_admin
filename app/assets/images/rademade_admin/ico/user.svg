@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12002) - http://www.bohemiancoding.com/sketch -->
+    <title>user</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="User-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Login" sketch:type="MSArtboardGroup" transform="translate(-572.000000, -243.000000)" fill="#FFFFFF">
+            <g id="user" sketch:type="MSLayerGroup" transform="translate(572.000000, 243.000000)">
+                <g id="User" sketch:type="MSShapeGroup">
+                    <path d="M8,11 C10.4815,11 12.5,8.532 12.5,5.5 C12.5,2.468 10.481,0 8,0 C6.7765,0 5.633,0.587 4.781,1.6525 C3.9545,2.685 3.5,4.052 3.5,5.5005 C3.5,8.532 5.5185,11 8,11 L8,11 Z M8,1.0005 C9.9295,1.0005 11.5,3.019 11.5,5.5005 C11.5,7.9815 9.9295,10.0005 8,10.0005 C6.0705,10.0005 4.5,7.9815 4.4995,5.5005 C4.4995,3.019 6.07,1.0005 8,1.0005 L8,1.0005 Z M11.5,10 C11.2235,10 11,10.2235 11,10.5 C11,10.7765 11.2235,11 11.5,11 C13.4295,11 15,12.5705 15,14.5 C15,14.7755 14.7755,15 14.5,15 L1.5,15 C1.2245,15 1,14.7755 1,14.5 C1,12.5705 2.5705,11 4.5,11 C4.7765,11 5,10.7765 5,10.5 C5,10.2235 4.7765,10 4.5,10 C2.0185,10 0,12.0185 0,14.5 C0,15.327 0.673,16 1.5,16 L14.5,16 C15.327,16 16,15.327 16,14.5 C16,12.019 13.9815,10 11.5,10 L11.5,10 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

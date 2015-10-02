@@ -1,0 +1,56 @@
+$transitionVal: 0.3s
+
+.content-search
+  position: relative
+  margin-bottom: em(10)
+  &.flr
+    +media-below($media-medium-width)
+      float: none
+      width: 100%
+
+  .content-search-ico
+    position: absolute
+    top: 50%
+    right: 0
+    margin-top: -9px
+    width: em(16)
+    height: em(17)
+    border: 0
+    background: none
+    cursor: pointer
+    outline: none
+
+    &:before,
+    &:after
+      position: absolute
+      content: ""
+      top: 0
+      right: 0
+      transition: opacity $transitionVal ease-in-out
+
+    &:before
+      +sprite(search)
+
+    &:after
+      opacity: 0
+      +sprite(search_blue)
+
+  .content-search-input
+    padding: em(10) em(65) em(10) 0
+    width: 100%
+    font-size: em(15)
+    background: none
+    color: $content-search-color
+    border-bottom: 1px solid $content-search-border
+    transition: border $transitionVal ease-in-out, color $transitionVal ease-in-out
+    box-sizing: border-box
+    +placeholder($content-search-placeholder,em(15))
+    &:focus
+      border-bottom: 1px solid $content-search-border-focus
+      +placeholder($content-search-placeholder-focus,em(15))
+
+    &:focus + .content-search-ico
+      &:before
+        opacity: 0
+      &:after
+        opacity: 1

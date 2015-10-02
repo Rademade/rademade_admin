@@ -11,7 +11,21 @@ module RademadeAdmin::FormHelper
         :multipart => true,
         :novalidate => true,
         :autocomplete => 'off',
-        :class => (record.new_record? ? 'insert-item-form' : 'update-item-form') + ' form-horizontal',
+        :class => (record.new_record? ? 'insert-item-form' : 'update-item-form')
+      },
+      &block
+    )
+  end
+
+  def login_form(&block)
+    simple_form_for(
+      RademadeAdmin.configuration.admin_class.new,
+      :wrapper => :rademade_login,
+      :url => [:sessions],
+      :as => :data,
+      :html => {
+        :id => 'login-form',
+        :class => 'login-form'
       },
       &block
     )
@@ -43,7 +57,7 @@ module RademadeAdmin::FormHelper
 
   def field_params(data_item)
     field_params = data_item.form_params
-    field_params[:as] = default_field_type(data_item) unless field_params[:as].present?
+    field_params[:as] = field_type(data_item, field_params[:as])
     field_params
   end
 
@@ -62,20 +76,6 @@ module RademadeAdmin::FormHelper
         :value => localized_value(data_item.getter, locale)
       }
     }
-  end
-
-  def default_field_type(data_item)
-    if data_item.gallery_relation?
-      :'rademade_admin/gallery'
-    elsif data_item.has_relation?
-      :'rademade_admin/related_select'
-    elsif data_item.has_uploader?
-      :'rademade_admin/file'
-    elsif data_item.date_time?
-      :'rademade_admin/date_time'
-    else
-      nil
-    end
   end
 
   private

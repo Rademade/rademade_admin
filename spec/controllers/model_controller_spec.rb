@@ -16,7 +16,7 @@ describe RademadeAdmin::PostsController, :js => true do
     fill_in 'data_password', :with => '12345678'
 
     click_on 'Log in'
-    find('#sidebar-nav')
+    find('#wrapper')
   end
 
   describe 'GET index' do
@@ -110,7 +110,7 @@ describe RademadeAdmin::PostsController, :js => true do
     before(:each) do
       visit rademade_admin_posts_path
       page.evaluate_script('window.confirm = function() { return true; }') # accept confirm
-      page.execute_script("$('#item_#{post.id} input[value=\"Destroy\"]').click()") # click does not work
+      page.execute_script("$('#item_#{post.id} button.trash').click()") # click does not work
       find('.notifier')
       visit current_path
     end
@@ -216,7 +216,7 @@ describe RademadeAdmin::PostsController, :js => true do
       visit edit_rademade_admin_user_path(:id => user.id)
       find('.select2-input').click
       find('.select2-result-label').click
-      click_on 'Update User'
+      click_on 'Save'
       find('.notifier')
       visit current_path
     end

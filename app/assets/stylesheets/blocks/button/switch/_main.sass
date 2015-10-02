@@ -1,0 +1,46 @@
+.btn-switch
+  margin-bottom: em(10)
+  padding-top: em(1)
+  color: $d-gray
+  user-select: none
+  +clear
+  +media-below($media-medium-width)
+    display: none
+
+  .btn-switch-text
+    display: inline-block
+    vertical-align: top
+    font-size: em(15)
+    line-height: em(35)
+    color: $bth-switch-text-color
+    height: em(35)
+    box-sizing: border-box
+
+  .btn-switch-list
+    display: inline-block
+    margin-left: em(15)
+    vertical-align: top
+    +clear
+
+  .btn-switch-item
+    float: left
+    width: em(38)
+    height: em(35)
+    font-size: em(15)
+    line-height: em(35)
+    color: $l-gray
+    text-align: center
+    cursor: pointer
+    border: .08em solid $gray
+    border-left: 0
+    box-sizing: border-box
+    &.is-active
+      color: $white
+      background-color: $gray
+
+    &:first-child
+      border-left: .08em solid $gray
+      border-radius: em(4) 0 0 em(4)
+
+    &:last-child
+      border-radius: 0 em(4) em(4) 0

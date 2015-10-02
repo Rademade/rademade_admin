@@ -1,0 +1,9 @@
+<div class="content-item" data-content-item="<%= defined?(content_url) ? content_url : request.path %>">
+    <div class="content-header" data-content-header>
+        <span class="content-header-link is-clickable"><%= content_header %></span>
+        <i class="close-link" data-content-close></i>
+    </div><%
+    if content_for?(:content)
+        %><div class="content-data"><%= yield(:content) %></div><%
+    end
+%></div>

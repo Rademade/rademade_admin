@@ -1,7 +1,3 @@
-<%
-if breadcrumbs && breadcrumbs.items.length > 2
-  back_url = breadcrumbs.items[-2][1]
-else
-  back_url = admin_list_uri(@model)
-end
-concat link_to t('rademade_admin.cancel'), back_url || '', :class => 'cancel-btn' %>
+<span class="btn-link is-red is-label" data-content-close>
+    <span><%= t('rademade_admin.button.cancel') %></span>
+</span>

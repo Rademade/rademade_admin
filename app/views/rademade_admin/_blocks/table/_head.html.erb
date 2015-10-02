@@ -1,19 +1,34 @@
-<thead class="table-header">
-    <tr class="table-line"><%
-        list_fields.each do |field|
-            sorting_sign = ''
-            %><th class="table-item"<%
-                unless field.order_column.nil?
-                    sorting_sign = @sortable_service.sorting_sign(field)
-                    %> data-column="<%= field.order_column %>"<%
+<thead>
+    <tr class="content-table-row"><%
+        @list_fields.each_with_index do |field, index|
+            %><th class="content-table-cell<%
+                if index == 0
+                    %> show-sdisplay<%
                 end
-            %>>
-                <span><%= field.label + sorting_sign %></span>
+                unless field.order_column.nil?
+                    url_sort_params = { :sort => field.order_column, :direction => :asc }
+                    sorting_direction = @sortable_service.sorting_direction(field)
+                    if sorting_direction == :asc
+                        url_sort_params[:direction] = :desc
+                        %> sortable-up<%
+                    elsif sorting_direction == :desc
+                        %> sortable-down<%
+                    end
+                    %> is-clickable sortable" data-link-url="<%= admin_url_for(url_sort_params.merge(request.path_parameters)) %><%
+                end
+            %>">
+                <span class="text"><%= field.label %></span>
             </th><%
         end
-        %><th class="table-item">
-            <span class="line"></span>
-            <span><%= t('rademade_admin.management') %></span>
-        </th>
+        %><th class="content-table-cell">
+            <span class="text"><%= t('rademade_admin.management.title') %></span><%
+            if @sortable_service.can_reset?
+                %><span class="discard" data-link-url="<%= admin_url_for(request.path_parameters) %>">
+                    <span class="tooltip-holder">
+                        <span class="tooltip-text"><%= t('rademade_admin.reset_sort') %></span>
+                    </span>
+                </span><%
+            end
+        %></th>
     </tr>
 </thead>

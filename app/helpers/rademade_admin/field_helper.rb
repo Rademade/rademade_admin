@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::FieldHelper
 
+  include ActionView::Helpers::TagHelper
+
   # Display the field of given item
   #
   # @param item [Object]
@@ -9,46 +11,42 @@ module RademadeAdmin::FieldHelper
   # @return [String]
   #
   def display_item_value(item, data_item)
-    value = raw_item_value(item, data_item)
-    return (value ? '✔' : '×') if value.is_a?(::Boolean)
-    value
+    if data_item.list_preview_handler.nil?
+      value = item.send(data_item.list_preview_accessor)
+      return display_upload_item(value) if data_item.has_uploader?
+      return display_related_item(data_item, item, value) if data_item.has_relation?
+    else
+      value = data_item.list_preview_handler.call(item)
+    end
+    return display_boolean_item(value) if value.is_a?(::Boolean)
+    value.to_s.html_safe
+  end
+
+  def display_boolean_item(value)
+    content_tag(:span, '', :class => value ? 'checked' : 'rejected')
   end
 
   def display_related_item(data_item, item, value)
     if data_item.relation.has_many?
-      link_to(data_item.label, admin_related_item(item, data_item.getter))
+      link_to(data_item.label, admin_list_uri(data_item.relation.to, {
+        :rel_class => item.class,
+        :rel_id => item.id,
+        :rel_getter => data_item.relation.getter
+      }))
     else
       link_to(value.to_s, admin_edit_uri(value)) unless value.nil?
     end
   end
 
-  def display_upload_item(_, value)
-    RademadeAdmin::Upload::PreviewService.new(value).uploaded_file_html
-  end
-
-  def pagination_option(number, name = 'paginate')
-    hash_params = request.query_parameters.clone
-    hash_params.delete(:page)
-    hash_params[name.to_sym] = number
-
-    selected = number == request.query_parameters[name.to_sym].to_i
-    url_params = request.path_parameters.merge(hash_params)
-    content_tag(:option, number.to_s, :selected => selected, :value => admin_url_for(url_params))
+  def display_upload_item(value)
+    RademadeAdmin::Upload::Preview::File.new(value).uploaded_file_html
   end
 
   def input_attr(attrs = {})
     attrs.deep_merge(
-      wrapper_html: { class: 'form-group' },
-      input_html: { class: 'form-input' }
+      :wrapper_html => { :class => 'form-group' },
+      :input_html => { :class => 'form-input' }
     )
-  end
-
-  def raw_item_value(item, data_item)
-    return data_item.list_preview_handler.call(item) unless data_item.list_preview_handler.nil?
-    value = item.send(data_item.list_preview_accessor)
-    return display_upload_item(data_item, value) if data_item.has_uploader?
-    return display_related_item(data_item, item, value) if data_item.has_relation?
-    value.to_s.html_safe
   end
 
 end

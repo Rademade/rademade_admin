@@ -2,10 +2,10 @@ assets_path 'assets/javascript'
 
 asset 'underscore'
 asset 'backbone'
+asset 'backbone-notifier', :github => 'ewebdev/backbone.notifier#v0.2.4'
 
 asset 'wysihtml5', :github => 'xing/wysihtml5'
 asset 'leaflet'
-
 
 # jQuery
 asset 'data-tables', :github => 'DataTables/DataTables'
@@ -16,15 +16,12 @@ asset 'jquery-ui', :github => 'jquery/jquery-ui'
 asset 'jquery-timepicker', :github => 'trentrichardson/jQuery-Timepicker-Addon'
 asset 'magnific-popup', :github => 'dimsemenov/Magnific-Popup'
 
-
 # Images
 asset 'jcrop', :github => 'tapmodo/Jcrop#v0.9.12'
 asset 'jquery-fileupload', :github => 'blueimp/jQuery-File-Upload'
 
-
 # List
 asset 'TableDnD'
-
 
 # Form
 asset 'moment'

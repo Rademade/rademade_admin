@@ -1,8 +1,0 @@
-<% content_for(:content) do %>
-    <div class="row form-wrapper">
-        <div class="col-md-9 with-sidebar"><%
-            concat render @form_template_path
-        %></div>
-    </div><%
-end
-concat render :template => @template_service.inner_layout %>

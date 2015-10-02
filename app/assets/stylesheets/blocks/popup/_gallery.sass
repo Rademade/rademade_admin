@@ -1,0 +1,49 @@
+.popup-gallery
+  position: relative
+  display: block
+  padding: 0 em(200)
+  height: 100%
+  box-sizing: border-box
+
+  .popup-gallery-list
+    display: block
+    height: 100%
+    white-space: nowrap
+    overflow: hidden
+
+  .popup-gallery-item
+    display: inline-block
+    width: 100%
+    height: 100%
+
+  .popup-gallery-img
+    display: inline-block
+    max-width: 100%
+    max-height: 100%
+
+  .popup-gallery-btn
+    position: absolute
+    top: 0
+    width: em(125)
+    height: 100%
+    cursor: pointer
+    transition: background $transitionVal ease-in-out
+    &:hover
+      background: rgba(216,216,216,0.05)
+    &:after
+      position: absolute
+      content: ""
+      top: 50%
+      left: 50%
+    &.prev
+      left: 0
+      &:after
+        margin: em(-22) 0 0 em(-12)
+        +sprite(prev)
+    &.next
+      right: 0
+      &:after
+        left: auto
+        right: 50%
+        margin: em(-22) em(-12) 0 0
+        +sprite(next)

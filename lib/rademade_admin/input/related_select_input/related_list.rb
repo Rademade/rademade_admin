@@ -12,54 +12,36 @@ module RademadeAdmin
             :data => {
               :sortable => sortable_relation?
             }
-          }) + related_list_link_html
+          })
         end
 
         def related_list_items_html
           serialized_values = serializer.new(related_value).as_json
           html = serialized_values.map do |serialized_value|
-            template.content_tag(:li, related_list_item_html(serialized_value), :'data-id' => serialized_value[:id])
+            template.content_tag(:li, related_list_item_html(serialized_value), {
+              :'data-id' => serialized_value[:id],
+              :class => 'select2-item'
+            })
           end
           RademadeAdmin::HtmlBuffer.new(html)
         end
 
         def related_list_item_html(serialized_value)
-          RademadeAdmin::HtmlBuffer.new([
-            related_list_item_title_html(serialized_value),
-            related_list_item_edit_html(serialized_value),
-            related_list_item_remove_html
-          ])
+          RademadeAdmin::HtmlBuffer.new([related_list_item_title_html(serialized_value), related_list_item_remove_html])
         end
 
         def related_list_item_title_html(serialized_value)
-          template.content_tag(:span, serialized_value[:text])
-        end
-
-        def related_list_item_edit_html(serialized_value)
-          if serialized_value[:editurl]
-            template.content_tag(:button, I18n.t('rademade_admin.edit_related_item'), {
-              :'data-edit' => serialized_value[:editurl],
-              :class => 'select2-item-edit'
-            })
-          else
-            ''
-          end
-        end
-
-        def related_list_item_remove_html
-          template.content_tag(:button, I18n.t('rademade_admin.destroy'), {
-            :'data-remove' => '',
-            :class => 'select2-item-remove'
+          template.content_tag(:button, serialized_value[:text], {
+            :'data-edit' => serialized_value[:editurl],
+            :class => 'select2-item-edit'
           })
         end
 
-        def related_list_link_html
-          relation_name = RademadeAdmin::Model::Graph.instance.model_info(related_to).item_name
-          url = admin_related_item(model, relation_getter)
-          template.content_tag(:a, relation_name, {
-            :href => url,
-            :class => 'related-link'
-          }) if url
+        def related_list_item_remove_html
+          template.content_tag(:button, I18n.t('rademade_admin.relation.destroy'), {
+            :'data-remove' => '',
+            :class => 'select2-item-remove'
+          })
         end
 
         def sortable_relation?
