@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rademade_admin (0.2.2)
+    rademade_admin (0.3.0)
       autoprefixer-rails (>= 5.2.0)
       bower-rails (>= 0.8.2)
       cancan (~> 1.6)
