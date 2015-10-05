@@ -71,23 +71,21 @@
         content: ''
         top: 50%
         right: em(-20)
+        transform: translateY(-50%)
 
   &.sortable
     .text
       &:after
-        margin-top: em(-3)
         +sprite(sortable-down)
 
   &.sortable-up
     .text
       &:after
-        margin-top: em(-4)
         +sprite(sortable-up_active)
 
   &.sortable-down
     .text
       &:after
-        margin-top: em(-3)
         +sprite(sortable-down_active)
   a
     font-size: em(15)
@@ -97,9 +95,9 @@
   position: absolute
   top: 50%
   right: em(25)
-  margin-top: em(-7)
   cursor: pointer
   opacity: .7
+  transform: translateY(-50%)
   +sprite(discard_red)
   &:hover
     .tooltip-holder

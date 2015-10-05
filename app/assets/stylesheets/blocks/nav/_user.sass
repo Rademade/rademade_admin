@@ -13,7 +13,7 @@
     position: absolute
     top: 50%
     left: em(16)
-    margin-top: em(-20)
+    transform: translateY(-50%)
     width: em(40)
     height: em(40)
     border-radius: 50%
@@ -24,13 +24,13 @@
       top: 50%
       left: 50%
       opacity: .7
-      margin: em(-15) 0 0 em(-17)
+      transform: translateY(-50%) translateX(-50%)
       +sprite(user-photo)
 
   .user-settings
     position: absolute
     top: 50%
-    margin-top: em(-9)
+    transform: translateY(-50%)
     right: em(15)
     opacity: .5
     cursor: pointer

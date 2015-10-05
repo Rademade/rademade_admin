@@ -8,7 +8,7 @@ svgSprite = require('gulp-svg-sprite');
 config = {
     shape: {
         spacing: {
-            padding: 0,
+            padding: 1,
             box: 'content'
         },
         dimension           : {                         // Dimension related options
@@ -25,7 +25,7 @@ config = {
             bust: false,
             render: {
                 scss: {
-                    dest: 'stylesheets/rademade_admin/mixins/_sprites.scss'
+                    dest: 'stylesheets/mixins/_sprites.scss'
                 }
             }
         }
