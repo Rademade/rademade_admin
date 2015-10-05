@@ -8,32 +8,37 @@ module RademadeAdmin
           protected
 
           def where(where_conditions)
-            @values = []
-            condition = collect_where_conditions(where_conditions)
-            @values.empty? ? @result : @result.where([condition, *@values])
+            condition, values = collect_where_conditions(where_conditions)
+            values.empty? ? @result : @result.where([condition, *values])
           end
 
           def collect_where_conditions(where_conditions)
             condition = ''
+            values = []
             where_conditions.parts.each do |part|
               condition += " #{where_conditions.type.to_s.capitalize} " unless condition.empty?
               if part.is_a? RademadeAdmin::Search::Part::Where
-                condition += "(#{collect_where_conditions(part)})"
+                where_condition, value = collect_where_conditions(part)
+                condition += "(#{where_condition})"
               else
-                field = "`#{part[:field]}`"
-                if part[:value].is_a? Regexp
-                  # hack temporary fix
-                  condition += "LOWER(#{field}) REGEXP ?"
-                  part[:value] = part[:value].source
-                elsif part[:value].is_a? Array
-                  condition += "#{field} IN (?)"
-                else
-                  condition += "#{field} = ?"
-                end
-                @values << part[:value]
+                where_condition, value = build_where_condition(part)
+                condition += where_condition
               end
+              values << value
             end
-            condition
+            [condition, values]
+          end
+
+          def build_where_condition(part)
+            field = "`#{part[:field]}`"
+            value = part[:value]
+            if value.is_a? Regexp
+              ["LOWER(#{field}) REGEXP ?", value.source]
+            elsif value.is_a? Array
+              ["#{field} IN (?)", value]
+            else
+              ["#{field} = ?", value]
+            end
           end
 
         end

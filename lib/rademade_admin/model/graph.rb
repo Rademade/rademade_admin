@@ -24,8 +24,7 @@ module RademadeAdmin
         model_name = model.to_s
         @model_infos[model_name] ||= init_model_info({
           :model => model,
-          :controller => default_controller(model_name),
-          :inner => false
+          :controller => default_controller(model_name)
         })
       end
 
@@ -39,13 +38,9 @@ module RademadeAdmin
         @model_infos = {}
       end
 
-      def init_model_info(options)
-        model_reflection = RademadeAdmin::Model::Reflection.new(
-          options[:model],
-          options[:controller_name],
-          options[:module_name]
-        )
-        RademadeAdmin::Model::Info.new(model_reflection, options[:controller].configuration, options[:inner])
+      def init_model_info(model: nil, controller_name: nil, module_name: nil, controller: nil, inner: false)
+        model_reflection = RademadeAdmin::Model::Reflection.new(model, controller_name, module_name)
+        RademadeAdmin::Model::Info.new(model_reflection, controller.configuration, inner)
       end
 
       def controller_class(module_name, full_controller_name)

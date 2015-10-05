@@ -2,9 +2,8 @@
 class RademadeAdmin::GalleryController < RademadeAdmin::AbstractController
 
   def upload
-    gallery_service.upload_images(params[:gallery_id], params[:files])
     render :json => {
-      :gallery_images_html => gallery_service.gallery_images_html
+      :gallery_images_html => gallery_service.upload_images(params[:gallery_id], params[:files])
     }
   rescue Exception => e
     show_error(e)
