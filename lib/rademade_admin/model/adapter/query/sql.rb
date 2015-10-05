@@ -29,9 +29,8 @@ module RademadeAdmin
             [condition, values]
           end
 
-          def build_where_condition(part)
-            field = "`#{part[:field]}`"
-            value = part[:value]
+          def build_where_condition(field: nil, value: nil)
+            field = "`#{field}`"
             if value.is_a? Regexp
               ["LOWER(#{field}) REGEXP ?", value.source]
             elsif value.is_a? Array

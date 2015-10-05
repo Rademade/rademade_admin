@@ -147,17 +147,12 @@ module RademadeAdmin
       @sortable_service ||= RademadeAdmin::SortableService.new(model_info, params)
     end
 
+    def error_service
+      @error_service ||= RademadeAdmin::ErrorService.new
+    end
+
     def render_record_errors(e)
-      # todo place into adapters
-      errors = case e
-        when ActiveRecord::RecordInvalid, Mongoid::Errors::Validations
-          e.record.errors
-        when Sequel::ValidationFailed
-          e.errors
-        else
-          e.message
-      end
-      render_errors errors
+      render_errors error_service.error_messages_for(e)
     end
 
     def render_csv

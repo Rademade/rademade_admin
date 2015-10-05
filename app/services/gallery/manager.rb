@@ -50,8 +50,8 @@ module RademadeAdmin
       end
 
       def upload_gallery_images(images)
-        image_presenter = RademadeAdmin::Upload::ImagePresenter.new
-        image_presenter.upload_gallery_images(gallery_image_info.persistence_adapter, images)
+        image_presenter = RademadeAdmin::Upload::ImagePresenter.new(gallery_image_info.persistence_adapter)
+        image_presenter.upload_gallery_images(images)
         image_presenter
       end
 
