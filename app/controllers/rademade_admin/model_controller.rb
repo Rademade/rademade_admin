@@ -92,7 +92,13 @@ module RademadeAdmin
 
     def form
       authorize! :read, model_class
-      @item = params[:id].blank? ? new_model : model.find(params[:id])
+      if params[:id].blank?
+        @item = new_model
+        @is_edit = false
+      else
+        @item = model.find(params[:id])
+        @is_edit = true
+      end
       render form_template_path(true), :layout => false
     end
 
