@@ -1,32 +1,30 @@
-<div class="popup-wrapper">
-    <div class="popup-headline">
-        <a class="popup-title" href="<%= photo.fullUrl %>" download><%= photo.name %></a>
-        <div class="popup-actions"><%
-            if (hasCrop) {
-                %><span class="popup-btn popup-resize-btn" data-gallery-crop><%= I18n.t('rademade_admin.uploader.crop') %></span><%
-            }
-            if (hasCrop && photo.removeUrl) {
-                %><span class="popup-btn-sep"></span><%
-            }
-            if (photo.removeUrl) {
-                %><span class="popup-btn popup-delete-btn" data-gallery-remove><%= I18n.t('rademade_admin.uploader.remove') %></span><%
-            }
-        %></div>
-        <i class="popup-close-btn" data-popup-close></i>
-    </div>
-    <div class="popup-data">
-        <div class="popup-gallery"><%
-            if (hasPhotos) {
-                %><span class="popup-gallery-btn prev" data-gallery-prev></span><%
-            }
-            %><ul class="popup-gallery-list">
-                <li class="popup-gallery-item">
-                    <img class="popup-gallery-img" src="<%= photo.fullUrl %>"/>
-                </li>
-            </ul><%
-            if (hasPhotos) {
-                %><span class="popup-gallery-btn next" data-gallery-next></span><%
-            }
-        %></div>
-    </div>
+<div class="popup-headline">
+    <a class="popup-title" href="<%= photo.fullUrl %>" download><%= photo.name %></a>
+    <div class="popup-actions"><%
+        if (hasCrop) {
+            %><span class="popup-btn popup-resize-btn" data-gallery-crop><%= I18n.t('rademade_admin.uploader.crop') %></span><%
+        }
+        if (hasCrop && photo.removeUrl) {
+            %><span class="popup-btn-sep"></span><%
+        }
+        if (photo.removeUrl) {
+            %><span class="popup-btn popup-delete-btn" data-gallery-remove><%= I18n.t('rademade_admin.uploader.remove') %></span><%
+        }
+    %></div>
+    <i class="popup-close-btn" data-popup-close></i>
+</div>
+<div class="popup-data">
+    <div class="popup-gallery"><%
+        if (hasPhotos) {
+            %><span class="popup-gallery-btn prev" data-gallery-prev></span><%
+        }
+        %><ul class="popup-gallery-list">
+            <li class="popup-gallery-item">
+                <img class="popup-gallery-img" src="<%= photo.fullUrl %>"/>
+            </li>
+        </ul><%
+        if (hasPhotos) {
+            %><span class="popup-gallery-btn next" data-gallery-next></span><%
+        }
+    %></div>
 </div>
