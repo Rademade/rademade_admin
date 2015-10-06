@@ -16,12 +16,10 @@
     cursor: pointer
 
   input:checked + .form-checkbox-ico
-    @extend .svg-checkbox_active
+    +sprite(checkbox_active)
 
   .form-checkbox-ico
     display: block
     top: 0
     left: 0
-    width: em(23)
-    height: em(23)
-    @extend .svg-checkbox_empty
+    +sprite(checkbox_empty)
