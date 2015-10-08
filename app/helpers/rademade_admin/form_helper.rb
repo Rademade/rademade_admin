@@ -1,34 +1,12 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::FormHelper
 
-  def admin_form(record, model, &block)
-    simple_form_for(
-      record,
-      :wrapper => :rademade,
-      :url => record.new_record? ? admin_create_uri(model) : admin_update_uri(record),
-      :as => :data,
-      :html => {
-        :multipart => true,
-        :novalidate => true,
-        :autocomplete => 'off',
-        :class => (record.new_record? ? 'insert-item-form' : 'update-item-form')
-      },
-      &block
-    )
+  def admin_form(record, model_info, &block)
+    simple_form_for(record, admin_form_options(record, model_info), &block)
   end
 
   def login_form(&block)
-    simple_form_for(
-      RademadeAdmin.configuration.admin_class.new,
-      :wrapper => :rademade_login,
-      :url => [:sessions],
-      :as => :data,
-      :html => {
-        :id => 'login-form',
-        :class => 'login-form'
-      },
-      &block
-    )
+    simple_form_for(RademadeAdmin.configuration.admin_class.new, login_form_options, &block)
   end
 
   def admin_field(form, data_item, model_info)
@@ -50,6 +28,46 @@ module RademadeAdmin::FormHelper
   end
 
   private
+
+  def admin_form_options(record, model_info)
+    if model_info.persistence_adapter.new?(record)
+      url = admin_create_uri(model_info)
+      form_class = 'insert-item-form'
+      method = :post
+    else
+      url = admin_update_uri(record)
+      form_class = 'update-item-form'
+      method = :patch
+    end
+    {
+      :wrapper => :rademade,
+      :url => url,
+      :method => method,
+      :as => :data,
+      :html => admin_form_html_attributes(form_class)
+    }
+  end
+
+  def login_form_options
+    {
+      :wrapper => :rademade_login,
+      :url => [:sessions],
+      :as => :data,
+      :html => {
+        :id => 'login-form',
+        :class => 'login-form'
+      }
+    }
+  end
+
+  def admin_form_html_attributes(form_class)
+    {
+      :multipart => true,
+      :novalidate => true,
+      :autocomplete => 'off',
+      :class => form_class
+    }
+  end
 
   def admin_default_params(name, model_info)
     { :label => model_info.label_for(name) }

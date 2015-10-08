@@ -3,8 +3,15 @@ module RademadeAdmin
   module Model
     module Adapter
       class Query
-
         class Mongoid < RademadeAdmin::Model::Adapter::Query
+
+          def find(ids)
+            @model.find(ids)
+          end
+
+          def initial
+            @model.unscoped
+          end
 
           protected
 
@@ -31,6 +38,10 @@ module RademadeAdmin
             @result
           end
 
+          def paginate(page_condition, per_page_condition)
+            @result.page(page_condition).per(per_page_condition)
+          end
+
           def collect_where_condition(where_conditions, result)
             where_method = WHERE_METHOD_MAP[where_conditions.type]
             where_conditions.parts.each do |part|
@@ -50,7 +61,6 @@ module RademadeAdmin
           end
 
         end
-
       end
     end
   end

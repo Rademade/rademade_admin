@@ -31,7 +31,7 @@ module RademadeAdmin::FieldHelper
       link_to(data_item.label, admin_list_uri(data_item.relation.to, {
         :rel_class => item.class,
         :rel_id => item.id,
-        :rel_getter => data_item.relation.getter
+        :rel_getter => data_item.relation.query_getter
       }))
     else
       link_to(value.to_s, admin_edit_uri(value)) unless value.nil?

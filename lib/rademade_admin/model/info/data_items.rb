@@ -5,10 +5,6 @@ module RademadeAdmin
       class DataItems
         include ::Enumerable
 
-        # rm_todo extract mixins
-
-        UNINFORMATIVE_FIELDS = [:_id, :deleted_at, :position]
-
         def initialize
           @data_items = {}
         end
@@ -123,7 +119,7 @@ module RademadeAdmin
         end
 
         def _default_fields
-          items.reject { |_, data_item| UNINFORMATIVE_FIELDS.include? data_item.name } # todo remove sortable fields
+          items.reject { |_, data_item| data_item.primary_field? } # todo remove sortable fields
         end
 
         def collect_field_names

@@ -1,0 +1,20 @@
+development:
+  adapter: mysql2
+  host: localhost
+  database: rademade_admin_dev
+  user: root
+  password: root
+
+test:
+  adapter: mysql2
+  host: localhost
+  database: rademade_admin_test
+  user: root
+  password: root
+
+production:
+  adapter: mysql2
+  host: localhost
+  database: rademade_admin
+  user: root
+  password: root

@@ -4,20 +4,10 @@ module RademadeAdmin
     class Info
       class Field
 
-        UNSAVED_FIELDS = [:id, :_id, :created_at, :deleted_at, :position]
-
         attr_reader :name, :setter, :getter, :localizable, :relation_name
-
-        def key=(is_key)
-          @is_key = is_key
-        end
 
         def primary?
           @primary
-        end
-
-        def save?
-          not UNSAVED_FIELDS.include? name
         end
 
         def date_time?

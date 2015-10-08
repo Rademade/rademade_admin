@@ -6,7 +6,7 @@ concat render :template => @template_service.content_item_layout, :locals => {
 
 <% content_for :content do %><%
     buttons_template ||= @template_service.form_control_block
-    %><%= admin_form(@item, @model_class) do |form| %>
+    %><%= admin_form(@item, @model_info) do |form| %>
         <div class="content-box">
             <div class="form"><%
                 @form_fields_without_locale.each do |form_field|

@@ -19,16 +19,13 @@ module RademadeAdmin
           @conditions ||= {
             :where => where,
             :order => order,
-            :page => page,
-            :per_page => per_page,
+            :paginate => paginate,
             :limit => limit
           }
         end
 
-        def base_condition(model)
-          # todo. deleted at?
-          # We can't use default scope. It can be patched
-          @base_items || model.unscoped
+        def base_condition(base_items)
+          @base_items || base_items
         end
 
         protected
@@ -41,6 +38,14 @@ module RademadeAdmin
           order_conditions = RademadeAdmin::Search::Part::Order.new
           order_conditions.add(:id, :desc)
           order_conditions
+        end
+
+        def paginate
+          if page.nil? || per_page.nil?
+            nil
+          else
+            [page, per_page]
+          end
         end
 
         def page
