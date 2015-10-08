@@ -69,7 +69,6 @@ module RademadeAdmin
       authorize! :create, model_class
       @with_save_and_return_button = true
       @item = new_model
-      @is_edit = false
       render_template
     end
 
@@ -77,7 +76,6 @@ module RademadeAdmin
       @item = @model_info.query_adapter.find(params[:id])
       authorize! :read, @item
       @with_save_and_return_button = true
-      @is_edit = true
       render_template
     end
 

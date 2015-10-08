@@ -26,10 +26,10 @@ concat render :template => @template_service.content_item_layout, :locals => {
     end
 end
 
-if @is_edit
-    content_header = t('rademade_admin.title.edit_record', :model => @model_info.item_name, :record => @item)
-else
+if @model_info.persistence_adapter.new?(@item)
     content_header = t('rademade_admin.title.new_record', :model => @model_info.item_name)
+else
+    content_header = t('rademade_admin.title.edit_record', :model => @model_info.item_name, :record => @item)
 end
 concat render :template => @template_service.content_item_layout, :locals => {
     :content_header => content_header

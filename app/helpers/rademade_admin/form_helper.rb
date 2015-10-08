@@ -6,7 +6,8 @@ module RademadeAdmin::FormHelper
   end
 
   def login_form(&block)
-    simple_form_for(RademadeAdmin.configuration.admin_class.new, login_form_options, &block)
+    admin_model_info = RademadeAdmin::Model::Graph.instance.model_info(RademadeAdmin.configuration.admin_class)
+    simple_form_for(admin_model_info.persistence_adapter.new_record, login_form_options, &block)
   end
 
   def admin_field(form, data_item, model_info)
