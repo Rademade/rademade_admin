@@ -13,7 +13,7 @@ asset 'flot', :github => 'flot/flot'
 asset 'knob', :github => 'aterrien/jQuery-Knob'
 asset 'uniform', :github => 'pixelmatrix/uniform'
 asset 'jquery-ui', :github => 'jquery/jquery-ui'
-asset 'jquery-timepicker', :github => 'trentrichardson/jQuery-Timepicker-Addon'
+asset 'jquery-filthypillow', :github => 'Rademade/jquery.filthypillow#master'
 asset 'magnific-popup', :github => 'dimsemenov/Magnific-Popup'
 
 # Images
