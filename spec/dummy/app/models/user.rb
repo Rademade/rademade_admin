@@ -17,6 +17,8 @@ class User
 
   mount_uploader :avatar, PosterUploader, :localize => true
 
+  validates_uniqueness_of :email
+
   def self.get_by_email(email)
     self.where(:email => email).first
   end

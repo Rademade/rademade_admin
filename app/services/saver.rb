@@ -14,36 +14,42 @@ module RademadeAdmin
     end
 
     def create_model
-      @item = @model_info.model.new
+      @item = @model_info.persistence_adapter.new_record
     end
 
     def find_model
-      @item = @model_info.model.find(@params[:id])
+      @item = @model_info.query_adapter.find(@params[:id])
     end
 
     def set_data
-      item.assign_attributes simple_field_params
+      save_simple_fields
       save_localizable_fields
       save_model_relations
       save_model_uploads
     end
 
     def save_item
-      item.save!
+      @model_info.persistence_adapter.save(item)
     end
 
     private
 
+    def save_simple_fields
+      simple_field_params.each do |field, value|
+        item.send(:"#{field}=", value)
+      end
+    end
+
     def save_localizable_fields
       current_locale = I18n.locale
       @model_info.data_items.localizable_fields.each do |_, data_item|
-        values = @params[:data].try(:[], data_item.getter)
+        values = @params[:data].try(:[], data_item.name)
         values.each do |locale, value|
           I18n.locale = locale
           if data_item.has_uploader?
             save_model_upload(data_item, value)
           else
-            item.send(data_item.setter, value)
+            data_item.set_data(item, value)
           end
         end if values
       end
@@ -53,8 +59,8 @@ module RademadeAdmin
 	  def save_model_relations
       data = @params[:data]
       @model_info.data_items.related_fields.each do |_, data_item|
-        if data.has_key? data_item.getter
-          item.send(data_item.setter, find_entities(data_item, data[data_item.getter]))
+        if data.has_key? data_item.name
+          data_item.set_data(item, find_entities(data_item, data[data_item.name]))
         end
       end
     end
@@ -76,7 +82,7 @@ module RademadeAdmin
           else
             entity = item
           end
-          entity.send(data_item.setter, File.open(full_image_path))
+          data_item.set_data(entity, File.open(full_image_path))
         rescue
           # rm_todo clear image
         end

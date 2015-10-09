@@ -5,6 +5,7 @@ module RademadeAdmin
 
       ORM_TYPE_ACTIVERECORD = 'ActiveRecord'
       ORM_TYPE_MONGOID = 'Mongoid'
+      ORM_TYPE_SEQUEL = 'Sequel'
 
       attr_reader :model, :controller, :module_name
 
@@ -26,6 +27,10 @@ module RademadeAdmin
         @query_adapter ||= "RademadeAdmin::Model::Adapter::Query::#{orm_type}".constantize.new(@model)
       end
 
+      def persistence_adapter
+        @persistence_adapter ||= "RademadeAdmin::Model::Adapter::Persistence::#{orm_type}".constantize.new(@model)
+      end
+
       def hideable?
         _model_ancestors.include? RademadeAdmin::Hideable.name
       end
@@ -33,7 +38,7 @@ module RademadeAdmin
       protected
 
       def _model_ancestors
-        @model_ancestors = @model.ancestors.map(&:to_s)
+        @model_ancestors ||= @model.ancestors.map(&:to_s)
       end
 
       def orm_type
@@ -47,7 +52,8 @@ module RademadeAdmin
       def orm_list
         @orm_list ||= {
           'ActiveRecord::Base' => ORM_TYPE_ACTIVERECORD,
-          'Mongoid::Document' => ORM_TYPE_MONGOID
+          'Mongoid::Document' => ORM_TYPE_MONGOID,
+          'Sequel::Model' => ORM_TYPE_SEQUEL
         }
       end
 

@@ -13,22 +13,26 @@ $width: 100%
   display: block
   width: 100%
   vertical-align: top
-  border-radius: em(4)
   cursor: pointer
   overflow: hidden
+  border: 1px solid #D1D8E6
+  padding-bottom: 98%
+  border-radius: 4px
   box-sizing: border-box
 
   &:hover
+    &.add
+      &:after
+        +sprite(file_blue)
+    .upload-text
+      color: #3790D7
     .upload-delete
       opacity: 1
 
   &.add
-    padding-bottom: 98%
     background-color: #F9FBFE
     font-size: em(13)
     color: rgba(71, 80, 98, 0.4)
-    border: .08em solid #D1D8E6
-    border-radius: em(6)
 
     &:after
       position: absolute
@@ -75,9 +79,12 @@ $width: 100%
     cursor: pointer
 
   img
+    position: absolute
+    top: 0
+    left: 0
     display: inline-block
     width: 100%
-    border-radius: em(2)
+    border-radius: 4px
     vertical-align: top
 
   .upload-delete
@@ -96,7 +103,7 @@ $width: 100%
       content: ""
       top: 50%
       left: 50%
-      margin: em(-4) 0 0 em(-4)
+      transform: translateY(-50%) translateX(-50%)
       opacity: .7
       +sprite(delete-small)
 

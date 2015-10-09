@@ -18,8 +18,7 @@
         content: ''
         top: 50%
         left: 50%
-        margin-left: em(-7)
-        margin-top: em(-4)
+        transform: translateY(-50%) translateX(-50%)
         +sprite(select2)
 
       b
@@ -29,7 +28,7 @@
       position: absolute
       top: 50%
       right: em(80)
-      margin-top: em(-9)
+      transform: translateY(-50%)
       opacity: 0.4
       +sprite(select-edit)
       transition: opacity $transitionVal ease-in-out
@@ -58,5 +57,5 @@
     content: ''
     top: 50%
     right: em(7)
-    margin-top: em(-4)
+    transform: translateY(-50%)
     +sprite(select2)

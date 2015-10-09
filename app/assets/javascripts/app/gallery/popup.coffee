@@ -21,7 +21,8 @@ class @GalleryPopup extends Backbone.View
     @render()
 
   render : () ->
-    @$popup = $ @_getHTML()
+    @$popup = $ '<div class="popup-wrapper"></div>'
+    @$popup.html @_getHTML()
     @_initCrop()
     $('html').addClass('opened-popup')
     @$el.append @$popup

@@ -25,8 +25,8 @@ ru:
       new: "Добавить запись"
       edit: "Редактировать"
     title:
-      new_record: "Новая запись"
-      edit_record: "Редактирование"
+      new_record: "%{model}. Новая запись"
+      edit_record: "%{model}. Редактирование \"%{record}\""
     export:
       csv: "Экспортировать в csv"
     success_message:

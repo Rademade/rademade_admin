@@ -3,8 +3,10 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'mongoid'
+require 'sequel'
 require 'carrierwave/mount'
 require 'carrierwave/mongoid'
+require 'carrierwave/sequel'
 require 'carrierwave/orm/activerecord'
 require 'light_resizer'
 require 'globalize'

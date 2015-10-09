@@ -11,6 +11,9 @@ end
 group :test do
   gem 'coveralls', :require => false
 
+  # Uploaders
+  gem 'carrierwave'
+
   # Mongoid
   gem 'mongoid'
   gem 'mongoid-paranoia'
@@ -19,13 +22,16 @@ group :test do
   gem 'mongoid-tree'
   gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
-  # Active Record
+  # Sql
   gem 'mysql2', '~> 0.3', '< 0.4'
+
+  # Active Record
   gem 'globalize'
   gem 'activerecord_sortable'
 
-  # Uploaders
-  gem 'carrierwave'
+  # Sequel
+  gem 'sequel'
+  gem 'carrierwave-sequel', :require => 'carrierwave/sequel'
 
   # Testing utilities
   gem 'rspec', '~> 3.0'

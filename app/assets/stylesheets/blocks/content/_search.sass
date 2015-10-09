@@ -12,7 +12,7 @@ $transitionVal: 0.3s
     position: absolute
     top: 50%
     right: 0
-    margin-top: -9px
+    transform: translateY(-50%)
     width: em(16)
     height: em(17)
     border: 0
@@ -26,7 +26,7 @@ $transitionVal: 0.3s
       content: ""
       top: 0
       right: 0
-      transition: opacity $transitionVal ease-in-out
+      transition: opacity 0.5s ease-in-out
 
     &:before
       +sprite(search)
@@ -42,7 +42,7 @@ $transitionVal: 0.3s
     background: none
     color: $content-search-color
     border-bottom: 1px solid $content-search-border
-    transition: border $transitionVal ease-in-out, color $transitionVal ease-in-out
+    transition: border 0.5s ease-in-out, color 0.5s ease-in-out
     box-sizing: border-box
     +placeholder($content-search-placeholder,em(15))
     &:focus

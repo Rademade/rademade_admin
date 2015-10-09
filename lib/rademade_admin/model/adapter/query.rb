@@ -8,22 +8,13 @@ module RademadeAdmin
           @model = model
         end
 
-        def find(ids)
-          @model.find(ids)
-        end
-
-        #
-        # @param search_conditions [RademadeAdmin::Search::Conditions::Abstract]
-        #
+        # @param [RademadeAdmin::Search::Conditions::Abstract] search_conditions
         def exec_query(search_conditions)
-          @result = search_conditions.base_condition(@model)
-
+          @result = search_conditions.base_condition(initial)
           return nil if @result.nil?
-
           search_conditions.conditions.each do |query_part, values|
-            @result = self.send(query_part, values) unless values.nil?
+            @result = self.send(query_part, *values) unless values.nil?
           end
-
           @result
         end
 
@@ -37,12 +28,8 @@ module RademadeAdmin
           @result
         end
 
-        def page(page_condition)
-          @result.page(page_condition)
-        end
-
-        def per_page(per_page_condition)
-          @result.per(per_page_condition)
+        def paginate(page_condition, per_page_condition)
+          @result
         end
 
         def limit(limit_condition)

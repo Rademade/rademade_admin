@@ -43,10 +43,10 @@ module RademadeAdmin
     end
 
     def destroy
-      @item = model.find(params[:id])
+      @item = @model_info.query_adapter.find(params[:id])
       authorize! :destroy, @item
       before_destroy @item
-      @item.destroy if @item
+      @model_info.persistence_adapter.destroy(@item) if @item
       success_delete @item
     end
 
@@ -69,20 +69,18 @@ module RademadeAdmin
       authorize! :create, model_class
       @with_save_and_return_button = true
       @item = new_model
-      @is_edit = false
       render_template
     end
 
     def edit
-      @item = model.find(params[:id])
+      @item = @model_info.query_adapter.find(params[:id])
       authorize! :read, @item
       @with_save_and_return_button = true
-      @is_edit = true
       render_template
     end
 
     def show
-      @item = model.find(params[:id])
+      @item = @model_info.query_adapter.find(params[:id])
       authorize! :read, @item
       respond_to do |format|
         format.html { redirect_to :action => 'index' }
@@ -92,7 +90,7 @@ module RademadeAdmin
 
     def form
       authorize! :read, model_class
-      @item = params[:id].blank? ? new_model : model.find(params[:id])
+      @item = params[:id].blank? ? new_model : @model_info.query_adapter.find(params[:id])
       render form_template_path(true), :layout => false
     end
 
@@ -107,7 +105,8 @@ module RademadeAdmin
     def index_items
       conditions = Search::Conditions::List.new(params, model_info.data_items)
       if params[:rel_class] && params[:rel_id] && params[:rel_getter]
-        @related_model = LoaderService.const_get(params[:rel_class]).find(params[:rel_id])
+        related_info = RademadeAdmin::Model::Graph.instance.model_info(params[:rel_class])
+        @related_model = related_info.query_adapter.find(params[:rel_id])
         conditions.base_items = @related_model.send(params[:rel_getter])
       end
       Search::Searcher.new(model_info).search(conditions)
@@ -119,7 +118,7 @@ module RademadeAdmin
     end
 
     def new_model
-      model.new
+      @model_info.persistence_adapter.new_record
     end
 
     def before_create(item)
@@ -147,12 +146,12 @@ module RademadeAdmin
       @sortable_service ||= RademadeAdmin::SortableService.new(model_info, params)
     end
 
+    def error_service
+      @error_service ||= RademadeAdmin::ErrorService.new
+    end
+
     def render_record_errors(e)
-      if e.respond_to? :record
-        render_errors e.record.errors
-      else
-        render_errors e.message
-      end
+      render_errors error_service.error_messages_for(e)
     end
 
     def render_csv

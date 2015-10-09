@@ -18,15 +18,14 @@
   left: 0
   width: em(25)
   height: 100%
-  cursor: pointer
+  cursor: move
   transition: background $transitionVal ease-in-out
   &:after
     position: absolute
     content: ""
     top: 50%
     left: 50%
-    margin-top: em(-14)
-    margin-left: em(-2)
+    transform: translateX(-50%) translateY(-50%)
     +sprite(dragndrop)
     opacity: .5
     transition: opacity $transitionVal ease-in-out
