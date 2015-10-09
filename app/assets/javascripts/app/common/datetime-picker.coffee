@@ -5,7 +5,6 @@ class FilthypillowCalendar
     @$parent = @$calendarElement.parent()
 
   init : () ->
-    minDateTime = moment().subtract( "seconds", 1 )
     @$calendarElement.filthypillow()
     @_bindCalendarListeners()
     @_bindParentListeners()
