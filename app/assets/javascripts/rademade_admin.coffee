@@ -11,8 +11,7 @@
 #= require jquery-ui/ui/tabs
 #= require jquery-ui/ui/datepicker
 #= require jcrop/js/jquery.Jcrop
-#= require jquery-timepicker/dist/jquery-ui-timepicker-addon
-#= require jquery-timepicker/dist/jquery-ui-sliderAccess
+#= require jquery-filthypillow/jquery.filthypillow
 #= require jquery-fileupload/js/jquery.fileupload
 #= require jquery-fileupload/js/jquery.iframe-transport
 #= require jquery-form/jquery.form

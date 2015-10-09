@@ -1,0 +1,21 @@
+$w100: 100%
+.rademade-calendar .calendar-date
+  .date-week
+    padding: 0 10px
+    border-bottom: 1px solid #E1E6EF
+
+    &:after
+      display: table
+      content: ''
+      clear: both
+
+    .week-val
+      float: left
+      width: $w100 / 7
+      text-align: center
+      font-size: 13px
+      line-height: 26px
+      color: #222834
+      opacity: .2
+      &.is-active
+        opacity: 1

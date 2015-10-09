@@ -1,0 +1,52 @@
+$w100: 100%
+
+.rademade-calendar .calendar-date
+  .date-day
+    padding: 5px 10px
+    user-select: none
+    &:after
+      display: table
+      content: ''
+      clear: both
+    .day-val-list
+      width: 100%
+      &:after
+        display: table
+        content: ''
+        clear: both
+
+    .day-val
+      position: relative
+      float: left
+      width: $w100 / 7
+      padding-bottom: $w100 / 7
+      color: #222834
+      font-size: 14px
+      border-radius: 50%
+      cursor: pointer
+      &.is-disabled
+        opacity: .33
+        &:hover
+          cursor: default
+          color: #222834
+          background: none
+
+      &.is-active
+        color: #fff
+        background-color: #F6706F
+        &:hover
+          color: #fff
+          background-color: #F6706F
+
+      &:hover
+        color: #fff
+        background-color: #8AB8D9
+
+      span
+        position: absolute
+        top: 0
+        left: 0
+        top: 50%
+        line-height: $w100 / 7
+        width: 100%
+        text-align: center
