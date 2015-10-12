@@ -41,18 +41,6 @@ module RademadeAdmin
       }
     end
 
-    def buttons_html(*buttons)
-      template.content_tag(
-        :div,
-        template.content_tag(
-          :div,
-          RademadeAdmin::HtmlBuffer.new(buttons),
-          :class => 'btn-box align-left'
-        ),
-        :class => 'btn-list'
-      )
-    end
-
     def reflection_data
       search_url = admin_autocomplete_uri(related_to, :format => :json)
       new_url = admin_new_form_uri(related_to)
