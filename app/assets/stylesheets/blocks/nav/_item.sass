@@ -1,11 +1,19 @@
 .nav-item
   position: relative
-  border-bottom: em(1) solid $nav-link-border
+  border-bottom: 1px solid $nav-link-border
   box-sizing: border-box
   &.with-dd
-    &:after
-      position: absolute
-      content: ""
-      right: em(16)
-      top: em(19)
-      +sprite(dd-tile)
+    .nav-link
+      &:before
+        position: absolute
+        content: ""
+        right: 16px
+        top: 19px
+        opacity: .5
+        +sprite(dd-tile)
+      &.is-active
+        &:before
+          opacity: 1
+      &:hover
+        &:before
+          opacity: 1

@@ -2,10 +2,10 @@ $width: 100%
 
 .upload-holder
   float: left
-  padding: em(2)
+  padding: 2px
   width: 24%
   box-sizing: border-box
-  +media-below($media-medium-width)
+  +media-below($media-tablet)
     width: $width / 3
 
 .upload-item
@@ -24,6 +24,7 @@ $width: 100%
     &.add
       &:after
         +sprite(file_blue)
+
     .upload-text
       color: #3790D7
     .upload-delete
@@ -37,7 +38,7 @@ $width: 100%
     &:after
       position: absolute
       content: ""
-      top: em(23)
+      top: 23px
       left: 50%
       margin-left: em(-15)
       +sprite(file)
@@ -47,22 +48,22 @@ $width: 100%
     background-color: #F9FBFE
     font-size: em(13)
     color: #34CD7F
-    border: .08em solid #34CD7F
-    border-radius: em(6)
+    border: 1px solid #34CD7F
+    border-radius: 4px
 
     &:after
       position: absolute
       content: ""
-      top: em(23)
+      top: 23px
       left: 50%
-      margin-left: em(-15)
+      margin-left: -15px
       width: 25px
       height: 25px
       background: asset-url('rademade_admin/loader.GIF') center no-repeat
 
   .upload-text
     position: absolute
-    padding: 0 em(20)
+    padding: 0 20px
     width: 100%
     top: 50%
     text-align: center
@@ -73,8 +74,8 @@ $width: 100%
     z-index: 2
     top: 0
     left: 0
-    font-size: em(500)
-    width: em(5000)
+    font-size: 500em
+    width: 500em
     opacity: 0
     cursor: pointer
 
@@ -91,12 +92,17 @@ $width: 100%
     position: absolute
     top: 0
     right: 0
-    width: em(18)
-    height: em(18)
-    background-color: rgba(255,255,255,0.4)
-    border-radius: 0 em(4)
+    width: 18px
+    height: 18px
+    background: rgba(255,255,255,0.4)
+    border-radius: 0 4px
     opacity: 0
-    transition: opacity $transitionVal ease-in-out
+    transition: opacity $transitionVal ease-in-out,background $transitionVal ease-in-out
+    &:hover
+      background: #fff
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.50)
+      &:after
+        opacity: 1
 
     &:after
       position: absolute
@@ -114,4 +120,4 @@ $width: 100%
     width: 100%
     height: 100%
     background-color: #fff
-    border-radius: em(4)
+    border-radius: 4px

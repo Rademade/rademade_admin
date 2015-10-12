@@ -1,13 +1,13 @@
 .btn
   position: relative
   display: inline-block
-  padding: 0 em(20)
+  padding: 0 20px
   font-size: em(16)
-  height: em(36)
-  line-height: em(34)
+  height: 36px
+  line-height: 34px
   vertical-align: top
   white-space: nowrap
-  border-radius: em(4)
+  border-radius: 4px
   cursor: pointer
   outline: none
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out
@@ -15,19 +15,16 @@
   -webkit-appearance: none
 
   &.with-ico
-    padding: 0 em(20) 0 em(45)
+    padding: 0 20px 0 45px
 
   &.with-br
-    border-radius: em(40)
+    border-radius: 40px
 
   &.full-width
     display: block
     width: 100%
     text-align: center
-  &:hover
-    &.ico-add
-      &:after
-        +sprite(add_blue)
+
 
   &.ico-add
     &:after
@@ -35,5 +32,5 @@
       content: ''
       top: 50%
       transform: translateY(-50%)
-      left: em(16)
+      left: 16px
       +sprite(add)

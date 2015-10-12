@@ -4,12 +4,12 @@
   z-index: 989
   top: 0
   left: 0
-  width: em(50)
-  height: em(50)
+  width: 50px
+  height: 50px
   cursor: pointer
   transform: translateX(0)
   transition: transform 0.3s ease-in-out, background 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out
-  +media-below($media-large-width)
+  +media-below($media-desktop)
     display: block
 
 .nav-btn-ico
@@ -17,8 +17,8 @@
   top: 50%
   left: 50%
   transform: translateY(-50%) translateX(-50%)
-  width: em(20)
-  height: em(3)
+  width: 20px
+  height: 3px
   background: $gray
   opacity: .6
   transition: background 0.3s ease-in
@@ -28,14 +28,14 @@
     position: absolute
     content: ""
     left: 0
-    width: em(20)
-    height: em(3)
+    width: 20px
+    height: 3px
     background: $gray
     transform: rotate(0deg)
     transition: top 0.3s ease-in-out, bottom 0.3s ease-in-out, transform 0.3s ease-in-out
 
   &:after
-    top: em(-6)
+    top: -6px
 
   &:before
-    bottom: em(-6)
+    bottom: -6px

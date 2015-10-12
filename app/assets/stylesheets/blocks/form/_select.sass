@@ -1,0 +1,46 @@
+.form-box
+  &.select
+    .input-holder
+      position: relative
+      display: block
+      border: 1px solid $form-input-border
+      border-radius: 4px
+      box-sizing: border-box
+      transition: border $transitionVal ease-in-out
+      &:focus
+        border: 1px solid $form-input-border-focus
+
+      &:before
+        position: absolute
+        content: ''
+        z-index: 1
+        top: 0
+        right: 0
+        width: 30px
+        height: 100%
+        box-sizing: border-box
+        border-color: #E1E6EF
+        border-radius: 0
+        background-image: linear-gradient(-179deg, #F6FAFE 0%, #D4E6F8 100%)
+
+      &:after
+        position: absolute
+        z-index: 1
+        content: ''
+        top: 50%
+        right: 7px
+        transform: translateY(-50%)
+        +sprite(select2)
+
+    .form-input
+      position: relative
+      z-index: 2
+      border: 0
+      padding: 11px 13px
+      height: 40px
+      font-size: em(14)
+      color: $form-input-color
+      outline: none
+      background: none
+      -webkit-appearance: none
+      -moz-appearance: none

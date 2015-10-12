@@ -2,9 +2,9 @@ $transitionVal: 0.3s
 
 .content-search
   position: relative
-  margin-bottom: em(10)
+  margin-bottom: 10px
   &.flr
-    +media-below($media-medium-width)
+    +media-below($media-tablet)
       float: none
       width: 100%
 
@@ -13,8 +13,8 @@ $transitionVal: 0.3s
     top: 50%
     right: 0
     transform: translateY(-50%)
-    width: em(16)
-    height: em(17)
+    width: 17px
+    height: 18px
     border: 0
     background: none
     cursor: pointer
@@ -36,7 +36,7 @@ $transitionVal: 0.3s
       +sprite(search_blue)
 
   .content-search-input
-    padding: em(10) em(65) em(10) 0
+    padding: 10px 65px 10px 0
     width: 100%
     font-size: em(15)
     background: none
@@ -44,10 +44,10 @@ $transitionVal: 0.3s
     border-bottom: 1px solid $content-search-border
     transition: border 0.5s ease-in-out, color 0.5s ease-in-out
     box-sizing: border-box
-    +placeholder($content-search-placeholder,em(15))
+    +placeholder($content-search-placeholder,inherit)
     &:focus
       border-bottom: 1px solid $content-search-border-focus
-      +placeholder($content-search-placeholder-focus,em(15))
+      +placeholder($content-search-placeholder-focus,inherit)
 
     &:focus + .content-search-ico
       &:before

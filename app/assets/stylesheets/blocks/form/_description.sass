@@ -3,8 +3,8 @@ $form-description-large-width: 1260
 .form-description
   position: absolute
   z-index: 990
-  right: em(24)
-  top: em(14)
+  right: 24px
+  top: 14px
   opacity: .6
   overflow: hidden
   cursor: pointer
@@ -21,20 +21,20 @@ $form-description-large-width: 1260
     position: absolute
     cursor: default
     opacity: 0
-    top: em(-12)
+    top: -12px
     left: calc(100% + 15px)
-    padding: em(7) em(10)
-    width: em(200)
+    padding: 7px 10px
+    width: 200px
     font-size: em(13)
     color: #fff
     background: $form-description-bg
-    border-radius: em(4)
+    border-radius: 4px
     box-sizing: border-box
     transition: opacity $transitionVal ease-in-out
 
     +media-below($form-description-large-width)
-      top: em(25)
-      right: em(-12)
+      top: 25px
+      right: -12px
       left: auto
 
     &:after
@@ -49,7 +49,7 @@ $form-description-large-width: 1260
       pointer-events: none
       border-color: rgba(108, 115, 130, 0)
       border-right-color: #6C7382
-      border-width: em(5)
+      border-width: 5px
 
       +media-below($form-description-large-width)
         right: em(15)

@@ -1,8 +1,8 @@
 .form-lang-switch
-  margin-bottom: em(5)
+  margin-bottom: 5px
   padding-left: 40%
 
-  +media-below($media-small-width)
+  +media-below($media-mobile)
     position: absolute
     padding-left: 0
     top: em(13)
@@ -10,13 +10,17 @@
 
   .form-lang-item
     display: inline-block
-    margin-right: em(20)
+    margin-right: 20px
     vertical-align: top
+
+    &.ui-state-hover,
+    &.ui-state-active
+      .form-lang-link
+        color: $form-lang-active-color
 
     &.ui-state-active
       .form-lang-link
         cursor: default
-        color: $form-lang-active-color
 
     &.ui-state-disabled
       .form-lang-link
@@ -30,6 +34,6 @@
     font-size: em(14)
     color: $form-lang-color
 
-    +media-below($media-small-width)
-      margin: 0 0 0 em(5)
+    +media-below($media-mobile)
+      margin: 0 0 0 5px
       font-size: em(11)

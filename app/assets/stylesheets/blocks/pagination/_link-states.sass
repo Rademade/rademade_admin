@@ -37,9 +37,9 @@
 
   &.is-prev,
   &.is-first
-    margin-right: em(30)
-    padding: 0 0 0 em(20)
-    +media-below($media-medium-width)
+    margin-right: 30px
+    padding: 0 0 0 20px
+    +media-below($media-tablet)
       float: left
 
     &:after
@@ -52,8 +52,8 @@
 
   &.is-next,
   &.is-last
-    margin-left: em(30)
-    padding: 0 em(20) 0 0
+    margin-left: 30px
+    padding: 0 20px 0 0
 
     &:after
       right: 0
@@ -65,5 +65,5 @@
 
   &.is-first,
   &.is-last
-    +media-below($media-small-width)
+    +media-below($media-mobile)
       display: none
