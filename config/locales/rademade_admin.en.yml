@@ -34,8 +34,6 @@ en:
       insert: "Entity was inserted!"
       update: "Entity data was updated!"
       delete: "Entity was deleted!"
-      unlink: "Entity was unlinked!"
-      link: "Entity was linked!"
       status_update: "Status was updated!"
     remove_confirm:
       record: "Do you really want delete this record?"

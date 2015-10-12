@@ -1,0 +1,40 @@
+.rademade-calendar .calendar-date
+  .date-month
+    position: relative
+    height: 43px
+    border-bottom: 1px solid #E1E6EF
+    .month-btn
+      position: absolute
+      top: 0
+      width: 35px
+      height: 100%
+      cursor: pointer
+      &:hover
+        background-color: #E1E6EF
+
+      &:after
+        position: absolute
+        content: ""
+        top: 50%
+        left: 50%
+        transform: translateY(-50%) translateX(-50%)
+      &.month-prev
+        left: 0
+        &:after
+          @extend .svg-calendar-prev-dims
+          @extend .svg-calendar-prev
+
+      &.month-next
+        right: 0
+        &:after
+          @extend .svg-calendar-next-dims
+          @extend .svg-calendar-next
+
+    .month-val
+      display: block
+      width: 100%
+      font-size: 15px
+      color: #000
+      font-weight: bold
+      text-align: center
+      line-height: 43px
