@@ -38,18 +38,6 @@ module RademadeAdmin
       end
     end
 
-    def success_unlink
-      render :json => {
-        :message => I18n.t('rademade_admin.success_message.unlink')
-      }
-    end
-
-    def success_link
-      render :json => {
-        :message => I18n.t('rademade_admin.success_message.link')
-      }
-    end
-
     def success_message(item, message, additional_data = {})
       render :json => {
         :data => notifier_serializer.new([item]).as_json.first,
