@@ -1,6 +1,7 @@
 class @Content extends Backbone.View
 
   renderItemFromUrl : (url, cb) ->
+    $(document).trigger 'before-content-render'
     @_updateHistory(url)
     $.get url, layout : false, (html) =>
       $contentItem = $(html)
