@@ -26,6 +26,7 @@ class @GalleryPopup extends Backbone.View
     @_initCrop()
     $('html').addClass('opened-popup')
     @$el.append @$popup
+    @$popup
 
   previousPhoto : () ->
     photoIndex = @currentGallery.indexOf @currentPhoto
