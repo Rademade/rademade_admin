@@ -3,10 +3,10 @@
   width: 100%
   background-color: $content-table-bg
   text-align: left
-  border-radius: em(4)
+  border-radius: 4px
   border-collapse: initial
-  border: .08em solid $content-table-border
-  +media-below($media-medium-width)
+  border: 1px solid $content-table-border
+  +media-below($media-tablet)
 
   thead
     .content-table-row
@@ -31,25 +31,23 @@
     text-align: left
     color: $content-table-th-color
     font-weight: bold
-    +helvetica-medium
 
 .content-table-cell
   position: relative
-  padding: em(13) em(15)
+  padding: 12px 15px
   font-size: em(15)
   color: $content-table-color
   vertical-align: top
-  border-bottom: .08em solid $content-table-border
-  +helvetica-regular
-  +media-below($media-medium-width)
+  border-bottom: 1px solid $content-table-border
+  +media-below($media-tablet)
     display: none
 
   &:last-child
-    +media-below($media-medium-width)
+    +media-below($media-tablet)
       display: table-cell
 
   &.show-sdisplay
-    +media-below($media-medium-width)
+    +media-below($media-tablet)
       display: table-cell
 
   .text
@@ -58,9 +56,9 @@
     &.is-highlight
       color: $content-table-highlight-text
     img
-      width: em(95)
+      width: 95px
       height: auto
-      border-radius: em(4)
+      border-radius: 4px
 
   &.sortable,
   &.sortable-up,
@@ -70,7 +68,7 @@
         position: absolute
         content: ''
         top: 50%
-        right: em(-20)
+        right: -20px
         transform: translateY(-50%)
 
   &.sortable
@@ -94,7 +92,7 @@
 .discard
   position: absolute
   top: 50%
-  right: em(25)
+  right: 25px
   cursor: pointer
   opacity: .7
   transform: translateY(-50%)

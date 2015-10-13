@@ -2,21 +2,21 @@
   position: relative
   padding-left: 0
   background-color: $content-header-bg
-  border-bottom: .08em solid $content-header-border
+  border-bottom: 1px solid $content-header-border
   box-sizing: border-box
   +clear
 
-  +media-below($media-large-width)
+  +media-below($media-desktop)
     position: fixed
     z-index: 988
     width: 100%
-    padding-left: em(50)
+    padding-left: 50px
 
   .close-link
     position: absolute
     display: none
     top: 50%
-    right: em(25)
+    right: 25px
     transform: translateY(-50%)
     opacity: .4
     cursor: pointer
@@ -28,9 +28,9 @@
 .content-header-link
   position: relative
   display: block
-  padding: 0 em(20)
-  min-height: em(40)
+  padding: 12px 20px
   color: $content-header-link-color
   font-weight: bold
   font-size: em(20)
-  line-height: em(40)
+  line-height: 25px
+  box-sizing: border-box

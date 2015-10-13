@@ -31,8 +31,12 @@ sup
   cursor: pointer
 
 .is-dragging
+  position: relative
   cursor: move
   background-color: $content-table-item-hover
+  .draggable-btn
+    border: 1px solid $content-table-item-shadow
+
   .draggable-btn
     cursor: move
 

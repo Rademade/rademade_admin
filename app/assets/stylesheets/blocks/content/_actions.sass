@@ -1,6 +1,6 @@
 .content-actions-list
   display: block
-  margin-bottom: em(-5)
+  margin-bottom: -10px
   +clear
 
   button,
@@ -17,7 +17,7 @@
     padding: 0
     outline: none
     font-size: em(16)
-    margin: 0 em(20) em(10) 0
+    margin: 0 20px 10px 0
     cursor: pointer
     border: 0
     background: none
@@ -25,7 +25,7 @@
       margin-left: 0
     &:hover
       overflow: inherit
-      +media-below($media-small-width)
+      +media-below($media-mobile)
         overflow: hidden
       &:after
         opacity: 1
@@ -47,7 +47,7 @@
 
     &.edit
       &:after
-        margin-top: em(1)
+        margin-top: 1px
         +sprite(pen)
 
     &.photo
@@ -56,18 +56,18 @@
 
     &.link
       &:after
-        margin-top: em(1)
+        margin-top: 1px
         +sprite(link)
 
     &.visibility
       &:after
-        margin-top: em(4)
+        margin-top: 4px
         +sprite(eye)
 
     &.invisibility
       &:after
-        margin-top: em(1)
-        margin-bottom: em(-2)
+        margin-top: 1px
+        margin-bottom: -2px
         +sprite(invisible)
 
     &.trash

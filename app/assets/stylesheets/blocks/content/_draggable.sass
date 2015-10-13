@@ -4,7 +4,7 @@
 
   .content-table-cell
     &:first-child
-      padding-left: em(30)
+      padding-left: 30px
 
 .is-highlight
   .draggable-btn
@@ -16,9 +16,11 @@
   position: absolute
   top: 0
   left: 0
-  width: em(25)
+  width: 25px
   height: 100%
   cursor: move
+  box-sizing: border-box
+  border: 1px solid transparent
   transition: background $transitionVal ease-in-out
   &:after
     position: absolute

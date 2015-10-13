@@ -1,24 +1,25 @@
 .input-holder
   float: left
+  display: block
   position: relative
   width: 60%
-  +media-below($media-small-width)
+  +media-below($media-mobile)
     float: none
     width: 100%
 
   &.in-error
     .form-input
-      border: .08em solid $form-input-border-error
+      border: 1px solid $form-input-border-error
 
 .form-input
   display: block
   width: 100%
-  padding: em(13) em(15)
+  padding: 11px 15px
   font-size: em(14)
   color: $form-input-color
-  border: .08em solid $form-input-border
-  border-radius: em(4)
+  border: 1px solid $form-input-border
+  border-radius: 4px
   box-sizing: border-box
   transition: border $transitionVal ease-in-out
   &:focus
-    border: .08em solid $form-input-border-focus
+    border: 1px solid $form-input-border-focus

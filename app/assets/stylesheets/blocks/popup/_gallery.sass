@@ -1,7 +1,7 @@
 .popup-gallery
   position: relative
   display: block
-  padding: 0 em(200)
+  padding: 0 200px
   height: 100%
   box-sizing: border-box
   user-select: none
@@ -25,7 +25,7 @@
   .popup-gallery-btn
     position: absolute
     top: 0
-    width: em(125)
+    width: 125px
     height: 100%
     cursor: pointer
     transition: background $transitionVal ease-in-out
@@ -46,5 +46,5 @@
       &:after
         left: auto
         right: 50%
-        transform: translateY(-50%) translateX(-50%)
+        transform: translateY(-50%)
         +sprite(next)
