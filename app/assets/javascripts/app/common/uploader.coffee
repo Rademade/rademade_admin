@@ -14,7 +14,7 @@ class @Uploader extends Backbone.View
       add : (e, $form) =>
         @showLoader()
         $form.submit().done @updateUploader
-      done : @hideLoader
+      always : @hideLoader
 
   updateUploader : (result) =>
     @$el.find('[data-preview-item]').replaceWith(result.html)
