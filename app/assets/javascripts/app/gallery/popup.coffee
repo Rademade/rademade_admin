@@ -26,7 +26,7 @@ class @GalleryPopup extends Backbone.View
     @_initCrop()
     $('html').addClass('opened-popup')
     @$el.append @$popup
-    @$popup
+    @_initImageCentering()
 
   previousPhoto : () ->
     photoIndex = @currentGallery.indexOf @currentPhoto
@@ -52,6 +52,16 @@ class @GalleryPopup extends Backbone.View
   cropPhoto : () ->
     cropAttributes = @cropper.getCropAttributes()
     @currentPhoto.crop(cropAttributes) if cropAttributes isnt undefined
+
+  _initImageCentering : () ->
+    @$galleryPopup = @$popup.find('.popup-gallery')
+    @$galleryPopup.find('.popup-gallery-img').on 'load', @_centerImage
+    @$window ||= $(window)
+    @$window.on 'resize', @_centerImage
+
+  _centerImage : () =>
+    heightWithouImage = @$window.height() - @$galleryPopup.find('.popup-gallery-img').outerHeight()
+    @$galleryPopup.find('.popup-gallery-item').css 'margin-top', heightWithouImage / 2 - @$galleryPopup.position().top
 
   close : (e) ->
     e.preventDefault()
@@ -83,11 +93,13 @@ class @GalleryPopup extends Backbone.View
     @currentPhoto.on 'crop', @_updateHTML
 
   _unbindEvents : () ->
-    @currentPhoto.off('crop') if @currentPhoto
+    @currentPhoto.off('crop', @_updateHTML) if @currentPhoto
+    @$window.off('resize', @_centerImage) if @$window
 
   _updateHTML : () =>
     @$popup.html @_getHTML()
     @_initCrop()
+    @_initImageCentering()
 
   _getHTML : () ->
     JST['app/templates/gallery-popup']
