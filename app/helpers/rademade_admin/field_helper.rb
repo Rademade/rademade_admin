@@ -18,7 +18,7 @@ module RademadeAdmin::FieldHelper
     else
       value = data_item.list_preview_handler.call(item)
     end
-    return display_boolean_item(value) if value.is_a?(::Boolean)
+    return display_boolean_item(value) if !!value == value
     value.to_s.html_safe
   end
 
