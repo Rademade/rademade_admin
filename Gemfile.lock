@@ -14,9 +14,8 @@ PATH
       kaminari (~> 0.16)
       light_resizer (>= 0.1.7)
       mini_magick
-      mongoid_sortable_relation (>= 0.0.9)
       rails (~> 4.0, < 4.3)
-      sass-rails (>= 5.0)
+      sass-rails (>= 4.0)
       select2-rails (~> 3.5)
       simple_form (~> 3.1)
       turbolinks (~> 2.2)
@@ -318,6 +317,7 @@ DEPENDENCIES
   mongoid-paranoia
   mongoid-tree
   mongoid_rails_migrations (= 1.0.0)
+  mongoid_sortable_relation (>= 0.0.9)
   mysql2 (~> 0.3, < 0.4)
   pry
   rademade_admin!
@@ -326,3 +326,6 @@ DEPENDENCIES
   sequel
   simplecov
   spork-rails
+
+BUNDLED WITH
+   1.10.6

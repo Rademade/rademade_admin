@@ -21,6 +21,7 @@ group :test do
   gem 'mongoid-grid_fs'
   gem 'mongoid-tree'
   gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+  gem 'mongoid_sortable_relation', '>= 0.0.9'
 
   # Sql
   gem 'mysql2', '~> 0.3', '< 0.4'
