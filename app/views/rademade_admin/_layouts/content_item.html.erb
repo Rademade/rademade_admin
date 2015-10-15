@@ -1,4 +1,4 @@
-<div class="content-item" data-content-item="<%= defined?(content_url) ? content_url : request.fullpath %>">
+<div class="content-item" data-content-item="<%= defined?(content_url) ? content_url : request.original_fullpath %>">
     <div class="content-header" data-content-header>
         <span class="content-header-link is-clickable"><%= content_header %></span>
         <i class="close-link" data-content-close></i>
