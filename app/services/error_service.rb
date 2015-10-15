@@ -3,14 +3,27 @@ module RademadeAdmin
   class ErrorService
 
     def error_messages_for(error)
-      case error
-        when ActiveRecord::RecordInvalid, Mongoid::Errors::Validations
-          error.record.errors
-        when Sequel::ValidationFailed
-          error.errors
-        else
-          error.message
+      if active_record_error?(error) || mongoid_error?(error)
+        error.record.errors
+      elsif sequel_error?(error)
+        error.errors
+      else
+        error.message
       end
+    end
+
+    private
+
+    def active_record_error?(error)
+      defined?(ActiveRecord::RecordInvalid) && error.is_a?(ActiveRecord::RecordInvalid)
+    end
+
+    def mongoid_error?(error)
+      defined?(Mongoid::Errors::Validations) && error.is_a?(Mongoid::Errors::Validations)
+    end
+
+    def sequel_error?(error)
+      defined?(Sequel::ValidationFailed) && error.is_a?(Sequel::ValidationFailed)
     end
 
   end
