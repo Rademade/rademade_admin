@@ -2,6 +2,10 @@
 module RademadeAdmin
   class DashboardController < RademadeAdmin::AbstractController
 
+    helper RademadeAdmin::FormHelper
+    helper RademadeAdmin::MenuHelper
+    helper RademadeAdmin::UriHelper
+
     skip_before_action :require_login, :only => [:login]
 
     def index

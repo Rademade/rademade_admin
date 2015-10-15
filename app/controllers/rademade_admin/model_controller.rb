@@ -13,6 +13,7 @@ module RademadeAdmin
     helper RademadeAdmin::FieldTypeHelper
     helper RademadeAdmin::FormHelper
     helper RademadeAdmin::UriHelper
+    helper RademadeAdmin::MenuHelper
     helper RademadeAdmin::PaginationHelper
 
     before_filter :load_options, :model, :pagination_variants

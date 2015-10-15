@@ -9,11 +9,13 @@ class @ImagePreview extends Backbone.View
   showPopup : () ->
     GalleryPopup.getInstance().showForPreview(@model)
 
-  bindUploadChange : () ->
+  initElements : () ->
     @$holder = @$el.closest('.input-holder')
-    $uploader = @$holder.find('[data-uploader]') # todo another way
-    return if $uploader.length is 0
-    @model.set 'uploadParams', _.pick $uploader.data(), 'model', 'column', 'uploader'
+    @$uploader = @$holder.find('[data-uploader]') # todo another way
+
+  bindUploadChange : () ->
+    return if @$uploader.length is 0
+    @model.set 'uploadParams', _.pick(@$uploader.data(), 'model', 'column', 'uploader')
     @model.on 'crop', @_onCrop
 
   _onCrop : () =>
@@ -23,6 +25,7 @@ class @ImagePreview extends Backbone.View
   @init : ($imagePreview) ->
     imagePreview = new this
       el : $imagePreview
+    imagePreview.initElements()
     imagePreview.bindUploadChange()
     imagePreview
 

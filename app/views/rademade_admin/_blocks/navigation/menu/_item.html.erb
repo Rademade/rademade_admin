@@ -3,14 +3,13 @@ has_sub_items = (menu_item[:sub].is_a? Array and menu_item[:sub].size > 0)
 uri = menu_item[:uri]
 if has_sub_items || uri
     is_active = active?(menu_item)
-    %><li class="nav-item<%
-        if has_sub_items
-            %> with-dd<%
-        end
-    %>">
+    %><li class="nav-item">
         <a href="<%= uri %>" class="nav-link<%
             if is_active
                 %> is-active<%
+            end
+            if has_sub_items
+                %> with-dd<%
             end
         %>">
             <span><%= menu_item[:name] %></span><%
