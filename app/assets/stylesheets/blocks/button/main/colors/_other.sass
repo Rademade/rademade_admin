@@ -1,12 +1,14 @@
-=btn($btn-class,$btn-color)
+=btn($btn-class,$btn-color,$btn-color-hov: none)
   .btn
     &.#{$btn-class}
-      background-color: $btn-color
+      background: $btn-color
       border: 1px solid $btn-color
+
       &.with-ico
         &:hover
           color: $white
-          background: $btn-blue-hover-color
+          background: $btn-color
+          background-image: $btn-color-hov
 
       &:hover
         color: $btn-color
@@ -23,7 +25,7 @@
           background: $btn-color
           border: 1px solid $btn-color
 
-+btn(is-blue,$btn-blue-color)
++btn(is-blue,$btn-blue-color,$btn-blue-hover-color)
 +btn(is-dark-red,$btn-dred-color)
 +btn(is-purple,$btn-purple-color)
 +btn(is-red,$btn-red-color)
