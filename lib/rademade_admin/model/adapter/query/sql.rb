@@ -24,7 +24,7 @@ module RademadeAdmin
                 where_condition, value = build_where_condition(part)
                 condition += where_condition
               end
-              values << value
+              values += value
             end
             [condition, values]
           end
@@ -32,11 +32,11 @@ module RademadeAdmin
           def build_where_condition(field: nil, value: nil)
             field = "`#{field}`"
             if value.is_a? Regexp
-              ["LOWER(#{field}) REGEXP ?", value.source]
+              ["LOWER(#{field}) REGEXP ?", [value.source]]
             elsif value.is_a? Array
-              ["#{field} IN (?)", value]
+              ["#{field} IN (?)", [value]]
             else
-              ["#{field} = ?", value]
+              ["#{field} = ?", [value]]
             end
           end
 
