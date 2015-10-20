@@ -75,7 +75,7 @@ class @Select2Input.View extends Backbone.View
     while result.length isnt RESULT_LIMIT
       item = data[index++]
       break if item is undefined
-      result.push(data[index]) if chosen.indexOf(data[index].id) is -1
+      result.push(item) if chosen.indexOf(item.id) is -1
     results : result
 
   _onChange : (e) =>
