@@ -20,7 +20,7 @@ module RademadeAdmin
         end
 
         def limit
-          10
+          100
         end
 
         private
