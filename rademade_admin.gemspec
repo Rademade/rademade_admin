@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
 
   # Images
   s.add_dependency 'carrierwave', '~> 0.10'
-  s.add_dependency 'light_resizer', '>= 0.1.7'
+  s.add_dependency 'light_resizer', '~> 0.1.0'
 
   # Assets
   s.add_dependency 'bower-rails', '>= 0.8.2'
