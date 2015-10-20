@@ -80,3 +80,25 @@
       &:after
         margin-top: 2px
         +sprite(add)
+
+    &.dropdown
+      position: absolute
+      margin: 0
+      top: 0
+      left: 0
+      width: 35px
+      height: 100%
+      opacity: 1
+      background-color: #D8DFEA
+      &:after
+        position: absolute
+        top: 50%
+        left: 50%
+        margin: -5px 0 0 -8px
+        content: ""
+        opacity: 1
+        +sprite(dd-tile)
+      &.top
+        z-index: 2
+        &:after
+          transform: rotate(180deg)
