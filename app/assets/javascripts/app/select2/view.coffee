@@ -1,5 +1,7 @@
 class @Select2Input.View extends Backbone.View
 
+  RESULT_LIMIT = 10
+
   initItem : () ->
     @$item = @$el.find('[data-rel-multiple]')
     @initModel()
@@ -66,8 +68,15 @@ class @Select2Input.View extends Backbone.View
   _getData : (term) ->
     q : term
 
-  _getResults : (data) ->
-    results : data
+  _getResults : (data) =>
+    result = []
+    index = 0
+    chosen = @$item.select2('val')
+    while result.length isnt RESULT_LIMIT
+      item = data[index++]
+      break if item is undefined
+      result.push(data[index]) if chosen.indexOf(data[index].id) is -1
+    results : result
 
   _onChange : (e) =>
     addedElement = e.added
