@@ -23,10 +23,16 @@ class @Select2Input.RelatedView extends Backbone.View
 
   render : () ->
     @$el.html @_getHtml(@model.toJSON())
+    @$el.addClass('is-draggable') if @isSortable()
     return this
 
+  isSortable : () ->
+    @model.collection.isSortable()
+
   _getHtml : (data) ->
-    JST['app/templates/related-item'](data)
+    JST['app/templates/related-item'] _.extend
+      isSortable : @isSortable()
+    , data
 
   @init : ($el) ->
     $edit = $el.find('[data-edit]')

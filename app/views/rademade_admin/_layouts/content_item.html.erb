@@ -1,4 +1,12 @@
-<div class="content-item" data-content-item="<%= defined?(content_url) ? content_url : request.original_fullpath %>">
+<%
+if defined?(content_url)
+  url = content_url
+else
+  url_params = request.parameters.symbolize_keys
+  url_params.delete(:layout)
+  url = admin_url_for(url_params)
+end
+%><div class="content-item" data-content-item="<%= url %>">
     <div class="content-header" data-content-header>
         <span class="content-header-link is-clickable"><%= content_header %></span>
         <i class="close-link" data-content-close></i>

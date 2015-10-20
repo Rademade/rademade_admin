@@ -13,6 +13,12 @@ class @Select2Input.RelatedCollection extends Backbone.Collection
     @remove model
     @_triggerChange()
 
+  setSortable : (sortable) ->
+    @sortable = sortable
+
+  isSortable : () ->
+    @sortable
+
   resort : () ->
     @sort()
     @_triggerChange()

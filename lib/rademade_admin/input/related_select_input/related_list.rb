@@ -20,14 +20,24 @@ module RademadeAdmin
           html = serialized_values.map do |serialized_value|
             template.content_tag(:li, related_list_item_html(serialized_value), {
               :'data-id' => serialized_value[:id],
-              :class => 'select2-item'
+              :class => related_item_class
             })
           end
           RademadeAdmin::HtmlBuffer.new(html)
         end
 
         def related_list_item_html(serialized_value)
-          RademadeAdmin::HtmlBuffer.new([related_list_item_title_html(serialized_value), related_list_item_remove_html])
+          RademadeAdmin::HtmlBuffer.new([
+            draggable_button_html,
+            related_list_item_title_html(serialized_value),
+            related_list_item_remove_html
+          ])
+        end
+
+        def draggable_button_html
+          template.content_tag(:i, '', {
+            :class => 'draggable-btn'
+          }) if sortable_relation?
         end
 
         def related_list_item_title_html(serialized_value)
@@ -42,6 +52,12 @@ module RademadeAdmin
             :'data-remove' => '',
             :class => 'select2-item-remove'
           })
+        end
+
+        def related_item_class
+          class_name = 'select2-item'
+          class_name += ' is-draggable' if sortable_relation?
+          class_name
         end
 
         def sortable_relation?
