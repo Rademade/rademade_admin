@@ -2,6 +2,10 @@
   .select2-item
     &.is-draggable
       padding-left: 35px
+      width: auto !important
+      &.ui-sortable-helper
+        overflow: hidden
+        +to(block)
 
 .is-draggable
   .draggable-btn
