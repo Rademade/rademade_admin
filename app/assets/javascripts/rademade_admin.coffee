@@ -10,6 +10,7 @@
 #= require jquery-ui/ui/slider
 #= require jquery-ui/ui/tabs
 #= require jquery-ui/ui/datepicker
+#= require touch-punch/jquery.ui.touch-punch
 #= require jcrop/js/jquery.Jcrop
 #= require jquery-filthypillow/jquery.filthypillow
 #= require jquery-fileupload/js/jquery.fileupload
