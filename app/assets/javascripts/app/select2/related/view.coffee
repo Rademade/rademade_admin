@@ -27,7 +27,10 @@ class @Select2Input.RelatedView extends Backbone.View
     return this
 
   isSortable : () ->
-    @model.collection.isSortable()
+    if @model.collection
+      @model.collection.isSortable()
+    else
+      false
 
   _getHtml : (data) ->
     JST['app/templates/related-item'] _.extend
