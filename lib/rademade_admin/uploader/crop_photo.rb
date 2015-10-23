@@ -13,14 +13,14 @@ module RademadeAdmin
 
       def crop(image_path, x, y, width, height)
         image = ::Magick::Image.read(image_path).first
-        image.crop!(x.to_i, y.to_i, width.to_i, height.to_i)
+        image.crop!(x.to_i, y.to_i, width.to_i, height.to_i, true)
         image.write("#{Rails.root}/tmp/cache/#{x}_#{y}_#{width}_#{height}_#{/([^\/]*)$/.match(image_path)[1]}")
         File.open(image.filename)
       end
 
       def original_dimensions
         if file && model
-          image = Magick::Image.read(file.file).first
+          image = Magick::Image.ping(file.file).first
           [image.columns, image.rows]
         else
           []

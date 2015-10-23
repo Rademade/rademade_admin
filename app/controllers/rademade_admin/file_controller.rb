@@ -40,12 +40,12 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
   end
 
   def model
-    model_class = RademadeAdmin::LoaderService.const_get(params[:model])
+    model_info = RademadeAdmin::Model::Graph.instance.model_info(params[:model])
     model_object = nil
     if params[:id].present?
-      model_object = model_class.find(params[:id]) rescue nil
+      model_object = model_info.query_adapter.find(params[:id]) rescue nil
     end
-    model_object || model_class.new
+    model_object || model_info.persistence_adapter.new_record
   end
 
 end
