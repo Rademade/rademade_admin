@@ -18,6 +18,14 @@ module RademadeAdmin
           @result
         end
 
+        def find(id)
+          nil
+        end
+
+        def initial
+          []
+        end
+
         protected
 
         def where(where_conditions)
