@@ -1,5 +1,17 @@
 .form-lang-switch
-  margin-bottom: 5px
+  &.with-editor
+    margin-bottom: 0
+    .form-lang-item
+      &:first-child
+        .form-lang-link
+          border-radius: 4px 0 0 0
+      &:last-child
+        .form-lang-link
+          border-radius: 0 4px 0 0
+
+
+.form-lang-switch
+  margin-bottom: 8px
   padding-left: 40%
 
   +media-below($media-mobile)
@@ -10,13 +22,26 @@
 
   .form-lang-item
     display: inline-block
-    margin-right: 20px
     vertical-align: top
+    text-align: center
+    &:first-child
+      .form-lang-link
+        border-radius: 4px 0 0 4px
 
-    &.ui-state-hover,
+    &:last-child
+      .form-lang-link
+        border-radius: 0 4px 4px 0
+        border-right: 1px solid #E1E6EF
+
+    &.ui-state-hover
+      .form-lang-link
+        color: $form-lang-hover-color
+
     &.ui-state-active
       .form-lang-link
         color: $form-lang-active-color
+        background-color: $form-lang-active-bg
+        border: 1px solid $form-lang-active-bg
 
     &.ui-state-active
       .form-lang-link
@@ -29,10 +54,16 @@
 
   .form-lang-link
     display: inline-block
+    margin-right: -1px
+    padding: 3px 1px 2px 1px
+    min-width: 40px
+    border: 1px solid #E1E6EF
+    border-right: 0
     cursor: pointer
     text-transform: uppercase
     font-size: em(14)
     color: $form-lang-color
+    box-sizing: border-box
 
     +media-below($media-mobile)
       margin: 0 0 0 5px

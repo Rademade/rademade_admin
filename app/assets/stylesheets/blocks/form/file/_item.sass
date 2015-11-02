@@ -32,7 +32,6 @@ $width: 100%
 
   &.add
     background-color: #F9FBFE
-    font-size: em(13)
     color: rgba(71, 80, 98, 0.4)
 
     &:after
@@ -40,16 +39,15 @@ $width: 100%
       content: ""
       top: 23px
       left: 50%
-      margin-left: em(-15)
       +sprite(file)
-      +media-below($media-mobile)
+      transform: translateX(-50%)
+      +media-below($media-desktop)
         top: 50%
-        transform: translateY(-50%)
+        transform: translateY(-50%) translateX(-50%)
 
   &.is-loading
     padding-bottom: 98%
     background-color: #F9FBFE
-    font-size: em(13)
     color: #34CD7F
     border: 1px solid #34CD7F
     border-radius: 4px
@@ -63,19 +61,22 @@ $width: 100%
       width: 25px
       height: 25px
       background: asset-url('rademade_admin/loader.GIF') center no-repeat
-      +media-below($media-mobile)
+      +media-below($media-desktop)
         top: 50%
-        margin-left: -12px
-        transform: translateY(-50%)
+        transform: translateY(-50%) translateX(-50%)
 
   .upload-text
     position: absolute
-    padding: 0 20px
+    padding: 0 10px
     width: 100%
     top: 50%
+    margin-top: 5px
+    letter-spacing: 0.1px
+    font-size: em(13)
+    line-height: 15px
     text-align: center
     box-sizing: border-box
-    +media-below($media-mobile)
+    +media-below($media-desktop)
       display: none
 
   input
