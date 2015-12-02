@@ -1,7 +1,8 @@
 initForms = () ->
   FormValidation.initDefaults()
   $('form').each (i, form) ->
-    Form.init $(form)
+    $form = $(form)
+    Form.init $form unless $form.data().disableAdmin
 
 $ ->
   $(document).on 'ready page:load init-plugins', initForms
