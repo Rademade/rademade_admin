@@ -1,6 +1,6 @@
 class @Select2Input.View extends Backbone.View
 
-  resultLimin = 10
+  resultLimit = 10
 
   initItem : () ->
     @$item = @$el.find('[data-rel-multiple]')
@@ -72,7 +72,7 @@ class @Select2Input.View extends Backbone.View
     result = []
     index = 0
     chosen = @$item.select2('val')
-    while result.length isnt resultLimin
+    while result.length isnt resultLimit
       item = data[index++]
       break if item is undefined
       result.push(item) if chosen.indexOf(item.id) is -1
@@ -130,7 +130,7 @@ class @Select2Input.View extends Backbone.View
   @initPlugin : () =>
     @initAll()
 
-  @setResultLimit : (limit) -> resultLimin = limit
+  @setResultLimit : (limit) -> resultLimit = limit
 
 $ ->
   $(document).on 'ready page:load init-plugins', Select2Input.View.initPlugin
