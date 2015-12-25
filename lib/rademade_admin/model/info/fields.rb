@@ -74,7 +74,7 @@ module RademadeAdmin
 
           name = data_item.name
 
-          data_item.has_uploader = @uploaders.has_uploader?(name)
+          data_item.uploader = @uploaders.uploader(name)
           data_item.order_column = nil unless @data_adapter.columns.include?(data_item.order_column)
 
           @model_configuration.field_labels.find(name) do |label_data|

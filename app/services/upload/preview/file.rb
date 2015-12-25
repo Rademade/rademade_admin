@@ -17,12 +17,8 @@ module RademadeAdmin
         def uploaded_file_html
           if @uploader.blank? || @uploader.size.zero?
             ''
-          elsif image?
-            image_preview_html
-          elsif video?
-            video_preview_html
           else
-            file_preview_html
+            content_tag(:div, HtmlBuffer.new([uploaded_preview_html, remove_ico_html]))
           end
         end
 
@@ -43,6 +39,16 @@ module RademadeAdmin
         end
 
         protected
+
+        def uploaded_preview_html
+          if image?
+            image_preview_html
+          elsif video?
+            video_preview_html
+          else
+            file_preview_html
+          end
+        end
 
         def image_preview_html
           content_tag(:img, '', {
@@ -72,6 +78,10 @@ module RademadeAdmin
             :href => @uploader.url,
             :download => ''
           }
+        end
+
+        def remove_ico_html
+          content_tag(:i, '', :class => 'upload-delete')
         end
 
       end

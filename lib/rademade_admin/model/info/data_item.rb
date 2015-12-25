@@ -10,7 +10,7 @@ module RademadeAdmin
                       :field,
                       :relation,
                       :label,
-                      :has_uploader,
+                      :uploader,
                       :order_column,
                       :form_params,
 
@@ -38,7 +38,6 @@ module RademadeAdmin
           @field = field
           @relation = relation
           @order_column = order_column
-          @has_uploader = false
           @in_list = false
           @in_form = false
           @in_csv = false
@@ -57,7 +56,7 @@ module RademadeAdmin
         end
 
         def has_uploader?
-          has_uploader
+          !uploader.nil?
         end
 
         def sortable_relation?
