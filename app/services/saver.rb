@@ -74,19 +74,19 @@ module RademadeAdmin
     end
 
     def save_model_upload(data_item, image_path)
-      unless image_path.blank?
-        full_image_path = "#{CarrierWave.root}#{image_path}"
-        begin
-          if item.try(:translation).respond_to? data_item.setter
-            entity = item.translation
-          else
-            entity = item
-          end
-          data_item.set_data(entity, File.open(full_image_path))
-        rescue
-          # rm_todo clear image
-        end
+      if item.try(:translation).respond_to? data_item.setter
+        entity = item.translation
+      else
+        entity = item
       end
+      if image_path.blank?
+        entity.send(data_item.uploader.remove_method)
+      else
+        full_image_path = data_item.uploader.full_path_for(image_path)
+        data_item.set_data(entity, File.open(full_image_path))
+      end
+    rescue
+      # rm_todo clear image
     end
 
     def find_entities(data_item, ids)

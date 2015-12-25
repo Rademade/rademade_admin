@@ -1,5 +1,8 @@
 class @Uploader extends Backbone.View
 
+  events :
+    'click .upload-delete' : 'removeFile'
+
   initElements : () ->
     @$uploader = @$el.find('[data-uploader]')
     @$hidden = @$el.find('input[type="hidden"]')
@@ -27,6 +30,11 @@ class @Uploader extends Backbone.View
 
   hideLoader : () =>
     @$loaderHolder.removeClass('is-loading')
+
+  removeFile : () ->
+    @$el.find('[data-preview-item]').closest('.upload-holder').fadeOut 300, () ->
+      $(this).addClass('hide').show()
+    @$hidden.val('')
 
   _getUploaderData : () ->
     uploaderData = _.pick @$uploader.data(), 'id', 'model', 'column', 'uploader'
