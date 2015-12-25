@@ -32,7 +32,7 @@ class @Uploader extends Backbone.View
     @$loaderHolder.removeClass('is-loading')
 
   removeFile : () ->
-    @$el.find('[data-preview-item]').closest('.upload-holder').fadeOut 300, () ->
+    @$el.find('.upload-holder:has([data-preview-item])').fadeOut 300, () ->
       $(this).addClass('hide').show()
     @$hidden.val('')
 
