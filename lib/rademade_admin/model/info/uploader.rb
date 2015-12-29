@@ -10,8 +10,11 @@ module RademadeAdmin
           @name, @uploader = name, uploader
         end
         
-        def remove_method
-          "remove_#{name}!"
+        def remove_proc
+          method_name = :"remove_#{name}="
+          Proc.new do
+            self.send(method_name, true)
+          end
         end
 
         def full_path_for(image_path)

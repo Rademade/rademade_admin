@@ -80,7 +80,7 @@ module RademadeAdmin
         entity = item
       end
       if image_path.blank?
-        entity.send(data_item.uploader.remove_method)
+        item.instance_exec(&data_item.uploader.remove_proc)
       else
         full_image_path = data_item.uploader.full_path_for(image_path)
         data_item.set_data(entity, File.open(full_image_path))
