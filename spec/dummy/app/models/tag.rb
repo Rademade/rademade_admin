@@ -3,6 +3,7 @@ class Tag
   include Mongoid::Document
 
   field :name, :type => String, :localize => true
+  field :description, :type => String, :localize => true
   has_and_belongs_to_many :posts
 
   def to_s
