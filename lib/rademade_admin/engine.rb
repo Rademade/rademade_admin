@@ -12,7 +12,7 @@ module RademadeAdmin
     config.assets.paths << "#{config.root}/vendor/assets/javascript/bower_components"
 
     initializer 'ckeditor.assets_precompile', :group => :all do |app|
-      app.config.assets.precompile += %w(rademade_admin.css rademade_admin.js ckeditor/*)
+      app.config.assets.precompile += %w(rademade_admin.css rademade_admin.js ckeditor/* rademade_admin/fav1.ico)
     end
 
     $LOAD_PATH << "#{config.root}/app/services/"
