@@ -84,7 +84,7 @@ class @Select2Input.View extends Backbone.View
       @model.get('related').update(addedElement)
       @$edit.show() if @$edit
     else if e.removed
-      $(@$item[1]).attr('value', '')
+      @$item.val('')
       @model.get('related').clear()
       @$edit.hide() if @$edit
 
