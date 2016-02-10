@@ -8,6 +8,9 @@
       &:last-child
         .form-lang-link
           border-radius: 0 4px 0 0
+      &:first-child:last-child
+        .form-lang-link
+          border-radius: 4px 4px 0 0
 
 
 .form-lang-switch
@@ -32,6 +35,10 @@
       .form-lang-link
         border-radius: 0 4px 4px 0
         border-right: 1px solid #E1E6EF
+
+    &:first-child:last-child
+      .form-lang-link
+        border-radius: 4px
 
     &.ui-state-hover
       .form-lang-link
