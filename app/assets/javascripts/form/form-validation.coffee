@@ -31,6 +31,8 @@ class @FormValidation extends Backbone.View
       if $("[name='#{name}']").length > 0
         messages[name] = message
       else
+        $("[name*='#{name}']").each (index) ->
+          messages[@name] = ''
         _.each message, (subMessage) ->
           globalMessages.push "#{field} #{subMessage}"
 
@@ -49,7 +51,7 @@ class @FormValidation extends Backbone.View
   @initDefaults : () ->
     $.validator.setDefaults
       showErrors : (errorMap, errorList) =>
-        $.each errorList, (index, error) =>
+        _.each errorList, (error) =>
           $error = $(error.element)
           $error.parent().addClass 'in-error'
           $error.after @_getErrorNotifier(error)

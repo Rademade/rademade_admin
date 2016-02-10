@@ -4,7 +4,10 @@ class RademadeAdmin::TagsController < RademadeAdmin::ModelController
   options do
     parent_menu 'Post'
     list :name
-    form :name
+    form do
+      name
+      description :text
+    end
   end
 
 end
