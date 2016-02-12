@@ -58,11 +58,13 @@ module RademadeAdmin
 
     def index
       authorize! :read, model_class
-      @items = index_items
       respond_to do |format|
-        format.html { render_template }
-        format.json { render :json => @items }
-        format.csv { render_csv }
+        format.html {
+          @items = index_items
+          render_template
+        }
+        format.json { render :json => index_items(false) }
+        format.csv { render_csv(index_items(false)) }
       end
     end
 
@@ -103,8 +105,9 @@ module RademadeAdmin
     protected
     # TODO move to search module
 
-    def index_items
+    def index_items(with_pagination = true)
       conditions = Search::Conditions::List.new(params, model_info.data_items)
+      conditions.paginate = nil unless with_pagination
       if params[:rel_class] && params[:rel_id] && params[:rel_getter]
         related_info = RademadeAdmin::Model::Graph.instance.model_info(params[:rel_class])
         @related_model = related_info.query_adapter.find(params[:rel_id])
@@ -155,8 +158,8 @@ module RademadeAdmin
       render_errors error_service.error_messages_for(e)
     end
 
-    def render_csv
-      send_data RademadeAdmin::CsvService.new(model_info, @items).to_csv
+    def render_csv(items)
+      send_data RademadeAdmin::CsvService.new(model_info, items).to_csv
     end
 
     def pagination_variants
