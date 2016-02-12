@@ -143,6 +143,7 @@ module RademadeAdmin
 
     def render_template(template = action_name)
       @with_layout = params[:layout] != 'false'
+      params.delete(:layout)
       render abstract_template(template), :layout => @with_layout
     end
 
