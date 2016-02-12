@@ -44,9 +44,9 @@ en:
       crop: "Crop"
       remove: "Remove"
       add:
-        photo: "Add new  photo"
+        photo: "Add new photo"
         video: "Add new  video"
-        file: "Add new  file"
+        file: "Add new file"
         gallery: "Add new  photo"
     button:
       save: "Save"
