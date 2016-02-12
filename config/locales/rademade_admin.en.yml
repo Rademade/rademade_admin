@@ -45,9 +45,10 @@ en:
       remove: "Remove"
       add:
         photo: "Add new photo"
-        video: "Add new  video"
+        video: "Add new video"
         file: "Add new file"
-        gallery: "Add new  photo"
+        gallery: "Add new photo"
+        processing: "Adding"
     button:
       save: "Save"
       cancel: "Cancel"

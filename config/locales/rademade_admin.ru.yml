@@ -48,6 +48,7 @@ ru:
         video: "Добавить видео"
         file: "Добавить файл"
         gallery: "Добавить фото"
+        processing: "Добавляется"
     button:
       save: "Сохранить"
       cancel: "Отмена"
