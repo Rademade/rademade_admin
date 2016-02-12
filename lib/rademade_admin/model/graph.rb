@@ -57,7 +57,9 @@ module RademadeAdmin
 
       def create_controller(controller_name, module_name = nil)
         controller_module = module_name.nil? ? default_module : LoaderService.const_get(module_name)
-        controller_module.const_set(controller_name.classify, Class.new(RademadeAdmin::ModelController))
+        controller = controller_module.const_set(controller_name.classify, Class.new(RademadeAdmin::ModelController))
+        Logger.new(STDOUT).info "RademadeAdmin initialized #{controller}"
+        controller
       end
 
       def default_module
