@@ -73,8 +73,6 @@ module RademadeAdmin
                 RademadeAdmin::Model::Info::Field::Type::DATE
               when 'DateTime'
                 RademadeAdmin::Model::Info::Field::Type::DATE_TIME
-              else
-                nil
             end
           end
 
