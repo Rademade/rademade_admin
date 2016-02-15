@@ -9,7 +9,6 @@ class @CalendarPicker
   bindCalendarListeners : () ->
     @$calendarPicker.on 'focus', () =>
       @$calendarPicker.filthypillow 'show'
-      @$calendarHolder.find('.fp-container').addClass('with-time') if @isDateTimePicker
 
     @$calendarPicker.on 'fp:save', (e, dateObj) =>
       @$calendarPicker.val dateObj.format(@_getFormat())

@@ -11,5 +11,9 @@ module RademadeAdmin
       }))
     end
 
+    def additional_classes
+      super + ['with-time']
+    end
+
   end
 end
