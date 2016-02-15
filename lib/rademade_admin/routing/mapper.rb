@@ -27,7 +27,7 @@ module RademadeAdmin
               get :form
             end if parent_resource_actions.include? :show
 
-            Model::Graph.instance.add_pair(@scope[:module], @scope[:controller], self.shallow?)
+            Model::Graph.instance.add_pair(@scope[:module], @scope[:controller])
 
           end
         end

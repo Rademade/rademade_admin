@@ -2,6 +2,7 @@
 class RademadeAdmin::UsersController < RademadeAdmin::ModelController
 
   options do
+    parent_menu 'Mongoid'
     list :email, :first_name, :last_name, :avatar, :admin
     csv do
       full_name

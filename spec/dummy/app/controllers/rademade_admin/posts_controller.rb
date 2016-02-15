@@ -2,6 +2,7 @@
 class RademadeAdmin::PostsController < RademadeAdmin::ModelController
 
   options do
+    parent_menu 'Mongoid'
     list do
       headline
       status handler: Proc.new { |post| "Status #{post.status}" }
