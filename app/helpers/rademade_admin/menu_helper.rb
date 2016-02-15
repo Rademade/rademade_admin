@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::MenuHelper
 
-  PARENT_LESS_MENU_KEY = :_parent_less
+  PARENT_LESS_MENU_KEY = :_parent_less unless const_defined?(:PARENT_LESS_MENU_KEY)
 
   def main_menu
     build_menu_data RademadeAdmin::Model::Graph.instance.model_infos
