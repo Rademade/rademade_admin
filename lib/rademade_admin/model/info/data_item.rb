@@ -6,26 +6,9 @@ module RademadeAdmin
 
         # TODO extract sub classes
 
-        attr_accessor :name,
-                      :field,
-                      :relation,
-                      :label,
-                      :uploader,
-                      :order_column,
-                      :form_params,
-
-                      :form_position,
-                      :list_position,
-                      :csv_position,
-
-                      :in_form,
-                      :in_list,
-                      :in_csv,
-
-                      :list_preview_accessor,
-                      :list_preview_handler,
-                      :csv_preview_accessor,
-                      :csv_preview_handler
+        attr_accessor :name, :field, :relation, :label, :uploader, :order_column, :form_params,
+                      :form_position, :list_position, :csv_position, :in_form, :in_list, :in_csv,
+                      :list_preview_accessor, :list_preview_handler, :csv_preview_accessor, :csv_preview_handler
 
         #
         # @param name [Symbol]
@@ -128,12 +111,16 @@ module RademadeAdmin
           has_field? && @field.string?
         end
 
-        def date_time_field?
-          has_field? && @field.date_time?
-        end
-
         def boolean_field?
           has_field? && @field.boolean?
+        end
+
+        def date_field?
+          has_field? && @field.date?
+        end
+
+        def date_time_field?
+          has_field? && @field.date_time?
         end
 
         def simple_field?

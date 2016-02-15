@@ -23,9 +23,7 @@ module RademadeAdmin
                 :primary => field_data[:primary_key],
                 :getter => name,
                 :setter => :"#{name}=",
-                :is_string => field_data[:type] == :string,
-                :is_date_time => field_data[:type] == :datetime,
-                :is_boolean => field_data[:type] == :boolean,
+                :type => field_type(field_data[:type]),
                 :localizable => false,
                 :relation_name => name[/(.+)_id$/, 1]
               })
@@ -65,6 +63,23 @@ module RademadeAdmin
               (new_items - old_items).each do |related_item|
                 self.instance_exec(related_item, &relation_info[:adder])
               end
+            end
+          end
+
+          private
+
+          def field_type(type)
+            case type
+              when :string
+                RademadeAdmin::Model::Info::Field::Type::STRING
+              when :boolean
+                RademadeAdmin::Model::Info::Field::Type::BOOLEAN
+              when :date
+                RademadeAdmin::Model::Info::Field::Type::DATE
+              when :dateTime
+                RademadeAdmin::Model::Info::Field::Type::DATE_TIME
+              else
+                nil
             end
           end
 

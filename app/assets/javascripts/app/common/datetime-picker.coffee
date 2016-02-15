@@ -1,32 +1,50 @@
-class FilthypillowCalendar
+class @CalendarPicker
 
-  constructor: (element) ->
-    @$calendarElement = $(element)
-    @$parent = @$calendarElement.parent()
+  initElements : ($calendarPicker) ->
+    @$calendarPicker = $calendarPicker
+    @isDateTimePicker = $calendarPicker.data('calendarPicker') is 'datetime'
+    @$calendarHolder = $calendarPicker.parent()
+    @$calendarPicker.filthypillow()
 
-  init : () ->
-    @$calendarElement.filthypillow()
-    @_bindCalendarListeners()
-    @_bindParentListeners()
+  bindCalendarListeners : () ->
+    @$calendarPicker.on 'focus', () =>
+      @$calendarPicker.filthypillow 'show'
+      @$calendarHolder.find('.fp-container').addClass('with-time') if @isDateTimePicker
 
-  _bindCalendarListeners : () ->
-    @$calendarElement.on 'focus', () =>
-      @$calendarElement.filthypillow 'show'
+    @$calendarPicker.on 'fp:save', (e, dateObj) =>
+      @$calendarPicker.val dateObj.format(@_getFormat())
+      @$calendarPicker.filthypillow 'hide'
 
-    @$calendarElement.on 'fp:save', (e, dateObj) =>
-      @$calendarElement.val dateObj.format('DD.MM.YYYY HH:mm')
-      @$calendarElement.filthypillow 'hide'
-
-  _bindParentListeners : () ->
-    @$parent.on 'fp:show', (event) =>
+  bindHolderListeners : () ->
+    @$calendarHolder.on 'fp:show', (event) =>
       event.stopPropagation()
-      @$parent.addClass('is-active')
+      @$calendarHolder.addClass('is-active')
 
-    @$parent.on 'fp:hide', (event) =>
+    @$calendarHolder.on 'fp:hide', (event) =>
       event.stopPropagation()
-      @$parent.removeClass('is-active')
+      @$calendarHolder.removeClass('is-active')
+
+  _getFormat : () ->
+    format = 'DD.MM.YYYY'
+    format += ' HH:mm' if @isDateTimePicker
+    format
+      
+  @init : ($calendarPicker) ->
+    calendarPicker = new this
+    calendarPicker.initElements($calendarPicker)
+    calendarPicker.bindCalendarListeners()
+    calendarPicker.bindHolderListeners()
+    calendarPicker
+
+  @initAll : () ->
+    $('[data-calendar-picker]').each (index, el) =>
+      $calendarPicker = $(el)
+      unless $calendarPicker.data('initialized')
+        @init $calendarPicker
+        $calendarPicker.data('initialized', true)
+
+  @initPlugin : () =>
+    @initAll()
 
 $ ->
-  $(document).on 'ready page:load init-plugins', () ->
-    $('[data-date-time-picker]').each () ->
-      new FilthypillowCalendar(this).init()
+  $(document).on 'ready page:load init-plugins', CalendarPicker.initPlugin

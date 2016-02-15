@@ -25,9 +25,7 @@ module RademadeAdmin
                 :primary => name == :_id,
                 :getter => getter,
                 :setter => "#{getter}=",
-                :is_string => field_data.type == String,
-                :is_date_time => field_data.type == DateTime,
-                :is_boolean => field_data.type == ::Mongoid::Boolean,
+                :type => field_type(field_data.type),
                 :localizable => field_data.localized?,
                 :relation_name => field_data.options[:metadata].try(:name)
               })
@@ -61,6 +59,23 @@ module RademadeAdmin
 
           def _model_fields
             @model.fields.keys.map(&:to_sym)
+          end
+          
+          private
+
+          def field_type(type)
+            case type.to_s
+              when 'String'
+                RademadeAdmin::Model::Info::Field::Type::STRING
+              when 'Mongoid::Boolean'
+                RademadeAdmin::Model::Info::Field::Type::BOOLEAN
+              when 'Date'
+                RademadeAdmin::Model::Info::Field::Type::DATE
+              when 'DateTime'
+                RademadeAdmin::Model::Info::Field::Type::DATE_TIME
+              else
+                nil
+            end
           end
 
         end

@@ -17,7 +17,7 @@ class Post
   field :headline, :type => String
   field :text, :type => String, :localize => true
   field :status, :type => Integer
-  field :post_time, :type => DateTime
+  field :post_date, :type => Date
   field :status, :type => Mongoid::Boolean, :default => RademadeAdmin::Hideable::STATUS_SHOWN
 
   validates_presence_of :headline

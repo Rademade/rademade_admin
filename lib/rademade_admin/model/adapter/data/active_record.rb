@@ -50,15 +50,12 @@ module RademadeAdmin
           def _add_non_localizable_fields(fields)
             @model.column_types.each do |field_name, field_data|
               name = field_name.to_sym
-              type = extract_column_data(field_data).type
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
                 :primary => @model.primary_key == field_name,
                 :getter => name,
                 :setter => :"#{name}=",
-                :is_string => type == :string,
-                :is_date_time => type == :datetime,
-                :is_boolean => type == :boolean,
+                :type => field_type(extract_column_data(field_data).type),
                 :localizable => false,
                 :relation_name => name[/(.+)_id$/, 1]
               })
@@ -74,9 +71,7 @@ module RademadeAdmin
                 :primary => false,
                 :getter => name,
                 :setter => :"#{name}=",
-                :is_string => false,
-                :localizable => true,
-                :relation_name => nil
+                :localizable => true
               })
             end if @model.respond_to?(:translation_class)
             fields
@@ -92,6 +87,21 @@ module RademadeAdmin
           end
 
           private
+
+          def field_type(type)
+            case type
+              when :string
+                RademadeAdmin::Model::Info::Field::Type::STRING
+              when :boolean
+                RademadeAdmin::Model::Info::Field::Type::BOOLEAN
+              when :date
+                RademadeAdmin::Model::Info::Field::Type::DATE
+              when :datetime
+                RademadeAdmin::Model::Info::Field::Type::DATE_TIME
+              else
+                nil
+            end
+          end
 
           def extract_column_data(field_data)
             if datetime_type?(field_data)

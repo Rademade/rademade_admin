@@ -10,16 +10,20 @@ module RademadeAdmin
           @primary
         end
 
-        def date_time?
-          @is_date_time
-        end
-
         def string?
-          @is_string
+          @type == Type::STRING
         end
 
         def boolean?
-          @is_boolean
+          @type == Type::BOOLEAN
+        end
+
+        def date?
+          @type == Type::DATE
+        end
+
+        def date_time?
+          @type == Type::DATE_TIME
         end
 
         protected
@@ -29,9 +33,7 @@ module RademadeAdmin
           @primary = opts[:primary]
           @setter = opts[:setter]
           @getter = opts[:getter]
-          @is_string = opts[:is_string]
-          @is_date_time = opts[:is_date_time]
-          @is_boolean = opts[:is_boolean]
+          @type = opts[:type]
           @localizable = opts[:localizable]
           @relation_name = opts[:relation_name]
         end

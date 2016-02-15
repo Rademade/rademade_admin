@@ -14,7 +14,7 @@ class RademadeAdmin::PostsController < RademadeAdmin::ModelController
       avatar
       gallery
       video
-      post_time
+      post_date
       text :ckeditor
       user
       other_posts
