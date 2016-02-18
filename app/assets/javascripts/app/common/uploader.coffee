@@ -7,6 +7,7 @@ class @Uploader extends Backbone.View
     @$uploader = @$el.find('[data-uploader]')
     @$hidden = @$el.find('input[type="hidden"]')
     @$loaderHolder = @$el.find('.upload-item.add')
+    @uploaderText = @$loaderHolder.find('.upload-text').text()
 
   initFileUpload : () ->
     @$uploader.fileupload
@@ -27,9 +28,11 @@ class @Uploader extends Backbone.View
 
   showLoader : () ->
     @$loaderHolder.addClass('is-loading')
+    @$loaderHolder.find('.upload-text').text I18n.t('rademade_admin.uploader.add.processing')
 
   hideLoader : () =>
     @$loaderHolder.removeClass('is-loading')
+    @$loaderHolder.find('.upload-text').text @uploaderText
 
   removeFile : () ->
     @$el.find('.upload-holder:has([data-preview-item])').fadeOut 300, () ->

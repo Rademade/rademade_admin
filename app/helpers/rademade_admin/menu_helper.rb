@@ -1,10 +1,11 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin::MenuHelper
 
+  PARENT_LESS_MENU_KEY = :_parent_less unless const_defined?(:PARENT_LESS_MENU_KEY)
+
   def main_menu
-    @model_infos = RademadeAdmin::Model::Graph.instance.root_models
-    menu = collect_children
-    unshift_root_url(menu)
+    build_menu_data RademadeAdmin::Model::Graph.instance.model_infos
+    build_menu
   end
 
   def active?(menu_item)
@@ -20,20 +21,33 @@ module RademadeAdmin::MenuHelper
 
   private
 
-  def unshift_root_url(menu)
-    uri = root_uri
-    menu.unshift({
-      :uri => uri,
-      :name => t('rademade_admin.home'),
-      :is_current => current_page?(uri),
-      :sub => []
-    })
+  def build_menu_data(model_infos)
+    @menu_data = {}
+    model_infos.each do |_, model_info|
+      menu_key = (model_info.parent_menu || PARENT_LESS_MENU_KEY).to_s
+      @menu_data[menu_key] ||= []
+      @menu_data[menu_key] << model_info
+    end
   end
 
-  def collect_children(parent = nil)
+  def build_menu
+    menu = [root_url]
+    menu += collect_children(PARENT_LESS_MENU_KEY)
+    @menu_data.each do |menu_key, _|
+      menu += [{
+        :name => menu_key,
+        :is_current => false,
+        :sub => collect_children(menu_key)
+      }]
+    end
+    menu
+  end
+
+  def collect_children(menu_key)
     menu = []
-    @model_infos.each do |model_info|
-      if model_info.parent_model.to_s == parent.to_s
+    menu_key = menu_key.to_s
+    unless @menu_data[menu_key].nil?
+      @menu_data[menu_key].each do |model_info|
         uri = current_ability.can?(:read, model_info.model) ? admin_list_uri(model_info) : nil
         menu << {
           :uri => uri,
@@ -43,8 +57,19 @@ module RademadeAdmin::MenuHelper
           :is_current => current_menu?(uri, model_info)
         }
       end
+      @menu_data.delete(menu_key)
     end
     menu
+  end
+
+  def root_url
+    uri = root_uri
+    {
+      :uri => uri,
+      :name => t('rademade_admin.home'),
+      :is_current => current_page?(uri),
+      :sub => []
+    }
   end
 
   def current_menu?(uri, model_info)

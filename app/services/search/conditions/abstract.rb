@@ -28,6 +28,10 @@ module RademadeAdmin
           @base_items || base_items
         end
 
+        def paginate=(paginate)
+          conditions[:paginate] = paginate
+        end
+
         protected
 
         def where

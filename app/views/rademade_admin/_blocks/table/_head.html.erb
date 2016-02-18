@@ -15,7 +15,6 @@
                         %> sortable-down<%
                     end
                     url_params = request.query_parameters.symbolize_keys.merge(url_sort_params)
-                    url_params.delete(:layout)
                     %> is-clickable sortable" data-link-url="<%= admin_list_uri(@model_info, url_params) %><%
                 end
             %>">

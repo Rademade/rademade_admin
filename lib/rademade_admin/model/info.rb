@@ -11,10 +11,9 @@ module RademadeAdmin
       # @param model_reflection [RademadeAdmin::Model::Reflection]
       # @param model_configuration [RademadeAdmin::Model::Configuration]
       #
-      def initialize(model_reflection, model_configuration, nested)
+      def initialize(model_reflection, model_configuration)
         @model_reflection = model_reflection
         @model_configuration = model_configuration
-        @nested = nested
       end
 
       # Return model class
@@ -41,15 +40,11 @@ module RademadeAdmin
         model_reflection.module_name
       end
 
-      def nested?
-        @nested
-      end
-
       def hideable?
         @is_hideable ||= model_reflection.hideable?
       end
 
-      def parent_model
+      def parent_menu
         @model_configuration.parent_menu_item
       end
 

@@ -79,8 +79,8 @@ module RademadeAdmin
         @item_name = item_name
       end
 
-      def parent_menu(parent_model)
-        @parent_menu_item = parent_model.is_a?(String) ? RademadeAdmin::LoaderService.const_get(parent_model) : parent_model
+      def parent_menu(parent_menu_item)
+        @parent_menu_item = parent_menu_item
       end
 
       def labels(*field_options, &block)

@@ -6,7 +6,9 @@ module RademadeAdmin
 
       DEFAULT_MODULE_NAME = 'RademadeAdmin'
 
-      def add_pair(module_name, controller_name, inner)
+      attr_reader :model_infos
+
+      def add_pair(module_name, controller_name)
         # Controller includes configuration for mapping model
         controller = controller_class(module_name, "#{controller_name}_controller")
         controller.configuration.model(controller_name.classify) unless controller.model_name
@@ -15,8 +17,7 @@ module RademadeAdmin
           :model => model,
           :controller_name => controller_name,
           :module_name => module_name,
-          :controller => controller,
-          :inner => inner
+          :controller => controller
         })
       end
 
@@ -28,19 +29,15 @@ module RademadeAdmin
         })
       end
 
-      def root_models
-        @root_models ||= @model_infos.select { |_, model_info| not model_info.nested? }.values
-      end
-
       private
 
       def initialize
         @model_infos = {}
       end
 
-      def init_model_info(model: nil, controller_name: nil, module_name: nil, controller: nil, inner: false)
+      def init_model_info(model: nil, controller_name: nil, module_name: nil, controller: nil)
         model_reflection = RademadeAdmin::Model::Reflection.new(model, controller_name, module_name)
-        RademadeAdmin::Model::Info.new(model_reflection, controller.configuration, inner)
+        RademadeAdmin::Model::Info.new(model_reflection, controller.configuration)
       end
 
       def controller_class(module_name, full_controller_name)
@@ -57,7 +54,9 @@ module RademadeAdmin
 
       def create_controller(controller_name, module_name = nil)
         controller_module = module_name.nil? ? default_module : LoaderService.const_get(module_name)
-        controller_module.const_set(controller_name.classify, Class.new(RademadeAdmin::ModelController))
+        controller = controller_module.const_set(controller_name.classify, Class.new(RademadeAdmin::ModelController))
+        Logger.new(STDOUT).info "RademadeAdmin initialized #{controller}"
+        controller
       end
 
       def default_module

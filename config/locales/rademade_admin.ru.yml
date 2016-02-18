@@ -31,7 +31,7 @@ ru:
       csv: "Экспортировать в csv"
     success_message:
       simple: "Ok"
-      insert: "Запись вставлена!"
+      insert: "Запись добавлена!"
       update: "Запись обновлена!"
       delete: "Запись удалена!"
       status_update: "Статус обновлен!"
@@ -48,6 +48,7 @@ ru:
         video: "Добавить видео"
         file: "Добавить файл"
         gallery: "Добавить фото"
+        processing: "Добавляется"
     button:
       save: "Сохранить"
       cancel: "Отмена"

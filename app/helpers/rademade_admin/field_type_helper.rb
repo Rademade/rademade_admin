@@ -16,6 +16,8 @@ module RademadeAdmin::FieldTypeHelper
       :'rademade_admin/related_select'
     elsif data_item.has_uploader?
       :'rademade_admin/file'
+    elsif data_item.date_field?
+      :'rademade_admin/date'
     elsif data_item.date_time_field?
       :'rademade_admin/date_time'
     elsif data_item.boolean_field?

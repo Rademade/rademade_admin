@@ -17,8 +17,12 @@ if has_sub_items || uri
                 %><span class="nav-counter"><%= menu_item[:count] %></span><%
             end
         %></a><%
-        if has_sub_items && is_active
-            %><ul class="nav-dd"><%
+        if has_sub_items && (is_active || uri.nil?)
+            %><ul class="nav-dd<%
+                if uri.nil? && !is_active
+                    %> hide<%
+                end
+            %>"><%
                 menu_item[:sub].each do |sub_item|
                     concat render @template_service.navigation_menu_item_block, {
                         :menu_item => sub_item
