@@ -36,6 +36,7 @@ module RademadeAdmin
         :table_head_block => block_path('table/head'),
         :table_head_list => block_path('table/list'),
         :list_block => block_path('list'),
+        :list_filter_block => block_path('list/filter'),
         :form_block => block_path('form'),
         :form_control_block => block_path('form/control'),
         :form_lang_panel_block => block_path('form/lang_panel'),

@@ -39,7 +39,8 @@
 #= require backbone-notifier/js/backbone.notifier
 #= require_tree ./ckeditor
 #= require_tree ./settings
-#= require_tree ./form
+#= require ./app/form/filter-form
+#= require_tree ./app/form
 #= require ./app/image/model
 #= require_tree ./app
 #= require_tree .

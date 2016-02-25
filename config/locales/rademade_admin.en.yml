@@ -54,6 +54,8 @@ en:
       cancel: "Cancel"
       submit: "Submit"
       save_and_return: "%{save} and return"
+      filter: "Filter"
+      reset_filter: "Reset"
     locale:
       en: "EN"
       ru: "RU"

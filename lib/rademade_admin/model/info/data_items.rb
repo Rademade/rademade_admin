@@ -58,8 +58,8 @@ module RademadeAdmin
           @csv_fields ||= collect_csv_fields
         end
 
-        def filter_fields
-          @autocomplete_fields ||= collect_field_names { |data_item| data_item.string_field? }
+        def string_fields
+          @string_fields ||= collect_field_names { |data_item| data_item.string_field? }
         end
 
         def form_fields
@@ -72,6 +72,10 @@ module RademadeAdmin
 
         def form_fields_with_locale
           @form_fields_with_locale ||= collect_localized_form_fields(true)
+        end
+
+        def filter_fields
+          @filter_fields ||= collect_filter_fields
         end
 
         # Get Array of RademadeAdmin::Model::Info::DataItem for saving
@@ -104,6 +108,17 @@ module RademadeAdmin
         def collect_form_fields
           fields = items.select { |_, data_item| data_item.in_form? }
           fields.empty? ? _default_fields : fields
+        end
+
+        def collect_filter_fields
+          fields = items.select { |_, data_item| data_item.in_filter? }
+          if fields.empty?
+            form_fields.select { |_, data_item|
+              data_item.localizable?(false) && !data_item.has_uploader? && !data_item.gallery_relation?
+            }.values.sort_by(&:form_position)
+          else
+            fields.values.sort_by(&:filter_position)
+          end
         end
 
         def collect_localized_form_fields(localizable)

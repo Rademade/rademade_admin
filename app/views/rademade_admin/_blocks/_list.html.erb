@@ -12,6 +12,7 @@
 end %>
 
 <% content_for :content do %>
+    <%= render @template_service.list_filter_block %>
     <div class="btn-list">
         <div class="btn-box align-left fll"><%= yield(:nav_buttons) %></div><%
         concat render @template_service.search_block

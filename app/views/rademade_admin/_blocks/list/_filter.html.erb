@@ -1,0 +1,19 @@
+<%
+filter_fields = @model_info.data_items.filter_fields
+unless filter_fields.empty?
+    %><%= filter_form(@model_info) do |form| %>
+        <div class="content-box">
+            <div class="form"><%
+                filter_fields.each do |filter_field|
+                    admin_filter_field(form, filter_field, @model_info, params[filter_field.name])
+                end
+            %></div>
+            <div class="btn-list">
+                <div class="btn-box align-left">
+                    <button class="btn is-blue" type="submit"><%= t('rademade_admin.button.filter') %></button>
+                    <%= link_to t('rademade_admin.button.reset_filter'), admin_list_uri(@model_info), :class => 'btn is-red' %>
+                </div>
+            </div>
+        </div><%
+    end
+end %>

@@ -24,14 +24,6 @@ module RademadeAdmin
       @form_fields_with_locale = @model_info.data_items.form_fields_with_locale
     end
 
-    def origin_fields
-      @model_info.data_items.origin_fields
-    end
-
-    def filter_fields
-      @model_info.data_items.filter_fields
-    end
-
     def load_template_options
       @form_template_path ||= form_template_path
     end

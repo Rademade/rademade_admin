@@ -42,18 +42,18 @@ module RademadeAdmin
             relation = field.relation_name.nil? ? nil : @data_adapter.relation(field.relation_name)
             used_relations << field.relation_name if relation
             data_item = item_initializer.new(field, relation).auto
-            data_items.add_data_item( data_item )
+            data_items.add_data_item(data_item)
           end
 
           @data_adapter.relations.each do |_, relation|
             unless used_relations.include? relation.name
-              data_items.add_data_item( item_initializer.new(nil, relation).from_relation )
+              data_items.add_data_item(item_initializer.new(nil, relation).from_relation)
             end
           end
 
           @model_configuration.all_field_names.each do |field_name|
             unless data_items.has_field?(field_name)
-              data_items.add_data_item( item_initializer.new(nil, nil).build(field_name, nil) )
+              data_items.add_data_item(item_initializer.new(nil, nil).build(field_name, nil))
             end
           end
 
@@ -64,44 +64,58 @@ module RademadeAdmin
 
         def configure_items(data_items)
           data_items.each { |item| configure_item(item) }
-
         end
 
         # @param [RademadeAdmin::Model::Info::DataItem]
         def configure_item(data_item)
-
-          # TODO extract sub methods
-
-          name = data_item.name
-
-          data_item.uploader = @uploaders.uploader(name)
+          data_item.uploader = @uploaders.uploader(data_item.name)
           data_item.order_column = nil unless @data_adapter.columns.include?(data_item.order_column)
+          configure_list_data(data_item)
+          configure_csv_data(data_item)
+          configure_form_data(data_item)
+          configure_filter_data(data_item)
+          configure_label_data(data_item)
+          data_item
+        end
 
-          @model_configuration.field_labels.find(name) do |label_data|
-            data_item.label = label_data.label
-          end
-
-          @model_configuration.form_fields.find_with_index(name) do |form_field_data, index|
-            data_item.form_params = form_field_data.params
-            data_item.in_form = true
-            data_item.form_position = index
-          end
-
-          @model_configuration.list_fields.find_with_index(name) do |data, index|
+        def configure_list_data(data_item)
+          @model_configuration.list_fields.find_with_index(data_item.name) do |data, index|
             data_item.in_list = true
             data_item.list_preview_accessor = data.preview_accessor
             data_item.list_preview_handler = data.preview_handler
             data_item.list_position = index
           end
+        end
 
-          @model_configuration.csv_fields.find_with_index(name) do |data, index|
+        def configure_csv_data(data_item)
+          @model_configuration.csv_fields.find_with_index(data_item.name) do |data, index|
             data_item.in_csv = true
             data_item.csv_preview_accessor = data.preview_accessor
             data_item.csv_preview_handler = data.preview_handler
             data_item.csv_position = index
           end
+        end
 
-          data_item
+        def configure_form_data(data_item)
+          @model_configuration.form_fields.find_with_index(data_item.name) do |form_field_data, index|
+            data_item.form_params = form_field_data.params
+            data_item.in_form = true
+            data_item.form_position = index
+          end
+        end
+
+        def configure_filter_data(data_item)
+          @model_configuration.filter_fields.find_with_index(data_item.name) do |filter_field_data, index|
+            data_item.filter_params = filter_field_data.params
+            data_item.in_filter = true
+            data_item.filter_position = index
+          end
+        end
+
+        def configure_label_data(data_item)
+          @model_configuration.field_labels.find(data_item.name) do |label_data|
+            data_item.label = label_data.label
+          end
         end
 
       end

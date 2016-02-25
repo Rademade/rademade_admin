@@ -8,6 +8,9 @@ class RademadeAdmin::TagsController < RademadeAdmin::ModelController
       name
       description :text
     end
+    filter do
+      name
+    end
   end
 
 end

@@ -40,7 +40,7 @@ class @Select2Input.View extends Backbone.View
     ).unbind('change').bind 'change', @_onChange
     @_updateData()
     @model.get('related').on 'data-change', @_updateData
-    @_appendAddButton()
+    @_appendAddButton() if @model.get('newUrl')
 
   editRelation : () ->
     if @model.get('related').get('editurl')
@@ -65,8 +65,9 @@ class @Select2Input.View extends Backbone.View
   _getUrl : () ->
     @model.get('searchUrl')
 
-  _getData : (term) ->
+  _getData : (term) =>
     q : term
+    serializer : @$item.data('serializer')
 
   _getResults : (data) =>
     result = []

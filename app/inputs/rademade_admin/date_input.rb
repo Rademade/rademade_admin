@@ -7,7 +7,7 @@ module RademadeAdmin
         :data => {
           :calendar_picker => 'date'
         },
-        :value => object.send(attribute_name).try(:strftime, '%d.%m.%Y')
+        :value => object.try(attribute_name).try(:strftime, '%d.%m.%Y')
       }))
     end
 

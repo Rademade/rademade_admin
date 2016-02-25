@@ -6,8 +6,9 @@ module RademadeAdmin
 
         # TODO extract sub classes
 
-        attr_accessor :name, :field, :relation, :label, :uploader, :order_column, :form_params,
-                      :form_position, :list_position, :csv_position, :in_form, :in_list, :in_csv,
+        attr_accessor :name, :field, :relation, :label, :uploader, :order_column, :form_params, :filter_params,
+                      :form_position, :list_position, :csv_position, :filter_position,
+                      :in_form, :in_list, :in_csv, :in_filter,
                       :list_preview_accessor, :list_preview_handler, :csv_preview_accessor, :csv_preview_handler
 
         #
@@ -23,6 +24,7 @@ module RademadeAdmin
           @order_column = order_column
           @in_list = false
           @in_form = false
+          @in_filter = false
           @in_csv = false
         end
 
@@ -97,6 +99,10 @@ module RademadeAdmin
 
         def in_form?
           @in_form
+        end
+
+        def in_filter?
+          @in_filter
         end
 
         def form_params

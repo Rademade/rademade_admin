@@ -12,7 +12,8 @@ module RademadeAdmin
 
         def related_data_item
           unless @related_data_item
-            model_info = Model::Graph.instance.model_info(model.class)
+            relation_from = options[:relation_from] || model.class
+            model_info = Model::Graph.instance.model_info(relation_from)
             @related_data_item = model_info.data_items.data_item(attribute_name)
           end
           @related_data_item
@@ -31,7 +32,7 @@ module RademadeAdmin
         end
 
         def related_value
-          @related_value ||= model.send(relation_getter)
+          @related_value ||= model.nil? ? [] : model.send(relation_getter)
         end
 
       end

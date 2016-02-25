@@ -10,14 +10,20 @@ module RademadeAdmin::FormHelper
     simple_form_for(admin_model_info.persistence_adapter.new_record, login_form_options, &block)
   end
 
-  def admin_field(form, data_item, model_info)
-    if can_read_relation data_item
-      name = data_item.name
-      attrs = admin_default_params(name, model_info)
-        .merge(field_params(data_item))
-        .merge(input_params(name))
-      concat form.input(name, input_attr(attrs))
-    end
+  def filter_form(model_info, &block)
+    simple_form_for(model_info.model.to_s.underscore.to_sym, filter_form_options(model_info), &block)
+  end
+
+  def admin_field(form, data_item, model_info, additional_params = {}, disallowed_types = [])
+    return unless can_read_relation data_item
+    field_params = field_params(data_item)
+    return if disallowed_types.include? field_params[:as]
+    name = data_item.name
+    attrs = admin_default_params(name, model_info)
+      .merge(field_params)
+      .merge(input_params(name))
+      .merge(additional_params)
+    concat form.input(name, input_attr(attrs))
   end
 
   def admin_localized_field(form, data_item, model_info, locale)
@@ -26,6 +32,13 @@ module RademadeAdmin::FormHelper
       .merge(field_params(data_item))
       .merge(localized_field_params(data_item, locale))
     concat form.input(name, input_attr(attrs))
+  end
+
+  def admin_filter_field(form, data_item, model_info, value)
+    admin_field(form, data_item, model_info, filter_field_params(data_item, value), [
+      :'rademade_admin/location',
+      :'rademade_admin/boolean' # todo think about boolean filter (3 states: none, off, on)
+    ])
   end
 
   private
@@ -61,6 +74,20 @@ module RademadeAdmin::FormHelper
     }
   end
 
+  def filter_form_options(model_info)
+    {
+      :wrapper => :rademade,
+      :url => admin_list_uri(model_info),
+      :method => :get,
+      :enforce_utf8 => false,
+      :data => {
+        :form => 'filter',
+        :disable_admin => true,
+        :turboform => true
+      }
+    }
+  end
+
   def admin_form_html_attributes(form_class)
     {
       :multipart => true,
@@ -83,7 +110,7 @@ module RademadeAdmin::FormHelper
   def input_params(name)
     {
       :input_html => {
-        :id => "#{name}_#{@item.id}"
+        :id => "#{name}_#{@item.try(:id)}"
       }
     }
   end
@@ -95,6 +122,24 @@ module RademadeAdmin::FormHelper
         :value => localized_value(data_item.getter, locale)
       }
     }
+  end
+
+  def filter_field_params(data_item, value)
+    filter_field_params = {
+      :required => false,
+      :hint => nil,
+      :input_html => {
+        :name => data_item.name,
+        :value => value
+      }
+    }
+    if data_item.has_relation?
+      filter_field_params.merge!({
+        :relation_from => data_item.relation.from,
+        :with_related_edit => false
+      })
+    end
+    filter_field_params
   end
 
   private

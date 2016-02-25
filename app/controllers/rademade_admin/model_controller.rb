@@ -53,7 +53,8 @@ module RademadeAdmin
 
     def autocomplete
       authorize! :read, model_class
-      render :json => autocomplete_serializer.new(autocomplete_items)
+      serializer = Object.const_get(params[:serializer]) rescue autocomplete_serializer
+      render :json => serializer.new(autocomplete_items)
     end
 
     def index

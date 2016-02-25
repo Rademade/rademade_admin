@@ -47,6 +47,14 @@ module RademadeAdmin
 
       # Return configured fields info
       #
+      # @return [RademadeAdmin::Model::Configuration::FilterFields]
+      #
+      def filter_fields
+        @filter_fields ||= RademadeAdmin::Model::Configuration::FilterFields.new
+      end
+
+      # Return configured fields info
+      #
       # @return [RademadeAdmin::Model::Configuration::FieldsLabels]
       #
       def field_labels
@@ -83,10 +91,6 @@ module RademadeAdmin
         @parent_menu_item = parent_menu_item
       end
 
-      def labels(*field_options, &block)
-        field_labels.configure(*field_options, &block)
-      end
-
       def list(*field_options, &block)
         list_fields.configure(*field_options, &block)
       end
@@ -97,6 +101,14 @@ module RademadeAdmin
 
       def form(*field_options, &block)
         form_fields.configure(*field_options, &block)
+      end
+
+      def filter(*field_options, &block)
+        filter_fields.configure(*field_options, &block)
+      end
+
+      def labels(*field_options, &block)
+        field_labels.configure(*field_options, &block)
       end
 
     end
