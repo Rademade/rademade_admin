@@ -14,10 +14,20 @@ class @Menu
       $('#wrapper').toggleClass('opened-menu')
 
   bindModelLessLinks : () ->
-    @$menu.find('.with-dd[href=""]').click (e) =>
-      e.preventDefault()
-      @_toggleMenuItem @$menu.find('>> .is-active')
-      @_toggleMenuItem $(e.currentTarget)
+    @$menu.find('.with-dd').click (e) =>
+      $clickedMenuItem = $(e.currentTarget)
+      href = $clickedMenuItem.attr('href')
+      if href is ''
+        e.preventDefault()
+        @_toggleGroupMenuItem $clickedMenuItem
+      else if href is window.location.pathname
+        e.preventDefault()
+        @_toggleMenuItem $clickedMenuItem
+
+  _toggleGroupMenuItem : ($menuItem) ->
+    $activeMenuItem = @$menu.find('>> .is-active')
+    @_toggleMenuItem($activeMenuItem) unless $menuItem.is $activeMenuItem
+    @_toggleMenuItem $menuItem
 
   _toggleMenuItem : ($menuItem) ->
     return unless $menuItem

@@ -38,7 +38,7 @@ module RademadeAdmin
             @model.relations.each do |name, relation_info|
               name = name.to_sym
               type = relation_info.relation.macro
-              is_sortable = relation_info.sortable?
+              is_sortable = relation_info.respond_to?(:sortable?) ? relation_info.sortable? : false
               to_class = RademadeAdmin::LoaderService.const_get(relation_info.class_name) rescue nil
               relations[name] = _relation_class_name(to_class).new({
                 :name => name,
