@@ -8,7 +8,7 @@ module RademadeAdmin
         class Sequel < RademadeAdmin::Model::Adapter::Query::Sql
 
           def find(ids)
-            @model[ids]
+            @model.where(:id => ids)
           end
 
           def initial

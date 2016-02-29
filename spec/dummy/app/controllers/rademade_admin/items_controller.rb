@@ -1,7 +1,7 @@
 class RademadeAdmin::ItemsController < RademadeAdmin::ModelController
 
   options do
-    list :name
+    list :name, :category
     form do
       name
       price

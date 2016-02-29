@@ -19,8 +19,10 @@ module RademadeAdmin
           serialized_values = serializer.new(related_value).as_json
           html = serialized_values.map do |serialized_value|
             template.content_tag(:li, related_list_item_html(serialized_value), {
-              :'data-id' => serialized_value[:id],
-              :class => related_item_class
+              :class => related_item_class,
+              :data => {
+                :id => serialized_value[:id]
+              }
             })
           end
           RademadeAdmin::HtmlBuffer.new(html)
@@ -42,15 +44,19 @@ module RademadeAdmin
 
         def related_list_item_title_html(serialized_value)
           template.content_tag(:button, serialized_value[:text], {
-            :'data-edit' => serialized_value[:editurl],
-            :class => 'select2-item-edit'
+            :class => 'select2-item-edit',
+            :data => {
+              :edit => serialized_value[:editurl]
+            }
           })
         end
 
         def related_list_item_remove_html
           template.content_tag(:button, I18n.t('rademade_admin.relation.destroy'), {
-            :'data-remove' => '',
-            :class => 'select2-item-remove'
+            :class => 'select2-item-remove',
+            :data => {
+              :remove => ''
+            }
           })
         end
 

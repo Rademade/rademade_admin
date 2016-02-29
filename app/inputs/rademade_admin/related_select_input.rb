@@ -45,12 +45,12 @@ module RademadeAdmin
       search_url = admin_autocomplete_uri(related_to, :format => :json)
       new_url = with_related_edit ? admin_new_form_uri(related_to) : nil
       data = {
-        :'rel-multiple' => multiple?,
-        :'rel-class' => related_to.to_s,
+        :rel_multiple => multiple?,
+        :rel_class => related_to.to_s,
         :serializer => serializer.to_s
       }
-      data[:'search-url'] = search_url unless search_url.nil?
-      data[:'new-url'] = new_url unless new_url.nil?
+      data[:search_url] = search_url unless search_url.nil?
+      data[:new_url] = new_url unless new_url.nil?
       data
     end
 

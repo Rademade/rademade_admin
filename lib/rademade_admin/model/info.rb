@@ -68,7 +68,7 @@ module RademadeAdmin
 
       # TODO it's not Model::Info logic. Move method
       def has_csv?
-        not data_items.csv_fields.empty?
+        !data_items.csv_fields.empty?
       end
 
       # Fields data class

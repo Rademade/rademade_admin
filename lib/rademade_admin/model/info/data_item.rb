@@ -33,11 +33,11 @@ module RademadeAdmin
         end
 
         def has_relation?
-          not @relation.nil?
+          !@relation.nil?
         end
 
         def has_field?
-          not @field.nil?
+          !@field.nil?
         end
 
         def has_uploader?

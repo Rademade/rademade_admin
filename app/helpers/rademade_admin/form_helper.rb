@@ -37,7 +37,7 @@ module RademadeAdmin::FormHelper
   def admin_filter_field(form, data_item, model_info, value)
     admin_field(form, data_item, model_info, filter_field_params(data_item, value), [
       :'rademade_admin/location',
-      :'rademade_admin/boolean' # todo think about boolean filter (3 states: none, off, on)
+      :'rademade_admin/boolean'
     ])
   end
 
@@ -128,17 +128,16 @@ module RademadeAdmin::FormHelper
     filter_field_params = {
       :required => false,
       :hint => nil,
+      :selected => value,
       :input_html => {
         :name => data_item.name,
         :value => value
       }
     }
-    if data_item.has_relation?
-      filter_field_params.merge!({
-        :relation_from => data_item.relation.from,
-        :with_related_edit => false
-      })
-    end
+    filter_field_params.merge!({
+      :relation_from => data_item.relation.from,
+      :with_related_edit => false
+    }) if data_item.has_relation?
     filter_field_params
   end
 

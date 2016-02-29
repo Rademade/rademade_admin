@@ -11,12 +11,11 @@ module RademadeAdmin
         end
 
         def related_data_item
-          unless @related_data_item
+          @related_data_item ||= begin
             relation_from = options[:relation_from] || model.class
             model_info = Model::Graph.instance.model_info(relation_from)
             @related_data_item = model_info.data_items.data_item(attribute_name)
           end
-          @related_data_item
         end
 
         def related_to
@@ -32,7 +31,17 @@ module RademadeAdmin
         end
 
         def related_value
-          @related_value ||= model.nil? ? [] : model.send(relation_getter)
+          @related_value ||= begin
+            if model.nil?
+              if options[:selected].present?
+                related_data_item.relation.related_entities(options[:selected])
+              else
+                multiple? ? [] : nil
+              end
+            else
+              model.send(relation_getter)
+            end
+          end
         end
 
       end
