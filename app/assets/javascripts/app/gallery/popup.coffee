@@ -61,7 +61,7 @@ class @GalleryPopup extends Backbone.View
 
   _centerImage : () =>
     heightWithouImage = @$window.height() - @$galleryPopup.find('.popup-gallery-img').outerHeight()
-    @$galleryPopup.find('.popup-gallery-item').css 'margin-top', heightWithouImage / 2 - @$galleryPopup.position().top
+    @$galleryPopup.find('.popup-gallery-item').css 'margin-top', Math.max(0, heightWithouImage / 2 - @$galleryPopup.position().top)
 
   close : (e) ->
     e.preventDefault()
