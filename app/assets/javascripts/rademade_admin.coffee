@@ -31,7 +31,7 @@
 #= require flot/jquery.flot.resize
 #= require flot/jquery.flot.stack
 #= require knob/js/jquery.knob
-#= require uniform/jquery.uniform
+#= require uniform/dist/jquery.uniform.min
 #= require data-tables/media/js/jquery.dataTables
 #= require wysihtml5/dist/wysihtml5-0.3.0
 #= require underscore/underscore
