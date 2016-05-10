@@ -4,7 +4,7 @@ asset 'underscore'
 asset 'backbone'
 
 asset 'wysihtml5', :github => 'xing/wysihtml5'
-asset 'select2', :github => 'ivaynberg/select2'
+asset 'select2', :github => 'ivaynberg/select2#3.5.4'
 asset 'leaflet'
 
 # jQuery
