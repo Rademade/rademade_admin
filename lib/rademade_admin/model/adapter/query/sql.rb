@@ -39,15 +39,15 @@ module RademadeAdmin
             end
           end
 
-          def is_postgresql?
+          def postgresql?
             ::ActiveRecord::Base.connection_config[:adapter] == 'postgresql'
           end
 
           def regexp_operator
-            if is_postgresql?
-              "~"
+            if postgresql?
+              '~'
             else
-              "REGEXP"
+              'REGEXP'
             end
           end
         end
