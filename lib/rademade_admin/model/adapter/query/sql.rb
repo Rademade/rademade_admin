@@ -30,24 +30,13 @@ module RademadeAdmin
           end
 
           def build_where_condition(field: nil, value: nil)
+            field = "`#{field}`"
             if value.is_a? Regexp
-              ["LOWER(#{field}) #{regexp_operator} ?", [value.source]]
+              ["LOWER(#{field}) REGEXP ?", [value.source]]
             elsif value.is_a? Array
               ["#{field} IN (?)", [value]]
             else
               ["#{field} = ?", [value]]
-            end
-          end
-
-          def postgresql?
-            ::ActiveRecord::Base.connection_config[:adapter] == 'postgresql'
-          end
-
-          def regexp_operator
-            if postgresql?
-              '~'
-            else
-              'REGEXP'
             end
           end
         end
