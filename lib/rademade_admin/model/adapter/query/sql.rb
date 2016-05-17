@@ -39,7 +39,6 @@ module RademadeAdmin
               ["#{field} = ?", [value]]
             end
           end
-
         end
       end
     end

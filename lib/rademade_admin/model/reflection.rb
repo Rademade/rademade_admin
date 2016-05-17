@@ -7,6 +7,8 @@ module RademadeAdmin
       ORM_TYPE_MONGOID = 'Mongoid'
       ORM_TYPE_SEQUEL = 'Sequel'
 
+      SUPPORTED_AR_DBMS = ['Postgresql', 'Mysql']
+
       attr_reader :model, :controller, :module_name
 
       def initialize(model, controller, module_name)
@@ -24,7 +26,7 @@ module RademadeAdmin
       #
       # @return [RademadeAdmin::Model::Adapter::Query]
       def query_adapter
-        @query_adapter ||= "RademadeAdmin::Model::Adapter::Query::#{orm_type}".constantize.new(@model)
+        @query_adapter ||= "RademadeAdmin::Model::Adapter::Query::#{query_adapter_type}".constantize.new(@model)
       end
 
       def persistence_adapter
@@ -57,6 +59,13 @@ module RademadeAdmin
         }
       end
 
+      def query_adapter_type
+        return orm_type unless orm_type == ORM_TYPE_ACTIVERECORD
+        adapter_name = ::ActiveRecord::Base.connection_config[:adapter].downcase
+        dbms_name = SUPPORTED_AR_DBMS.find { |dbms_name| adapter_name.include?(dbms_name.downcase) }
+        raise 'Active record adapter not supported' unless dbms_name
+        dbms_name
+      end
     end
   end
 end
