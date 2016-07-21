@@ -17,31 +17,30 @@ Gem::Specification.new do |s|
   s.test_files  = Dir['test/**/*']
 
   # Core dependencies
-  s.add_dependency 'rails', '~> 4.0', '< 4.3'
-  s.add_dependency 'kaminari', '~> 0.16'
+  s.add_dependency 'rails'
+  s.add_dependency 'kaminari'
 
   # Images
-  s.add_dependency 'carrierwave', '~> 0.10'
-  s.add_dependency 'light_resizer', '>= 0.1.7'
+  s.add_dependency 'carrierwave'
+  s.add_dependency 'light_resizer'
 
   # Assets
-  s.add_dependency 'bower-rails', '>= 0.8.2'
-  s.add_dependency 'sass-rails', '>= 4.0'
-  s.add_dependency 'coffee-rails', '~> 4.0'
-  s.add_dependency 'autoprefixer-rails', '>= 5.2.0'
+  s.add_dependency 'bower-rails'
+  s.add_dependency 'sass-rails'
+  s.add_dependency 'coffee-rails'
+  s.add_dependency 'autoprefixer-rails'
 
-  s.add_dependency 'i18n-js', '>= 2.0'
-  s.add_dependency 'ejs', '~> 1.1'
+  s.add_dependency 'i18n-js'
+  s.add_dependency 'ejs'
 
   # Public JS assets
-  s.add_dependency 'turbolinks', '~> 2.2'
-  s.add_dependency 'select2-rails', '~> 3.5'
+  s.add_dependency 'turbolinks'
+  s.add_dependency 'select2-rails'
 
   # Admin
   s.add_dependency 'mini_magick' # TODO remove. Need for ckeditor or light_resizer.
-  s.add_dependency 'simple_form', '~> 3.1'
-  s.add_dependency 'ckeditor', '~> 4.0'
-  s.add_dependency 'cancan', '~> 1.6'
-  s.add_dependency 'configurations', '~> 2.2.0'
-
+  s.add_dependency 'simple_form'
+  s.add_dependency 'ckeditor'
+  s.add_dependency 'cancan'
+  s.add_dependency 'configurations'
 end
