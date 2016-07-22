@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files  = Dir['test/**/*']
 
   # Core dependencies
-  s.add_dependency 'rails'
+  s.add_dependency 'rails', '~> 5'
   s.add_dependency 'kaminari'
 
   # Images
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'light_resizer'
 
   # Assets
-  s.add_dependency 'bower-rails'
+  s.add_dependency 'bower-rails', '>= 0.8.2'
   s.add_dependency 'sass-rails'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'autoprefixer-rails'

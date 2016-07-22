@@ -17,7 +17,7 @@ module RademadeAdmin
             concerns(options[:concerns]) if options[:concerns]
 
             collection do
-              get  :index if parent_resource.actions.include?(:index)
+              get :index if parent_resource.actions.include?(:index)
               post :create
               get :autocomplete if parent_resource.actions.include?(:autocomplete)
               patch :sort
