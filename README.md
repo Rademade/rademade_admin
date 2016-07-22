@@ -27,42 +27,25 @@ How to use it
 config.assets.precompile += %w(rademade_admin.css rademade_admin.js)
 ```
 
-3) Mount rails engine at routing.rb `mount RademadeAdmin::Engine => '/rademade_admin`
+3) Mount rails engine at routing.rb `mount RademadeAdmin::Engine => '/admin'`
 
-4) Create `User` model  and other needed models
+4) Create `User` model and other needed models
 ```ruby
-# encoding: utf-8
-require 'digest/sha1'
-
-class User
-  include Mongoid::Document
+class User < ActiveRecord::Base
   include RademadeAdmin::UserModule
 
-  field :first_name, :type => String
-  field :email, :type => String
-  field :encrypted_password, :type => String
-  field :admin, :type => Boolean, :default => false
+  has_secure_password
+
+  validates :password, length: { minimum: 8 }, allow_nil: true
 
   def self.get_by_email(email)
-    self.where(:email => email).first
+    where(email: email).first
   end
 
-  def password=(password)
-    self[:encrypted_password] = encrypt_password(password) unless password.blank?
-  end
-
-  def valid_password?(password)
-    self[:encrypted_password] == encrypt_password(password)
-  end
+  alias valid_password? authenticate
 
   def to_s
     email
-  end
-
-  private
-
-  def encrypt_password(password)
-    Digest::SHA1.hexdigest(password)
   end
 
 end

@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
 
   # Public JS assets
   s.add_dependency 'turbolinks'
-  s.add_dependency 'select2-rails'
+  s.add_dependency 'select2-rails', '~> 3.5'
 
   # Admin
   s.add_dependency 'mini_magick' # TODO remove. Need for ckeditor or light_resizer.
