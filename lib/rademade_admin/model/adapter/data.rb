@@ -122,13 +122,12 @@ module RademadeAdmin
         end
 
         def _relation_class_name(to_class)
-          if !to_class.nil? && to_class.ancestors.include?(RademadeAdmin::Gallery)
+          if !to_class.nil? && !to_class.uploaders.count.zero?
             ::RademadeAdmin::Model::Info::Relation::Gallery
           else
             ::RademadeAdmin::Model::Info::Relation
           end
         end
-
       end
     end
   end

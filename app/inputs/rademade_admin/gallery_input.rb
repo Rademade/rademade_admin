@@ -28,8 +28,9 @@ module RademadeAdmin
     def images_html
       html = []
       preview_service = RademadeAdmin::Upload::Preview::Gallery.new
-      gallery.images.each do |gallery_image|
-        html << preview_service.preview_html(gallery_image.image)
+      collection = @through_relation ? gallery.images : gallery
+      collection.each do |gallery_image|
+        html << preview_service.preview_html(gallery_image.send(mounted_as))
       end
       HtmlBuffer.new(html)
     end
@@ -57,10 +58,11 @@ module RademadeAdmin
     end
 
     def gallery_hidden_html
+      target_id = @through_relation ? gallery.id.to_s : object.id.to_s
       template.content_tag(:input, '', {
         :type => 'hidden',
         :name => "data[#{gallery_info.getter}]",
-        :value => gallery.id.to_s
+        :value => target_id
       })
     end
 
@@ -76,8 +78,18 @@ module RademadeAdmin
       @gallery_image_info ||= model_info(gallery_class, :images)
     end
 
+    def mounted_as
+      @mounted_as ||= gallery_image_info.relation.to.uploaders.keys.first
+    end
+
     def gallery_class
-      @gallery_class ||= gallery_info.relation.to
+      @gallery_class ||= if gallery_info.relation.to.uploaders.count.zero?
+                           @through_relation = true
+                           gallery_info.relation.to
+                         else
+                           @through_relation = false
+                           gallery_info.relation.from
+                         end
     end
 
     def model_info(class_name, data_item_name)

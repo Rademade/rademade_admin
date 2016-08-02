@@ -12,7 +12,11 @@ module RademadeAdmin
         end
 
         def gallery_image_preview(uploader)
-          uploader.resize_with_crop(300, 300)
+          begin
+            uploader.url(:default)
+          rescue
+            uploader.resize_with_crop(300, 300)
+          end
         end
 
         protected

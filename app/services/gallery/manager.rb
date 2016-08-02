@@ -7,15 +7,16 @@ module RademadeAdmin
       end
 
       def upload_images(gallery_id, files)
-        gallery = gallery_info.query_adapter.find(gallery_id)
+        @gallery = gallery_info.query_adapter.find(gallery_id)
         image_presenter = upload_gallery_images(files)
-        save_gallery_images(gallery, image_presenter.gallery_images)
+        save_gallery_images(image_presenter.gallery_images)
         image_presenter.gallery_images_html
       end
 
       def crop_image(image_id, crop_data)
         gallery_image = gallery_image_info.query_adapter.find(image_id)
-        uploader = gallery_image.image
+        mounted_as = gallery_image.class.uploaders.keys.first
+        uploader = gallery_image.send(mounted_as)
         image = uploader.crop_image(crop_data)
         uploader.store!(image)
         gallery_image_info.persistence_adapter.save(gallery_image)
@@ -50,18 +51,17 @@ module RademadeAdmin
       end
 
       def upload_gallery_images(images)
-        image_presenter = RademadeAdmin::Upload::ImagePresenter.new(gallery_image_info.persistence_adapter)
+        image_presenter = RademadeAdmin::Upload::ImagePresenter.new(@gallery)
         image_presenter.upload_gallery_images(images)
         image_presenter
       end
 
-      def save_gallery_images(gallery, gallery_images)
-        gallery_image_data_item.set_data(gallery, gallery.images + gallery_images)
+      def save_gallery_images(gallery_images)
         gallery_images.each do |gallery_image|
-          update_gallery_image_position(gallery, gallery_image)
+          update_gallery_image_position(gallery_image)
           gallery_image_info.persistence_adapter.save(gallery_image)
         end
-        gallery_info.persistence_adapter.save(gallery)
+        gallery_info.persistence_adapter.save(@gallery)
       end
 
       def sort_gallery_images(images)
@@ -72,9 +72,9 @@ module RademadeAdmin
         end
       end
 
-      def update_gallery_image_position(gallery, gallery_image)
+      def update_gallery_image_position(gallery_image)
         if gallery_image_relation.sortable?
-          last_image = gallery.images.last
+          last_image = @gallery.images.last
           previous_position = last_image.nil? ? 0 : last_image.send(gallery_image_relation.sortable_field.to_sym)
           set_gallery_image_position(gallery_image, previous_position + 1)
         end

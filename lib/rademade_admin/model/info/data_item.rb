@@ -47,7 +47,8 @@ module RademadeAdmin
         end
 
         def gallery_relation?
-          @relation.is_a? RademadeAdmin::Model::Info::Relation::Gallery
+          return false unless @relation
+          @relation.gallery?
         end
 
         def localizable?(localizable = true)

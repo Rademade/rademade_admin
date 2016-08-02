@@ -4,7 +4,6 @@ module RademadeAdmin
     class Info
       class Relation
         class Gallery < Relation
-
         end
       end
     end
