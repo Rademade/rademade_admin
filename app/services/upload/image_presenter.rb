@@ -5,9 +5,9 @@ module RademadeAdmin
 
       attr_reader :gallery_images, :gallery_images_html
 
-      def initialize(gallery)
-        @gallery = gallery
-        @mounted_as = gallery.images.model.uploaders.keys.first
+      def initialize(gallery_image_persistence_adapter)
+        @gallery_image_persistence_adapter = gallery_image_persistence_adapter
+        @mounted_as = gallery_image_persistence_adapter.instance_variable_get(:@model).uploaders.keys.first
       end
 
       def upload_gallery_images(images)
@@ -19,7 +19,10 @@ module RademadeAdmin
       protected
 
       def upload_gallery_image(image)
-        @gallery.images.create(@mounted_as => image)
+        gallery_image = @gallery_image_persistence_adapter.new_record
+        @gallery_image_persistence_adapter.save(gallery_image)
+        gallery_image.send(@mounted_as).store! image
+        gallery_image
       end
 
       def add_gallery_image(gallery_image)

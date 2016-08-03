@@ -8,9 +8,12 @@ module RademadeAdmin
 
       def upload_images(gallery_id, files)
         @gallery = gallery_info.query_adapter.find(gallery_id)
+        @mounted_as = @gallery.images.model.uploaders.keys.first
+
         image_presenter = upload_gallery_images(files)
         save_gallery_images(image_presenter.gallery_images)
-        image_presenter.gallery_images_html
+        
+        image_presenter.gallery_images.map{|image| preview_service.preview_html(image.send(@mounted_as)) }
       end
 
       def crop_image(image_id, crop_data)
@@ -51,12 +54,13 @@ module RademadeAdmin
       end
 
       def upload_gallery_images(images)
-        image_presenter = RademadeAdmin::Upload::ImagePresenter.new(@gallery)
+        image_presenter = RademadeAdmin::Upload::ImagePresenter.new(gallery_image_info.persistence_adapter)
         image_presenter.upload_gallery_images(images)
         image_presenter
       end
 
       def save_gallery_images(gallery_images)
+        gallery_image_data_item.set_data(@gallery, @gallery.images + gallery_images)
         gallery_images.each do |gallery_image|
           update_gallery_image_position(gallery_image)
           gallery_image_info.persistence_adapter.save(gallery_image)
@@ -82,6 +86,10 @@ module RademadeAdmin
 
       def set_gallery_image_position(gallery_image, position)
         gallery_image.send(:"#{gallery_image_relation.sortable_field}=", position)
+      end
+
+      def preview_service
+        @preview_service ||= RademadeAdmin::Upload::Preview::Gallery.new
       end
 
     end
