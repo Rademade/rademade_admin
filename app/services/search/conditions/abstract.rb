@@ -40,7 +40,7 @@ module RademadeAdmin
 
         def order
           order_conditions = RademadeAdmin::Search::Part::Order.new
-          order_conditions.add(:id, :desc)
+          order_conditions.add(@data_items.primary_field.name, :desc)
           order_conditions
         end
 
