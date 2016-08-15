@@ -13,9 +13,9 @@ module RademadeAdmin
 
         def gallery_image_preview(uploader)
           begin
-            uploader.url(:default)
+            uploader.versions.key?(:default) ? uploader.url(:default) : uploader.resize_with_crop(300, 300)
           rescue
-            uploader.resize_with_crop(300, 300)
+            uploader.url
           end
         end
 
