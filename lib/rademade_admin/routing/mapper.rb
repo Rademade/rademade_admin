@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+# frozen_string_literal: true
+# author: Vadim Shaveiko <@vshaveyko>
 module RademadeAdmin
   module Routing
     module Mapper
@@ -18,8 +20,11 @@ module RademadeAdmin
 
             collection do
               get :index if parent_resource.actions.include?(:index)
-              post :create
               get :autocomplete if parent_resource.actions.include?(:autocomplete)
+            end
+
+            collection do
+              post :create
               patch :sort
             end if parent_resource.actions.include?(:create)
 
