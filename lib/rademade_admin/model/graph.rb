@@ -43,6 +43,7 @@ module RademadeAdmin
       def controller_class(module_name, full_controller_name)
         LoaderService.const_get("#{module_name}/#{full_controller_name}")
       rescue
+        Logger.new(STDOUT).info "Failed to load: #{module_name}/#{full_controller_name}"
         create_controller(full_controller_name, module_name)
       end
 

@@ -1,15 +1,16 @@
 # -*- encoding : utf-8 -*-
+# frozen_string_literal: true
 module RademadeAdmin
   module Routing
     module Mapper
       def admin_resources(*resources, &block)
         options = resources.extract_options!.dup
 
-        if apply_common_behavior_for(:resource, resources, options, &block)
+        if apply_common_behavior_for(:admin_resources, resources, options, &block)
           return self
         end
 
-        with_scope_level(:resource) do
+        with_scope_level(:resources) do
           options = apply_action_options options
           resource_scope(Resource.new(resources.pop, api_only?, @scope[:shallow], options)) do
             yield if block_given?
@@ -18,8 +19,11 @@ module RademadeAdmin
 
             collection do
               get :index if parent_resource.actions.include?(:index)
-              post :create
               get :autocomplete if parent_resource.actions.include?(:autocomplete)
+            end
+
+            collection do
+              post :create
               patch :sort
             end if parent_resource.actions.include?(:create)
 
