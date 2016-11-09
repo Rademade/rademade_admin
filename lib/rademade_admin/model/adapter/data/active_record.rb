@@ -41,7 +41,7 @@ module RademadeAdmin
                   :sortable => is_sortable,
                   :sortable_field => is_sortable ? relation_info.sortable_field : nil,
                   :foreign_key => relation_info.foreign_key.to_sym,
-                  :is_gallery => !to_class.uploaders.count.zero?
+                  :is_gallery => to_class.nil? ? false : !to_class.uploaders.count.zero?
                 })
               end
             end
