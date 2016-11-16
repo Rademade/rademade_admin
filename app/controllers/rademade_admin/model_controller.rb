@@ -35,7 +35,7 @@ module RademadeAdmin
       saver = RademadeAdmin::Saver.new(model_info, params)
       saver.find_model
       authorize! :update, saver.item
-      block.call if block_given?
+      block.call
       saver.set_data
       before_update saver.item
       saver.save_item
