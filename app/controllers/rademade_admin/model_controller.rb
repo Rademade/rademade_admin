@@ -8,7 +8,7 @@ module RademadeAdmin
     include RademadeAdmin::InstanceOptions
     include RademadeAdmin::Templates
     include RademadeAdmin::Notifier
-    
+
     helper RademadeAdmin::FieldHelper
     helper RademadeAdmin::FieldTypeHelper
     helper RademadeAdmin::FormHelper
@@ -31,10 +31,11 @@ module RademadeAdmin
       render_record_errors e
     end
 
-    def update
+    def update(&block)
       saver = RademadeAdmin::Saver.new(model_info, params)
       saver.find_model
       authorize! :update, saver.item
+      block.call if block_given?
       saver.set_data
       before_update saver.item
       saver.save_item
