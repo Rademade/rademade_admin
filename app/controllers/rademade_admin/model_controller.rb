@@ -38,6 +38,7 @@ module RademadeAdmin
       block.call if block_given?
       saver.set_data
       before_update saver.item
+      block.call if block_given?
       saver.save_item
       success_update saver.item
     rescue Exception => e
