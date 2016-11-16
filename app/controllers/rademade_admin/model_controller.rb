@@ -32,14 +32,14 @@ module RademadeAdmin
     end
 
     def update(&block)
-      saver = RademadeAdmin::Saver.new(model_info, params)
-      saver.find_model
-      authorize! :update, saver.item
-      block.call
-      saver.set_data
-      before_update saver.item
-      saver.save_item
-      success_update saver.item
+      @saver = RademadeAdmin::Saver.new(model_info, params)
+      @saver.find_model
+      authorize! :update, @saver.item
+      yield if block_given?
+      @saver.set_data
+      before_update @saver.item
+      @saver.save_item
+      success_update @saver.item
     rescue Exception => e
       render_record_errors e
     end
