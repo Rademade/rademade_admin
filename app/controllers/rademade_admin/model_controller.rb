@@ -19,10 +19,11 @@ module RademadeAdmin
     before_action :load_options, :model, :pagination_variants
     before_action :sortable_service, :only => [:index]
 
-    def create
+    def create(&block)
       authorize! :create, model_class
       saver = RademadeAdmin::Saver.new(model_info, params)
       saver.create_model
+      yield if block_given?
       saver.set_data
       before_create saver.item
       saver.save_item
