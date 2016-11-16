@@ -21,13 +21,13 @@ module RademadeAdmin
 
     def create(&block)
       authorize! :create, model_class
-      saver = RademadeAdmin::Saver.new(model_info, params)
-      saver.create_model
+      @saver = RademadeAdmin::Saver.new(model_info, params)
+      @saver.create_model
       yield if block_given?
-      saver.set_data
-      before_create saver.item
-      saver.save_item
-      success_insert saver.item
+      @saver.set_data
+      before_create @saver.item
+      @saver.save_item
+      success_insert @saver.item
     rescue Exception => e
       render_record_errors e
     end
