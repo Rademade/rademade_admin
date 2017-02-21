@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     class Configuration
 
-      attr_reader :controller, :parent_menu_item, :model_name, :menu_count_block, :preview_url_block
+      attr_reader :controller, :parent_menu_item, :fixed_thead_value, :model_name, :menu_count_block, :preview_url_block
 
       def initialize(controller)
         @controller = controller
@@ -81,6 +81,10 @@ module RademadeAdmin
 
       def parent_menu(parent_menu_item)
         @parent_menu_item = parent_menu_item
+      end
+
+      def fixed_thead(value)
+        @fixed_thead_value = value ? true : false
       end
 
       def labels(*field_options, &block)

@@ -16,7 +16,7 @@
 #= require jquery-filthypillow/jquery.filthypillow
 #= require jquery-fileupload/js/jquery.fileupload
 #= require jquery-fileupload/js/jquery.iframe-transport
-#= require jquery-form/jquery.form
+#= require jquery-form/dist/jquery.form.min
 #= require jquery-serialize/jquery.serialize-object
 #= require jquery-formrestrict/jquery.formrestrict
 #= require jquery-validation/src/core
@@ -34,6 +34,7 @@
 #= require knob/js/jquery.knob
 #= require uniform/dist/jquery.uniform.min
 #= require data-tables/media/js/jquery.dataTables
+#= require floatThead/dist/jquery.floatThead
 #= require wysihtml5/dist/wysihtml5-0.3.0
 #= require underscore/underscore
 #= require backbone/backbone
