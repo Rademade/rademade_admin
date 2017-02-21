@@ -99,6 +99,9 @@ Supported options
 ```ruby
 options do
   model 'ModelName'
+
+  # Fixed table head if need
+  fixed_thead true
   
   # Navigation menu settings
   parent_menu 'ModelName'
