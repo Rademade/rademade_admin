@@ -16,7 +16,7 @@
 #= require jquery-filthypillow/jquery.filthypillow
 #= require jquery-fileupload/js/jquery.fileupload
 #= require jquery-fileupload/js/jquery.iframe-transport
-#= require jquery-form/jquery.form
+#= require jquery-form/src/jquery.form
 #= require jquery-serialize/jquery.serialize-object
 #= require jquery-formrestrict/jquery.formrestrict
 #= require jquery-validation/src/core
