@@ -27,7 +27,7 @@ asset 'TableDnD'
 
 # Form
 asset 'moment'
-asset 'jquery-form', :github => 'malsup/form'
+asset 'jquery-form', :github => 'malsup/form', :ref => 'v3.19'
 asset 'jquery-serialize', :github => 'macek/jquery-serialize-object'
 asset 'jquery-formrestrict', :github => 'treyhunner/jquery-formrestrict'
 asset 'jquery-validation', :github => 'jzaefferer/jquery-validation#v1.13.1'
