@@ -98,6 +98,8 @@ module RademadeAdmin
                 RademadeAdmin::Model::Info::Field::Type::DATE
               when :datetime
                 RademadeAdmin::Model::Info::Field::Type::DATE_TIME
+              when :text
+                RademadeAdmin::Model::Info::Field::Type::TEXT
             end
           end
 
