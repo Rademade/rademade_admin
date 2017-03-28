@@ -1,7 +1,7 @@
 #= require i18n
 #= require i18n/translations
 #= require jquery
-#= require jquery_ujs
+#= require jquery-ujs
 #= require jquery-ui/ui/core
 #= require jquery-ui/ui/widget
 #= require jquery-ui/ui/mouse
