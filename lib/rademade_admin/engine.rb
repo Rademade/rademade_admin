@@ -17,6 +17,11 @@ module RademadeAdmin
 
     $LOAD_PATH << "#{config.root}/app/services/"
 
+    config.to_prepare do
+      Dir.glob(Rails.root + 'app/decorators/**/*_decorator*.rb').each do |c|
+        require_dependency(c)
+      end
+    end
     paths = %W(
       #{config.root}/app/helpers/**/*.rb
       #{config.root}/app/services/**/*.rb
