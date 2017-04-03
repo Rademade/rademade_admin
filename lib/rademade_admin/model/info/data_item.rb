@@ -109,7 +109,7 @@ module RademadeAdmin
         end
 
         def string_field?
-          has_field? && @field.string?
+          has_field? && (@field.string? || @field.text?)
         end
 
         def boolean_field?

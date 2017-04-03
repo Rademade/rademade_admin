@@ -1,7 +1,7 @@
 #= require i18n
 #= require i18n/translations
 #= require jquery
-#= require jquery_ujs
+#= require jquery-ujs
 #= require jquery-ui/ui/core
 #= require jquery-ui/ui/widget
 #= require jquery-ui/ui/mouse
@@ -16,7 +16,7 @@
 #= require jquery-filthypillow/jquery.filthypillow
 #= require jquery-fileupload/js/jquery.fileupload
 #= require jquery-fileupload/js/jquery.iframe-transport
-#= require jquery-form/dist/jquery.form.min
+#= require jquery-form/src/jquery.form
 #= require jquery-serialize/jquery.serialize-object
 #= require jquery-formrestrict/jquery.formrestrict
 #= require jquery-validation/src/core
