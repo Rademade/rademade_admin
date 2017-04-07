@@ -13,7 +13,7 @@ module RademadeAdmin
             field = table_field(field)
 
             if value.is_a? Regexp
-              ["LOWER(#{field}) ~ ?", [value.source]]
+              ["LOWER(#{field}) ~ LOWER(?)", [value.source]]
             elsif value.is_a? Array
               ["#{field} IN (?)", [value]]
             else
