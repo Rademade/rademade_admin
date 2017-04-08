@@ -23,7 +23,7 @@ class @Uploader extends Backbone.View
   updateUploader : (result) =>
     @$el.find('[data-preview-item]').replaceWith(result.html)
     @$el.find('.upload-holder.hide').removeClass('hide')
-    @$hidden.val(result.file[@$uploader.data('column')].url)
+    @$hidden.val(result.file.url)
     ImagePreview.initPlugin()
 
   showLoader : () ->
