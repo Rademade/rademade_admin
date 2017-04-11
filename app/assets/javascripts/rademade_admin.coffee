@@ -1,6 +1,7 @@
 #= require i18n
 #= require i18n/translations
-#= require jquery/dist/jquery
+#= require jquery
+#= require jquery-ujs
 #= require jquery-ui/ui/core
 #= require jquery-ui/ui/widget
 #= require jquery-ui/ui/mouse
@@ -33,6 +34,7 @@
 #= require knob/js/jquery.knob
 #= require uniform/dist/jquery.uniform.min
 #= require data-tables/media/js/jquery.dataTables
+#= require floatThead/dist/jquery.floatThead
 #= require wysihtml5/dist/wysihtml5-0.3.0
 #= require underscore/underscore
 #= require backbone/backbone

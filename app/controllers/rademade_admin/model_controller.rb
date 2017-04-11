@@ -16,8 +16,8 @@ module RademadeAdmin
     helper RademadeAdmin::MenuHelper
     helper RademadeAdmin::PaginationHelper
 
-    before_filter :load_options, :model, :pagination_variants
-    before_filter :sortable_service, :only => [:index]
+    before_action :load_options, :model, :pagination_variants
+    before_action :sortable_service, :only => [:index]
 
     def create
       authorize! :create, model_class

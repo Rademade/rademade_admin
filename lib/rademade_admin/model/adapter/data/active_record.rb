@@ -48,7 +48,7 @@ module RademadeAdmin
           end
 
           def _add_non_localizable_fields(fields)
-            @model.column_types.each do |field_name, field_data|
+            @model.attribute_types.each do |field_name, field_data|
               name = field_name.to_sym
               fields[name] = RademadeAdmin::Model::Info::Field.new({
                 :name => name,
@@ -83,7 +83,7 @@ module RademadeAdmin
           end
 
           def _model_fields
-            @model.column_types.keys.map(&:to_sym)
+            @model.attribute_types.keys.map(&:to_sym)
           end
 
           private
@@ -98,6 +98,8 @@ module RademadeAdmin
                 RademadeAdmin::Model::Info::Field::Type::DATE
               when :datetime
                 RademadeAdmin::Model::Info::Field::Type::DATE_TIME
+              when :text
+                RademadeAdmin::Model::Info::Field::Type::TEXT
             end
           end
 

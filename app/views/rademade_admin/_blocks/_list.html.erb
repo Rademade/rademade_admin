@@ -17,7 +17,7 @@ end %>
         concat render @template_service.search_block
     %></div>
     <div class="content-table-holder">
-        <table class="content-table" cellspacing="0" cellpadding="0"><%
+        <table class="content-table<%= @model_info.fixed_thead ? ' fixed-thead' : '' %>" cellspacing="0" cellpadding="0"><%
             concat render @template_service.table_head_block
             concat render @template_service.table_head_list
         %></table>

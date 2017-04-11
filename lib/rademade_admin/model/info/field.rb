@@ -26,6 +26,10 @@ module RademadeAdmin
           @type == Type::DATE_TIME
         end
 
+        def text?
+          @type == Type::TEXT
+        end
+
         protected
 
         def initialize(opts = {})
