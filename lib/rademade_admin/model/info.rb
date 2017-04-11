@@ -48,6 +48,10 @@ module RademadeAdmin
         @model_configuration.parent_menu_item
       end
 
+      def fixed_thead
+        @model_configuration.fixed_thead_value
+      end
+
       def menu_count
         @model_configuration.menu_count_block.try(:call)
       end

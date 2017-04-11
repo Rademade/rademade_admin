@@ -34,6 +34,7 @@
 #= require knob/js/jquery.knob
 #= require uniform/dist/jquery.uniform.min
 #= require data-tables/media/js/jquery.dataTables
+#= require floatThead/dist/jquery.floatThead
 #= require wysihtml5/dist/wysihtml5-0.3.0
 #= require underscore/underscore
 #= require backbone/backbone

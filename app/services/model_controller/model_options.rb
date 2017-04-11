@@ -7,6 +7,7 @@ module RademadeAdmin
     #  - model
     #  - name
     #  - parent_menu (todo extract to menu method)
+    #  - fixed_thead
     #  - menu_count
     #  - list
     #  - form
@@ -26,6 +27,10 @@ module RademadeAdmin
 
     def parent_menu_item
       configuration.parent_menu_item
+    end
+
+    def fixed_thead_value
+      configuration.fixed_thead_value
     end
 
     def model_class
