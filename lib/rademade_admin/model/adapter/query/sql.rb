@@ -30,14 +30,18 @@ module RademadeAdmin
           end
 
           def build_where_condition(field: nil, value: nil)
-            field = "`#{field}`"
+            field = table_field(field)
             if value.is_a? Regexp
-              ["LOWER(#{field}) REGEXP ?", [value.source]]
+              ["LOWER(#{field}) REGEXP LOWER(?)", [value.source]]
             elsif value.is_a? Array
               ["#{field} IN (?)", [value]]
             else
               ["#{field} = ?", [value]]
             end
+          end
+
+          def table_field(field)
+            "#{@model.table_name}.#{field}"
           end
         end
       end

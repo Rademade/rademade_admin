@@ -9,6 +9,7 @@ module RademadeAdmin
           BOOLEAN = 2
           DATE = 3
           DATE_TIME = 4
+          TEXT = 5
 
         end
       end
