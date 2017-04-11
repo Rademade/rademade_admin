@@ -10,7 +10,6 @@
             <i class="user-img"></i>
             <span class="user-name"><%= @current_user %></span><%
             concat link_to '', rademade_admin_route(:logout_sessions_url), {
-                :method => :delete,
                 :class => 'user-settings'
             }
         %></div>
