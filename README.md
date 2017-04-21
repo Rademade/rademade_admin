@@ -16,6 +16,11 @@ rademade_admin
 
 **Best rails admin panel!**
 
+Live demo
+--------------
+1. [http://admin.rademade.com/login](http://admin.rademade.com/login)
+2. Login: mrtom@rademade.com
+3. Password: 12345678
 
 How to use it
 --------------
