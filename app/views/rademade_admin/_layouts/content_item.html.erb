@@ -2,7 +2,7 @@
 if defined?(content_url)
   url = content_url
 else
-  url_params = request.parameters.symbolize_keys
+  url_params = request.parameters
   url_params.delete(:layout)
   url = admin_url_for(url_params)
 end

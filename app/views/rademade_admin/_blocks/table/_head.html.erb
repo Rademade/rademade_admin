@@ -14,7 +14,7 @@
                     elsif sorting_direction == :desc
                         %> sortable-down<%
                     end
-                    url_params = request.query_parameters.symbolize_keys.merge(url_sort_params)
+                    url_params = request.query_parameters.merge(url_sort_params)
                     %> is-clickable sortable" data-link-url="<%= admin_list_uri(@model_info, url_params) %><%
                 end
             %>">
@@ -24,7 +24,7 @@
         %><th class="content-table-cell">
             <span class="text"><%= t('rademade_admin.management.title') %></span><%
             if @sortable_service.can_reset?
-                url_params = request.query_parameters.symbolize_keys.except(:sort, :direction)
+                url_params = request.query_parameters.except(:sort, :direction)
                 %><span class="discard" data-link-url="<%= admin_list_uri(@model_info, url_params) %>">
                     <span class="tooltip-holder">
                         <span class="tooltip-text"><%= t('rademade_admin.reset_sort') %></span>
