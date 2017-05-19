@@ -4,13 +4,6 @@
 #= require jquery-ujs
 #= require jquery-ui/ui/core
 #= require jquery-ui/ui/widget
-#= require jquery-ui/ui/widgets/mouse
-#= require jquery-ui/ui/widgets/draggable
-#= require jquery-ui/ui/widgets/resizable
-#= require jquery-ui/ui/widgets/sortable
-#= require jquery-ui/ui/widgets/slider
-#= require jquery-ui/ui/widgets/tabs
-#= require jquery-ui/ui/widgets/datepicker
 #= require touch-punch/jquery.ui.touch-punch
 #= require jcrop/js/jquery.Jcrop
 #= require jquery-filthypillow/jquery.filthypillow
@@ -32,7 +25,7 @@
 #= require flot/jquery.flot.resize
 #= require flot/jquery.flot.stack
 #= require knob/js/jquery.knob
-#= require uniform/dist/js/jquery.uniform.bundled
+#= require uniform/src/js/jquery.uniform
 #= require data-tables/media/js/jquery.dataTables
 #= require floatThead/dist/jquery.floatThead
 #= require wysihtml5/dist/wysihtml5-0.3.0
