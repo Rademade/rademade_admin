@@ -16,8 +16,15 @@ class @Select2Input.RelatedCollection extends Backbone.Collection
   setSortable : (sortable) ->
     @sortable = sortable
 
+  setDeletable : (deletable) ->
+    @deletable = deletable
+
   isSortable : () ->
     @sortable
+
+  isDeletable : () ->
+    console.log 'isDeletable'
+    @deletable
 
   resort : () ->
     @sort()

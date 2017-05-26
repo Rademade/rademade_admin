@@ -3,4 +3,8 @@ if (isSortable) {
     %><i class="draggable-btn"></i><%
 }
 %><button class="select2-item-edit" data-edit="<%= editurl %>"><%= text %></button>
-<button class="select2-item-remove" data-remove><%= I18n.t('rademade_admin.relation.destroy') %></button>
+<%
+if (isDeletable) {
+    %><button class="select2-item-remove" data-remove><%= I18n.t('rademade_admin.relation.destroy') %></button><%
+}
+%>
