@@ -49,12 +49,17 @@ module RademadeAdmin
                 :type => type,
                 :many => type == :has_many,
                 :has_many => has_many_relations.include?(type),
+                :destroyable => _relation_destroyable?,
                 :sortable => is_sortable,
                 :sortable_field => is_sortable ? relation_info.sortable_field : nil,
                 :foreign_key => relation_info.foreign_key ? relation_info.foreign_key.to_sym : nil
               })
             end
             relations
+          end
+
+          def _relation_destroyable?
+            true
           end
 
           def _model_fields
