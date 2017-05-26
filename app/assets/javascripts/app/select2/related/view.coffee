@@ -32,9 +32,16 @@ class @Select2Input.RelatedView extends Backbone.View
     else
       false
 
+  isDeletable: () ->
+    if @model.collection
+      @model.collection.isDeletable()
+    else
+      false
+
   _getHtml : (data) ->
     JST['app/templates/related-item'] _.extend
       isSortable : @isSortable()
+      isDeletable : @isDeletable()
     , data
 
   @init : ($el) ->
