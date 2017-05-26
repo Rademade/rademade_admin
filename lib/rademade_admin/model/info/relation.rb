@@ -19,7 +19,7 @@ module RademadeAdmin
         end
 
         def destroyable?
-          @destroyable
+          @destroyable.nil? ? true : @destroyable
         end
 
         def gallery?
