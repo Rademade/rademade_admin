@@ -47,11 +47,16 @@ module RademadeAdmin
                 :type => relation_info[:type],
                 :many => relation_info[:type] == :one_to_many,
                 :has_many => has_many,
+                :destroyable => _relation_destroyable?,
                 :sortable => false,
                 :foreign_key => relation_info[:key]
               })
             end
             relations
+          end
+
+          def _relation_destroyable?
+            true
           end
 
           def _to_many_setter(relation_info, getter)
