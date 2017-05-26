@@ -23,7 +23,6 @@ class @Select2Input.RelatedCollection extends Backbone.Collection
     @sortable
 
   isDeletable : () ->
-    console.log 'isDeletable'
     @deletable
 
   resort : () ->
