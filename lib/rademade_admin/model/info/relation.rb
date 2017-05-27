@@ -18,6 +18,10 @@ module RademadeAdmin
           @sortable
         end
 
+        def destroyable?
+          @destroyable
+        end
+
         def gallery?
           @is_gallery
         end
@@ -46,6 +50,7 @@ module RademadeAdmin
           @foreign_key = opt[:foreign_key]
           @sortable = opt[:sortable]
           @sortable_field = opt[:sortable_field]
+          @destroyable = opt[:destroyable]
           @is_gallery = opt[:is_gallery]
         end
 

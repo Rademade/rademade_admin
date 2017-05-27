@@ -24,6 +24,8 @@ class @Select2Input.RelatedCollectionView extends Backbone.View
     views = []
     collection = new Select2Input.RelatedCollection
     collection.setSortable $list.data('sortable')
+    collection.setDeletable $list.data('deletable')
+
     $list.find('li').each () ->
       relatedView = Select2Input.RelatedView.init $(this)
       views.push relatedView

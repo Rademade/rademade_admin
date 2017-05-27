@@ -10,7 +10,8 @@ module RademadeAdmin
           template.content_tag(:ul, related_list_items_html, {
             :class => 'select2-items-list',
             :data => {
-              :sortable => sortable_relation?
+              :sortable => sortable_relation?,
+              :deletable => destroyable_relation?
             }
           })
         end
@@ -51,7 +52,7 @@ module RademadeAdmin
           template.content_tag(:button, I18n.t('rademade_admin.relation.destroy'), {
             :'data-remove' => '',
             :class => 'select2-item-remove'
-          })
+          }) if destroyable_relation?
         end
 
         def related_item_class
@@ -62,6 +63,10 @@ module RademadeAdmin
 
         def sortable_relation?
           related_data_item.relation.sortable?
+        end
+
+        def destroyable_relation?
+          related_data_item.relation.destroyable?
         end
 
       end

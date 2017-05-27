@@ -33,6 +33,7 @@ module RademadeAdmin
                   :name => name,
                   :from => @model,
                   :to => to_class,
+                  :destroyable => _relation_destroyable?(relation_info),
                   :getter => name,
                   :setter => :"#{name}=",
                   :type => type,
@@ -45,6 +46,30 @@ module RademadeAdmin
               end
             end
             relations
+          end
+
+          def _relation_destroyable?(relation_info)
+            !_validates_association?(relation_info) &&
+              !_validates_presence?(relation_info)
+          end
+
+          def _validates_association?(relation_info)
+            _model_validates?(@model,
+                             relation_info.name,
+                             ::ActiveRecord::Validations::AssociatedValidator)
+          end
+
+          def _validates_presence?(relation_info)
+            _model_validates?(relation_info.klass,
+                             relation_info.foreign_key,
+                             ::ActiveRecord::Validations::PresenceValidator)
+          end
+
+          def _model_validates?(model, name, validator_class)
+            model.validators.select do |validator|
+              validator.class == validator_class &&
+                validator.attributes.include?(name)
+            end.any?
           end
 
           def _add_non_localizable_fields(fields)
