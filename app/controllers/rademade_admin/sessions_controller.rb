@@ -15,7 +15,7 @@ module RademadeAdmin
       render :json => { :errors => e.field_messages }, :status => :precondition_failed
     end
 
-    def logout
+    def destroy
       session.delete(:user_id)
       redirect_to :controller => 'dashboard', :action => 'login'
     end
