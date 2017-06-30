@@ -6,7 +6,7 @@ class RademadeAdmin::FileController < RademadeAdmin::AbstractController
     uploader.store!(params[param_key])
     render :json => {
       :html => RademadeAdmin::Upload::Preview::File.new(uploader).preview_html,
-      :file => uploader
+      :file => JSON.parse(uploader.to_json).merge(url: uploader.url)
     }
   rescue CarrierWave::UploadError => e
     show_error(e)
