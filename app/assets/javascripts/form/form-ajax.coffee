@@ -24,7 +24,7 @@ class @FormAjax extends Backbone.View
 
   _onAlways : (response) =>
     data = if (response.responseJSON) then response.responseJSON else response
-    window.notifier.notify(data.message) if data.message
+    window.notifier.notify(data.message) if data.message and not data.errors
     @trigger 'ajax-finish', data
 
   _getData : () ->
