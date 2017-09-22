@@ -4,10 +4,10 @@ module RademadeAdmin
     class Reflection
 
       ORM_TYPE_ACTIVERECORD = 'ActiveRecord'
-      ORM_TYPE_MONGOID = 'Mongoid'
-      ORM_TYPE_SEQUEL = 'Sequel'
+      ORM_TYPE_MONGOID      = 'Mongoid'
+      ORM_TYPE_SEQUEL       = 'Sequel'
 
-      SUPPORTED_AR_DBMS = ['Postgresql', 'Mysql']
+      SUPPORTED_AR_DBMS = ['Postgis', 'Postgresql', 'Mysql']
 
       attr_reader :model, :controller, :module_name
 
