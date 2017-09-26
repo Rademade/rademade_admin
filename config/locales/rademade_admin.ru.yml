@@ -12,6 +12,7 @@ ru:
       preview: "Просмотр"
       show_status: "Статус отображения"
     login:
+      project: "Rademade"
       email: "Электронная почта"
       password: "Пароль"
       submit: "Войти"

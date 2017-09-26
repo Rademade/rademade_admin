@@ -7,8 +7,8 @@
     <div class="fix">
         <%= login_form do |f| %>
             <div class="login-form-title">
-                <span class="login-form-company">Rademade</span>
-                <span class="login-form-project">Admin</span>
+              <span class="login-form-company"><%= t('rademade_admin.login.project') %></span>
+              <span class="login-form-project">Admin</span>
             </div><%
             concat f.input :email, :label => t('rademade_admin.login.email'), :placeholder => t('rademade_admin.login.email')
             concat f.input :password, :label => t('rademade_admin.login.password'), :placeholder => t('rademade_admin.login.password')
