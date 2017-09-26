@@ -12,6 +12,7 @@ en:
       preview: "Preview"
       show_status: "Show status"
     login:
+      project: "Rademade"
       email: "Email"
       password: "Password"
       submit: "Log in"
