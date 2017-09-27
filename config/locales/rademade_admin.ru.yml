@@ -1,6 +1,7 @@
 ru:
   rademade_admin:
     project: "Проект"
+    project_title: "Rademade"
     home: "Главная"
     search: "Поиск в рубрике"
     show_on_page: "Показать"
