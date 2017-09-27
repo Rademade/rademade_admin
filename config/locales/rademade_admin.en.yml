@@ -1,6 +1,7 @@
 en:
   rademade_admin:
     project: "Project"
+    project_title: "Rademade"
     home: "Home"
     search: "Search in rubric"
     show_on_page: "Show"
