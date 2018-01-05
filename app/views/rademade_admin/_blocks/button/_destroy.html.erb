@@ -1,5 +1,5 @@
 <%
-if can? :destroy, @model
+if can? :destroy, item
     delete_uri = admin_delete_uri(item)
     unless delete_uri.nil?
         %><%= form_tag(delete_uri, :method => :delete, :class => 'inline-el', :data => { :'delete-item-form' => '' }) do
