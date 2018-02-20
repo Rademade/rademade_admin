@@ -45,7 +45,10 @@ module RademadeAdmin::FormHelper
       :url => url,
       :method => method,
       :as => :data,
-      :html => admin_form_html_attributes(form_class)
+      :html => admin_form_html_attributes(form_class),
+      :data => {
+        :method => method
+      }
     }
   end
 

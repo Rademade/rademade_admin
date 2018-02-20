@@ -3,7 +3,8 @@ module RademadeAdmin
   module Model
     class Configuration
 
-      attr_reader :controller, :parent_menu_item, :fixed_thead_value, :model_name, :menu_count_block, :preview_url_block
+      attr_reader :controller, :parent_menu_item, :fixed_thead_value, :model_name,
+        :menu_count_block, :preview_url_block, :title_field, :title_block
 
       def initialize(controller)
         @controller = controller
@@ -71,6 +72,14 @@ module RademadeAdmin
 
       def preview_url(&block)
         @preview_url_block = block
+      end
+
+      def title(value = nil, &block)
+        if block_given?
+          @title_block = block
+        else
+          @title_field = value
+        end
       end
 
       private

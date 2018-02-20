@@ -14,7 +14,7 @@ end %>
 <% content_for :content do %>
     <div class="btn-list">
         <div class="btn-box align-left fll"><%= yield(:nav_buttons) %></div><%
-        concat render @template_service.search_block
+        # concat render @template_service.search_block
     %></div>
     <div class="content-table-holder">
         <table class="content-table<%= @model_info.fixed_thead ? ' fixed-thead' : '' %>" cellspacing="0" cellpadding="0"><%
@@ -23,8 +23,8 @@ end %>
         %></table>
     </div>
     <div class="btn-list"><%
-        concat render @template_service.pagination_block
-        concat render @template_service.on_page_switcher_block
+        # concat render @template_service.pagination_block
+        # concat render @template_service.on_page_switcher_block
     %></div><%
 end
 

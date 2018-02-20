@@ -17,6 +17,13 @@ module RademadeAdmin
           end
         end
 
+        def remote_url_setter_proc(remote_url)
+          method_name = :"remote_#{name}_url="
+          Proc.new do
+            self.send(method_name, remote_url)
+          end
+        end
+
         def full_path_for(image_path)
           "#{CarrierWave.root}#{image_path}"
         end

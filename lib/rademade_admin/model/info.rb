@@ -100,6 +100,16 @@ module RademadeAdmin
         @model_configuration.field_labels.label_for(name)
       end
 
+      def title_of(item)
+        if @model_configuration.title_field
+          item.public_send(@model_configuration.title_field)
+        elsif @model_configuration.title_block
+          @model_configuration.title_block.call(item)
+        else
+          item.to_s
+        end
+      end
+
       protected
 
       def _data_adapter

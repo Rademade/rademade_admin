@@ -20,7 +20,7 @@ en:
         incorrect_password: "Incorrect password"
         access_denied: "Access denied"
     dashboard:
-      greeting: "Hello, %{user}"
+      greeting: "Hello, %{user_name}"
     record:
       new: "Add record"
       edit: "Edit"

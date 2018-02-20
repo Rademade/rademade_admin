@@ -82,8 +82,12 @@ module RademadeAdmin
       if image_path.blank?
         item.instance_exec(&data_item.uploader.remove_proc)
       else
-        full_image_path = data_item.uploader.full_path_for(image_path)
-        data_item.set_data(entity, File.open(full_image_path))
+        if image_path.match /^http/ # is full path already
+          item.instance_exec(&data_item.uploader.remote_url_setter_proc(image_path))
+        else
+          full_image_path = data_item.uploader.full_path_for(image_path)
+          data_item.set_data(entity, File.open(full_image_path))
+        end
       end
     rescue
       # rm_todo clear image
@@ -99,7 +103,7 @@ module RademadeAdmin
     end
 
     def simple_field_params
-      @params.require(:data).symbolize_keys.slice(*@model_info.data_items.save_form_fields)
+      @params.require(:data).slice(*@model_info.data_items.save_form_fields)
     end
 
     def related_entities(data_item, ids)

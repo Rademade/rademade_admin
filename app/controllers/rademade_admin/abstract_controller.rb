@@ -6,6 +6,8 @@ module RademadeAdmin
 
     layout 'rademade_admin'
 
+    protect_from_forgery prepend: true
+
     before_action :init_user, :init_template_service, :require_login
     
     attr_reader :current_user
@@ -21,7 +23,10 @@ module RademadeAdmin
     end
 
     def init_user
-      @current_user = RademadeAdmin.configuration.admin_class.find(session[:user_id]) if session[:user_id].present?
+      if session[:user_id].present?
+        related_info = RademadeAdmin::Model::Graph.instance.model_info(RademadeAdmin.configuration.admin_class)
+        @current_user = related_info.query_adapter.find(session[:user_id])
+      end
     end
 
     def init_template_service
@@ -36,7 +41,7 @@ module RademadeAdmin
     end
 
     def admin_logged_in?
-      @current_user.is_a? RademadeAdmin.configuration.admin_class and @current_user.admin?
+      @current_user && @current_user.admin?
     end
 
     def current_ability

@@ -1,4 +1,6 @@
-<div class="nav">
+<%
+user_model_info = RademadeAdmin::Model::Graph.instance.model_info(RademadeAdmin.configuration.admin_class)
+%><div class="nav">
     <ul class="nav-list">
         <li class="nav-item">
             <a href="/" class="nav-main-logo"><span><%= t('rademade_admin.project') %></span></a>
@@ -8,7 +10,7 @@
     <div class="nav-box">
         <div class="nav-user">
             <i class="user-img"></i>
-            <span class="user-name"><%= @current_user %></span><%
+            <span class="user-name"><%= user_model_info.title_of(@current_user) %></span><%
             concat link_to '', rademade_admin_route(:logout_sessions_url), {
                 :class => 'user-settings'
             }

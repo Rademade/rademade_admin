@@ -35,13 +35,17 @@ module RademadeAdmin
         end
 
         def image_preview
-          @uploader.resize_with_crop(300, 300)
+          if image?
+            @uploader.resize_with_crop(300, 300)
+          else
+            @uploader.url
+          end
         end
 
         protected
 
         def uploaded_preview_html
-          if image?
+          if image? || @uploader.file.content_type.match(/image\//)
             image_preview_html
           elsif video?
             video_preview_html
