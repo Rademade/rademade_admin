@@ -8,6 +8,7 @@ module RademadeAdmin
 
       error(I18n.t('rademade_admin.login.validation.email_not_found'), :email) if user.nil?
       error(I18n.t('rademade_admin.login.validation.incorrect_password'), :password) unless user.valid_password? params[:data][:password]
+      error(I18n.t('rademade_admin.login.validation.access_denied'), :email) unless user.admin?
 
       user
     end
