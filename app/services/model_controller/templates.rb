@@ -3,10 +3,8 @@ module RademadeAdmin
   module Templates
 
     def native_template_folder
-      # 15 = "RademadeAdmin::".length
-      # 11 = "Controller".length
-      # e.g. RademadeAdmin::QuestionAnswer::UsersController to "question_answer/users"
-      @native_template_folder ||= self.class.to_s[15..-11].underscore
+      # e.g. RademadeAdmin::QuestionAnswer::UsersController to "rademade_admin/question_answer/users"
+      @native_template_folder ||= self.class.to_s.gsub('Controller', '').underscore
     end
 
     def form_template_path(real = false)
@@ -15,12 +13,11 @@ module RademadeAdmin
 
     def abstract_template(template)
       # TODO make with rails native controller extending
-      if template_exists?(template, @template_service.template_path(native_template_folder))
-        folder = native_template_folder
+      if template_exists?(template, native_template_folder)
+        "#{native_template_folder}/#{template}"
       else
-        folder = 'abstract'
+        @template_service.template_path('abstract', template)
       end
-      @template_service.template_path(folder, template)
     end
 
   end
