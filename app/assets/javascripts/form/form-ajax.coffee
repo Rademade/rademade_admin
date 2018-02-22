@@ -4,7 +4,7 @@ class @FormAjax extends Backbone.View
     @_prepareForAjax()
     $.ajax(
       url : @$el.attr('action')
-      type : @$el.data('method')
+      type : @$el.data('method') || @$el.attr('method')
       data : @_getData()
       dataType : 'json'
     ).done(@_onDone).fail(@_onFail).always(@_onAlways)
