@@ -43,5 +43,7 @@ module RademadeAdmin
       Dir[path].each { |f| require f  }
     end
 
+    config.action_controller.default_url_options = RademadeAdmin::Engine.routes.default_url_options
+
   end
 end
