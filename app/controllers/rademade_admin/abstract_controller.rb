@@ -48,5 +48,9 @@ module RademadeAdmin
       @current_ability ||= RademadeAdmin.configuration.ability_class.new(@current_user)
     end
 
+    def default_url_options
+      RademadeAdmin::Engine.routes.default_url_options
+    end
+
   end
 end
