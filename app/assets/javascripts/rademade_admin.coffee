@@ -4,6 +4,13 @@
 #= require jquery-ujs
 #= require jquery-ui/ui/core
 #= require jquery-ui/ui/widget
+#= require jquery-ui/ui/mouse
+#= require jquery-ui/ui/draggable
+#= require jquery-ui/ui/resizable
+#= require jquery-ui/ui/sortable
+#= require jquery-ui/ui/slider
+#= require jquery-ui/ui/tabs
+#= require jquery-ui/ui/datepicker
 #= require touch-punch/jquery.ui.touch-punch
 #= require jcrop/js/jquery.Jcrop
 #= require jquery-filthypillow/jquery.filthypillow
