@@ -50,6 +50,7 @@ module RademadeAdmin
           end
 
           def _relation_destroyable?(relation_info)
+            return true if relation_info.options[:polymorphic]
             !_validates_association?(relation_info) &&
               !_validates_presence?(relation_info)
           end
