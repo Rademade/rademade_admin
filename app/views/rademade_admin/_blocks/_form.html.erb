@@ -1,8 +1,12 @@
 <%
-concat render :template => @template_service.content_item_layout, :locals => {
-    :content_header => @model_info.item_name,
-    :content_url => admin_list_uri(@model_info)
-} if @with_layout %>
+if @with_layout
+    content_url = admin_list_uri(@model_info)
+    concat render :template => @template_service.content_item_layout, :locals => {
+        :content_header => @model_info.item_name,
+        :content_url => content_url
+    } if content_url
+end
+%>
 
 <% content_for :content do %><%
     buttons_template ||= @template_service.form_control_block
