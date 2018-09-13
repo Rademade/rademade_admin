@@ -17,6 +17,17 @@ module RademadeAdmin
 
           protected
 
+          def build_where_condition(field: nil, value: nil)
+            field = table_field(field)
+            if value.is_a? Regexp
+              ["LOWER(#{field}) ~* ?", [value.source]]
+            elsif value.is_a? Array
+              ["#{field} IN (?)", [value]]
+            else
+              ["#{field} = ?", [value]]
+            end
+          end
+
           def order(order_conditions)
             order_conditions.parts.each do |part|
               if part.is_a? RademadeAdmin::Search::Part::Order
