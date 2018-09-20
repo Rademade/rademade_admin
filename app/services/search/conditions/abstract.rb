@@ -48,7 +48,7 @@ module RademadeAdmin
           if page.nil? || per_page.nil?
             nil
           else
-            [page, per_page]
+            [page.to_i, per_page.to_i]
           end
         end
 
