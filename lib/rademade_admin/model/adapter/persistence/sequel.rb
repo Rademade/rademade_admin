@@ -10,7 +10,7 @@ module RademadeAdmin
           end
 
           def save(record)
-            record.save
+            record.save_changes
           end
 
         end
