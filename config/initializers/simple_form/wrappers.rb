@@ -18,4 +18,9 @@ SimpleForm.setup do |config|
     input_holder.use :label, :class => 'form-label'
   end
 
+  config.wrappers :empty, :tag => 'div', :class => 'form-box' do |form_box|
+    form_box.use :html5
+    form_box.use :input
+  end
+
 end
