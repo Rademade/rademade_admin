@@ -42,7 +42,7 @@ class @FormAjax extends Backbone.View
   _cleanArray : (array) ->
     newArray = []
     for val in array
-      cleanVal = val.replace(/\s+/g, '')
+      cleanVal = val.trim()
       if cleanVal.length > 0
         newArray = $.merge(newArray, cleanVal.split(','))
     if newArray.length is 0 then [''] else newArray
