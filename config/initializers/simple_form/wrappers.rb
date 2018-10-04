@@ -4,7 +4,7 @@ SimpleForm.setup do |config|
     form_box.use :html5
     form_box.use :label, :class => 'form-label'
     form_box.wrapper :tag => 'span', :class => 'input-holder' do |input_holder|
-      input_holder.use :input
+      input_holder.use :input, :autocomplete => 'new-password'
     end
     form_box.wrapper :tag => 'div', :class => 'form-description', :unless_blank => true do |hint|
       hint.use :hint, :wrap_with => { :tag => :span, :class => :'form-description-text' }
@@ -20,7 +20,7 @@ SimpleForm.setup do |config|
 
   config.wrappers :empty, :tag => 'div', :class => 'form-box' do |form_box|
     form_box.use :html5
-    form_box.use :input
+    form_box.use :input, :autocomplete => 'new-password'
   end
 
 end
