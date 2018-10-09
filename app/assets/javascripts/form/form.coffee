@@ -34,10 +34,12 @@ class @Form extends Backbone.View
     @$el.triggerHandler.apply(@$el, arguments)
 
   _onAjaxStart : () =>
+    $('#loader').removeClass('hide')
     @formValidation.clearFieldErrors()
     @sending = true
 
   _onAjaxDone : (data) =>
+    $('#loader').addClass('hide')
     if data.with_return
       Content.getInstance().moveToPreviousContentItem()
     else
