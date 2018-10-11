@@ -39,7 +39,6 @@ class @Form extends Backbone.View
     @sending = true
 
   _onAjaxDone : (data) =>
-    $('#loader').addClass('hide')
     if data.with_return
       Content.getInstance().moveToPreviousContentItem()
     else
@@ -50,6 +49,7 @@ class @Form extends Backbone.View
     @formValidation.displayFieldErrors(data.errors)
 
   _onAjaxFinish : (data) =>
+    $('#loader').addClass('hide')
     @trigger 'ajax-submit-always', [data]
     @sending = false
 
