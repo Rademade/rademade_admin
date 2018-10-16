@@ -69,7 +69,7 @@ module RademadeAdmin
     end
 
     def gallery_info
-      @gallery_relation ||= model_info(object.class.to_s, attribute_name)
+      @gallery_relation ||= model_info(object.class, attribute_name)
     end
 
     def gallery_image_info
