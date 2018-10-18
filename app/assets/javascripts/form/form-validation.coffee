@@ -6,9 +6,12 @@ class @FormValidation extends Backbone.View
     @validationObject = options.validationObject
 
   displayFieldErrors : (errors) ->
-    [messages, globalMessages] = @_collectErrorMessages(errors)
-    @_showErrorMessages(messages)
-    @_showGlobalErrorMessages(globalMessages)
+    if _.isArray(errors)
+      [messages, globalMessages] = @_collectErrorMessages(errors)
+      @_showErrorMessages(messages)
+      @_showGlobalErrorMessages(globalMessages)
+    else
+      window.notifier.notify errors
     false
 
   clearFieldErrors : () ->
