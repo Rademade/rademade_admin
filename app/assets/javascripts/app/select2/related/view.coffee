@@ -14,7 +14,7 @@ class @Select2Input.RelatedView extends Backbone.View
 
   editRelation : (e) ->
     e.preventDefault()
-    Content.getInstance().renderModel @model
+    Content.getInstance().renderModel @model, @$el.data('additional-url-options')
 
   removeRelation : (e) ->
     e.preventDefault()

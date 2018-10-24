@@ -1,9 +1,9 @@
 class @Content extends Backbone.View
 
-  renderItemFromUrl : (url, cb) ->
+  renderItemFromUrl : (url, cb, urlData = {}) ->
     $(document).trigger 'before-content-render'
     @_updateHistory(url)
-    $.get url, layout : false, (html) =>
+    $.get url, _.extend(urlData, layout : false), (html) =>
       $contentItem = $(html)
       $('[data-content]').append $contentItem
       $(window).scrollTop(0)
@@ -11,11 +11,12 @@ class @Content extends Backbone.View
       @bindClick $contentItem
       cb($contentItem) if cb
 
-  renderModel : (model) ->
+  renderModel : (model, urlData = {}) ->
     @renderItemFromUrl model.get('editurl'), ($contentItem) =>
       $contentItem.find('form').on 'ajax-submit-done', (e, response) =>
         model.update response.data
         $contentItem.remove()
+    , urlData
 
   moveToPreviousContentItem : () ->
     @moveToContentItem $('[data-content-item]:nth-last-child(2)')
