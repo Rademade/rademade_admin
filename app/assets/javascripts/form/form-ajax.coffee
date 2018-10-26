@@ -16,6 +16,7 @@ class @FormAjax extends Backbone.View
 
   _onDone : (data) =>
     @trigger 'ajax-done', data
+    window.notifier.notify(data.message) if data.message
     @$el.find('.error-message').remove()
 
   _onFail : (response) =>
