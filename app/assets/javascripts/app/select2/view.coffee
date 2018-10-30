@@ -59,7 +59,7 @@ class @Select2Input.View extends Backbone.View
     $addPlaceholder = $ @_placeholderForAdd()
     $addPlaceholder.click () =>
       @$item.select2('close')
-      Content.getInstance().renderModel @_createRelatedModel(@model.get('newUrl'))
+      Content.getInstance().renderModel @_createRelatedModel(@model.get('newUrl')), $addPlaceholder.data('additionalUrlOptions')
     @$item.select2('container').find('.select2-drop').append $addPlaceholder
 
   _getUrl : () ->
