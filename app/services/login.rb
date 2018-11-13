@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# todo remove
 module RademadeAdmin
   class Login
 

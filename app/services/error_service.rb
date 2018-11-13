@@ -7,6 +7,8 @@ module RademadeAdmin
         error.record.errors
       elsif sequel_error?(error)
         error.errors
+      elsif error.is_a?(RademadeAdmin::FieldError)
+        error.error_hash
       else
         error.message
       end

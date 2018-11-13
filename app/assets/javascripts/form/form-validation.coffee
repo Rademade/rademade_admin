@@ -6,7 +6,7 @@ class @FormValidation extends Backbone.View
     @validationObject = options.validationObject
 
   displayFieldErrors : (errors) ->
-    if _.isArray(errors)
+    if _.isArray(errors) || _.isObject(errors)
       [messages, globalMessages] = @_collectErrorMessages(errors)
       @_showErrorMessages(messages)
       @_showGlobalErrorMessages(globalMessages)
@@ -33,6 +33,8 @@ class @FormValidation extends Backbone.View
       name = "data[#{field}]"
       if $("[name='#{name}']").length > 0
         messages[name] = message
+      else if $("[name='#{name}[]']").length > 0
+        messages["#{name}[]"] = message
       else
         $("[name*='#{name}']").each (index) ->
           messages[@name] = ''
@@ -55,9 +57,12 @@ class @FormValidation extends Backbone.View
     $.validator.setDefaults
       showErrors : (errorMap, errorList) =>
         _.each errorList, (error) =>
-          $error = $(error.element)
-          $error.parent().addClass 'in-error'
-          $error.after @_getErrorNotifier(error)
+          $holder = $(error.element).closest('.input-holder')
+          $holder.addClass 'in-error'
+          $holder.append @_getErrorNotifier(error)
+          $('html, body').animate({
+            scrollTop : $holder.offset().top - 50
+          }, 500);
 
   @_getErrorNotifier : (message) ->
     $([
