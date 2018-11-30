@@ -8,7 +8,7 @@ module RademadeAdmin
     include RademadeAdmin::InstanceOptions
     include RademadeAdmin::Templates
     include RademadeAdmin::Notifier
-    
+
     helper RademadeAdmin::FieldHelper
     helper RademadeAdmin::FieldTypeHelper
     helper RademadeAdmin::FormHelper

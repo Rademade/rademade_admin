@@ -30,7 +30,7 @@ module RademadeAdmin
         format.json { success_message(item, I18n.t('rademade_admin.success_message.delete')) }
       end
     end
-    
+
     def success_status_change(item)
       respond_to do |format|
         format.html { redirect_to admin_list_uri(item) }

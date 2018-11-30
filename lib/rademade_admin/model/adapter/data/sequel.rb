@@ -37,6 +37,7 @@ module RademadeAdmin
               to_class = RademadeAdmin::LoaderService.const_get(relation_info[:class_name]) rescue nil
               has_many = has_many_relations.include?(relation_info[:type])
               getter = name
+              is_sortable = to_class ? to_class.columns.include?(:position) : false
               relations[name] = _relation_class_name(to_class).new({
                 :name => name,
                 :from => @model,
@@ -48,7 +49,8 @@ module RademadeAdmin
                 :many => relation_info[:type] == :one_to_many,
                 :has_many => has_many,
                 :destroyable => _relation_destroyable?,
-                :sortable => false,
+                :sortable => is_sortable,
+                :sortable_field => is_sortable ? :position : nil,
                 :foreign_key => relation_info[:key]
               })
             end
