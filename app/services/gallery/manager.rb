@@ -76,7 +76,12 @@ module RademadeAdmin
         if gallery_image_relation.sortable?
           last_image = gallery.images.last
           previous_position = last_image.nil? ? 0 : last_image.send(gallery_image_relation.sortable_field.to_sym)
-          set_gallery_image_position(gallery_image, previous_position + 1)
+          if previous_position
+            new_position = previous_position + 1
+          else
+            new_position = gallery.images.count
+          end
+          set_gallery_image_position(gallery_image, new_position)
         end
       end
 
