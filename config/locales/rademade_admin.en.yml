@@ -1,6 +1,7 @@
 en:
   rademade_admin:
     project: "Project"
+    forgot_password: 'Forgot password?'
     home: "Home"
     search: "Search in rubric"
     show_on_page: "Show"
@@ -15,10 +16,21 @@ en:
       email: "Email"
       password: "Password"
       submit: "Log in"
+      forgot_password: 'Forgot Password'
       validation:
         email_not_found: "There is no users with such email"
+        password_not_match: "Password does not match"
+        password_length: "Min password length is \"%{length}\""
         incorrect_password: "Incorrect password"
         access_denied: "Access denied"
+    forgot_password:
+      submit: "Send instructions"
+      validation:
+        email: "There is no users with such email"
+    reset_password:
+      submit: "Submit new password"
+      password: "Password"
+      password_repeat: "Password repeat"
     dashboard:
       greeting: "Hello, %{user_name}"
     record:

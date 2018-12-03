@@ -6,7 +6,7 @@ module RademadeAdmin
     helper RademadeAdmin::MenuHelper
     helper RademadeAdmin::UriHelper
 
-    skip_before_action :require_login, :only => [:login]
+    skip_before_action :require_login, :only => [:login, :forgot_passwords]
 
     def index
 
