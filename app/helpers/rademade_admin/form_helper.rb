@@ -11,7 +11,7 @@ module RademadeAdmin::FormHelper
   end
 
   def admin_field(form, data_item, model_info)
-    if can_read_relation data_item
+    if can_read? data_item
       name = data_item.name
       attrs = admin_default_params(name, model_info)
         .merge(field_params(data_item))
@@ -110,8 +110,12 @@ module RademadeAdmin::FormHelper
     item_value
   end
 
-  def can_read_relation(data_item)
-    !data_item.has_relation? || can?(:read, data_item.relation.to)
+  def can_read?(data_item)
+    if data_item.has_relation?
+      can?(:read, data_item.relation.to)
+    else
+      can?(:access_field, @item, data_item.name)
+    end
   end
 
 end
