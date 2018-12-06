@@ -10,10 +10,6 @@ module RademadeAdmin::FormHelper
     simple_form_for(admin_model_info.persistence_adapter.new_record, login_form_options, &block)
   end
 
-  # def forgot_password_form(&block)
-  #   simple_form_for(:email, forgot_password_form_options, &block)
-  # end
-
   def admin_field(form, data_item, model_info)
     if can_read_relation data_item
       name = data_item.name
@@ -55,13 +51,6 @@ module RademadeAdmin::FormHelper
       }
     }
   end
-
-  # def forgot_password_form_options
-  #   {
-  #     :url => [:recovery_password],
-  #     :as => :email
-  #   }
-  # end
 
   def login_form_options
     {

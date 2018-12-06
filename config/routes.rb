@@ -24,9 +24,6 @@ RademadeAdmin::Engine.routes.draw do
   resource :forgot_passwords, only: [:show, :create]
   resources :reset_passwords, only: [:show, :update], :constraints => { :id => /.*/ }
 
-  # get 'forgot-password' => 'dashboard#forgot_password', :as => :forgot_password
-  # post 'forgot-password' => 'dashboard#forgot_password', :as => :forgot_password
-
   resources :sessions do
     get 'logout', :on => :collection
   end
