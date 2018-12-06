@@ -1,10 +1,7 @@
-<div class="login">
-    <div class="login-project">
-        <div class="login-project-box">
-            <a href="/" target="_blank" class="login-project-title"><%= t('rademade_admin.project') %></a>
-        </div>
-    </div>
-    <div class="fix">
-      success
-    </div>
+<div>
+  <span>Instructions successfully sent to <%= @user.email %></span>
+
+  <%= link_to login_path do %>
+    <%= t('rademade_admin.forgot_password.back_to_login') %>
+  <% end%>
 </div>

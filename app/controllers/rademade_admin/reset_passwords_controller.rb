@@ -24,17 +24,11 @@ module RademadeAdmin
 
       RademadeAdmin::ResetPassword.call(data)
 
-      respond_to do |format|
-        format.html { redirect_to :controller => 'dashboard', :action => 'index' }
-        format.json { render :json => user }
-      end
+      render json: { redirect_to: login_url }
     rescue RademadeAdmin::FieldError => e
       render :json => { :errors => e.error_hash }, :status => :precondition_failed
     rescue JWT::DecodeError
-      respond_to do |format|
-        format.html { redirect_to :controller => 'dashboard', :action => 'index' }
-        format.json { render :json => {} }
-      end
+      render json: { message: 'Error', with_return: true }, status: 404
     end
   end
 end

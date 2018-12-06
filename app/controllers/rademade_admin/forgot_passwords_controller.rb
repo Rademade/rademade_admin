@@ -17,15 +17,15 @@ module RademadeAdmin
     end
 
     def create
-      user = RademadeAdmin.configuration.admin_class.get_by_email(params[:data][:email])
+      @user = RademadeAdmin.configuration.admin_class.get_by_email(params[:data][:email])
 
-      if user.nil?
+      if @user.nil?
         render :json => { errors: { email: I18n.t('rademade_admin.forgot_password.validation.email') } }, status: :precondition_failed
       else
-        token = ResetPasswordToken.encode(user)
-        UserMailer.reset_password(user, token).deliver_now
+        token = ResetPasswordToken.encode(@user)
+        UserMailer.reset_password(@user, token).deliver_now
 
-        render json: { message: 'Email sent' }
+        render :success, layout: false
       end
 
     end
