@@ -18,7 +18,7 @@ module RademadeAdmin
       if @user.nil?
         render json: { errors: { email: I18n.t('rademade_admin.forgot_password.validation.email') } }, status: :precondition_failed
       else
-        token = ResetPasswordToken.encode(@user)
+        token = UserPasswordToken.encode(@user, { exp: 30.minutes.from_now.to_i })
         UserMailer.reset_password(@user, token).deliver_now
 
         html_template = render_to_string('rademade_admin/forgot_passwords/success', layout: false)

@@ -1,11 +1,12 @@
 require 'jwt'
 module RademadeAdmin
 
-  class ResetPasswordToken
+  class UserPasswordToken
 
     class << self
 
-      def encode(user)
+      def encode(user, meta = {})
+        @meta = meta
         JWT.encode(encode_payload(user), secret(user))
       end
 
@@ -43,7 +44,7 @@ module RademadeAdmin
           iss: 'Rademade admin user',
           iat: Time.now,
           aud: 'admin user'
-        }
+        }.merge(@meta)
       end
 
       def expired?(payload)
