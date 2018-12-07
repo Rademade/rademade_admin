@@ -18,7 +18,20 @@ ru:
       validation:
         email_not_found: "Пользователь не найден"
         incorrect_password: "Неверный пароль"
+        password_not_match": "Пароль не совпадает"
+        password_length: "Пароль меньше \"%{length}\" символов"
         access_denied: "Отказано в доступе"
+    forgot_password:
+      title: "Восстановление пароля"
+      success: "Инструкции по восстановлению пароля отправлены на %{email}"
+      submit: "Отправить инструкции для восстановления пароля"
+      back_to_login: "Вернуться к логину"
+      validation:
+        email: "Нет пользователя с таким email"
+    reset_password:
+      submit: "Обновить пароль"
+      password: "Пароль"
+      password_repeat: "Повторите пароль"
     dashboard:
       greeting: "Привет, %{user}"
     record:

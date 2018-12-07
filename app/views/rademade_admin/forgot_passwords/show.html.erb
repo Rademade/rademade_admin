@@ -1,0 +1,18 @@
+<div class="login" id="forgot-password">
+    <div class="login-project">
+        <div class="login-project-box">
+            <a href="/" target="_blank" class="login-project-title"><%= t('rademade_admin.project') %></a>
+        </div>
+    </div>
+    <div class="fix">
+        <%= simple_form_for(:data, { url: forgot_passwords_path, method: :post,
+                                                                 wrapper: :rademade_login,
+                                                                 html: { id: 'forgot-password-form', class: 'login-form' } }) do |f| %>
+            <div class="login-form-title">
+                <span class="login-form-project"><%=t('rademade_admin.forgot_password.title')%></span>
+            </div><%
+            concat f.input :email, label: t('rademade_admin.login.email'), placeholder: t('rademade_admin.login.email')
+            concat f.submit t('rademade_admin.forgot_password.submit'), class: 'btn login-btn full-width'
+        end %>
+    </div>
+</div>

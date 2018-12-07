@@ -20,7 +20,7 @@ module RademadeAdmin
 
   include Configurations
 
-  configurable :admin_class, :ability_class
+  configurable :admin_class, :ability_class, :mail_from
 
   configuration_defaults do |default_config|
     default_config.ability_class = ::RademadeAdmin::Ability

@@ -21,6 +21,9 @@ RademadeAdmin::Engine.routes.draw do
   post 'sessions' => 'sessions#login'
   get 'login' => 'dashboard#login', :as => :login
 
+  resource :forgot_passwords, only: [:show, :create]
+  resources :reset_passwords, only: [:show, :update], :constraints => { :id => /.*/ }
+
   resources :sessions do
     get 'logout', :on => :collection
   end
