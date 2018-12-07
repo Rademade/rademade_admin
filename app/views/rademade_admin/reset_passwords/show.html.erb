@@ -11,9 +11,9 @@
             <div class="login-form-title">
                 <span class="login-form-project">Set new password for <%=@user.email%></span>
             </div><%
-            concat f.input :password, :label => t('rademade_admin.login.password'), :placeholder => t('rademade_admin.login.password')
-            concat f.input :password_repeat, :label => t('rademade_admin.reset_password.password_repeat'), :placeholder => t('rademade_admin.reset_password.password_repeat')
-            concat f.submit t('rademade_admin.reset_password.submit'), :class => 'btn login-btn full-width'
+            concat f.input :password, label: t('rademade_admin.login.password'), placeholder: t('rademade_admin.login.password')
+            concat f.input :password_repeat, label: t('rademade_admin.reset_password.password_repeat'), placeholder: t('rademade_admin.reset_password.password_repeat')
+            concat f.submit t('rademade_admin.reset_password.submit'), class: 'btn login-btn full-width'
         end %>
     </div>
 </div>

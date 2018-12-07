@@ -6,7 +6,7 @@ module RademadeAdmin
       @token = token
       @user = user
 
-      mail(to: user.email, subject: 'Rademade Admin reset password instructions')
+      mail(to: user.email)
     end
 
   end
