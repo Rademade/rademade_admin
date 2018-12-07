@@ -11,7 +11,6 @@ SimpleForm.setup do |config|
     end
   end
 
-  # TODO refactor to rademade_form
   config.wrappers :rademade_login, :tag => 'div', :class => 'input-holder' do |input_holder|
     input_holder.use :html5
     input_holder.use :placeholder
