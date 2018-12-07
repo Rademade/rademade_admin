@@ -6,7 +6,7 @@
     </div>
     <div class="fix">
         <%= simple_form_for(:data, { url: reset_password_path(id: params[:id]), method: :put,
-                                                                 :wrapper => :rademade_login,
+                                                                 wrapper: :rademade_login,
                                                                  html: { id: 'reset-password-form', class: 'login-form' } }) do |f| %>
             <div class="login-form-title">
                 <span class="login-form-project">Set new password for <%=@user.email%></span>
@@ -14,6 +14,6 @@
             concat f.input :password, :label => t('rademade_admin.login.password'), :placeholder => t('rademade_admin.login.password')
             concat f.input :password_repeat, :label => t('rademade_admin.reset_password.password_repeat'), :placeholder => t('rademade_admin.reset_password.password_repeat')
             concat f.submit t('rademade_admin.reset_password.submit'), :class => 'btn login-btn full-width'
-        end%>
+        end %>
     </div>
 </div>

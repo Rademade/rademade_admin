@@ -1,7 +1,6 @@
-<div>
-  <span>Instructions successfully sent to <%= @user.email %></span>
-
-  <%= link_to login_path do %>
-    <%= t('rademade_admin.forgot_password.back_to_login') %>
-  <% end%>
+<div class="login-form">
+   <div class="login-form-title">
+     <span class="login-form-project"><%=t('rademade_admin.forgot_password.success', email: @user.email)%></span>
+   </div>
+  <%= link_to t('rademade_admin.forgot_password.back_to_login'), login_path, class: 'btn login-btn full-width' %>
 </div>

@@ -7,6 +7,7 @@ class @FormAjax extends Backbone.View
       type : @$el.data('method') || @$el.attr('method')
       data : @_getData()
       dataType : 'json'
+      success: @_onDone
     ).done(@_onDone).fail(@_onFail).always(@_onAlways)
 
   _prepareForAjax : () ->
@@ -15,11 +16,13 @@ class @FormAjax extends Backbone.View
       CKEDITOR.instances[instance].updateElement()
 
   _onDone : (data) =>
+    console.log('done')
     @trigger 'ajax-done', data
     window.notifier.notify(data.message) if data.message
     @$el.find('.error-message').remove()
 
   _onFail : (response) =>
+    console.log('_onFail')
     try
       @trigger 'ajax-fail', JSON.parse(response.responseText)
 

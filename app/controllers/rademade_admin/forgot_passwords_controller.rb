@@ -4,10 +4,6 @@ module RademadeAdmin
 
     layout 'login'
 
-    helper RademadeAdmin::FormHelper
-    helper RademadeAdmin::MenuHelper
-    helper RademadeAdmin::UriHelper
-
     skip_before_action :require_login
 
     def show
@@ -20,12 +16,13 @@ module RademadeAdmin
       @user = RademadeAdmin.configuration.admin_class.get_by_email(params[:data][:email])
 
       if @user.nil?
-        render :json => { errors: { email: I18n.t('rademade_admin.forgot_password.validation.email') } }, status: :precondition_failed
+        render json: { errors: { email: I18n.t('rademade_admin.forgot_password.validation.email') } }, status: :precondition_failed
       else
         token = ResetPasswordToken.encode(@user)
         UserMailer.reset_password(@user, token).deliver_now
 
-        render :success, layout: false
+        html_template = render_to_string('rademade_admin/forgot_passwords/success', layout: false)
+        render json: { template: html_template }
       end
 
     end

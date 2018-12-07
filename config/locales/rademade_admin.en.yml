@@ -24,7 +24,10 @@ en:
         incorrect_password: "Incorrect password"
         access_denied: "Access denied"
     forgot_password:
+      title: "Password recovery"
       submit: "Send instructions"
+      success: "Instructions successfully sent to %{email}"
+      back_to_login: "Back to login"
       validation:
         email: "There is no users with such email"
     reset_password:

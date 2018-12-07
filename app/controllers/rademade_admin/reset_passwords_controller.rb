@@ -4,15 +4,10 @@ module RademadeAdmin
 
     layout 'login'
 
-    helper RademadeAdmin::FormHelper
-    helper RademadeAdmin::MenuHelper
-    helper RademadeAdmin::UriHelper
-
     skip_before_action :require_login
 
     def show
       # params[:id] is JWT token
-      # http://localhost:3000/reset_passwords/eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDM4MTg4MTcsImlzcyI6IlJhZGVtYWRlIGFkbWluIHVzZXIiLCJpYXQiOiIyMDE4LTEyLTAzIDA4OjAzOjM3ICswMjAwIiwiYXVkIjoiYWRtaW4gdXNlciIsImVtYWlsIjoiaWtAcmFkZW1hZGUuY29tIn0.nP8Mj1k1TrlaO0eOqmNBvqILmSU8jWap3usBG9XUqLo
       @user = ResetPasswordToken.decode(params[:id])
     rescue
       redirect_to root_path
@@ -26,7 +21,7 @@ module RademadeAdmin
 
       render json: { redirect_to: login_url }
     rescue RademadeAdmin::FieldError => e
-      render :json => { :errors => e.error_hash }, :status => :precondition_failed
+      render json: { errors: e.error_hash }, status: :precondition_failed
     rescue JWT::DecodeError
       render json: { message: 'Error', with_return: true }, status: 404
     end

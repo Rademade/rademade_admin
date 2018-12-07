@@ -22,7 +22,10 @@ ru:
         password_length: "Пароль меньше \"%{length}\" символов"
         access_denied: "Отказано в доступе"
     forgot_password:
+      title: "Восстановление пароля"
+      success: "Инструкции по восстановлению пароля отправлены на %{email}"
       submit: "Отправить инструкции для восстановления пароля"
+      back_to_login: "Вернуться к логину"
       validation:
         email: "Нет пользователя с таким email"
     reset_password:
