@@ -8,13 +8,13 @@ module RademadeAdmin
 
     def show
       # params[:id] is JWT token
-      @user = ResetPasswordToken.decode(params[:id])
+      @user = UserPasswordToken.decode(params[:id])
     rescue
       redirect_to root_path
     end
 
     def update
-      user = ResetPasswordToken.decode(params[:id])
+      user = UserPasswordToken.decode(params[:id])
       data = params.require(:data).permit(:password, :password_repeat).merge(user: user).to_hash.symbolize_keys
 
       RademadeAdmin::ResetPassword.call(data)
