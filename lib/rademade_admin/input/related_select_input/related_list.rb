@@ -11,7 +11,8 @@ module RademadeAdmin
             :class => 'select2-items-list',
             :data => {
               :sortable => sortable_relation?,
-              :deletable => destroyable_relation?
+              :deletable => destroyable_relation?,
+              :duplicatable => options[:duplicatable]
             }
           })
         end

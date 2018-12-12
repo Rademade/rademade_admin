@@ -17,6 +17,9 @@ class @Select2Input.View extends Backbone.View
   initRelated : () ->
     if @model.isMultiple()
       collectionView = Select2Input.RelatedCollectionView.init @$el.find('.select2-items-list')
+      collectionView.on 'duplicate', (modelId, additionalUrlOptions) =>
+        options = _.extend({ duplicate_from: modelId }, additionalUrlOptions || {})
+        Content.getInstance().renderModel @_createRelatedModel(@model.get('newUrl')), options
       @model.set 'related', collectionView.collection
     else
       relatedData = @$el.children('input[type="hidden"]').data()
@@ -96,6 +99,7 @@ class @Select2Input.View extends Backbone.View
     relatedModel
 
   _updateData : () =>
+    $(document).trigger 'view-update'
     relatedData = @model.getRelatedData()
     if @model.isMultiple() or relatedData.id
       @$item.select2('data', relatedData)

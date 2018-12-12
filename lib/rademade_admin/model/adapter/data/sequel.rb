@@ -63,6 +63,13 @@ module RademadeAdmin
 
           def _to_many_setter(relation_info, getter)
             Proc.new do |new_items|
+              model_info = RademadeAdmin::Model::Graph.instance.model_info(self.class)
+              if model_info.data_items.data_item(relation_info[:name]).relation.sortable?
+                new_items.each_with_index do |item, position|
+                  item.position = position
+                  item.save_changes
+                end
+              end
               old_items = self.send(getter)
               (old_items - new_items).each do |related_item|
                 self.instance_exec(related_item, &relation_info[:remover])
