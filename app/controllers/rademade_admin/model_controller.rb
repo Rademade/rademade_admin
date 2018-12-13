@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 # todo extract more modules
 module RademadeAdmin
-  class ModelController < RademadeAdmin::AbstractController
+  class ModelController < RademadeAdmin::ApplicationController
 
-    extend RademadeAdmin::ModelOptions
+    extend RademadeAdmin::ModelControllerModules::ModelOptions
 
-    include RademadeAdmin::InstanceOptions
-    include RademadeAdmin::Templates
-    include RademadeAdmin::Notifier
+    include RademadeAdmin::ModelControllerModules::InstanceOptions
+    include RademadeAdmin::ModelControllerModules::Templates
+    include RademadeAdmin::ModelControllerModules::Notifier
 
     helper RademadeAdmin::FieldHelper
     helper RademadeAdmin::FieldTypeHelper

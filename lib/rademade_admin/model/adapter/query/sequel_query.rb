@@ -1,11 +1,9 @@
 # -*- encoding : utf-8 -*-
-require 'rademade_admin/model/adapter/query/sql'
-
 module RademadeAdmin
   module Model
     module Adapter
       class Query
-        class Sequel < RademadeAdmin::Model::Adapter::Query::Sql
+        class SequelQuery < RademadeAdmin::Model::Adapter::Query::SqlQuery
 
           def find(ids)
             @model[ids]

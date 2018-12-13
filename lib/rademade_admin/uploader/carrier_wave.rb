@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'rademade_admin/uploader/crop_photo'
-
 module RademadeAdmin
   module Uploader
     class CarrierWave < CarrierWave::Uploader::Base

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  class SessionsController < RademadeAdmin::AbstractController
+  class SessionsController < RademadeAdmin::ApplicationController
 
     skip_before_action :require_login
 

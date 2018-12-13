@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  class ForgotPasswordsController < RademadeAdmin::AbstractController
+  class ForgotPasswordsController < RademadeAdmin::ApplicationController
 
     layout 'login'
 

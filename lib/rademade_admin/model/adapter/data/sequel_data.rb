@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     module Adapter
       class Data
-        class Sequel < RademadeAdmin::Model::Adapter::Data
+        class SequelData < RademadeAdmin::Model::Adapter::Data
 
           protected
 

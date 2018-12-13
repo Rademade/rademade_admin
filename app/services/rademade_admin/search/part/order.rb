@@ -1,6 +1,4 @@
 # -*- encoding : utf-8 -*-
-require 'search/part/abstract'
-
 module RademadeAdmin
   module Search
     module Part

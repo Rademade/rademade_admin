@@ -1,7 +1,4 @@
 # -*- encoding : utf-8 -*-
-require 'search/conditions/abstract'
-require 'search/where'
-
 module RademadeAdmin
   module Search
     module Conditions

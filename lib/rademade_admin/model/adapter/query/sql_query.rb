@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     module Adapter
       class Query
-        class Sql < RademadeAdmin::Model::Adapter::Query
+        class SqlQuery < RademadeAdmin::Model::Adapter::Query
 
           protected
 

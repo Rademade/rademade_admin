@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  class AbstractController < ApplicationController
+  class AbstractController < ActionController::Base
 
     include ::RademadeAdmin::UriHelper
 
@@ -8,8 +8,8 @@ module RademadeAdmin
 
     protect_from_forgery prepend: true
 
-    before_action :init_user, :init_template_service, :require_login
-    
+    before_action :init_data, :require_login
+
     attr_reader :current_user
 
     rescue_from ::CanCan::AccessDenied do |exception|
@@ -20,6 +20,16 @@ module RademadeAdmin
 
     def require_login
       redirect_to login_url unless admin_logged_in?
+    end
+
+    def init_data
+      init_model_graph
+      init_user
+      init_template_service
+    end
+
+    def init_model_graph
+      RademadeAdmin::Model::Graph.instance.init_pairs
     end
 
     def init_user

@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     module Adapter
       class Persistence
-        class Mongoid < RademadeAdmin::Model::Adapter::Persistence
+        class MongoidPersistence < RademadeAdmin::Model::Adapter::Persistence
 
           def new?(record)
             record.new_record?

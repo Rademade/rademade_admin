@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RademadeAdmin::FileController < RademadeAdmin::AbstractController
+class RademadeAdmin::FileController < RademadeAdmin::ApplicationController
 
   def upload
     param_key = params[:column].to_sym

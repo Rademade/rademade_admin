@@ -36,7 +36,7 @@ module RademadeAdmin
               get :form
             end if parent_resource.actions.include?(:show)
 
-            Model::Graph.instance.add_pair(@scope[:module], @scope[:controller])
+            Model::Graph.instance.add_pair_lazy(@scope[:module], @scope[:controller])
 
             set_member_mappings_for_resource
           end

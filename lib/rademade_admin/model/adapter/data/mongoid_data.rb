@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     module Adapter
       class Data
-        class Mongoid < RademadeAdmin::Model::Adapter::Data
+        class MongoidData < RademadeAdmin::Model::Adapter::Data
 
           protected
 
@@ -65,7 +65,7 @@ module RademadeAdmin
           def _model_fields
             @model.fields.keys.map(&:to_sym)
           end
-          
+
           private
 
           def field_type(type)

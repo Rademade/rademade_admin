@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     module Adapter
       class Query
-        class Mongoid < RademadeAdmin::Model::Adapter::Query
+        class MongoidQuery < RademadeAdmin::Model::Adapter::Query
 
           def find(ids)
             @model.find(ids)

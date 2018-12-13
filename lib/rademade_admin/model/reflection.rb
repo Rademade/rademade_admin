@@ -19,18 +19,18 @@ module RademadeAdmin
       #
       # @return [RademadeAdmin::Model::Adapter::Data]
       def data_adapter
-        @data_adapter ||= "RademadeAdmin::Model::Adapter::Data::#{orm_type}".constantize.new(@model)
+        @data_adapter ||= "RademadeAdmin::Model::Adapter::Data::#{orm_type}Data".constantize.new(@model)
       end
 
       # Load query adapter for current model
       #
       # @return [RademadeAdmin::Model::Adapter::Query]
       def query_adapter
-        @query_adapter ||= "RademadeAdmin::Model::Adapter::Query::#{query_adapter_type}".constantize.new(@model)
+        @query_adapter ||= "RademadeAdmin::Model::Adapter::Query::#{query_adapter_type}Query".constantize.new(@model)
       end
 
       def persistence_adapter
-        @persistence_adapter ||= "RademadeAdmin::Model::Adapter::Persistence::#{orm_type}".constantize.new(@model)
+        @persistence_adapter ||= "RademadeAdmin::Model::Adapter::Persistence::#{orm_type}Persistence".constantize.new(@model)
       end
 
       def hideable?

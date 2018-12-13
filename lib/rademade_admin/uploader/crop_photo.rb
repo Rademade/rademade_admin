@@ -1,6 +1,4 @@
 # -*- encoding : utf-8 -*-
-require 'rademade_admin/uploader/photo'
-
 module RademadeAdmin
   module Uploader
     module CropPhoto

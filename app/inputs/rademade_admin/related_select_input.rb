@@ -1,13 +1,10 @@
 # -*- encoding : utf-8 -*-
-require 'rademade_admin/input/related_select_input/model_data'
-require 'rademade_admin/input/related_select_input/related_list'
-
 module RademadeAdmin
   class RelatedSelectInput < SimpleForm::Inputs::CollectionSelectInput
 
     include ::RademadeAdmin::UriHelper
-    include ::RademadeAdmin::Input::RelatedSelectInput::ModelData
-    include ::RademadeAdmin::Input::RelatedSelectInput::RelatedList
+    include ::RademadeAdmin::RelatedSelectInput::ModelData
+    include ::RademadeAdmin::RelatedSelectInput::RelatedList
 
     def input(wrapper_options = {})
       RademadeAdmin::HtmlBuffer.new([select_ui_html, related_html])

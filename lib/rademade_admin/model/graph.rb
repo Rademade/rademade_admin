@@ -21,6 +21,16 @@ module RademadeAdmin
         })
       end
 
+      def add_pair_lazy(module_name, controller_name)
+        @pairs << { module_name: module_name, controller_name: controller_name }
+      end
+
+      def init_pairs
+        while pair = @pairs.shift
+          add_pair(pair[:module_name], pair[:controller_name])
+        end
+      end
+
       def model_info(model)
         model_name = model.to_s
         @model_infos[model_name] ||= init_model_info({
@@ -33,6 +43,7 @@ module RademadeAdmin
 
       def initialize
         @model_infos = {}
+        @pairs = []
       end
 
       def init_model_info(model: nil, controller_name: nil, module_name: nil, controller: nil)

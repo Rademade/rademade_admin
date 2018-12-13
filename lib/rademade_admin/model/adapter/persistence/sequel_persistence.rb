@@ -3,14 +3,14 @@ module RademadeAdmin
   module Model
     module Adapter
       class Persistence
-        class ActiveRecord < RademadeAdmin::Model::Adapter::Persistence
+        class SequelPersistence < RademadeAdmin::Model::Adapter::Persistence
 
           def new?(record)
-            record.new_record?
+            record.new?
           end
 
           def save(record)
-            record.save!
+            record.save
           end
 
         end

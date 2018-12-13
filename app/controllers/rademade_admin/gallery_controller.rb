@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class RademadeAdmin::GalleryController < RademadeAdmin::AbstractController
+class RademadeAdmin::GalleryController < RademadeAdmin::ApplicationController
 
   def upload
     render :json => {

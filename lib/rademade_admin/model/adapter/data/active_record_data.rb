@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     module Adapter
       class Data
-        class ActiveRecord < RademadeAdmin::Model::Adapter::Data
+        class ActiveRecordData < RademadeAdmin::Model::Adapter::Data
 
           protected
 
