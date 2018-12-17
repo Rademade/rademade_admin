@@ -2,7 +2,7 @@
 module RademadeAdmin
   module Search
     module Conditions
-      class Abstract
+      class AbstractConditions
 
         attr_reader :params
         attr_writer :base_items

@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     class Info
       class Relation
-        class Gallery < Relation
+        class GalleryRelation < Relation
 
         end
       end

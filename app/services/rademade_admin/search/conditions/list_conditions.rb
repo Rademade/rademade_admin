@@ -2,7 +2,7 @@
 module RademadeAdmin
   module Search
     module Conditions
-      class List < Abstract
+      class ListConditions < AbstractConditions
 
         include RademadeAdmin::Search::Where
 

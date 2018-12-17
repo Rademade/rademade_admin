@@ -2,7 +2,7 @@
 module RademadeAdmin
   module Search
     module Conditions
-      class Autocomplete < Abstract
+      class AutocompleteConditions < AbstractConditions
 
         include RademadeAdmin::Search::Where
 

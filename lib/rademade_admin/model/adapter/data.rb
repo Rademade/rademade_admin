@@ -123,7 +123,7 @@ module RademadeAdmin
 
         def _relation_class_name(to_class)
           if !to_class.nil? && to_class.ancestors.include?(RademadeAdmin::Gallery)
-            ::RademadeAdmin::Model::Info::Relation::Gallery
+            ::RademadeAdmin::Model::Info::Relation::GalleryRelation
           else
             ::RademadeAdmin::Model::Info::Relation
           end

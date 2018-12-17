@@ -106,7 +106,7 @@ module RademadeAdmin
     # TODO move to search module
 
     def index_items(with_pagination = true)
-      conditions = Search::Conditions::List.new(params, model_info.data_items)
+      conditions = Search::Conditions::ListConditions.new(params, model_info.data_items)
       conditions.paginate = nil unless with_pagination
       if params[:rel_class] && params[:rel_id] && params[:rel_getter]
         related_info = RademadeAdmin::Model::Graph.instance.model_info(params[:rel_class])
@@ -117,7 +117,7 @@ module RademadeAdmin
     end
 
     def autocomplete_items
-      conditions = Search::Conditions::Autocomplete.new(params, model_info.data_items)
+      conditions = Search::Conditions::AutocompleteConditions.new(params, model_info.data_items)
       Search::Searcher.new(model_info).search(conditions)
     end
 
