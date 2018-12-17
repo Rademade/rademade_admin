@@ -12,8 +12,6 @@ require 'i18n-js'
 require 'simple_form'
 require 'ckeditor'
 require 'rademade_admin/ckeditor_utils'
-
-require 'rademade_admin/sortable'
 require 'rademade_admin/engine'
 
 module RademadeAdmin

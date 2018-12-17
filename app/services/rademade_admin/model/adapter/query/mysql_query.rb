@@ -3,7 +3,7 @@ module RademadeAdmin
   module Model
     module Adapter
       class Query
-        class MysqlQuery < RademadeAdmin::Model::Adapter::Query::ActiveRecord
+        class MysqlQuery < RademadeAdmin::Model::Adapter::Query::ActiveRecordQuery
 
         end
       end
