@@ -2,7 +2,7 @@
 module RademadeAdmin
   module Upload
     class Preview
-      class Gallery < RademadeAdmin::Upload::Preview
+      class GalleryPreview < RademadeAdmin::Upload::Preview
 
         def preview_html(uploader)
           content_tag(:div, image_item_html(uploader),

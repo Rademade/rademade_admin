@@ -30,7 +30,7 @@ module RademadeAdmin
       end
 
       def preview_service
-        @preview_service ||= RademadeAdmin::Upload::Preview::Gallery.new
+        @preview_service ||= RademadeAdmin::Upload::Preview::GalleryPreview.new
       end
 
     end

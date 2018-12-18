@@ -70,7 +70,7 @@ module RademadeAdmin
     end
 
     def upload_preview_service
-      @upload_preview_service ||= RademadeAdmin::Upload::Preview::File.new(uploader)
+      @upload_preview_service ||= RademadeAdmin::Upload::Preview::FilePreview.new(uploader)
     end
 
     def uploader

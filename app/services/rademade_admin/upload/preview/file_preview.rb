@@ -2,7 +2,7 @@
 module RademadeAdmin
   module Upload
     class Preview
-      class File < RademadeAdmin::Upload::Preview
+      class FilePreview < RademadeAdmin::Upload::Preview
 
         include ActionView::Helpers::NumberHelper
 

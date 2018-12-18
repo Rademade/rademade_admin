@@ -27,7 +27,7 @@ module RademadeAdmin
 
     def images_html
       html = []
-      preview_service = RademadeAdmin::Upload::Preview::Gallery.new
+      preview_service = RademadeAdmin::Upload::Preview::GalleryPreview.new
       gallery.images.each do |gallery_image|
         html << preview_service.preview_html(gallery_image.image)
       end
