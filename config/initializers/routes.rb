@@ -10,7 +10,7 @@ class ActionDispatch::Routing::Mapper
 
     with_scope_level(:resources) do
       options = apply_action_options options
-      resource_scope(Resource.new(resources.pop, api_only?, @scope[:shallow], options)) do
+      resource_scope(::RademadeAdmin::RoutingResource.new(resources.pop, api_only?, @scope[:shallow], options)) do
         yield if block_given?
 
         concerns(options[:concerns]) if options[:concerns]
