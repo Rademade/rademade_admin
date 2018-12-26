@@ -1,7 +1,7 @@
 #encoding: utf-8
 $:.push File.expand_path('../lib', __FILE__)
 
-require 'rademade_admin/version'
+require 'rademade_admin/rademade_admin_version'
 
 Gem::Specification.new do |s|
   s.name        = 'rademade_admin'
