@@ -12,9 +12,9 @@ module RademadeAdmin
         :data => { :gallery => '' }
       )
     end
-    
+
     protected
-    
+
     def gallery_block_html
       is_sortable = gallery_image_info.sortable_relation?
       template.content_tag(:div, images_html,
@@ -29,13 +29,15 @@ module RademadeAdmin
       html = []
       preview_service = RademadeAdmin::Upload::Preview::GalleryPreview.new
       gallery.images.each do |gallery_image|
-        html << preview_service.preview_html(gallery_image.image)
+        html << preview_service.preview_html(gallery_image.image, options.slice(:editable, :destroyable))
       end
       HtmlBuffer.new(html)
     end
 
     def upload_block_html
-      template.content_tag(:div, upload_button_html, :class => 'upload-holder')
+      if options[:editable]
+        template.content_tag(:div, upload_button_html, :class => 'upload-holder')
+      end
     end
 
     def upload_button_html

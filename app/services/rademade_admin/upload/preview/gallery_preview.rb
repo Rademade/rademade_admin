@@ -4,8 +4,8 @@ module RademadeAdmin
     class Preview
       class GalleryPreview < RademadeAdmin::Upload::Preview
 
-        def preview_html(uploader)
-          content_tag(:div, image_item_html(uploader),
+        def preview_html(uploader, options = { editable: true, destroyable: true })
+          content_tag(:div, image_item_html(uploader, options),
             :class => 'upload-holder',
             :data => image_data(uploader)
           )
@@ -23,10 +23,12 @@ module RademadeAdmin
 
         private
 
-        def image_item_html(uploader)
+        def image_item_html(uploader, options)
+          html_parts = [image_html(uploader)]
+          html_parts << remove_ico_html(uploader) if options[:destroyable]
           content_tag(
             :div,
-            HtmlBuffer.new([image_html(uploader), remove_ico_html(uploader)]),
+            HtmlBuffer.new(html_parts),
             :class => 'upload-item'
           )
         end

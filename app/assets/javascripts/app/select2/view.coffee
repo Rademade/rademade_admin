@@ -13,6 +13,8 @@ class @Select2Input.View extends Backbone.View
       searchUrl : @$item.data('searchUrl')
       newUrl : @$item.data('newUrl')
       multiple : @$item.data('relMultiple')
+      editable : @$item.data('editable')
+      destroyable : @$item.data('destroyable')
 
   initRelated : () ->
     if @model.isMultiple()
@@ -29,7 +31,7 @@ class @Select2Input.View extends Backbone.View
     @$item.select2(
       multiple : @model.isMultiple()
       placeholder : I18n.t('rademade_admin.relation.search')
-      allowClear : true
+      allowClear : @model.get('destroyable')
       formatNoMatches : () ->
         I18n.t('select2.no_results')
       formatSelection : (data, $container) =>
@@ -50,7 +52,7 @@ class @Select2Input.View extends Backbone.View
       Content.getInstance().renderModel @model.get('related')
 
   _appendEditButton : ($container) ->
-    unless @model.isMultiple() or @initalized
+    if !(@model.isMultiple() or @initalized) and @model.get('editable')
       @initalized = yes
       @$edit = $ @_editButton()
       @$edit.on 'mousedown', () =>
@@ -59,6 +61,7 @@ class @Select2Input.View extends Backbone.View
       $container.after @$edit
 
   _appendAddButton : () ->
+    return unless @model.get('newUrl')
     $addPlaceholder = $ @_placeholderForAdd()
     $addPlaceholder.click () =>
       @$item.select2('close')

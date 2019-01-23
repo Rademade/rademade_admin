@@ -37,8 +37,9 @@ module RademadeAdmin
     def file_preview_html
       template.content_tag(:div, upload_preview_service.preview_html, :class => 'upload-item')
     end
-    
+
     def upload_button_html
+      return unless options[:editable]
       template.content_tag(
         :div,
         RademadeAdmin::HtmlBuffer.new([

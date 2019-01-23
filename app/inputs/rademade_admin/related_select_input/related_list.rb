@@ -11,7 +11,7 @@ module RademadeAdmin
           :data => {
             :sortable => sortable_relation?,
             :deletable => destroyable_relation?,
-            :duplicatable => options[:duplicatable]
+            :duplicatable => options[:editable] && options[:duplicatable]
           }
         })
       end
@@ -43,7 +43,7 @@ module RademadeAdmin
 
       def related_list_item_title_html(serialized_value)
         template.content_tag(:button, serialized_value[:text], {
-          :'data-edit' => serialized_value[:editurl],
+          :'data-edit' => options[:editable] ? serialized_value[:editurl] : '',
           :class => 'select2-item-edit'
         })
       end
@@ -62,11 +62,11 @@ module RademadeAdmin
       end
 
       def sortable_relation?
-        related_data_item.relation.sortable?
+        options[:editable] && related_data_item.relation.sortable?
       end
 
       def destroyable_relation?
-        related_data_item.relation.destroyable?
+        options[:destroyable] && related_data_item.relation.destroyable?
       end
 
     end

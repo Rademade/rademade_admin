@@ -43,10 +43,13 @@ module RademadeAdmin
       new_url = admin_new_form_uri(related_to)
       data = {
         :'rel-multiple' => multiple?,
-        :'rel-class' => related_to.to_s
+        :'rel-class' => related_to.to_s,
+        :editable => options[:editable],
+        :destroyable => options[:destroyable],
+        :disabled => options[:disabled]
       }
-      data[:'search-url'] = search_url unless search_url.nil?
-      data[:'new-url'] = new_url unless new_url.nil?
+      data[:'search-url'] = search_url if options[:editable] && search_url
+      data[:'new-url'] = new_url if options[:editable] && new_url
       data
     end
 
