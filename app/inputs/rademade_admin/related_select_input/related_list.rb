@@ -20,8 +20,8 @@ module RademadeAdmin
         serialized_values = serializer.new(related_value).as_json
         html = serialized_values.map do |serialized_value|
           template.content_tag(:li, related_list_item_html(serialized_value), {
-            :'data-id' => serialized_value[:id],
-            :class => related_item_class
+            :class => related_item_class,
+            :data => serialized_value
           })
         end
         RademadeAdmin::HtmlBuffer.new(html)
