@@ -9,7 +9,7 @@ asset 'leaflet'
 
 # jQuery
 asset 'data-tables', :github => 'DataTables/DataTables'
-asset 'flot', :github => 'flot/flot#0.9-work'
+asset 'flot', :github => 'flot/flot'
 asset 'knob', :github => 'aterrien/jQuery-Knob'
 asset 'uniform', :github => 'AudithSoftworks/Uniform'
 asset 'jquery-ui', :github => 'jquery/jquery-ui#1.11.4'
