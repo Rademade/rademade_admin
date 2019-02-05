@@ -41,7 +41,7 @@ class RademadeAdmin::GalleryController < RademadeAdmin::ApplicationController
   end
 
   def gallery_service
-    @gallery_service ||= RademadeAdmin::Gallery::Manager.new(params[:class_name])
+    @gallery_service ||= RademadeAdmin::GalleryManager.new(params[:class_name])
   end
 
 end
