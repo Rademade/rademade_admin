@@ -16,7 +16,7 @@ module RademadeAdmin::FormHelper
       attrs = admin_default_params(name, model_info)
         .merge(field_params(data_item))
         .merge(input_params(name))
-      editable = can?(:update, @item)
+      editable = can?(:update, @item) && (!data_item.has_relation? || can?(:update, data_item.relation.to))
       concat form.input(name, input_attr(attrs).merge({
         editable: editable,
         destroyable: can?(:destroy, @item),
@@ -116,11 +116,7 @@ module RademadeAdmin::FormHelper
   end
 
   def can_read?(data_item)
-    if data_item.has_relation?
-      can?(:read, data_item.relation.to)
-    else
-      can?(:access_field, @item, data_item.name)
-    end
+    can?(:access_field, @item, data_item.name) && (!data_item.has_relation? || can?(:read, data_item.relation.to))
   end
 
 end

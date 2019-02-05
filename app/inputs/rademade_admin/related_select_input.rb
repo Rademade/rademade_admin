@@ -48,7 +48,7 @@ module RademadeAdmin
         :destroyable => options[:destroyable],
         :disabled => options[:disabled]
       }
-      data[:'search-url'] = search_url if options[:editable] && search_url
+      data[:'search-url'] = search_url if search_url
       data[:'new-url'] = new_url if options[:editable] && new_url
       data
     end
