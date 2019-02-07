@@ -29,6 +29,8 @@ class @Select2Input.RelatedView extends Backbone.View
   render : () ->
     @$el.html @_getHtml(@model.toJSON())
     @$el.addClass('is-draggable') if @isSortable()
+    _.each @model.attributes, (value, name) =>
+      @$el.attr("data-#{name}", value)
     return this
 
   isSortable : () ->
@@ -52,7 +54,7 @@ class @Select2Input.RelatedView extends Backbone.View
   _getHtml : (data) ->
     JST['app/templates/related-item'] _.extend
       isSortable : @isSortable()
-      isDeletable : @isDeletable(),
+      isDeletable : @isDeletable()
       isDuplicatable : @isDuplicatable()
     , data
 

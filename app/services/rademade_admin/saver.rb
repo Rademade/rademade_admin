@@ -2,7 +2,7 @@
 module RademadeAdmin
   class Saver
 
-    attr_reader :item
+    attr_accessor :item
 
     # Initialization of model saver class
     #
