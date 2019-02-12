@@ -44,7 +44,6 @@ class @Select2Input.View extends Backbone.View
         data : @_getData
         results : @_getResults
     ).unbind('change').bind 'change', @_onChange
-    @$item.select2('disable') if @$item.data('disabled')
     @_updateData()
     @model.get('related').on 'data-change', @_updateData
     @_appendAddButton()

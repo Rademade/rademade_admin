@@ -46,7 +46,7 @@ module RademadeAdmin
         :'rel-class' => related_to.to_s,
         :editable => options[:editable],
         :destroyable => options[:destroyable],
-        :disabled => options[:disabled] || !options[:editable]
+        :disabled => options[:disabled]
       }
       data[:'search-url'] = search_url if search_url
       data[:'new-url'] = new_url if options[:editable] && new_url
