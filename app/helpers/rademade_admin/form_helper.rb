@@ -17,6 +17,7 @@ module RademadeAdmin::FormHelper
         .merge(field_params(data_item))
         .merge(input_params(name))
       concat form.input(name, input_attr(attrs).merge({
+        addable: can?(:create, @item) && (!data_item.has_relation? || can?(:create, data_item.relation.to)),
         editable: can?(:update, @item) && (!data_item.has_relation? || can?(:update, data_item.relation.to)),
         destroyable: can?(:destroy, @item),
         disabled: !can?(:update, @item)

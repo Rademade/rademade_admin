@@ -44,12 +44,13 @@ module RademadeAdmin
       data = {
         :'rel-multiple' => multiple?,
         :'rel-class' => related_to.to_s,
+        :addable => options[:addable],
         :editable => options[:editable],
         :destroyable => options[:destroyable],
         :disabled => options[:disabled]
       }
       data[:'search-url'] = search_url if search_url
-      data[:'new-url'] = new_url if options[:editable] && new_url
+      data[:'new-url'] = new_url if options[:addable] && new_url
       data
     end
 
