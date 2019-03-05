@@ -41,6 +41,9 @@ class @Content extends Backbone.View
     $el.find('[data-content-close]').bind 'click', (e) =>
       @moveToContentItem $(e.currentTarget).closest('[data-content-item]').prev()
 
+  bindDocumentClick : () =>
+    @bindClick($(document))
+
   bindHistoryBack : () ->
     $(window).bind 'popstate', (e) ->
       state = e.originalEvent.state
@@ -51,15 +54,16 @@ class @Content extends Backbone.View
       history.pushState url : url, document.title, url
 
   @init : () ->
-    content = new Content()
+    content = new this()
     content.bindHistoryBack()
+    content.bindDocumentClick()
     content
 
-  @getInstance : () ->
-    instance = null
-    do () ->
-      instance ||= Content.init()
+  @initInstance : () =>
+    window.ContentInstance = @init()
 
-$ ->
-  $(document).on 'page:load ready', () ->
-    Content.getInstance().bindClick $(document)
+  @getInstance : () ->
+    window.ContentInstance
+
+  $ ->
+    $(document).on 'page:load ready', Content.initInstance
