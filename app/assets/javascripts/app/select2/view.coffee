@@ -1,6 +1,6 @@
 class @Select2Input.View extends Backbone.View
 
-  resultLimit = 10
+  resultLimit = 20
 
   initItem : () ->
     @$item = @$el.find('[data-rel-multiple]')
