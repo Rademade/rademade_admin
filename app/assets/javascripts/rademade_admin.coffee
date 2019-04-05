@@ -32,7 +32,7 @@
 #= require flot/jquery.flot.resize
 #= require flot/jquery.flot.stack
 #= require knob/js/jquery.knob
-#= require uniform/src/js/jquery.uniform
+#= require uniform/dist/jquery.uniform.min
 #= require data-tables/media/js/jquery.dataTables
 #= require floatThead/dist/jquery.floatThead
 #= require wysihtml5/dist/wysihtml5-0.3.0
