@@ -1,5 +1,5 @@
 <%
-if @with_layout
+if @with_layout && !@without_index_tab
     content_url = admin_list_uri(@model_info)
     concat render :template => @template_service.content_item_layout, :locals => {
         :content_header => @model_info.item_name,
