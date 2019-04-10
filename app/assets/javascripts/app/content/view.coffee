@@ -1,9 +1,13 @@
 class @Content extends Backbone.View
 
+  isLoadingContentItem = false
+
   renderItemFromUrl : (url, cb, urlData = {}) ->
+    return if isLoadingContentItem
     return if url == ''
     $(document).trigger 'before-content-render'
     @_updateHistory(url)
+    isLoadingContentItem = true
     $.get url, _.extend(urlData, layout : false), (html) =>
       $contentItem = $(html)
       $('[data-content]').append $contentItem
@@ -11,6 +15,7 @@ class @Content extends Backbone.View
       $(document).trigger 'init-plugins'
       @bindClick $contentItem
       cb($contentItem) if cb
+      isLoadingContentItem = false
 
   renderModel : (model, urlData = {}) ->
     @renderItemFromUrl model.get('editurl'), ($contentItem) =>
@@ -26,7 +31,6 @@ class @Content extends Backbone.View
     if $contentItem.length is 0
       window.history.back() if window.history.length > 2
     else
-      return if $contentItem.is(':last-child')
       $contentItem.nextAll('[data-content-item]').remove()
       if $contentItem.is(':first-child')
         @renderItemFromUrl $contentItem.data('contentItem'), () ->
@@ -39,7 +43,12 @@ class @Content extends Backbone.View
       @renderItemFromUrl $(e.currentTarget).data('contentUrl')
       false
     $el.find('[data-content-close]').bind 'click', (e) =>
-      @moveToContentItem $(e.currentTarget).closest('[data-content-item]').prev()
+      $contentItem = $(e.currentTarget).closest('[data-content-item]')
+      $prevContentItem = $contentItem.prev()
+      if $prevContentItem.length is 0
+        @moveToContentItem $contentItem
+      else
+        @moveToContentItem $prevContentItem
 
   bindDocumentClick : () =>
     @bindClick($(document))
