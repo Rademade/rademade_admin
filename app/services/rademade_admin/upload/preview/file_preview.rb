@@ -10,15 +10,17 @@ module RademadeAdmin
           @uploader = uploader
         end
 
-        def preview_html
-          content_tag(:div, uploaded_file_html, :data => { :preview_item => '' })
+        def preview_html(options = {})
+          content_tag(:div, uploaded_file_html(options), :data => { :preview_item => '' })
         end
 
-        def uploaded_file_html
+        def uploaded_file_html(options = {})
           if @uploader.blank? || @uploader.size.zero?
             ''
           else
-            content_tag(:div, HtmlBuffer.new([uploaded_preview_html, remove_ico_html]))
+            html_elements = [uploaded_preview_html]
+            html_elements << remove_ico_html if options[:destroyable]
+            content_tag(:div, HtmlBuffer.new(html_elements))
           end
         end
 

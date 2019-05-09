@@ -35,7 +35,7 @@ module RademadeAdmin
     end
 
     def file_preview_html
-      template.content_tag(:div, upload_preview_service.preview_html, :class => 'upload-item')
+      template.content_tag(:div, upload_preview_service.preview_html(options.slice(:editable, :destroyable)), :class => 'upload-item')
     end
 
     def upload_button_html
