@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari', '~> 0.16'
 
   # Images
-  s.add_dependency 'carrierwave', '~> 1.0'
+  s.add_dependency 'carrierwave', '>= 0.11'
   s.add_dependency 'light_resizer', '>= 0.1.7'
 
   # Assets
