@@ -1,16 +1,16 @@
 assets_path 'assets/javascript'
 
-asset 'underscore'
-asset 'backbone'
+asset 'underscore', '1.9.1'
+asset 'backbone', '1.4.0'
 asset 'backbone-notifier', :github => 'ewebdev/backbone.notifier#v0.2.4'
 
 asset 'wysihtml5', :github => 'xing/wysihtml5'
-asset 'leaflet'
+asset 'leaflet', '1.0.0'
 
 # jQuery
-asset 'data-tables', :github => 'DataTables/DataTables'
-asset 'flot', :github => 'flot/flot#v0.8.3'
-asset 'knob', :github => 'aterrien/jQuery-Knob'
+asset 'data-tables', :github => 'DataTables/DataTables', :ref => '1.10.19'
+asset 'flot', '0.8.3'
+asset 'knob', :github => 'aterrien/jQuery-Knob', :ref => '1.2.13'
 asset 'uniform', :github => 'AudithSoftworks/Uniform'
 asset 'jquery-ui', :github => 'jquery/jquery-ui#1.11.4'
 asset 'jquery-filthypillow', :github => 'Rademade/jquery.filthypillow#master'
@@ -20,14 +20,14 @@ asset 'jquery-ujs'
 
 # Images
 asset 'jcrop', :github => 'tapmodo/Jcrop#v0.9.12'
-asset 'jquery-fileupload', :github => 'blueimp/jQuery-File-Upload'
+asset 'jquery-fileupload', :github => 'blueimp/jQuery-File-Upload', :ref => 'v9.12.6'
 
 # List
-asset 'TableDnD'
+asset 'TableDnD', '0.9.2'
 
 # Form
-asset 'moment'
-asset 'jquery-form', :github => 'malsup/form'
+asset 'moment', '2.24.0'
+asset 'jquery-form', :github => 'malsup/form', :ref => 'v4.0.0'
 asset 'jquery-serialize', :github => 'macek/jquery-serialize-object'
 asset 'jquery-formrestrict', :github => 'treyhunner/jquery-formrestrict'
 asset 'jquery-validation', :github => 'jzaefferer/jquery-validation#v1.13.1'
