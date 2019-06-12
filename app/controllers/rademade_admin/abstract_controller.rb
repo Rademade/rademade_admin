@@ -19,7 +19,10 @@ module RademadeAdmin
     protected
 
     def require_login
-      redirect_to login_url unless admin_logged_in?
+      unless admin_logged_in?
+        session[:redirect_after] = request.url
+        redirect_to rademade_admin_route(:login_url)
+      end
     end
 
     def init_data
