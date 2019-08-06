@@ -24,8 +24,8 @@ module RademadeAdmin
     def set_data
       save_simple_fields
       save_localizable_fields
-      save_model_uploads
       save_item # save before setting relations
+      save_model_uploads
       save_model_relations
     end
 
