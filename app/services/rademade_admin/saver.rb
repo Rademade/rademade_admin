@@ -24,9 +24,10 @@ module RademadeAdmin
     def set_data
       save_simple_fields
       save_localizable_fields
-      save_item # save before setting relations
+      save_item if @model_info.persistence_adapter.new?(item) # to init id
       save_model_uploads
       save_model_relations
+      save_item
     end
 
     def save_item
@@ -88,6 +89,7 @@ module RademadeAdmin
         else
           full_image_path = data_item.uploader.full_path_for(image_path)
           data_item.set_data(entity, File.open(full_image_path))
+          item.public_send(data_item.getter)&.store!
         end
       end
     rescue
