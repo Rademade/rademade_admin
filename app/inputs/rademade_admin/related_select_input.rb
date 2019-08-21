@@ -40,6 +40,11 @@ module RademadeAdmin
 
     def reflection_data
       search_url = admin_autocomplete_uri(related_to, :format => :json)
+
+      # add custom query params to autocomplete
+      params = related_data_item.form_params[:search_params]
+      search_url = params ? "#{search_url}?#{params.to_query}" : search_url
+
       new_url = admin_new_form_uri(related_to)
       data = {
         :'rel-multiple' => multiple?,
@@ -49,7 +54,7 @@ module RademadeAdmin
         :destroyable => options[:destroyable],
         :disabled => options[:disabled]
       }
-      data[:'search-url'] = search_url if search_url
+      data[:'search-url'] = search_url
       data[:'new-url'] = new_url if options[:addable] && new_url
       data
     end
