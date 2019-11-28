@@ -94,6 +94,7 @@ class @Select2Input.View extends Backbone.View
       @$item.val('')
       @model.get('related').clear()
       @$edit.hide() if @$edit
+    @$item.trigger 'select2:select'
 
   _createRelatedModel : (url) ->
     relatedModel = @_relatedModel url
