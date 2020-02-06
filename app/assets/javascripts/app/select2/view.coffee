@@ -101,6 +101,7 @@ class @Select2Input.View extends Backbone.View
     relatedModel.on 'data-change', () =>
       @model.get('related').add(relatedModel) if @model.isMultiple()
       @_updateData()
+      @$item.trigger 'select2:select'
     relatedModel
 
   _updateData : () =>
