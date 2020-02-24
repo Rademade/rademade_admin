@@ -16,7 +16,7 @@ module RademadeAdmin
           nil
         end
 
-        def save(record)
+        def save(record, options = {})
           nil
         end
 

@@ -9,7 +9,7 @@ module RademadeAdmin
             record.new_record?
           end
 
-          def save(record)
+          def save(record, options = {})
             record.save!
           end
 
