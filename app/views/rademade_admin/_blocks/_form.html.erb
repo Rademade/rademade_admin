@@ -20,7 +20,7 @@ end
                 concat render @template_service.form_lang_panel_block, :f => form
             %></div>
         </div><%
-        if !defined?(show_buttons) || show_buttons
+        if (!defined?(show_buttons) || show_buttons) && !@without_buttons
             %><div class="content-btn-list">
                 <div class="content-btn-box"><%
                     concat render buttons_template, :f => form
