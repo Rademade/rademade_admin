@@ -57,12 +57,21 @@ class @FormValidation extends Backbone.View
     $.validator.setDefaults
       showErrors : (errorMap, errorList) =>
         _.each errorList, (error) =>
-          $holder = $(error.element).closest('.input-holder')
+          $element = $(error.element)
+          $holder = $element.closest('.input-holder')
           $holder.addClass 'in-error'
           $holder.append @_getErrorNotifier(error)
+          # todo once
+          $element.on 'input change select2:select', () ->
+            $holder.removeClass('in-error')
+            $holder.find('.error-message').remove()
+          if error.element.type == 'hidden'
+            $holder.on 'click', () ->
+              $holder.removeClass('in-error')
+              $holder.find('.error-message').remove()
           $('html, body').animate({
             scrollTop : $holder.offset().top - 50
-          }, 500);
+          }, 500)
 
   @_getErrorNotifier : (message) ->
     $([
