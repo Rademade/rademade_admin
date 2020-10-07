@@ -8,7 +8,7 @@ module RademadeAdmin
         if search.present? and not @data_items.filter_fields.empty?
           query_where = RademadeAdmin::Search::Part::Where.new(:or)
           @data_items.filter_fields.each do |field|
-            query_where.add(field, /#{search}/i)
+            query_where.add(field, /#{Regexp.escape(search)}/i)
           end
           where_conditions.sub_add(query_where)
         end
