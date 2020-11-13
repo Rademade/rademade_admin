@@ -98,7 +98,7 @@ module RademadeAdmin
 
     def find_entities(data_item, ids)
       if ids.kind_of? Array
-        ids.reject! { |id| id.empty? }
+        ids = ids.map { |sub_ids| sub_ids.split(',') }.flatten.reject { |id| id.empty? }
         related_entities(data_item, ids)
       else
         ids.empty? ? nil : data_item.relation.related_entities(ids)
