@@ -56,6 +56,7 @@ class @FormValidation extends Backbone.View
   @initDefaults : () ->
     $.validator.setDefaults
       showErrors : (errorMap, errorList) =>
+        wasScrolledToError = false
         _.each errorList, (error) =>
           $element = $(error.element)
           $holder = $element.closest('.input-holder')
@@ -69,9 +70,11 @@ class @FormValidation extends Backbone.View
             $holder.on 'click', () ->
               $holder.removeClass('in-error')
               $holder.find('.error-message').remove()
-          $('html, body').animate({
-            scrollTop : $holder.offset().top - 50
-          }, 500)
+          unless wasScrolledToError
+            wasScrolledToError = true
+            $('html, body').animate({
+              scrollTop : $holder.offset().top - 50
+            }, 500)
 
   @_getErrorNotifier : (message) ->
     $([
