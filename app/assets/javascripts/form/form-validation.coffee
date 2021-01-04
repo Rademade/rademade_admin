@@ -62,7 +62,6 @@ class @FormValidation extends Backbone.View
           $holder = $element.closest('.input-holder')
           $holder.addClass 'in-error'
           $holder.append @_getErrorNotifier(error)
-          # todo once
           $element.on 'input change select2:select', () ->
             $holder.removeClass('in-error')
             $holder.find('.error-message').remove()

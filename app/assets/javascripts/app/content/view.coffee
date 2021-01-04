@@ -7,6 +7,7 @@ class @Content extends Backbone.View
     return if url == ''
     $(document).trigger 'before-content-render'
     @_updateHistory(url)
+    $('#loader').removeClass('hide')
     isLoadingContentItem = true
     $.get url, _.extend(urlData, layout : false), (html) =>
       $contentItem = $(html)
@@ -16,6 +17,7 @@ class @Content extends Backbone.View
       @bindClick $contentItem
       cb($contentItem) if cb
       isLoadingContentItem = false
+      $('#loader').addClass('hide')
 
   renderModel : (model, urlData = {}) ->
     @renderItemFromUrl model.get('editurl'), ($contentItem) =>
