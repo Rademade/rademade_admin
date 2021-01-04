@@ -34,7 +34,7 @@ module RademadeAdmin
       def model_info(model)
         model_name = model.to_s
         @model_infos[model_name] ||= init_model_info({
-          :model => model,
+          :model => model.is_a?(String) ? LoaderService.const_get(model) : model,
           :controller => default_controller(model_name)
         })
       end
