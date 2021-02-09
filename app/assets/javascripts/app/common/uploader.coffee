@@ -19,11 +19,15 @@ class @Uploader extends Backbone.View
         @showLoader()
         $form.submit().done @updateUploader
       always : @hideLoader
+      fail : (event, data) ->
+        errorMessage = data?._response?.jqXHR?.responseJSON?.error
+        window.notifier.notify(errorMessage) if errorMessage
 
   updateUploader : (result) =>
     @$el.find('[data-preview-item]').replaceWith(result.html)
     @$el.find('.upload-holder.hide').removeClass('hide')
     @$hidden.val(result.file.url)
+    @$hidden.change()
     ImagePreview.initPlugin()
 
   showLoader : () ->
@@ -38,6 +42,7 @@ class @Uploader extends Backbone.View
     @$el.find('.upload-holder:has([data-preview-item])').fadeOut 300, () ->
       $(this).addClass('hide').show()
     @$hidden.val('')
+    @$hidden.change()
 
   _getUploaderData : () ->
     uploaderData = _.pick @$uploader.data(), 'id', 'model', 'column', 'uploader'
