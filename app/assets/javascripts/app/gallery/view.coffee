@@ -21,6 +21,9 @@ class @Gallery extends Backbone.View
         @showLoader()
         $form.submit().done @_appendUploadResult
       stop : @hideLoader
+      error : (data) =>
+        if data.responseJSON?.error
+          window.notifier.notify data.responseJSON.error
 
   showLoader : () ->
     @$loaderHolder.addClass('is-loading')
