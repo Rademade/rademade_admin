@@ -71,8 +71,9 @@ module RademadeAdmin
 
         def file_preview_html
           file_path = @uploader.path
-          file_name = "#{::File.basename(file_path)}, #{number_to_human_size(::File.size(file_path))}"
-          content_tag(:a, file_name, download_params)
+          file_name_parts = [::File.basename(file_path)]
+          file_name_parts << number_to_human_size(::File.size(file_path)) rescue nil
+          content_tag(:a, file_name_parts.join(', '), download_params)
         end
 
         def crop_url
