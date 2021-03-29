@@ -34,7 +34,7 @@ class @Content extends Backbone.View
       window.history.back() if window.history.length > 2
     else
       $contentItem.nextAll('[data-content-item]').remove()
-      if $contentItem.is(':first-child')
+      if $contentItem.is(':first-child') || !$contentItem.has('.content-data').length
         @renderItemFromUrl $contentItem.data('contentItem'), () ->
           $contentItem.remove()
 
