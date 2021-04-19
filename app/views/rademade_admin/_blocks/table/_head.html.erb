@@ -1,7 +1,8 @@
 <thead>
     <tr class="content-table-row"><%
         @list_fields.each_with_index do |field, index|
-            %><th class="content-table-cell<%
+            additional_class_name = [@model.name, field.name].join(' ').parameterize.dasherize
+            %><th class="content-table-cell content-table-cell__<%= additional_class_name %><%
                 if index == 0
                     %> show-sdisplay<%
                 end
@@ -21,7 +22,8 @@
                 <span class="text"><%= field.label %></span>
             </th><%
         end
-        %><th class="content-table-cell">
+        additional_class_name = [@model.name, 'management'].join(' ').parameterize.dasherize
+        %><th class="content-table-cell content-table-cell__<%= additional_class_name %>">
             <span class="text"><%= t('rademade_admin.management.title') %></span><%
             if @sortable_service.can_reset?
                 url_params = request.query_parameters.symbolize_keys.except(:sort, :direction)
