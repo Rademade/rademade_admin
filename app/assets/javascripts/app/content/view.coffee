@@ -57,8 +57,7 @@ class @Content extends Backbone.View
 
   bindHistoryBack : () ->
     $(window).bind 'popstate', (e) ->
-      state = e.originalEvent.state
-      window.location.href = state.url if state.url
+      window.location.reload()
 
   _updateHistory : (url) ->
     if history.pushState isnt undefined and $('[data-content-header]').length < 2

@@ -37,7 +37,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'ejs'
 
   # Public JS assets
-  s.add_dependency 'turbolinks'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'select2-rails', '~> 3.5'
 

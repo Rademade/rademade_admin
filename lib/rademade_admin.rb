@@ -7,7 +7,6 @@ require 'sass-rails'
 require 'configurations'
 
 # js assets
-require 'turbolinks'
 require 'i18n-js'
 require 'simple_form'
 require 'ckeditor'
