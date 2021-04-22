@@ -15,12 +15,6 @@ module RademadeAdmin
           uploader.resize_with_crop(300, 300)
         end
 
-        protected
-
-        def crop_url
-          rademade_admin_route(:gallery_crop_url)
-        end
-
         private
 
         def image_item_html(uploader, options)
