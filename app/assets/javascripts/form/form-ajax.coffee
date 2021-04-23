@@ -42,7 +42,7 @@ class @FormAjax extends Backbone.View
         galleryImages.push
           image_id: $galleryImage.data('imageId')
           full_url: $galleryImage.data('fullUrl')
-      items.data["#{$gallery.data('gallery')}_images"] = galleryImages
+      items.data["#{$gallery.data('gallery')}_images"] = if _.isEmpty(galleryImages) then [''] else galleryImages
 
     inputMethod = @$el.find('input[name="_method"]')
     items['_method'] = inputMethod.val() if inputMethod instanceof jQuery

@@ -102,6 +102,7 @@ module RademadeAdmin
       gallery_image_info = RademadeAdmin::Model::Graph.instance.model_info(gallery_image_relation.to)
       saved_gallery_images = []
       images_data.each do |index, image_data|
+        next unless image_data
         position = index.to_i + 1
         if image_data.has_key? :image_id
           gallery_image = gallery_image_info.query_adapter.find(image_data[:image_id])
