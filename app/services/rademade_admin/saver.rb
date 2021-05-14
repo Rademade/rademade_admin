@@ -114,6 +114,7 @@ module RademadeAdmin
             gallery_image.public_send("#{gallery_image_relation.sortable_field}=", position)
           end
           gallery_image.image = ::RademadeAdmin::Base64Service.new.base64_to_file(image_data[:full_url])
+          raise 'Image is not valid' if gallery_image.image.blank?
           gallery_image.image.store!
           gallery_image_info.persistence_adapter.save(gallery_image)
         end
