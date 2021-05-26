@@ -22,6 +22,7 @@ module RademadeAdmin
     end
 
     def set_data
+      save_galleries
       save_simple_fields
       save_localizable_fields
       save_item(validate: false) if @model_info.persistence_adapter.new?(item) # to init id
@@ -61,7 +62,7 @@ module RademadeAdmin
     def save_model_relations
       data = @params[:data]
       @model_info.data_items.related_fields.each do |_, data_item|
-        if data.has_key? data_item.name
+        if !data_item.gallery_relation? && data.has_key?(data_item.name)
           data_item.set_data(item, find_entities(data_item, data[data_item.name]))
         end
       end
@@ -73,6 +74,53 @@ module RademadeAdmin
         name = data_item.name
         save_model_upload(data_item, data[name]) if data.has_key?(name)
       end
+    end
+
+    def save_galleries
+      data = @params[:data]
+      @model_info.data_items.items.each do |_, data_item|
+        if data_item.gallery_relation?
+          name = data_item.name
+          if data.has_key? name
+            gallery_info = RademadeAdmin::Model::Graph.instance.model_info(data_item.relation.to)
+            gallery = gallery_info.query_adapter.find(data[name].to_i)
+            unless gallery
+              gallery = gallery_info.persistence_adapter.new_record
+              gallery_info.persistence_adapter.save(gallery)
+              @item.send(:"#{name}_id=", gallery.id)
+            end
+            save_gallery_images(gallery_info, gallery, data["#{name}_images"])
+          end
+        end
+      end
+    end
+
+    def save_gallery_images(gallery_info, gallery, images_data)
+      return unless images_data
+      gallery_image_data_item = gallery_info.data_items.data_item(:images)
+      gallery_image_relation = gallery_image_data_item.relation
+      gallery_image_info = RademadeAdmin::Model::Graph.instance.model_info(gallery_image_relation.to)
+      saved_gallery_images = []
+      images_data.each do |index, image_data|
+        next unless image_data
+        position = index.to_i + 1
+        if image_data.has_key? :image_id
+          gallery_image = gallery_image_info.query_adapter.find(image_data[:image_id])
+          gallery_image.update(gallery_image_relation.sortable_field => position) if gallery_image_relation.sortable?
+        else
+          gallery_image = gallery_image_info.persistence_adapter.new_record
+          gallery_image_info.persistence_adapter.save(gallery_image)
+          if gallery_image_relation.sortable?
+            gallery_image.public_send("#{gallery_image_relation.sortable_field}=", position)
+          end
+          gallery_image.image = ::RademadeAdmin::Base64Service.new.base64_to_file(image_data[:full_url])
+          raise 'Image is not valid' if gallery_image.image.blank?
+          gallery_image.image.store!
+          gallery_image_info.persistence_adapter.save(gallery_image)
+        end
+        saved_gallery_images << gallery_image
+      end
+      gallery_image_data_item.set_data(gallery, saved_gallery_images)
     end
 
     def save_model_upload(data_item, image_path)

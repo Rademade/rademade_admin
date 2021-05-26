@@ -2,24 +2,35 @@ class @Gallery extends Backbone.View
 
   initUploadButton : () ->
     @$uploadButton = @$el.find('[type="file"]')
-    @galleryId = @$el.find('[type="hidden"]').val()
     @galleryClassName = @$uploadButton.data('class-name')
     @$loaderHolder = @$el.find('.upload-item.add')
 
   initCollectionView : () ->
-    @collectionView = GalleryImageCollectionView.init @$el.find('[data-sortable-url]'), @galleryClassName
+    @collectionView = GalleryImageCollectionView.init @$el.find('.upload-box'), @galleryClassName
 
+  # todo refactor
   bindUpload : () ->
     @$uploadButton.fileupload
       dataType : 'json'
       dropZone : @$el
-      url : @$uploadButton.data('url')
-      formData :
-        gallery_id : @galleryId
-        class_name : @galleryClassName
-      add : (e, $form) =>
+      add : (e, data) =>
         @showLoader()
-        $form.submit().done @_appendUploadResult
+        filesLeft = data.files.length
+        $.each data.files, (index, file) =>
+          reader = new FileReader()
+          reader.readAsDataURL(file)
+          reader.onload = () =>
+            # todo move template to view render
+            image = reader.result
+            imageHtml = "<div class='upload-holder ui-sortable-handle' data-full-url='#{image}'>
+              <div class='upload-item'>
+                <img src='#{image}'>
+                <i class='upload-delete' data-remove=''></i>
+              </div>
+            </div>"
+            @collectionView.addImage $(imageHtml)
+            filesLeft--
+            @hideLoader() if filesLeft <= 0
       stop : @hideLoader
       error : (data) =>
         if data.responseJSON?.error
@@ -30,10 +41,6 @@ class @Gallery extends Backbone.View
 
   hideLoader : () =>
     @$loaderHolder.removeClass('is-loading')
-
-  _appendUploadResult : (result) =>
-    $.each result.gallery_images_html, (index, image_html) =>
-      @collectionView.addImage $(image_html)
 
   @init : ($el) ->
     gallery = new this
