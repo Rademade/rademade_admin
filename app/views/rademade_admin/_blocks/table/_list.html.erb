@@ -1,5 +1,5 @@
 <%
-is_sortable = @sortable_service.has_position?
+is_sortable = @is_sortable_list && @sortable_service.has_position?
 %><tbody data-sortable="<%= is_sortable %>"><%
     @items.each do |item|
         %><tr id="item_<%= item.id %>" class="content-table-row<%
