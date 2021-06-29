@@ -91,7 +91,7 @@ module RademadeAdmin::FormHelper
   def input_params(name)
     {
       :input_html => {
-        :id => "#{name}_#{@item.id}"
+        :id => "#{name}_#{@item.id || unique_pseudo_id}"
       }
     }
   end
@@ -99,13 +99,18 @@ module RademadeAdmin::FormHelper
   def localized_field_params(data_item, locale)
     {
       :input_html => {
-        :id => "#{data_item.getter}_#{locale}_#{@item.id}",
+        :id => "#{data_item.getter}_#{locale}_#{@item.id || unique_pseudo_id}",
         :value => localized_value(data_item.getter, locale)
       }
     }
   end
 
   private
+
+  # generate pseudo id for records without id (not created yet)
+  def unique_pseudo_id
+    DateTime.now.strftime('%Q') + rand.to_s
+  end
 
   def localized_value(getter, locale)
     current_locale = I18n.locale
