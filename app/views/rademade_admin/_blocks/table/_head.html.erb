@@ -1,6 +1,9 @@
-<thead>
+<%
+dummy_object = @model_info.persistence_adapter.new_record
+%><thead>
     <tr class="content-table-row"><%
         @list_fields.each_with_index do |field, index|
+            next unless can?(:access_field, dummy_object, field.name)
             additional_class_name = [@model.name, field.name].join(' ').parameterize.dasherize
             %><th class="content-table-cell content-table-cell__<%= additional_class_name %><%
                 if index == 0
