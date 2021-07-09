@@ -4,9 +4,12 @@ class RademadeAdmin::FileController < RademadeAdmin::ApplicationController
   def upload
     param_key = params[:column].to_sym
     uploader.store!(params[param_key])
-    render :json => {
-      :html => RademadeAdmin::Upload::Preview::FilePreview.new(uploader).preview_html,
-      :file => JSON.parse(uploader.to_json).merge(url: uploader.url)
+    render json: {
+      html: RademadeAdmin::Upload::Preview::FilePreview.new(uploader).preview_html(
+        editable: can?(:update, uploader.model),
+        destroyable: can?(:destroy, uploader.model)
+      ),
+      file: JSON.parse(uploader.to_json).merge(url: uploader.url)
     }
   rescue CarrierWave::UploadError => e
     show_error(e)
@@ -21,9 +24,9 @@ class RademadeAdmin::FileController < RademadeAdmin::ApplicationController
     image = uploader.crop_image(params[:crop], params[:path])
     uploader.store!(image)
     preview_service = RademadeAdmin::Upload::Preview::FilePreview.new(uploader)
-    render :json => {
-      :image_data => preview_service.image_data(uploader),
-      :resized_url => preview_service.image_preview
+    render json: {
+      image_data: preview_service.image_data(uploader),
+      resized_url: preview_service.image_preview
     }
   rescue CarrierWave::UploadError => e
     show_error(e)
@@ -32,7 +35,7 @@ class RademadeAdmin::FileController < RademadeAdmin::ApplicationController
   private
 
   def show_error(error)
-    render :json => { :error => error.to_s }, :status => :unprocessable_entity
+    render json: { error: error.to_s }, status: :unprocessable_entity
   end
 
   def uploader
