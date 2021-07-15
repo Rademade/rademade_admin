@@ -1,5 +1,5 @@
 <%
-has_sub_items = (menu_item[:sub].is_a? Array and menu_item[:sub].size > 0)
+has_sub_items = menu_item[:sub].is_a?(Array) && menu_item[:sub].size > 0 && menu_item[:sub].any? { |sub| sub[:uri] }
 uri = menu_item[:uri]
 if has_sub_items || uri
     is_active = active?(menu_item)

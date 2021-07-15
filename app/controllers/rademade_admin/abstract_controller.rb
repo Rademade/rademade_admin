@@ -1,13 +1,15 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  class AbstractController < ApplicationController
+  class AbstractController < ActionController::Base
 
     include ::RademadeAdmin::UriHelper
 
     layout 'rademade_admin'
 
-    before_action :init_user, :init_template_service, :require_login
-    
+    protect_from_forgery prepend: true
+
+    before_action :init_data, :require_login
+
     attr_reader :current_user
 
     rescue_from ::CanCan::AccessDenied do |exception|
@@ -17,11 +19,27 @@ module RademadeAdmin
     protected
 
     def require_login
-      redirect_to login_url unless admin_logged_in?
+      unless admin_logged_in?
+        session[:redirect_after] = request.url
+        redirect_to rademade_admin_route(:login_url)
+      end
+    end
+
+    def init_data
+      init_model_graph
+      init_user
+      init_template_service
+    end
+
+    def init_model_graph
+      RademadeAdmin::Model::Graph.instance.init_pairs
     end
 
     def init_user
-      @current_user = RademadeAdmin.configuration.admin_class.find(session[:user_id]) if session[:user_id].present?
+      if session[:user_id].present?
+        related_info = RademadeAdmin::Model::Graph.instance.model_info(RademadeAdmin.configuration.admin_class)
+        @current_user = related_info.query_adapter.find(session[:user_id])
+      end
     end
 
     def init_template_service
@@ -36,11 +54,15 @@ module RademadeAdmin
     end
 
     def admin_logged_in?
-      @current_user.is_a? RademadeAdmin.configuration.admin_class and @current_user.admin?
+      @current_user && @current_user.admin?
     end
 
     def current_ability
       @current_ability ||= RademadeAdmin.configuration.ability_class.new(@current_user)
+    end
+
+    def default_url_options
+      RademadeAdmin::Engine.routes.default_url_options
     end
 
   end

@@ -1,6 +1,6 @@
 <% content_for :nav_buttons do %><%
     new_uri = admin_new_uri(@model_info)
-    if new_uri
+    if new_uri && can?(:create, @model_info.model)
         %><a class="btn is-blue with-ico ico-add" href="<%= new_uri %>" data-content-url="<%= new_uri %>"><%
             concat t('rademade_admin.record.new')
         %></a><%

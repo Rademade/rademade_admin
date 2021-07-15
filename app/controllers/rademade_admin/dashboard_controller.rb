@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  class DashboardController < RademadeAdmin::AbstractController
+  class DashboardController < ::RademadeAdmin::ApplicationController
 
     helper RademadeAdmin::FormHelper
     helper RademadeAdmin::MenuHelper

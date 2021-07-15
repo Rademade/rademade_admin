@@ -3,7 +3,7 @@ module Kaminari
     class Tag
       def page_url_for(page)
         admin_params = @params.extract!(:admin_params)
-        params = @params.merge(@param_name => (page <= 1 ? nil : page), :only_path => true)
+        params = @params.merge(@param_name => (page <= 1 ? nil : page))
         if admin_params.empty?
           @template.url_for params
         else

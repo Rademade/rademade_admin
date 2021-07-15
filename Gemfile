@@ -10,6 +10,7 @@ end
 
 group :test do
   gem 'coveralls', :require => false
+  gem 'ckeditor', '~> 4.0'
 
   # Uploaders
   gem 'carrierwave'

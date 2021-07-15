@@ -6,7 +6,6 @@ module RademadeAdmin::UriHelper
   end
 
   def rademade_admin_route(route_url, opts = {})
-    opts[:only_path] = true
     RademadeAdmin::Engine.routes.url_helpers.send(route_url, opts)
   end
 
@@ -65,7 +64,6 @@ module RademadeAdmin::UriHelper
   end
 
   def admin_url_for(opts)
-    opts[:only_path] = true
     Rails.application.routes.url_helpers.url_for(opts)
   rescue
     RademadeAdmin::Engine.routes.url_helpers.url_for(opts) rescue nil

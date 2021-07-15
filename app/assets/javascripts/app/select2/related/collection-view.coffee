@@ -25,6 +25,7 @@ class @Select2Input.RelatedCollectionView extends Backbone.View
     collection = new Select2Input.RelatedCollection
     collection.setSortable $list.data('sortable')
     collection.setDeletable $list.data('deletable')
+    collection.setDuplicatable $list.data('duplicatable')
 
     $list.find('li').each () ->
       relatedView = Select2Input.RelatedView.init $(this)
@@ -35,4 +36,6 @@ class @Select2Input.RelatedCollectionView extends Backbone.View
       el : $list
       views : views
     collectionView.initSort()
+    collection.on 'duplicate', (modelId, additionalUrlOptions) ->
+      collectionView.trigger 'duplicate', modelId, additionalUrlOptions
     collectionView

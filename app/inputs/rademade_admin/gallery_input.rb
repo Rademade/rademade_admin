@@ -8,68 +8,69 @@ module RademadeAdmin
       template.content_tag(
         :div,
         HtmlBuffer.new([gallery_block_html, upload_block_html, gallery_hidden_html]),
-        :class => 'upload-list',
-        :data => { :gallery => '' }
+        class: 'upload-list',
+        data: { gallery: gallery_info.getter }
       )
     end
-    
+
     protected
-    
+
     def gallery_block_html
       is_sortable = gallery_image_info.sortable_relation?
       template.content_tag(:div, images_html,
-        :class => 'upload-box',
-        :data => {
-          :sortable_url => is_sortable ? rademade_admin_route(:gallery_sort_url) : ''
+        class: 'upload-box',
+        data: {
+          sortable: is_sortable ? 'sortable' : nil # todo check sortable
         }
       )
     end
 
     def images_html
       html = []
-      preview_service = RademadeAdmin::Upload::Preview::Gallery.new
+      preview_service = RademadeAdmin::Upload::Preview::GalleryPreview.new
       gallery.images.each do |gallery_image|
-        html << preview_service.preview_html(gallery_image.image)
-      end
+        html << preview_service.preview_html(
+          gallery_image.image,
+          options.slice(:editable, :destroyable)
+        )
+      end if gallery
       HtmlBuffer.new(html)
     end
 
     def upload_block_html
-      template.content_tag(:div, upload_button_html, :class => 'upload-holder')
+      if options[:editable]
+        template.content_tag(:div, upload_button_html, class: 'upload-holder')
+      end
     end
 
     def upload_button_html
       template.content_tag(:div, HtmlBuffer.new([
         input_file_html,
-        template.content_tag(:span, t('rademade_admin.uploader.add.gallery'), :class => 'upload-text')
-      ]), :class => 'upload-item add')
+        template.content_tag(:span, t('rademade_admin.uploader.add.gallery'), class: 'upload-text')
+      ]), class: 'upload-item add')
     end
 
     def input_file_html
       template.content_tag(:input, '',
-        :type => 'file',
-        :multiple => true,
-        :data => {
-          :url => rademade_admin_route(:gallery_upload_url),
-          :class_name => gallery_class.to_s
-        }
+        type: 'file',
+        multiple: true
       )
     end
 
     def gallery_hidden_html
       template.content_tag(:input, '', {
-        :type => 'hidden',
-        :name => "data[#{gallery_info.getter}]",
-        :value => gallery.id.to_s
+        type: 'hidden',
+        name: "data[#{gallery_info.getter}]",
+        value: gallery ? gallery.id.to_s : ''
       })
     end
 
     def gallery
-      @gallery ||= object.send(attribute_name) || gallery_class.create
+      @gallery ||= object.send(attribute_name)
     end
 
     def gallery_info
-      @gallery_relation ||= model_info(object.class.to_s, attribute_name)
+      @gallery_relation ||= model_info(object.class, attribute_name)
     end
 
     def gallery_image_info

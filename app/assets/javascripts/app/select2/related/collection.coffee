@@ -19,11 +19,20 @@ class @Select2Input.RelatedCollection extends Backbone.Collection
   setDeletable : (deletable) ->
     @deletable = deletable
 
+  setDuplicatable : (duplicatable) ->
+    @duplicatable = duplicatable
+
+  setNewUrl : (newUrl) ->
+    @newUrl = newUrl
+
   isSortable : () ->
     @sortable
 
   isDeletable : () ->
     @deletable
+
+  isDuplicatable : () ->
+    @duplicatable
 
   resort : () ->
     @sort()

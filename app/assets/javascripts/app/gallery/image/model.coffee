@@ -1,17 +1,8 @@
 class @GalleryImageModel extends ImageModel
 
   remove : () ->
-    $.ajax
-      type : 'delete'
-      url : @get 'removeUrl'
-      data :
-        class_name : @collection.getClassName()
-      dataType : 'json'
-      success : () =>
-        @collection.remove this
-        @trigger 'image-removed'
-      error : (data) =>
-        window.notifier.notify data.error
+    @collection.remove this
+    @trigger 'image-removed'
 
   _getData : () ->
     data = super

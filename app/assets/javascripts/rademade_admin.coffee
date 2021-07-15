@@ -18,7 +18,6 @@
 #= require TableDnD/js/jquery.tablednd
 #= require leaflet/dist/leaflet-src
 #= require moment/moment
-#= require turbolinks
 #= require select2
 #= require ckeditor/init
 #= require flot/jquery.flot

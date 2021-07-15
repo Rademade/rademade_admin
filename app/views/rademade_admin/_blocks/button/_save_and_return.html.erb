@@ -1,7 +1,8 @@
 <%
 if @with_save_and_return_button
     translate_name = @model_info.persistence_adapter.new?(f.object) ? 'helpers.submit.create' : 'helpers.submit.update'
-    save_text = t(translate_name, :model => f.object.class.to_s)
+    save_text = t(translate_name, :model => @model_info.item_name)
     submit_button_text = t('rademade_admin.button.save_and_return', :save => save_text)
     concat f.submit submit_button_text, :class => 'btn-link is-blue', :name => 'save_and_return'
-end %>
+end
+%>

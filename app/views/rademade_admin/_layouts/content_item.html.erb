@@ -7,7 +7,7 @@ else
   url = admin_url_for(url_params)
 end
 %><div class="content-item" data-content-item="<%= url %>">
-    <div class="content-header" data-content-header>
+    <div class="content-header" data-content-header data-model-class="<%= @model.name %>" data-action-name="<%= action_name %>">
         <span class="content-header-link is-clickable"><%= content_header %></span>
         <i class="close-link" data-content-close></i>
     </div><%

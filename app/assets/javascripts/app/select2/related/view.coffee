@@ -7,6 +7,7 @@ class @Select2Input.RelatedView extends Backbone.View
   events :
     'click [data-edit]' : 'editRelation'
     'click [data-remove]' : 'removeRelation'
+    'click [data-duplicate]' : 'duplicateRelation'
 
   initialize : () ->
     @model.on 'relation-remove', @remove, this
@@ -14,16 +15,22 @@ class @Select2Input.RelatedView extends Backbone.View
 
   editRelation : (e) ->
     e.preventDefault()
-    Content.getInstance().renderModel @model
+    Content.getInstance().renderModel @model, @$el.data('additional-url-options')
 
   removeRelation : (e) ->
     e.preventDefault()
     @model.relationRemove() if confirm I18n.t('rademade_admin.remove_confirm.model')
     false
 
+  duplicateRelation : (e) ->
+    e.preventDefault()
+    @model.trigger 'duplicate', @model.id, @$el.data('additional-url-options')
+
   render : () ->
     @$el.html @_getHtml(@model.toJSON())
     @$el.addClass('is-draggable') if @isSortable()
+    _.each @model.attributes, (value, name) =>
+      @$el.attr("data-#{name}", value)
     return this
 
   isSortable : () ->
@@ -32,9 +39,15 @@ class @Select2Input.RelatedView extends Backbone.View
     else
       false
 
-  isDeletable: () ->
+  isDeletable : () ->
     if @model.collection
       @model.collection.isDeletable()
+    else
+      false
+
+  isDuplicatable : () ->
+    if @model.collection
+      @model.collection.isDuplicatable()
     else
       false
 
@@ -42,6 +55,7 @@ class @Select2Input.RelatedView extends Backbone.View
     JST['app/templates/related-item'] _.extend
       isSortable : @isSortable()
       isDeletable : @isDeletable()
+      isDuplicatable : @isDuplicatable()
     , data
 
   @init : ($el) ->

@@ -2,14 +2,14 @@ class @GalleryImageView extends Backbone.View
 
   events :
     'click' : 'showPopup'
-    'click [data-remove-url]' : 'remove'
+    'click [data-remove]' : 'remove'
 
   initialize : () ->
     @model.on 'image-removed', @_onImageRemove
     @model.on 'change:resizedUrl', @_updateImageUrl
 
   remove : () ->
-    @model.remove() if confirm I18n.t('rademade_admin.remove_confirm.image')
+    @model.remove()
     false
 
   showPopup : () ->
@@ -27,7 +27,6 @@ class @GalleryImageView extends Backbone.View
 
   @init : ($el) ->
     model = new GalleryImageModel $el.data()
-    model.set 'removeUrl', $el.find('[data-remove-url]').data('removeUrl')
     new GalleryImageView
       model : model
       el : $el

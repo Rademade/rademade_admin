@@ -1,5 +1,5 @@
 <%
-is_sortable = @sortable_service.has_position?
+is_sortable = @is_sortable_list && @sortable_service.has_position?
 %><tbody data-sortable="<%= is_sortable %>"><%
     @items.each do |item|
         %><tr id="item_<%= item.id %>" class="content-table-row<%
@@ -8,6 +8,7 @@ is_sortable = @sortable_service.has_position?
             end
         %>" data-id="<%= item.id %>"><%
             @list_fields.each_with_index do |field, index|
+                next unless can?(:access_field, item, field.name)
                 is_first = index.zero?
                 %><td class="content-table-cell<%
                     if is_first
