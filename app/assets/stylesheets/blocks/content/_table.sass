@@ -113,6 +113,14 @@
   opacity: .7
   transform: translateY(-50%)
   +sprite(discard_red)
+
+  & ~ .text
+    display: block
+    overflow: hidden
+    width: calc(100% - 25px)
+    white-space: nowrap
+    text-overflow: ellipsis
+
   &:hover
     opacity: 1
     .tooltip-holder
