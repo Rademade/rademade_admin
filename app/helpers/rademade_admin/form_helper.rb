@@ -40,10 +40,14 @@ module RademadeAdmin::FormHelper
       url = admin_create_uri(model_info)
       form_class = 'insert-item-form'
       method = :post
+      save_type = :create
+      id = nil
     else
       url = admin_update_uri(record)
       form_class = 'update-item-form'
       method = :patch
+      save_type = :update
+      id = record.id
     end
     {
       :wrapper => :rademade,
@@ -52,7 +56,10 @@ module RademadeAdmin::FormHelper
       :as => :data,
       :html => admin_form_html_attributes(form_class),
       :data => {
-        :method => method
+        :method => method,
+        :model => record.model.to_s,
+        :save_type => save_type,
+        :id => id
       }
     }
   end
