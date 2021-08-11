@@ -48,6 +48,10 @@ module RademadeAdmin
         @model_configuration.parent_menu_item
       end
 
+      def menu_default_link_params
+        @model_configuration.menu_default_link_params || {}
+      end
+
       def fixed_thead
         @model_configuration.fixed_thead_value
       end
