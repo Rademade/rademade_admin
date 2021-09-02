@@ -37,7 +37,7 @@ class @Select2Input.View extends Backbone.View
         I18n.t('select2.no_results')
       formatSelection : (data, $container) =>
         @_appendEditButton($container)
-        data.text
+        RademadeAdmin.helpers.stripScripts(data.text)
       ajax :
         url : @_getUrl()
         dataType : 'json'
