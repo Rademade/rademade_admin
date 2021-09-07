@@ -1,7 +1,6 @@
 en:
   rademade_admin:
     project: "Project"
-    forgot_password: 'Forgot password?'
     home: "Home"
     search: "Search in rubric"
     show_on_page: "Show"
@@ -58,6 +57,8 @@ en:
       download: "Download file"
       crop: "Crop"
       remove: "Remove"
+      error:
+        gallery: "Invalid image"
       add:
         photo: "Add new photo"
         video: "Add new video"
