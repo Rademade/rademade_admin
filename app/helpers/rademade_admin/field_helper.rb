@@ -19,7 +19,7 @@ module RademadeAdmin::FieldHelper
       value = data_item.list_preview_handler.call(item)
     end
     return display_boolean_item(value) if !!value == value
-    value.to_s.html_safe
+    sanitize value.to_s
   end
 
   def display_boolean_item(value)
