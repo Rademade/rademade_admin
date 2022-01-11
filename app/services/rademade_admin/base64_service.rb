@@ -5,7 +5,6 @@ module RademadeAdmin
   class Base64Service
 
     def base64_to_file(image)
-      Base64.decode64(image)
       if image
         image_parts = image.split(',')
         matches = /\/(.+);/.match(image_parts[0])

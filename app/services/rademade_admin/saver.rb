@@ -115,7 +115,6 @@ module RademadeAdmin
           end
           gallery_image.image = ::RademadeAdmin::Base64Service.new.base64_to_file(image_data[:full_url])
           raise I18n.t('rademade_admin.uploader.error.gallery') if gallery_image.image.blank?
-          gallery_image.image.store! unless gallery_image.columns.include?(:image_tmp) # do not store if it has store in background
           gallery_image_info.persistence_adapter.save(gallery_image)
         end
         saved_gallery_images << gallery_image
