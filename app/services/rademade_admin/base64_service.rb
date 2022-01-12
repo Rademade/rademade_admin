@@ -8,7 +8,10 @@ module RademadeAdmin
       if image
         image_parts = image.split(',')
         matches = /\/(.+);/.match(image_parts[0])
-        extension = matches.nil? ? 'jpg' : matches[1]
+        extension = 'jpg'
+        if matches && matches[1] != 'jpeg' # optimization hack
+          extension = matches[1]
+        end
         image = file_decode(image_parts[1], "photo.#{extension}")
       end
     rescue
