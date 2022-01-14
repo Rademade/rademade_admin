@@ -10,7 +10,7 @@ module RademadeAdmin
       def image_data(uploader)
         {
           image_id: uploader.model.id.to_s,
-          full_url: uploader.url,
+          full_url: uploader.url || '',
           name: uploader.file.try(:filename)
         }
       end
