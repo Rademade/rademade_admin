@@ -71,11 +71,17 @@ module RademadeAdmin
                 end
               end
               old_items = self.send(getter)
-              (old_items - new_items).each do |related_item|
-                self.instance_exec(related_item, &relation_info[:remover])
+              new_items_ids = new_items.map &:id
+              old_items_ids = old_items.map &:id
+              old_items.each do |related_item|
+                unless new_items_ids.include?(related_item.id)
+                  self.instance_exec(related_item, &relation_info[:remover])
+                end
               end
-              (new_items - old_items).each do |related_item|
-                self.instance_exec(related_item, &relation_info[:adder])
+              new_items.each do |related_item|
+                unless old_items_ids.include?(related_item.id)
+                  self.instance_exec(related_item, &relation_info[:adder])
+                end
               end
             end
           end
