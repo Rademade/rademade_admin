@@ -35,10 +35,13 @@ module RademadeAdmin
     end
 
     def file_preview_html
-      template.content_tag(:div, upload_preview_service.preview_html, :class => 'upload-item')
+      class_name = 'upload-item'
+      class_name += ' upload-item--file' if !photo_uploader? && !video_uploader?
+      template.content_tag(:div, upload_preview_service.preview_html(options.slice(:editable, :destroyable)), :class => class_name)
     end
-    
+
     def upload_button_html
+      return unless options[:editable]
       template.content_tag(
         :div,
         RademadeAdmin::HtmlBuffer.new([
@@ -70,7 +73,7 @@ module RademadeAdmin
     end
 
     def upload_preview_service
-      @upload_preview_service ||= RademadeAdmin::Upload::Preview::File.new(uploader)
+      @upload_preview_service ||= RademadeAdmin::Upload::Preview::FilePreview.new(uploader)
     end
 
     def uploader

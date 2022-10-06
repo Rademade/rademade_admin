@@ -1,3 +1,7 @@
-<div class="content-data">
-    <h1 class="content-data-title"><%= t('rademade_admin.dashboard.greeting', :user => @current_user) %></h1>
+<%
+user_model_info = RademadeAdmin::Model::Graph.instance.model_info(RademadeAdmin.configuration.admin_class)
+%><div class="content-data">
+    <h1 class="content-data-title">
+      <%= t('rademade_admin.dashboard.greeting', :user_name => user_model_info.title_of(@current_user)) %>
+    </h1>
 </div>

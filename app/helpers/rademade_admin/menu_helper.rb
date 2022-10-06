@@ -48,7 +48,11 @@ module RademadeAdmin::MenuHelper
     menu_key = menu_key.to_s
     unless @menu_data[menu_key].nil?
       @menu_data[menu_key].each do |model_info|
-        uri = current_ability.can?(:read, model_info.model) ? admin_list_uri(model_info) : nil
+        if current_ability.can?(:read, model_info.model) && current_ability.can?(:read_menu, model_info.model)
+          uri = admin_list_uri(model_info, model_info.menu_default_link_params)
+        else
+          uri = nil
+        end
         menu << {
           :uri => uri,
           :name => model_info.item_name,

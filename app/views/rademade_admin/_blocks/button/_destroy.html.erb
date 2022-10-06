@@ -2,7 +2,7 @@
 if can? :destroy, item
     delete_uri = admin_delete_uri(item)
     unless delete_uri.nil?
-        %><%= form_tag(delete_uri, :method => :delete, :class => 'inline-el', :data => { :'delete-item-form' => '' }) do
+        %><%= form_tag(delete_uri, method: :delete, class: 'inline-el', data: { 'delete-item-form' => '', model: item.model.to_s, id: item.id }) do
             %><button class="content-action trash">
                 <span class="tooltip-holder">
                     <span class="tooltip-text"><%= t('rademade_admin.management.destroy') %></span>

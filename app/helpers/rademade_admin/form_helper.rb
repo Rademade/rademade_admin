@@ -11,12 +11,17 @@ module RademadeAdmin::FormHelper
   end
 
   def admin_field(form, data_item, model_info)
-    if can_read_relation data_item
+    if can_read? data_item
       name = data_item.name
       attrs = admin_default_params(name, model_info)
         .merge(field_params(data_item))
-        .merge(input_params(name))
-      concat form.input(name, input_attr(attrs))
+        .deep_merge(input_params(name))
+      concat form.input(name, {
+        addable: can?(:create, @item) && (!data_item.has_relation? || can?(:create, data_item.relation.to)),
+        editable: can?(:update, @item) && (!data_item.has_relation? || can?(:update, data_item.relation.to)),
+        destroyable: can?(:destroy, @item) || (data_item.has_relation? && can?(:destroy, data_item.relation.to)),
+        disabled: !can?(:update, @item)
+      }.merge(input_attr(attrs)))
     end
   end
 
@@ -35,17 +40,27 @@ module RademadeAdmin::FormHelper
       url = admin_create_uri(model_info)
       form_class = 'insert-item-form'
       method = :post
+      save_type = :create
+      id = nil
     else
       url = admin_update_uri(record)
       form_class = 'update-item-form'
       method = :patch
+      save_type = :update
+      id = record.id
     end
     {
       :wrapper => :rademade,
       :url => url,
       :method => method,
       :as => :data,
-      :html => admin_form_html_attributes(form_class)
+      :html => admin_form_html_attributes(form_class),
+      :data => {
+        :method => method,
+        :model => record.model.to_s,
+        :save_type => save_type,
+        :id => id
+      }
     }
   end
 
@@ -83,7 +98,7 @@ module RademadeAdmin::FormHelper
   def input_params(name)
     {
       :input_html => {
-        :id => "#{name}_#{@item.id}"
+        :id => "#{name}_#{@item.id || unique_pseudo_id}"
       }
     }
   end
@@ -91,13 +106,18 @@ module RademadeAdmin::FormHelper
   def localized_field_params(data_item, locale)
     {
       :input_html => {
-        :id => "#{data_item.getter}_#{locale}_#{@item.id}",
+        :id => "#{data_item.getter}_#{locale}_#{@item.id || unique_pseudo_id}",
         :value => localized_value(data_item.getter, locale)
       }
     }
   end
 
   private
+
+  # generate pseudo id for records without id (not created yet)
+  def unique_pseudo_id
+    DateTime.now.strftime('%Q') + rand.to_s
+  end
 
   def localized_value(getter, locale)
     current_locale = I18n.locale
@@ -107,8 +127,8 @@ module RademadeAdmin::FormHelper
     item_value
   end
 
-  def can_read_relation(data_item)
-    !data_item.has_relation? || can?(:read, data_item.relation.to)
+  def can_read?(data_item)
+    can?(:access_field, @item, data_item.name) && (!data_item.has_relation? || can?(:read, data_item.relation.to))
   end
 
 end

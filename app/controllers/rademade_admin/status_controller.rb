@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 module RademadeAdmin
-  class StatusController < RademadeAdmin::AbstractController
+  class StatusController < RademadeAdmin::ApplicationController
 
-    include RademadeAdmin::Notifier
+    include RademadeAdmin::ModelControllerModules::Notifier
 
     def toggle
       authorize! :update, params[:model]

@@ -1,36 +1,36 @@
 assets_path 'assets/javascript'
 
-asset 'underscore'
-asset 'backbone'
-asset 'backbone-notifier', :github => 'ewebdev/backbone.notifier#v0.2.4'
+asset 'underscore', '1.9.1'
+asset 'backbone', '1.4.0'
+asset 'backbone-notifier', 'https://github.com/ewebdev/backbone.notifier.git#v0.2.4'
 
-asset 'wysihtml5', :github => 'xing/wysihtml5'
-asset 'leaflet'
+asset 'wysihtml5', 'https://github.com/xing/wysihtml5.git'
+asset 'leaflet', '1.0.0'
 
 # jQuery
-asset 'data-tables', :github => 'DataTables/DataTables'
-asset 'flot', :github => 'flot/flot'
-asset 'knob', :github => 'aterrien/jQuery-Knob'
-asset 'uniform', :github => 'AudithSoftworks/Uniform'
-asset 'jquery-ui', :github => 'jquery/jquery-ui#1.11.4'
-asset 'jquery-filthypillow', :github => 'Rademade/jquery.filthypillow#master'
-asset 'magnific-popup', :github => 'dimsemenov/Magnific-Popup'
-asset 'touch-punch', :github => 'furf/jquery-ui-touch-punch'
+asset 'data-tables', 'https://github.com/DataTables/DataTables.git#1.10.19'
+asset 'flot', '0.8.3'
+asset 'knob', 'https://github.com/aterrien/jQuery-Knob.git#1.2.13'
+asset 'uniform', 'https://github.com/AudithSoftworks/Uniform.git'
+asset 'jquery-ui', 'https://github.com/jquery/jquery-ui.git#1.11.4'
+asset 'jquery-filthypillow', 'https://github.com/Rademade/jquery.filthypillow.git#master'
+asset 'magnific-popup', 'https://github.com/dimsemenov/Magnific-Popup.git'
+asset 'touch-punch', 'https://github.com/furf/jquery-ui-touch-punch.git'
 asset 'jquery-ujs'
 
 # Images
-asset 'jcrop', :github => 'tapmodo/Jcrop#v0.9.12'
-asset 'jquery-fileupload', :github => 'blueimp/jQuery-File-Upload'
+asset 'jcrop', 'https://github.com/tapmodo/Jcrop.git#v0.9.12'
+asset 'jquery-fileupload', 'https://github.com/blueimp/jQuery-File-Upload.git#v9.12.6'
 
 # List
-asset 'TableDnD'
+asset 'TableDnD', '0.9.2'
 
 # Form
-asset 'moment'
-asset 'jquery-form', :github => 'malsup/form'
-asset 'jquery-serialize', :github => 'macek/jquery-serialize-object'
-asset 'jquery-formrestrict', :github => 'treyhunner/jquery-formrestrict'
-asset 'jquery-validation', :github => 'jzaefferer/jquery-validation#v1.13.1'
+asset 'moment', '2.24.0'
+asset 'jquery-form', 'https://github.com/malsup/form.git#v4.0.0'
+asset 'jquery-serialize', 'https://github.com/macek/jquery-serialize-object.git'
+asset 'jquery-formrestrict', 'https://github.com/treyhunner/jquery-formrestrict.git'
+asset 'jquery-validation', 'https://github.com/jzaefferer/jquery-validation.git#v1.13.1'
 
 #Thead
-asset 'floatThead', :github => 'mkoryak/floatThead'
+asset 'floatThead', 'https://github.com/mkoryak/floatThead.git'

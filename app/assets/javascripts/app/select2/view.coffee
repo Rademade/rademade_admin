@@ -1,6 +1,6 @@
 class @Select2Input.View extends Backbone.View
 
-  resultLimit = 10
+  resultLimit = 20
 
   initItem : () ->
     @$item = @$el.find('[data-rel-multiple]')
@@ -13,10 +13,16 @@ class @Select2Input.View extends Backbone.View
       searchUrl : @$item.data('searchUrl')
       newUrl : @$item.data('newUrl')
       multiple : @$item.data('relMultiple')
+      editable : @$item.data('editable')
+      disabled : @$item.data('disabled')
+      destroyable : @$item.data('destroyable')
 
   initRelated : () ->
     if @model.isMultiple()
       collectionView = Select2Input.RelatedCollectionView.init @$el.find('.select2-items-list')
+      collectionView.on 'duplicate', (modelId, additionalUrlOptions) =>
+        options = _.extend({ duplicate_from: modelId }, additionalUrlOptions || {})
+        Content.getInstance().renderModel @_createRelatedModel(@model.get('newUrl')), options
       @model.set 'related', collectionView.collection
     else
       relatedData = @$el.children('input[type="hidden"]').data()
@@ -26,12 +32,12 @@ class @Select2Input.View extends Backbone.View
     @$item.select2(
       multiple : @model.isMultiple()
       placeholder : I18n.t('rademade_admin.relation.search')
-      allowClear : true
+      allowClear : @model.get('destroyable')
       formatNoMatches : () ->
         I18n.t('select2.no_results')
       formatSelection : (data, $container) =>
         @_appendEditButton($container)
-        data.text
+        RademadeAdmin.helpers.stripScripts(data.text)
       ajax :
         url : @_getUrl()
         dataType : 'json'
@@ -47,7 +53,7 @@ class @Select2Input.View extends Backbone.View
       Content.getInstance().renderModel @model.get('related')
 
   _appendEditButton : ($container) ->
-    unless @model.isMultiple() or @initalized
+    if !(@model.isMultiple() or @initalized) and @model.get('editable')
       @initalized = yes
       @$edit = $ @_editButton()
       @$edit.on 'mousedown', () =>
@@ -56,10 +62,11 @@ class @Select2Input.View extends Backbone.View
       $container.after @$edit
 
   _appendAddButton : () ->
+    return unless @model.get('newUrl')
     $addPlaceholder = $ @_placeholderForAdd()
     $addPlaceholder.click () =>
       @$item.select2('close')
-      Content.getInstance().renderModel @_createRelatedModel(@model.get('newUrl'))
+      Content.getInstance().renderModel @_createRelatedModel(@model.get('newUrl')), $addPlaceholder.data('additionalUrlOptions')
     @$item.select2('container').find('.select2-drop').append $addPlaceholder
 
   _getUrl : () ->
@@ -87,15 +94,18 @@ class @Select2Input.View extends Backbone.View
       @$item.val('')
       @model.get('related').clear()
       @$edit.hide() if @$edit
+    @$item.trigger 'select2:select'
 
   _createRelatedModel : (url) ->
     relatedModel = @_relatedModel url
     relatedModel.on 'data-change', () =>
       @model.get('related').add(relatedModel) if @model.isMultiple()
       @_updateData()
+      @$item.trigger 'select2:select'
     relatedModel
 
   _updateData : () =>
+    $(document).trigger 'view-update'
     relatedData = @model.getRelatedData()
     if @model.isMultiple() or relatedData.id
       @$item.select2('data', relatedData)

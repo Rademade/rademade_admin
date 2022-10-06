@@ -34,6 +34,7 @@ class @Form extends Backbone.View
     @$el.triggerHandler.apply(@$el, arguments)
 
   _onAjaxStart : () =>
+    $('#loader').removeClass('hide')
     @formValidation.clearFieldErrors()
     @sending = true
 
@@ -48,6 +49,7 @@ class @Form extends Backbone.View
     @formValidation.displayFieldErrors(data.errors)
 
   _onAjaxFinish : (data) =>
+    $('#loader').addClass('hide')
     @trigger 'ajax-submit-always', [data]
     @sending = false
 

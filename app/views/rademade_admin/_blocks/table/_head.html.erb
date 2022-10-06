@@ -1,7 +1,11 @@
-<thead>
+<%
+dummy_object = @model_info.persistence_adapter.new_record
+%><thead>
     <tr class="content-table-row"><%
         @list_fields.each_with_index do |field, index|
-            %><th class="content-table-cell<%
+            next unless can?(:access_field, dummy_object, field.name)
+            additional_class_name = [@model.name, field.name].join(' ').parameterize.dasherize
+            %><th class="content-table-cell content-table-cell__<%= additional_class_name %><%
                 if index == 0
                     %> show-sdisplay<%
                 end
@@ -14,23 +18,24 @@
                     elsif sorting_direction == :desc
                         %> sortable-down<%
                     end
-                    url_params = request.query_parameters.symbolize_keys.merge(url_sort_params)
+                    url_params = request.query_parameters.symbolize_keys.merge(url_sort_params).except(:layout)
                     %> is-clickable sortable" data-link-url="<%= admin_list_uri(@model_info, url_params) %><%
                 end
             %>">
                 <span class="text"><%= field.label %></span>
             </th><%
         end
-        %><th class="content-table-cell">
-            <span class="text"><%= t('rademade_admin.management.title') %></span><%
+        additional_class_name = [@model.name, 'management'].join(' ').parameterize.dasherize
+        %><th class="content-table-cell content-table-cell__<%= additional_class_name %>"><%
             if @sortable_service.can_reset?
-                url_params = request.query_parameters.symbolize_keys.except(:sort, :direction)
+                url_params = request.query_parameters.symbolize_keys.except(:sort, :direction, :layout)
                 %><span class="discard" data-link-url="<%= admin_list_uri(@model_info, url_params) %>">
                     <span class="tooltip-holder">
                         <span class="tooltip-text"><%= t('rademade_admin.reset_sort') %></span>
                     </span>
                 </span><%
             end
-        %></th>
+            %><span class="text"><%= t('rademade_admin.management.title') %></span>
+        </th>
     </tr>
 </thead>

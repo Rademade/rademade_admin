@@ -7,12 +7,7 @@ class @GalleryImageCollectionView extends Backbone.View
       @_initImage $(image)
 
   initSort : () ->
-    sortUrl = @$el.data('sortableUrl')
-    if sortUrl
-      @images.setSortUrl sortUrl
-      @$el.sortable
-        stop : () =>
-          @images.sort @_getSortedImages()
+    @$el.sortable() if @$el.data('sortable') && @$el.sortable
 
   addImage : ($image) ->
     @_initImage $image

@@ -19,7 +19,7 @@ module RademadeAdmin::FieldHelper
       value = data_item.list_preview_handler.call(item)
     end
     return display_boolean_item(value) if !!value == value
-    value.to_s.html_safe
+    sanitize value.to_s
   end
 
   def display_boolean_item(value)
@@ -39,7 +39,7 @@ module RademadeAdmin::FieldHelper
   end
 
   def display_upload_item(value)
-    RademadeAdmin::Upload::Preview::File.new(value).uploaded_file_html
+    RademadeAdmin::Upload::Preview::FilePreview.new(value).uploaded_file_html
   end
 
   def input_attr(attrs = {})

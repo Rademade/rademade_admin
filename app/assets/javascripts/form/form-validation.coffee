@@ -6,9 +6,12 @@ class @FormValidation extends Backbone.View
     @validationObject = options.validationObject
 
   displayFieldErrors : (errors) ->
-    [messages, globalMessages] = @_collectErrorMessages(errors)
-    @_showErrorMessages(messages)
-    @_showGlobalErrorMessages(globalMessages)
+    if _.isArray(errors) || _.isObject(errors)
+      [messages, globalMessages] = @_collectErrorMessages(errors)
+      @_showErrorMessages(messages)
+      @_showGlobalErrorMessages(globalMessages)
+    else
+      window.notifier.notify errors
     false
 
   clearFieldErrors : () ->
@@ -30,6 +33,8 @@ class @FormValidation extends Backbone.View
       name = "data[#{field}]"
       if $("[name='#{name}']").length > 0
         messages[name] = message
+      else if $("[name='#{name}[]']").length > 0
+        messages["#{name}[]"] = message
       else
         $("[name*='#{name}']").each (index) ->
           messages[@name] = ''
@@ -51,10 +56,25 @@ class @FormValidation extends Backbone.View
   @initDefaults : () ->
     $.validator.setDefaults
       showErrors : (errorMap, errorList) =>
+        wasScrolledToError = false
         _.each errorList, (error) =>
-          $error = $(error.element)
-          $error.parent().addClass 'in-error'
-          $error.after @_getErrorNotifier(error)
+          $element = $(error.element)
+          $holder = $element.closest('.input-holder')
+          $holder.find('.error-message').remove()
+          $holder.addClass 'in-error'
+          $holder.append @_getErrorNotifier(error)
+          $element.on 'input change select2:select', () ->
+            $holder.removeClass('in-error')
+            $holder.find('.error-message').remove()
+          if error.element.type == 'hidden'
+            $holder.on 'click', () ->
+              $holder.removeClass('in-error')
+              $holder.find('.error-message').remove()
+          unless wasScrolledToError
+            wasScrolledToError = true
+            $('html, body').animate({
+              scrollTop : $holder.offset().top - 50
+            }, 500)
 
   @_getErrorNotifier : (message) ->
     $([

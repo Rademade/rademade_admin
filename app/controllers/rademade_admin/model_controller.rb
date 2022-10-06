@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 # todo extract more modules
 module RademadeAdmin
-  class ModelController < RademadeAdmin::AbstractController
+  class ModelController < RademadeAdmin::ApplicationController
 
-    extend RademadeAdmin::ModelOptions
+    extend RademadeAdmin::ModelControllerModules::ModelOptions
 
-    include RademadeAdmin::InstanceOptions
-    include RademadeAdmin::Templates
-    include RademadeAdmin::Notifier
-    
+    include RademadeAdmin::ModelControllerModules::InstanceOptions
+    include RademadeAdmin::ModelControllerModules::Templates
+    include RademadeAdmin::ModelControllerModules::Notifier
+
     helper RademadeAdmin::FieldHelper
     helper RademadeAdmin::FieldTypeHelper
     helper RademadeAdmin::FormHelper
@@ -58,14 +58,8 @@ module RademadeAdmin
 
     def index
       authorize! :read, model_class
-      respond_to do |format|
-        format.html {
-          @items = index_items
-          render_template
-        }
-        format.json { render :json => index_items(false) }
-        format.csv { render_csv(index_items(false)) }
-      end
+      @is_sortable_list = true
+      render_index
     end
 
     def new
@@ -105,8 +99,19 @@ module RademadeAdmin
     protected
     # TODO move to search module
 
+    def render_index
+      respond_to do |format|
+        format.html {
+          @items = index_items
+          render_template
+        }
+        format.json { render :json => index_items(false) }
+        format.csv { render_csv(index_items(false)) }
+      end
+    end
+
     def index_items(with_pagination = true)
-      conditions = Search::Conditions::List.new(params, model_info.data_items)
+      conditions = Search::Conditions::ListConditions.new(params, model_info.data_items)
       conditions.paginate = nil unless with_pagination
       if params[:rel_class] && params[:rel_id] && params[:rel_getter]
         related_info = RademadeAdmin::Model::Graph.instance.model_info(params[:rel_class])
@@ -117,7 +122,7 @@ module RademadeAdmin
     end
 
     def autocomplete_items
-      conditions = Search::Conditions::Autocomplete.new(params, model_info.data_items)
+      conditions = Search::Conditions::AutocompleteConditions.new(params, model_info.data_items)
       Search::Searcher.new(model_info).search(conditions)
     end
 
