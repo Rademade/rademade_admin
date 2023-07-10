@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   # Admin
   s.add_dependency 'mini_magick' # TODO remove. Need for ckeditor or light_resizer.
   s.add_dependency 'simple_form'
-  s.add_dependency 'ckeditor'
+  s.add_dependency 'ckeditor', '~> 4.0'
   s.add_dependency 'cancan'
   s.add_dependency 'configurations'
 end
