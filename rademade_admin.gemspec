@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'coffee-rails'
   s.add_dependency 'autoprefixer-rails'
 
-  s.add_dependency 'i18n-js'
+  s.add_dependency 'i18n-js', '~> 3.0'
   s.add_dependency 'ejs'
 
   # Public JS assets
