@@ -5,7 +5,7 @@ asset 'backbone'
 asset 'backbone-notifier', :github => 'ewebdev/backbone.notifier#v0.2.4'
 
 asset 'wysihtml5', :github => 'xing/wysihtml5'
-asset 'leaflet'
+asset 'leaflet', :github => 'Leaflet/Leaflet#v1.7.1'
 
 # jQuery
 asset 'data-tables', :github => 'DataTables/DataTables'
